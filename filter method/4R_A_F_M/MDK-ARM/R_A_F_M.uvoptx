@@ -282,7 +282,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Src\rng.lib</PathWithFileName>
+      <PathWithFileName>..\R_A_F_M\src\rng.lib</PathWithFileName>
       <FilenameWithoutPath>rng.lib</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>

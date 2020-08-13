@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32H743xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;  ../Drivers/STM32H7xx_HAL_Driver/Inc;  ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;  ../Drivers/CMSIS/Device/ST/STM32H7xx/Include;  ../Drivers/CMSIS/Include</IncludePath>
+              <IncludePath>../Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;..\L_B_F_M\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -423,9 +423,9 @@
           <GroupName>rng</GroupName>
           <Files>
             <File>
-              <FileName>rng.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\Src\rng.lib</FilePath>
+              <FileName>rng.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\L_B_F_M\src\rng.c</FilePath>
             </File>
           </Files>
         </Group>
