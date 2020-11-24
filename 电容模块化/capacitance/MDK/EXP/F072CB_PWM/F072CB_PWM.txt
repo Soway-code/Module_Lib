@@ -1,0 +1,62 @@
+Configuration	F072CB_PWM
+STM32CubeMX 	5.6.1
+Date	09/20/2020
+MCU	STM32F072CBTx
+
+
+
+PERIPHERALS	MODES	FUNCTIONS	PINS
+SYS	Serial_Wire	SYS_SWCLK	PA14
+SYS	Serial_Wire	SYS_SWDIO	PA13
+SYS	SysTick	SYS_VS_Systick	VP_SYS_VS_Systick
+TIM14	Enable_Timer	TIM14_VS_ClockSourceINT	VP_TIM14_VS_ClockSourceINT
+TIM14	PWM Generation CH1	TIM14_CH1	PA7
+TIM14	One pulse	TIM14_VS_OPM	VP_TIM14_VS_OPM
+
+
+
+Pin Nb	PINs	FUNCTIONs	LABELs
+17	PA7	TIM14_CH1	
+34	PA13	SYS_SWDIO	
+37	PA14	SYS_SWCLK	
+PERIPHERALS	MODES	FUNCTIONS	PINS
+SYS	Serial_Wire	SYS_SWCLK	PA14
+SYS	Serial_Wire	SYS_SWDIO	PA13
+SYS	SysTick	SYS_VS_Systick	VP_SYS_VS_Systick
+TIM14	Enable_Timer	TIM14_VS_ClockSourceINT	VP_TIM14_VS_ClockSourceINT
+TIM14	PWM Generation CH1	TIM14_CH1	PA7
+TIM14	One pulse	TIM14_VS_OPM	VP_TIM14_VS_OPM
+
+
+
+Pin Nb	PINs	FUNCTIONs	LABELs
+17	PA7	TIM14_CH1	
+34	PA13	SYS_SWDIO	
+37	PA14	SYS_SWCLK	
+
+
+
+SOFTWARE PROJECT
+
+Project Settings : 
+Project Name : F072CB_PWM
+Project Folder : D:\STM32G070_project\F072CB_PWM
+Toolchain / IDE : Makefile
+Firmware Package Name and Version : STM32Cube FW_F0 V1.11.1
+
+
+Code Generation Settings : 
+STM32Cube MCU packages and embedded software packs : Copy all used libraries into the project folder
+Generate peripheral initialization as a pair of '.c/.h' files per peripheral : Yes
+Backup previously generated files when re-generating : No
+Delete previously generated files when not re-generated : Yes
+Set all free pins as analog (to optimize the power consumption) : No
+
+
+Toolchains Settings : 
+Compiler Optimizations : 
+
+
+
+
+

@@ -1,0 +1,6 @@
+PCapDistance.pbi: C:\rj\IAR\arm\inc\c\DLib_Product.h \
+  C:\rj\IAR\arm\inc\c\DLib_Config_Normal.h \
+  C:\rj\IAR\arm\inc\c\DLib_Defaults.h C:\rj\IAR\arm\inc\c\yvals.h \
+  C:\rj\IAR\arm\inc\c\ycheck.h C:\rj\IAR\arm\inc\c\stdint.h \
+  C:\Users\macanlin\Desktop\mr\ V1.1.7\Mindray_V1_1_7(4_dot_Collect)\ -11-10\ -boot\ 0x08003000\Project\..\Source\APP\inc\PCapDistance.h \
+  C:\Users\macanlin\Desktop\mr\ V1.1.7\Mindray_V1_1_7(4_dot_Collect)\ -11-10\ -boot\ 0x08003000\Source\APP\PCapDistance.c
