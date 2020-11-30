@@ -1,0 +1,13 @@
+"C:\rj\IAR\arm\bin\armproc.dll" 
+
+"C:\rj\IAR\arm\bin\armjlink2.dll" 
+
+"C:\Users\macanlin\Desktop\电容模块化\Mindray\IAR\EXP\Mindray_V1_1_7(19_dot_Collect)\Project\Debug\Exe\CapacitiveSensor.out" 
+
+--plugin="C:\rj\IAR\arm\bin\armbat.dll" 
+
+--device_macro="C:\rj\IAR\arm\config\debugger\ST\STM32L0xx.dmac" 
+
+
+
+

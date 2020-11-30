@@ -1,0 +1,7 @@
+TypeConvert.pbi: \
+  C:\Users\macanlin\Desktop\Mindray_V1_1_7_5\Mindray_V1_1_7(19_dot_Collect)\Source\APP\TypeConvert.c \
+  C:\Users\macanlin\Desktop\Mindray_V1_1_7_5\Mindray_V1_1_7(19_dot_Collect)\Project\..\Source\APP\inc\TypeConvert.h \
+  C:\rj\IAR\arm\inc\c\stdint.h C:\rj\IAR\arm\inc\c\ycheck.h \
+  C:\rj\IAR\arm\inc\c\yvals.h C:\rj\IAR\arm\inc\c\DLib_Defaults.h \
+  C:\rj\IAR\arm\inc\c\DLib_Config_Normal.h \
+  C:\rj\IAR\arm\inc\c\DLib_Product.h
