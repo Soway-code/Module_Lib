@@ -1,0 +1,11 @@
+.\object\memheap.o: rt-thread-3.1.3\src\memheap.c
+.\object\memheap.o: .\rt-thread-3.1.3\include\rthw.h
+.\object\memheap.o: .\rt-thread-3.1.3\include\rtthread.h
+.\object\memheap.o: .\User\rtconfig.h
+.\object\memheap.o: .\rt-thread-3.1.3\bsp\stm32f103-blink\RTE\_stm32f103-led\RTE_Components.h
+.\object\memheap.o: .\rt-thread-3.1.3\include\rtdebug.h
+.\object\memheap.o: .\rt-thread-3.1.3\include\rtdef.h
+.\object\memheap.o: C:\rj\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\object\memheap.o: .\rt-thread-3.1.3\include\rtservice.h
+.\object\memheap.o: .\rt-thread-3.1.3\include\rtm.h
+.\object\memheap.o: .\rt-thread-3.1.3\include\rtthread.h

@@ -1,0 +1,17 @@
+.\object\mb_data.o: Modbus\Cfg\MB_DATA.C
+.\object\mb_data.o: .\modbus\Source\mb.h
+.\object\mb_data.o: .\modbus\uC-CPU\cpu.h
+.\object\mb_data.o: .\modbus\Cfg\mb_cfg.h
+.\object\mb_data.o: .\modbus\Source\mb_def.h
+.\object\mb_data.o: .\User\main.h
+.\object\mb_data.o: .\Libraries\CMSIS\stm32f10x.h
+.\object\mb_data.o: .\Libraries\CMSIS\core_cm3.h
+.\object\mb_data.o: C:\rj\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\object\mb_data.o: .\Libraries\CMSIS\system_stm32f10x.h
+.\object\mb_data.o: .\User\stm32f10x_conf.h
+.\object\mb_data.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h
+.\object\mb_data.o: .\Libraries\CMSIS\stm32f10x.h
+.\object\mb_data.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
+.\object\mb_data.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
+.\object\mb_data.o: .\User\stm32f10x_sys.h
+.\object\mb_data.o: .\Modbus\OS\mb_app.h

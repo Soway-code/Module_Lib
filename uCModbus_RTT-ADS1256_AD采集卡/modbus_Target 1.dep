@@ -1,0 +1,132 @@
+Dependencies for Project 'modbus', Target 'Target 1': (DO NOT MODIFY !)
+F (.\Startup\Startup\startup_stm32f10x_md.s)(0x4D783CD2)(--cpu Cortex-M3 -g --apcs=interwork -I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I Device\Include--list .\object\startup_stm32f10x_md.lst --xref -o .\object\startup_stm32f10x_md.o --depend .\object\startup_stm32f10x_md.d)
+F (.\User\main.c)(0x5309A038)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\User -I.\User\Option -I.\Libraries\CMSIS -I.\Libraries\STM32F10x_StdPeriph_Driver\inc -I.\modbus\Cfg -I.\modbus\Ports -I.\modbus\Source -I.\modbus\uC-CPU -I.\Modbus\OS-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I Device\Include-DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD -o .\object\main.o --omf_browse .\object\main.crf --depend .\object\main.d)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\User\main.h)(0x5308A10A)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\stm32f10x.h)(0x4D783CB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\core_cm3.h)(0x4D523B58)
+I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\system_stm32f10x.h)(0x4D783CAA)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\User\stm32f10x_conf.h)(0x5301F3EA)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\User\stm32f10x_sys.h)(0x52B96B2E)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Modbus\OS\mb_app.h)(0x5308A1C0)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\Source\mb.h)(0x5309B6B8)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\uC-CPU\cpu.h)(0x5309A89A)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\Cfg\mb_cfg.h)(0x5309A122)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\Source\mb_def.h)(0x5309A89A)
+F (.\User\stm32f10x_sys.c)(0x52B96B2E)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\User -I.\User\Option -I.\Libraries\CMSIS -I.\Libraries\STM32F10x_StdPeriph_Driver\inc -I.\modbus\Cfg -I.\modbus\Ports -I.\modbus\Source -I.\modbus\uC-CPU -I.\Modbus\OS-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I Device\Include-DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD -o .\object\stm32f10x_sys.o --omf_browse .\object\stm32f10x_sys.crf --depend .\object\stm32f10x_sys.d)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\User\stm32f10x_sys.h)(0x52B96B2E)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\stm32f10x.h)(0x4D783CB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\core_cm3.h)(0x4D523B58)
+I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\system_stm32f10x.h)(0x4D783CAA)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\User\stm32f10x_conf.h)(0x5301F3EA)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x4D783BB4)
+F (.\Libraries\STM32F10x_StdPeriph_Driver\src\misc.c)(0x4D783BB4)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\User -I.\User\Option -I.\Libraries\CMSIS -I.\Libraries\STM32F10x_StdPeriph_Driver\inc -I.\modbus\Cfg -I.\modbus\Ports -I.\modbus\Source -I.\modbus\uC-CPU -I.\Modbus\OS-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I Device\Include-DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD -o .\object\misc.o --omf_browse .\object\misc.crf --depend .\object\misc.d)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\stm32f10x.h)(0x4D783CB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\core_cm3.h)(0x4D523B58)
+I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\system_stm32f10x.h)(0x4D783CAA)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\User\stm32f10x_conf.h)(0x5301F3EA)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x4D783BB4)
+F (.\Libraries\CMSIS\system_stm32f10x.c)(0x4D783CB0)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\User -I.\User\Option -I.\Libraries\CMSIS -I.\Libraries\STM32F10x_StdPeriph_Driver\inc -I.\modbus\Cfg -I.\modbus\Ports -I.\modbus\Source -I.\modbus\uC-CPU -I.\Modbus\OS-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I Device\Include-DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD -o .\object\system_stm32f10x.o --omf_browse .\object\system_stm32f10x.crf --depend .\object\system_stm32f10x.d)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\stm32f10x.h)(0x4D783CB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\core_cm3.h)(0x4D523B58)
+I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\system_stm32f10x.h)(0x4D783CAA)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\User\stm32f10x_conf.h)(0x5301F3EA)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x4D783BB4)
+F (.\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_rcc.c)(0x4D783BB4)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\User -I.\User\Option -I.\Libraries\CMSIS -I.\Libraries\STM32F10x_StdPeriph_Driver\inc -I.\modbus\Cfg -I.\modbus\Ports -I.\modbus\Source -I.\modbus\uC-CPU -I.\Modbus\OS-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I Device\Include-DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD -o .\object\stm32f10x_rcc.o --omf_browse .\object\stm32f10x_rcc.crf --depend .\object\stm32f10x_rcc.d)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\stm32f10x.h)(0x4D783CB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\core_cm3.h)(0x4D523B58)
+I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\system_stm32f10x.h)(0x4D783CAA)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\User\stm32f10x_conf.h)(0x5301F3EA)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x4D783BB4)
+F (.\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_usart.c)(0x4D783BB4)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\User -I.\User\Option -I.\Libraries\CMSIS -I.\Libraries\STM32F10x_StdPeriph_Driver\inc -I.\modbus\Cfg -I.\modbus\Ports -I.\modbus\Source -I.\modbus\uC-CPU -I.\Modbus\OS-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I Device\Include-DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD -o .\object\stm32f10x_usart.o --omf_browse .\object\stm32f10x_usart.crf --depend .\object\stm32f10x_usart.d)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\stm32f10x.h)(0x4D783CB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\core_cm3.h)(0x4D523B58)
+I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\system_stm32f10x.h)(0x4D783CAA)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\User\stm32f10x_conf.h)(0x5301F3EA)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x4D783BB4)
+F (.\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_tim.c)(0x4D783BB4)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\User -I.\User\Option -I.\Libraries\CMSIS -I.\Libraries\STM32F10x_StdPeriph_Driver\inc -I.\modbus\Cfg -I.\modbus\Ports -I.\modbus\Source -I.\modbus\uC-CPU -I.\Modbus\OS-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I Device\Include-DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD -o .\object\stm32f10x_tim.o --omf_browse .\object\stm32f10x_tim.crf --depend .\object\stm32f10x_tim.d)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_tim.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\stm32f10x.h)(0x4D783CB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\core_cm3.h)(0x4D523B58)
+I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\system_stm32f10x.h)(0x4D783CAA)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\User\stm32f10x_conf.h)(0x5301F3EA)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x4D783BB4)
+F (.\Modbus\OS\mb_app.c)(0x5308A1C0)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\User -I.\User\Option -I.\Libraries\CMSIS -I.\Libraries\STM32F10x_StdPeriph_Driver\inc -I.\modbus\Cfg -I.\modbus\Ports -I.\modbus\Source -I.\modbus\uC-CPU -I.\Modbus\OS-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I Device\Include-DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD -o .\object\mb_app.o --omf_browse .\object\mb_app.crf --depend .\object\mb_app.d)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Modbus\OS\mb_app.h)(0x5308A1C0)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\Source\mb.h)(0x5309B6B8)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\uC-CPU\cpu.h)(0x5309A89A)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\Cfg\mb_cfg.h)(0x5309A122)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\Source\mb_def.h)(0x5309A89A)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\stm32f10x.h)(0x4D783CB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\core_cm3.h)(0x4D523B58)
+I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\system_stm32f10x.h)(0x4D783CAA)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\User\stm32f10x_conf.h)(0x5301F3EA)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x4D783BB4)
+F (.\Modbus\Ports\MB_BSP.c)(0x53099E6A)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\User -I.\User\Option -I.\Libraries\CMSIS -I.\Libraries\STM32F10x_StdPeriph_Driver\inc -I.\modbus\Cfg -I.\modbus\Ports -I.\modbus\Source -I.\modbus\uC-CPU -I.\Modbus\OS-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I Device\Include-DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD -o .\object\mb_bsp.o --omf_browse .\object\mb_bsp.crf --depend .\object\mb_bsp.d)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\stm32f10x.h)(0x4D783CB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\core_cm3.h)(0x4D523B58)
+I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\system_stm32f10x.h)(0x4D783CAA)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\User\stm32f10x_conf.h)(0x5301F3EA)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_tim.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\uC-CPU\cpu.h)(0x5309A89A)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\Source\mb.h)(0x5309B6B8)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\Cfg\mb_cfg.h)(0x5309A122)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\Source\mb_def.h)(0x5309A89A)
+F (.\Modbus\Cfg\MB_DATA.C)(0x5309B634)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\User -I.\User\Option -I.\Libraries\CMSIS -I.\Libraries\STM32F10x_StdPeriph_Driver\inc -I.\modbus\Cfg -I.\modbus\Ports -I.\modbus\Source -I.\modbus\uC-CPU -I.\Modbus\OS-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I Device\Include-DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD -o .\object\mb_data.o --omf_browse .\object\mb_data.crf --depend .\object\mb_data.d)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\Source\mb.h)(0x5309B6B8)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\uC-CPU\cpu.h)(0x5309A89A)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\Cfg\mb_cfg.h)(0x5309A122)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\Source\mb_def.h)(0x5309A89A)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\stm32f10x.h)(0x4D783CB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\core_cm3.h)(0x4D523B58)
+I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\CMSIS\system_stm32f10x.h)(0x4D783CAA)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\User\stm32f10x_conf.h)(0x5301F3EA)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x4D783BB4)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x4D783BB4)
+F (.\Modbus\Source\MB.C)(0x5309B698)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\User -I.\User\Option -I.\Libraries\CMSIS -I.\Libraries\STM32F10x_StdPeriph_Driver\inc -I.\modbus\Cfg -I.\modbus\Ports -I.\modbus\Source -I.\modbus\uC-CPU -I.\Modbus\OS-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I Device\Include-DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD -o .\object\mb.o --omf_browse .\object\mb.crf --depend .\object\mb.d)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Modbus\Source\mb.h)(0x5309B6B8)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\uC-CPU\cpu.h)(0x5309A89A)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\Cfg\mb_cfg.h)(0x5309A122)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\Source\mb_def.h)(0x5309A89A)
+F (.\Modbus\Source\MB_UTIL.C)(0x4A893670)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\User -I.\User\Option -I.\Libraries\CMSIS -I.\Libraries\STM32F10x_StdPeriph_Driver\inc -I.\modbus\Cfg -I.\modbus\Ports -I.\modbus\Source -I.\modbus\uC-CPU -I.\Modbus\OS-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I Device\Include-DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD -o .\object\mb_util.o --omf_browse .\object\mb_util.crf --depend .\object\mb_util.d)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\Source\mb.h)(0x5309B6B8)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\uC-CPU\cpu.h)(0x5309A89A)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\Cfg\mb_cfg.h)(0x5309A122)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\Source\mb_def.h)(0x5309A89A)
+F (.\Modbus\Source\MBS_CORE.C)(0x5309B7D0)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\User -I.\User\Option -I.\Libraries\CMSIS -I.\Libraries\STM32F10x_StdPeriph_Driver\inc -I.\modbus\Cfg -I.\modbus\Ports -I.\modbus\Source -I.\modbus\uC-CPU -I.\Modbus\OS-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I Device\Include-DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD -o .\object\mbs_core.o --omf_browse .\object\mbs_core.crf --depend .\object\mbs_core.d)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\Modbus\Source\mb.h)(0x5309B6B8)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\uC-CPU\cpu.h)(0x5309A89A)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\Cfg\mb_cfg.h)(0x5309A122)
+I (E:\CHENGXU\UCOSII\uCModbus(STM32)\modbus\Source\mb_def.h)(0x5309A89A)
+F (.\Modbus\uC-CPU\cpu.h)(0x5309A89A)()
+F (.\Modbus\uC-CPU\cpu_a.asm)(0x5308AE14)(--cpu Cortex-M3 -g --apcs=interwork -I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I Device\Include--list .\object\cpu_a.lst --xref -o .\object\cpu_a.o --depend .\object\cpu_a.d)

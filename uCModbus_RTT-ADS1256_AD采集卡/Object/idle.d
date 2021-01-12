@@ -1,0 +1,11 @@
+.\object\idle.o: rt-thread-3.1.3\src\idle.c
+.\object\idle.o: .\rt-thread-3.1.3\include\rthw.h
+.\object\idle.o: .\rt-thread-3.1.3\include\rtthread.h
+.\object\idle.o: .\User\rtconfig.h
+.\object\idle.o: .\rt-thread-3.1.3\bsp\stm32f103-blink\RTE\_stm32f103-led\RTE_Components.h
+.\object\idle.o: .\rt-thread-3.1.3\include\rtdebug.h
+.\object\idle.o: .\rt-thread-3.1.3\include\rtdef.h
+.\object\idle.o: C:\rj\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\object\idle.o: .\rt-thread-3.1.3\include\rtservice.h
+.\object\idle.o: .\rt-thread-3.1.3\include\rtm.h
+.\object\idle.o: .\rt-thread-3.1.3\include\rtthread.h
