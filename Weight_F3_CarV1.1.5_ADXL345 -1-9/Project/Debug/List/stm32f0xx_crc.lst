@@ -1,0 +1,641 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.4.261/W32 for ARM         10/Jan/2021  16:10:23
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode             
+#    Endian            =  little
+#    Source file       =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\FWLib\src\stm32f0xx_crc.c
+#    Command line      =
+#        -f C:\Users\macanlin\AppData\Local\Temp\EWF43A.tmp
+#        ("C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\FWLib\src\stm32f0xx_crc.c" -D USE_STDPERIPH_DRIVER -D
+#        STM32F072 -lC
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List" -o
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj" --no_cse --no_unroll --no_inline
+#        --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug
+#        --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config
+#        C:\rj\IAR\arm\inc\c\DLib_Config_Normal.h -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\BSP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\CMSIS\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\OS_Cfg\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-CPU\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Ports\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Source\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\APP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -Ol -I
+#        C:\rj\IAR\arm\CMSIS\Core\Include\\ -I
+#        C:\rj\IAR\arm\CMSIS\DSP\Include\\)
+#    Locale            =  C
+#    List file         =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List\stm32f0xx_crc.lst
+#    Object file       =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj\stm32f0xx_crc.o
+#    Runtime model:       
+#      __SystemLibrary =  DLib
+#      __dlib_version  =  6
+#
+###############################################################################
+
+C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345 -1-9\Source\FWLib\src\stm32f0xx_crc.c
+      1          /**
+      2            ******************************************************************************
+      3            * @file    stm32f0xx_crc.c
+      4            * @author  MCD Application Team
+      5            * @version V1.3.0
+      6            * @date    16-January-2014
+      7            * @brief   This file provides firmware functions to manage the following 
+      8            *          functionalities of CRC computation unit peripheral:
+      9            *            + Configuration of the CRC computation unit
+     10            *            + CRC computation of one/many 32-bit data
+     11            *            + CRC Independent register (IDR) access
+     12            *
+     13            *  @verbatim
+     14           ===============================================================================
+     15                               ##### How to use this driver #####
+     16           ===============================================================================
+     17              [..]
+     18              
+     19                   (+) Enable CRC AHB clock using RCC_AHBPeriphClockCmd(RCC_AHBPeriph_CRC, ENABLE)
+     20                       function
+     21                   (+) If required, select the reverse operation on input data 
+     22                       using CRC_ReverseInputDataSelect()  
+     23                   (+) If required, enable the reverse operation on output data
+     24                       using CRC_ReverseOutputDataCmd(Enable)
+     25                   (+) use CRC_CalcCRC() function to compute the CRC of a 32-bit data
+     26                       or use CRC_CalcBlockCRC() function to compute the CRC if a 32-bit 
+     27                       data buffer
+     28                      (@) To compute the CRC of a new data use CRC_ResetDR() to reset
+     29                           the CRC computation unit before starting the computation
+     30                           otherwise you can get wrong CRC values.
+     31                
+     32               @endverbatim
+     33            *  
+     34            ******************************************************************************
+     35            * @attention
+     36            *
+     37            * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
+     38            *
+     39            * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
+     40            * You may not use this file except in compliance with the License.
+     41            * You may obtain a copy of the License at:
+     42            *
+     43            *        http://www.st.com/software_license_agreement_liberty_v2
+     44            *
+     45            * Unless required by applicable law or agreed to in writing, software 
+     46            * distributed under the License is distributed on an "AS IS" BASIS, 
+     47            * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     48            * See the License for the specific language governing permissions and
+     49            * limitations under the License.
+     50            *
+     51            ******************************************************************************
+     52            */
+     53          
+     54          /* Includes ------------------------------------------------------------------*/
+     55          #include "stm32f0xx_crc.h"
+     56          
+     57          /** @addtogroup STM32F0xx_StdPeriph_Driver
+     58            * @{
+     59            */
+     60          
+     61          /** @defgroup CRC 
+     62            * @brief CRC driver modules
+     63            * @{
+     64            */
+     65          
+     66          /* Private typedef -----------------------------------------------------------*/
+     67          /* Private define ------------------------------------------------------------*/
+     68          /* Private macro -------------------------------------------------------------*/
+     69          /* Private variables ---------------------------------------------------------*/
+     70          /* Private function prototypes -----------------------------------------------*/
+     71          /* Private functions ---------------------------------------------------------*/
+     72          
+     73          /** @defgroup CRC_Private_Functions
+     74            * @{
+     75            */
+     76          
+     77          /** @defgroup CRC_Group1 Configuration of the CRC computation unit functions
+     78           *  @brief   Configuration of the CRC computation unit functions 
+     79           *
+     80          @verbatim
+     81           ===============================================================================
+     82                               ##### CRC configuration functions #####
+     83           ===============================================================================
+     84          
+     85          @endverbatim
+     86            * @{
+     87            */
+     88          
+     89          /**
+     90            * @brief  Deinitializes CRC peripheral registers to their default reset values.
+     91            * @param  None
+     92            * @retval None
+     93            */
+
+   \                                 In section .text, align 2, keep-with-next
+     94          void CRC_DeInit(void)
+     95          {
+     96            /* Set DR register to reset value */
+     97            CRC->DR = 0xFFFFFFFF;
+   \                     CRC_DeInit: (+1)
+   \        0x0   0x2000             MOVS     R0,#+0
+   \        0x2   0x43C0             MVNS     R0,R0            ;; #-1
+   \        0x4   0x....             LDR      R1,??DataTable13  ;; 0x40023000
+   \        0x6   0x6008             STR      R0,[R1, #+0]
+     98            
+     99            /* Set the POL register to the reset value: 0x04C11DB7 */
+    100            CRC->POL = 0x04C11DB7;
+   \        0x8   0x....             LDR      R1,??DataTable13_1  ;; 0x4c11db7
+   \        0xA   0x....             LDR      R2,??DataTable13_2  ;; 0x40023014
+   \        0xC   0x6011             STR      R1,[R2, #+0]
+    101            
+    102            /* Reset IDR register */
+    103            CRC->IDR = 0x00;
+   \        0xE   0x2100             MOVS     R1,#+0
+   \       0x10   0x....             LDR      R2,??DataTable13_3  ;; 0x40023004
+   \       0x12   0x7011             STRB     R1,[R2, #+0]
+    104            
+    105            /* Set INIT register to reset value */
+    106            CRC->INIT = 0xFFFFFFFF;
+   \       0x14   0x....             LDR      R1,??DataTable13_4  ;; 0x40023010
+   \       0x16   0x6008             STR      R0,[R1, #+0]
+    107            
+    108            /* Reset the CRC calculation unit */
+    109            CRC->CR = CRC_CR_RESET;
+   \       0x18   0x2001             MOVS     R0,#+1
+   \       0x1A   0x....             LDR      R1,??DataTable13_5  ;; 0x40023008
+   \       0x1C   0x6008             STR      R0,[R1, #+0]
+    110          }
+   \       0x1E   0x4770             BX       LR               ;; return
+    111          
+    112          /**
+    113            * @brief  Resets the CRC calculation unit and sets INIT register content in DR register.
+    114            * @param  None
+    115            * @retval None
+    116            */
+
+   \                                 In section .text, align 2, keep-with-next
+    117          void CRC_ResetDR(void)
+    118          {
+    119            /* Reset CRC generator */
+    120            CRC->CR |= CRC_CR_RESET;
+   \                     CRC_ResetDR: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable13_5  ;; 0x40023008
+   \        0x2   0x6801             LDR      R1,[R0, #+0]
+   \        0x4   0x2201             MOVS     R2,#+1
+   \        0x6   0x430A             ORRS     R2,R2,R1
+   \        0x8   0x6002             STR      R2,[R0, #+0]
+    121          }
+   \        0xA   0x4770             BX       LR               ;; return
+    122          
+    123          /**
+    124            * @brief  Selects the polynomial size. This function is only applicable for 
+    125            *         STM32F072 devices.
+    126            * @param  CRC_PolSize: Specifies the polynomial size.
+    127            *         This parameter can be:
+    128            *          @arg CRC_PolSize_7: 7-bit polynomial for CRC calculation
+    129            *          @arg CRC_PolSize_8: 8-bit polynomial for CRC calculation
+    130            *          @arg CRC_PolSize_16: 16-bit polynomial for CRC calculation
+    131            *          @arg CRC_PolSize_32: 32-bit polynomial for CRC calculation
+    132            * @retval None
+    133            */
+
+   \                                 In section .text, align 2, keep-with-next
+    134          void CRC_PolynomialSizeSelect(uint32_t CRC_PolSize)
+    135          {
+    136            uint32_t tmpcr = 0;
+   \                     CRC_PolynomialSizeSelect: (+1)
+   \        0x0   0x2100             MOVS     R1,#+0
+    137          
+    138            /* Check the parameter */
+    139            assert_param(IS_CRC_POL_SIZE(CRC_PolSize));
+    140          
+    141            /* Get CR register value */
+    142            tmpcr = CRC->CR;
+   \        0x2   0x....             LDR      R2,??DataTable13_5  ;; 0x40023008
+   \        0x4   0x6811             LDR      R1,[R2, #+0]
+    143          
+    144            /* Reset POL_SIZE bits */
+    145            tmpcr &= (uint32_t)~((uint32_t)CRC_CR_POLSIZE);
+   \        0x6   0x2318             MOVS     R3,#+24
+   \        0x8   0x4399             BICS     R1,R1,R3
+    146            /* Set the polynomial size */
+    147            tmpcr |= (uint32_t)CRC_PolSize;
+   \        0xA   0x4308             ORRS     R0,R0,R1
+    148          
+    149            /* Write to CR register */
+    150            CRC->CR = (uint32_t)tmpcr;
+   \        0xC   0x6010             STR      R0,[R2, #+0]
+    151          }
+   \        0xE   0x4770             BX       LR               ;; return
+    152          
+    153          /**
+    154            * @brief  Selects the reverse operation to be performed on input data.
+    155            * @param  CRC_ReverseInputData: Specifies the reverse operation on input data.
+    156            *          This parameter can be:
+    157            *            @arg CRC_ReverseInputData_No: No reverse operation is performed
+    158            *            @arg CRC_ReverseInputData_8bits: reverse operation performed on 8 bits
+    159            *            @arg CRC_ReverseInputData_16bits: reverse operation performed on 16 bits
+    160            *            @arg CRC_ReverseInputData_32bits: reverse operation performed on 32 bits
+    161            * @retval None
+    162            */
+
+   \                                 In section .text, align 2, keep-with-next
+    163          void CRC_ReverseInputDataSelect(uint32_t CRC_ReverseInputData)
+    164          {
+    165            uint32_t tmpcr = 0;
+   \                     CRC_ReverseInputDataSelect: (+1)
+   \        0x0   0x2100             MOVS     R1,#+0
+    166          
+    167            /* Check the parameter */
+    168            assert_param(IS_CRC_REVERSE_INPUT_DATA(CRC_ReverseInputData));
+    169          
+    170            /* Get CR register value */
+    171            tmpcr = CRC->CR;
+   \        0x2   0x....             LDR      R2,??DataTable13_5  ;; 0x40023008
+   \        0x4   0x6811             LDR      R1,[R2, #+0]
+    172          
+    173            /* Reset REV_IN bits */
+    174            tmpcr &= (uint32_t)~((uint32_t)CRC_CR_REV_IN);
+   \        0x6   0x2360             MOVS     R3,#+96
+   \        0x8   0x4399             BICS     R1,R1,R3
+    175            /* Set the reverse operation */
+    176            tmpcr |= (uint32_t)CRC_ReverseInputData;
+   \        0xA   0x4308             ORRS     R0,R0,R1
+    177          
+    178            /* Write to CR register */
+    179            CRC->CR = (uint32_t)tmpcr;
+   \        0xC   0x6010             STR      R0,[R2, #+0]
+    180          }
+   \        0xE   0x4770             BX       LR               ;; return
+    181          
+    182          /**
+    183            * @brief  Enables or disable the reverse operation on output data.
+    184            *         The reverse operation on output data is performed on 32-bit.
+    185            * @param  NewState: new state of the reverse operation on output data.
+    186            *          This parameter can be: ENABLE or DISABLE.
+    187            * @retval None
+    188            */
+
+   \                                 In section .text, align 2, keep-with-next
+    189          void CRC_ReverseOutputDataCmd(FunctionalState NewState)
+    190          {
+   \                     CRC_ReverseOutputDataCmd: (+1)
+   \        0x0   0xB500             PUSH     {LR}
+    191            /* Check the parameters */
+    192            assert_param(IS_FUNCTIONAL_STATE(NewState));
+    193          
+    194            if (NewState != DISABLE)
+   \        0x2   0xB2C0             UXTB     R0,R0
+   \        0x4   0x2800             CMP      R0,#+0
+   \        0x6   0xD005             BEQ      ??CRC_ReverseOutputDataCmd_0
+    195            {
+    196              /* Enable reverse operation on output data */
+    197              CRC->CR |= CRC_CR_REV_OUT;
+   \        0x8   0x....             LDR      R0,??DataTable13_5  ;; 0x40023008
+   \        0xA   0x6801             LDR      R1,[R0, #+0]
+   \        0xC   0x2280             MOVS     R2,#+128
+   \        0xE   0x430A             ORRS     R2,R2,R1
+   \       0x10   0x6002             STR      R2,[R0, #+0]
+   \       0x12   0xE004             B        ??CRC_ReverseOutputDataCmd_1
+    198            }
+    199            else
+    200            {
+    201              /* Disable reverse operation on output data */
+    202              CRC->CR &= (uint32_t)~((uint32_t)CRC_CR_REV_OUT);
+   \                     ??CRC_ReverseOutputDataCmd_0: (+1)
+   \       0x14   0x....             LDR      R0,??DataTable13_5  ;; 0x40023008
+   \       0x16   0x6801             LDR      R1,[R0, #+0]
+   \       0x18   0x2280             MOVS     R2,#+128
+   \       0x1A   0x4391             BICS     R1,R1,R2
+   \       0x1C   0x6001             STR      R1,[R0, #+0]
+    203            }
+    204          }
+   \                     ??CRC_ReverseOutputDataCmd_1: (+1)
+   \       0x1E   0xBD00             POP      {PC}             ;; return
+    205          
+    206          /**
+    207            * @brief  Initializes the INIT register.
+    208            * @note   After resetting CRC calculation unit, CRC_InitValue is stored in DR register
+    209            * @param  CRC_InitValue: Programmable initial CRC value
+    210            * @retval None
+    211            */
+
+   \                                 In section .text, align 2, keep-with-next
+    212          void CRC_SetInitRegister(uint32_t CRC_InitValue)
+    213          {
+    214            CRC->INIT = CRC_InitValue;
+   \                     CRC_SetInitRegister: (+1)
+   \        0x0   0x....             LDR      R1,??DataTable13_4  ;; 0x40023010
+   \        0x2   0x6008             STR      R0,[R1, #+0]
+    215          }
+   \        0x4   0x4770             BX       LR               ;; return
+    216          
+    217          /**
+    218            * @brief  Initializes the polynomail coefficients. This function is only 
+    219            *         applicable for STM32F072 devices.
+    220            * @param  CRC_Pol: Polynomial to be used for CRC calculation.
+    221            * @retval None
+    222            */
+
+   \                                 In section .text, align 2, keep-with-next
+    223          void CRC_SetPolynomial(uint32_t CRC_Pol)
+    224          {
+    225            CRC->POL = CRC_Pol;
+   \                     CRC_SetPolynomial: (+1)
+   \        0x0   0x....             LDR      R1,??DataTable13_2  ;; 0x40023014
+   \        0x2   0x6008             STR      R0,[R1, #+0]
+    226          }
+   \        0x4   0x4770             BX       LR               ;; return
+    227          
+    228          /**
+    229            * @}
+    230            */
+    231          
+    232          /** @defgroup CRC_Group2 CRC computation of one/many 32-bit data functions
+    233           *  @brief   CRC computation of one/many 32-bit data functions
+    234           *
+    235          @verbatim
+    236           ===============================================================================
+    237                               ##### CRC computation functions #####
+    238           ===============================================================================
+    239          
+    240          @endverbatim
+    241            * @{
+    242            */
+    243          
+    244          /**
+    245            * @brief  Computes the 32-bit CRC of a given data word(32-bit).
+    246            * @param  CRC_Data: data word(32-bit) to compute its CRC
+    247            * @retval 32-bit CRC
+    248            */
+
+   \                                 In section .text, align 2, keep-with-next
+    249          uint32_t CRC_CalcCRC(uint32_t CRC_Data)
+    250          {
+    251            CRC->DR = CRC_Data;
+   \                     CRC_CalcCRC: (+1)
+   \        0x0   0x....             LDR      R1,??DataTable13  ;; 0x40023000
+   \        0x2   0x6008             STR      R0,[R1, #+0]
+    252            
+    253            return (CRC->DR);
+   \        0x4   0x6808             LDR      R0,[R1, #+0]
+   \        0x6   0x4770             BX       LR               ;; return
+    254          }
+    255          
+    256          /**
+    257            * @brief  Computes the 16-bit CRC of a given 16-bit data. This function is only 
+    258            *         applicable for STM32F072 devices.
+    259            * @param  CRC_Data: data half-word(16-bit) to compute its CRC
+    260            * @retval 16-bit CRC
+    261            */
+
+   \                                 In section .text, align 2, keep-with-next
+    262          uint32_t CRC_CalcCRC16bits(uint16_t CRC_Data)
+    263          {
+    264            *(uint16_t*)(CRC_BASE) = (uint16_t) CRC_Data;
+   \                     CRC_CalcCRC16bits: (+1)
+   \        0x0   0x....             LDR      R1,??DataTable13  ;; 0x40023000
+   \        0x2   0x8008             STRH     R0,[R1, #+0]
+    265            
+    266            return (CRC->DR);
+   \        0x4   0x6808             LDR      R0,[R1, #+0]
+   \        0x6   0x4770             BX       LR               ;; return
+    267          }
+    268          
+    269          /**
+    270            * @brief  Computes the 8-bit CRC of a given 8-bit data. This function is only 
+    271            *         applicable for STM32F072 devices.
+    272            * @param  CRC_Data: 8-bit data to compute its CRC
+    273            * @retval 8-bit CRC
+    274            */
+
+   \                                 In section .text, align 2, keep-with-next
+    275          uint32_t CRC_CalcCRC8bits(uint8_t CRC_Data)
+    276          {
+    277            *(uint8_t*)(CRC_BASE) = (uint8_t) CRC_Data;
+   \                     CRC_CalcCRC8bits: (+1)
+   \        0x0   0x....             LDR      R1,??DataTable13  ;; 0x40023000
+   \        0x2   0x7008             STRB     R0,[R1, #+0]
+    278          
+    279            return (CRC->DR);
+   \        0x4   0x6808             LDR      R0,[R1, #+0]
+   \        0x6   0x4770             BX       LR               ;; return
+    280          }
+    281          
+    282          /**
+    283            * @brief  Computes the 32-bit CRC of a given buffer of data word(32-bit).
+    284            * @param  pBuffer: pointer to the buffer containing the data to be computed
+    285            * @param  BufferLength: length of the buffer to be computed
+    286            * @retval 32-bit CRC
+    287            */
+
+   \                                 In section .text, align 2, keep-with-next
+    288          uint32_t CRC_CalcBlockCRC(uint32_t pBuffer[], uint32_t BufferLength)
+    289          {
+   \                     CRC_CalcBlockCRC: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+    290            uint32_t index = 0;
+   \        0x2   0x2300             MOVS     R3,#+0
+   \        0x4   0x001A             MOVS     R2,R3
+    291            
+    292            for(index = 0; index < BufferLength; index++)
+   \        0x6   0xE005             B        ??CRC_CalcBlockCRC_0
+    293            {
+    294              CRC->DR = pBuffer[index];
+   \                     ??CRC_CalcBlockCRC_1: (+1)
+   \        0x8   0x2204             MOVS     R2,#+4
+   \        0xA   0x435A             MULS     R2,R3,R2
+   \        0xC   0x5882             LDR      R2,[R0, R2]
+   \        0xE   0x....             LDR      R4,??DataTable13  ;; 0x40023000
+   \       0x10   0x6022             STR      R2,[R4, #+0]
+    295            }
+   \       0x12   0x1C5B             ADDS     R3,R3,#+1
+   \                     ??CRC_CalcBlockCRC_0: (+1)
+   \       0x14   0x428B             CMP      R3,R1
+   \       0x16   0xD3F7             BCC      ??CRC_CalcBlockCRC_1
+    296            return (CRC->DR);
+   \       0x18   0x....             LDR      R0,??DataTable13  ;; 0x40023000
+   \       0x1A   0x6800             LDR      R0,[R0, #+0]
+   \       0x1C   0xBD10             POP      {R4,PC}          ;; return
+    297          }
+    298          
+    299          /**
+    300            * @brief  Returns the current CRC value.
+    301            * @param  None
+    302            * @retval 32-bit CRC
+    303            */
+
+   \                                 In section .text, align 2, keep-with-next
+    304          uint32_t CRC_GetCRC(void)
+    305          {
+    306            return (CRC->DR);
+   \                     CRC_GetCRC: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable13  ;; 0x40023000
+   \        0x2   0x6800             LDR      R0,[R0, #+0]
+   \        0x4   0x4770             BX       LR               ;; return
+    307          }
+    308          
+    309          /**
+    310            * @}
+    311            */
+    312          
+    313          /** @defgroup CRC_Group3 CRC Independent Register (IDR) access functions
+    314           *  @brief   CRC Independent Register (IDR) access (write/read) functions
+    315           *
+    316          @verbatim
+    317           ===============================================================================
+    318                     ##### CRC Independent Register (IDR) access functions #####
+    319           ===============================================================================
+    320          
+    321          @endverbatim
+    322            * @{
+    323            */
+    324          
+    325          /**
+    326            * @brief  Stores an 8-bit data in the Independent Data(ID) register.
+    327            * @param  CRC_IDValue: 8-bit value to be stored in the ID register 					
+    328            * @retval None
+    329            */
+
+   \                                 In section .text, align 2, keep-with-next
+    330          void CRC_SetIDRegister(uint8_t CRC_IDValue)
+    331          {
+    332            CRC->IDR = CRC_IDValue;
+   \                     CRC_SetIDRegister: (+1)
+   \        0x0   0x....             LDR      R1,??DataTable13_3  ;; 0x40023004
+   \        0x2   0x7008             STRB     R0,[R1, #+0]
+    333          }
+   \        0x4   0x4770             BX       LR               ;; return
+    334          
+    335          /**
+    336            * @brief  Returns the 8-bit data stored in the Independent Data(ID) register
+    337            * @param  None
+    338            * @retval 8-bit value of the ID register 
+    339            */
+
+   \                                 In section .text, align 2, keep-with-next
+    340          uint8_t CRC_GetIDRegister(void)
+    341          {
+    342            return (CRC->IDR);
+   \                     CRC_GetIDRegister: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable13_3  ;; 0x40023004
+   \        0x2   0x7800             LDRB     R0,[R0, #+0]
+   \        0x4   0xB2C0             UXTB     R0,R0
+   \        0x6   0x4770             BX       LR               ;; return
+    343          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable13:
+   \        0x0   0x4002'3000        DC32     0x40023000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable13_1:
+   \        0x0   0x04C1'1DB7        DC32     0x4c11db7
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable13_2:
+   \        0x0   0x4002'3014        DC32     0x40023014
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable13_3:
+   \        0x0   0x4002'3004        DC32     0x40023004
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable13_4:
+   \        0x0   0x4002'3010        DC32     0x40023010
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable13_5:
+   \        0x0   0x4002'3008        DC32     0x40023008
+    344          
+    345          /**
+    346            * @}
+    347            */
+    348          
+    349          /**
+    350            * @}
+    351            */
+    352          
+    353          /**
+    354            * @}
+    355            */
+    356          
+    357          /**
+    358            * @}
+    359            */
+    360          
+    361          /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   CRC_CalcBlockCRC
+       0   CRC_CalcCRC
+       0   CRC_CalcCRC16bits
+       0   CRC_CalcCRC8bits
+       0   CRC_DeInit
+       0   CRC_GetCRC
+       0   CRC_GetIDRegister
+       0   CRC_PolynomialSizeSelect
+       0   CRC_ResetDR
+       0   CRC_ReverseInputDataSelect
+       4   CRC_ReverseOutputDataCmd
+       0   CRC_SetIDRegister
+       0   CRC_SetInitRegister
+       0   CRC_SetPolynomial
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable13
+       4  ??DataTable13_1
+       4  ??DataTable13_2
+       4  ??DataTable13_3
+       4  ??DataTable13_4
+       4  ??DataTable13_5
+      30  CRC_CalcBlockCRC
+       8  CRC_CalcCRC
+       8  CRC_CalcCRC16bits
+       8  CRC_CalcCRC8bits
+      32  CRC_DeInit
+       6  CRC_GetCRC
+       8  CRC_GetIDRegister
+      16  CRC_PolynomialSizeSelect
+      12  CRC_ResetDR
+      16  CRC_ReverseInputDataSelect
+      32  CRC_ReverseOutputDataCmd
+       6  CRC_SetIDRegister
+       6  CRC_SetInitRegister
+       6  CRC_SetPolynomial
+
+ 
+ 218 bytes in section .text
+ 
+ 218 bytes of CODE memory
+
+Errors: none
+Warnings: none

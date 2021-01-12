@@ -1,0 +1,13 @@
+.\object\iwdg.o: APP\iwdg.c
+.\object\iwdg.o: .\APP\inc\iwdg.h
+.\object\iwdg.o: .\BSP\inc\sys.h
+.\object\iwdg.o: .\Libraries\CMSIS\stm32f10x.h
+.\object\iwdg.o: .\Libraries\CMSIS\core_cm3.h
+.\object\iwdg.o: C:\rj\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\object\iwdg.o: .\Libraries\CMSIS\system_stm32f10x.h
+.\object\iwdg.o: .\User\stm32f10x_conf.h
+.\object\iwdg.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h
+.\object\iwdg.o: .\Libraries\CMSIS\stm32f10x.h
+.\object\iwdg.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
+.\object\iwdg.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
+.\object\iwdg.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_iwdg.h

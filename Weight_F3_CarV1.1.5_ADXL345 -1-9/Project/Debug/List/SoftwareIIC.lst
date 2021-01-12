@@ -1,0 +1,1080 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.4.261/W32 for ARM         10/Jan/2021  16:10:22
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode                        
+#    Endian                       =  little
+#    Source file                  =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\BSP\SoftwareIIC.c
+#    Command line                 =
+#        -f C:\Users\macanlin\AppData\Local\Temp\EWEFC0.tmp
+#        ("C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\BSP\SoftwareIIC.c" -D USE_STDPERIPH_DRIVER -D STM32F072
+#        -lC "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List" -o
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj" --no_cse --no_unroll --no_inline
+#        --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug
+#        --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config
+#        C:\rj\IAR\arm\inc\c\DLib_Config_Normal.h -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\BSP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\CMSIS\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\OS_Cfg\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-CPU\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Ports\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Source\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\APP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -Ol -I
+#        C:\rj\IAR\arm\CMSIS\Core\Include\\ -I
+#        C:\rj\IAR\arm\CMSIS\DSP\Include\\)
+#    Locale                       =  C
+#    List file                    =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List\SoftwareIIC.lst
+#    Object file                  =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj\SoftwareIIC.o
+#    Runtime model:                  
+#      __SystemLibrary            =  DLib
+#      __dlib_file_descriptor     =  0
+#      __dlib_full_locale_support =  0
+#      __dlib_version             =  6
+#
+###############################################################################
+
+C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345 -1-9\Source\BSP\SoftwareIIC.c
+      1          #include "BSP.h"
+      2          
+
+   \                                 In section .text, align 2, keep-with-next
+      3          void Delay_Ms(u32 cnt)
+      4          {
+   \                     Delay_Ms: (+1)
+   \        0x0   0xB500             PUSH     {LR}
+      5              cnt = cnt * 7500;
+   \        0x2   0x....             LDR      R1,??DataTable8  ;; 0x1d4c
+   \        0x4   0x4348             MULS     R0,R1,R0
+      6              //cnt = cnt * 650;
+      7          
+      8              while (cnt--);
+   \                     ??Delay_Ms_0: (+1)
+   \        0x6   0x0001             MOVS     R1,R0
+   \        0x8   0x1E48             SUBS     R0,R1,#+1
+   \        0xA   0x2900             CMP      R1,#+0
+   \        0xC   0xD1FB             BNE      ??Delay_Ms_0
+      9          }
+   \        0xE   0xBD00             POP      {PC}             ;; return
+     10          
+
+   \                                 In section .text, align 2, keep-with-next
+     11          void Delay_Us(u32 cnt)
+     12          {
+   \                     Delay_Us: (+1)
+   \        0x0   0xB500             PUSH     {LR}
+     13              cnt = cnt * 8;
+   \        0x2   0x2108             MOVS     R1,#+8
+   \        0x4   0x4348             MULS     R0,R1,R0
+     14              //cnt = cnt * 2;
+     15              while (cnt--);
+   \                     ??Delay_Us_0: (+1)
+   \        0x6   0x0001             MOVS     R1,R0
+   \        0x8   0x1E48             SUBS     R0,R1,#+1
+   \        0xA   0x2900             CMP      R1,#+0
+   \        0xC   0xD1FB             BNE      ??Delay_Us_0
+     16          }
+   \        0xE   0xBD00             POP      {PC}             ;; return
+     17          
+     18          //初始化IIC
+
+   \                                 In section .text, align 2, keep-with-next
+     19          void IIC_Init(void)
+     20          {
+   \                     IIC_Init: (+1)
+   \        0x0   0xB51C             PUSH     {R2-R4,LR}
+     21              GPIO_InitTypeDef GPIO_InitStructure;
+     22              //RCC->APB2ENR|=1<<4;
+     23              RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOB, ENABLE);
+   \        0x2   0x2101             MOVS     R1,#+1
+   \        0x4   0x2080             MOVS     R0,#+128
+   \        0x6   0x02C0             LSLS     R0,R0,#+11       ;; #+262144
+   \        0x8   0x....'....        BL       RCC_AHBPeriphClockCmd
+     24              GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7;
+   \        0xC   0x20C0             MOVS     R0,#+192
+   \        0xE   0x9000             STR      R0,[SP, #+0]
+     25              GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT ;
+   \       0x10   0x2001             MOVS     R0,#+1
+   \       0x12   0x4669             MOV      R1,SP
+   \       0x14   0x7108             STRB     R0,[R1, #+4]
+     26              GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+   \       0x16   0x2203             MOVS     R2,#+3
+   \       0x18   0x714A             STRB     R2,[R1, #+5]
+     27              GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
+   \       0x1A   0x7188             STRB     R0,[R1, #+6]
+     28              GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+   \       0x1C   0x71C8             STRB     R0,[R1, #+7]
+     29              GPIO_Init(GPIOB, &GPIO_InitStructure);
+   \       0x1E   0x....             LDR      R4,??DataTable8_1  ;; 0x48000400
+   \       0x20   0x4669             MOV      R1,SP
+   \       0x22   0x0020             MOVS     R0,R4
+   \       0x24   0x....'....        BL       GPIO_Init
+     30          
+     31              Set_IIC_SCL;
+   \       0x28   0x2140             MOVS     R1,#+64
+   \       0x2A   0x0020             MOVS     R0,R4
+   \       0x2C   0x....'....        BL       GPIO_SetBits
+     32              Set_IIC_SDA;
+   \       0x30   0x2180             MOVS     R1,#+128
+   \       0x32   0x0020             MOVS     R0,R4
+   \       0x34   0x....'....        BL       GPIO_SetBits
+     33          }
+   \       0x38   0xBD13             POP      {R0,R1,R4,PC}    ;; return
+     34          
+     35          //产生IIC起始信号
+
+   \                                 In section .text, align 2, keep-with-next
+     36          void IIC_Start(void)
+     37          {
+   \                     IIC_Start: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+     38              SDA_OUT();      //sda线输出
+   \        0x2   0x....             LDR      R5,??DataTable8_1  ;; 0x48000400
+   \        0x4   0x6828             LDR      R0,[R5, #+0]
+   \        0x6   0x2180             MOVS     R1,#+128
+   \        0x8   0x01C9             LSLS     R1,R1,#+7        ;; #+16384
+   \        0xA   0x4301             ORRS     R1,R1,R0
+   \        0xC   0x6029             STR      R1,[R5, #+0]
+   \        0xE   0x....             LDR      R0,??DataTable8_2  ;; 0x48000404
+   \       0x10   0x8801             LDRH     R1,[R0, #+0]
+   \       0x12   0x8001             STRH     R1,[R0, #+0]
+   \       0x14   0x....             LDR      R0,??DataTable9  ;; 0x48000408
+   \       0x16   0x6801             LDR      R1,[R0, #+0]
+   \       0x18   0x2288             MOVS     R2,#+136
+   \       0x1A   0x02D2             LSLS     R2,R2,#+11       ;; #+278528
+   \       0x1C   0x430A             ORRS     R2,R2,R1
+   \       0x1E   0x6002             STR      R2,[R0, #+0]
+     39              Set_IIC_SDA;
+   \       0x20   0x2180             MOVS     R1,#+128
+   \       0x22   0x0028             MOVS     R0,R5
+   \       0x24   0x....'....        BL       GPIO_SetBits
+     40              Set_IIC_SCL;
+   \       0x28   0x2140             MOVS     R1,#+64
+   \       0x2A   0x0028             MOVS     R0,R5
+   \       0x2C   0x....'....        BL       GPIO_SetBits
+     41              GPIO_SetBits(GPIOC, GPIO_Pin_9);
+   \       0x30   0x....             LDR      R6,??DataTable9_1  ;; 0x48000800
+   \       0x32   0x2480             MOVS     R4,#+128
+   \       0x34   0x00A4             LSLS     R4,R4,#+2        ;; #+512
+   \       0x36   0x0021             MOVS     R1,R4
+   \       0x38   0x0030             MOVS     R0,R6
+   \       0x3A   0x....'....        BL       GPIO_SetBits
+     42              Delay_Us(4);
+   \       0x3E   0x2004             MOVS     R0,#+4
+   \       0x40   0x....'....        BL       Delay_Us
+     43              GPIO_ResetBits(GPIOC, GPIO_Pin_9);
+   \       0x44   0x0021             MOVS     R1,R4
+   \       0x46   0x0030             MOVS     R0,R6
+   \       0x48   0x....'....        BL       GPIO_ResetBits
+     44              Reset_IIC_SDA;//START:when CLK is high,DATA change form high to low
+   \       0x4C   0x2180             MOVS     R1,#+128
+   \       0x4E   0x0028             MOVS     R0,R5
+   \       0x50   0x....'....        BL       GPIO_ResetBits
+     45              Delay_Us(4);
+   \       0x54   0x2004             MOVS     R0,#+4
+   \       0x56   0x....'....        BL       Delay_Us
+     46              Reset_IIC_SCL;//钳住I2C总线，准备发送或接收数据 
+   \       0x5A   0x2140             MOVS     R1,#+64
+   \       0x5C   0x0028             MOVS     R0,R5
+   \       0x5E   0x....'....        BL       GPIO_ResetBits
+     47          }
+   \       0x62   0xBD70             POP      {R4-R6,PC}       ;; return
+     48          
+     49          //产生IIC停止信号
+
+   \                                 In section .text, align 2, keep-with-next
+     50          void IIC_Stop(void)
+     51          {
+   \                     IIC_Stop: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+     52              SDA_OUT();//sda线输出
+   \        0x2   0x....             LDR      R4,??DataTable8_1  ;; 0x48000400
+   \        0x4   0x6820             LDR      R0,[R4, #+0]
+   \        0x6   0x2180             MOVS     R1,#+128
+   \        0x8   0x01C9             LSLS     R1,R1,#+7        ;; #+16384
+   \        0xA   0x4301             ORRS     R1,R1,R0
+   \        0xC   0x6021             STR      R1,[R4, #+0]
+   \        0xE   0x....             LDR      R0,??DataTable8_2  ;; 0x48000404
+   \       0x10   0x8801             LDRH     R1,[R0, #+0]
+   \       0x12   0x8001             STRH     R1,[R0, #+0]
+   \       0x14   0x....             LDR      R0,??DataTable9  ;; 0x48000408
+   \       0x16   0x6801             LDR      R1,[R0, #+0]
+   \       0x18   0x2288             MOVS     R2,#+136
+   \       0x1A   0x02D2             LSLS     R2,R2,#+11       ;; #+278528
+   \       0x1C   0x430A             ORRS     R2,R2,R1
+   \       0x1E   0x6002             STR      R2,[R0, #+0]
+     53              Reset_IIC_SCL;
+   \       0x20   0x2140             MOVS     R1,#+64
+   \       0x22   0x0020             MOVS     R0,R4
+   \       0x24   0x....'....        BL       GPIO_ResetBits
+     54              Reset_IIC_SDA;//STOP:when CLK is high DATA change form low to high
+   \       0x28   0x2180             MOVS     R1,#+128
+   \       0x2A   0x0020             MOVS     R0,R4
+   \       0x2C   0x....'....        BL       GPIO_ResetBits
+     55              Delay_Us(4);
+   \       0x30   0x2004             MOVS     R0,#+4
+   \       0x32   0x....'....        BL       Delay_Us
+     56              Set_IIC_SCL;
+   \       0x36   0x2140             MOVS     R1,#+64
+   \       0x38   0x0020             MOVS     R0,R4
+   \       0x3A   0x....'....        BL       GPIO_SetBits
+     57              Set_IIC_SDA;//发送I2C总线结束信号
+   \       0x3E   0x2180             MOVS     R1,#+128
+   \       0x40   0x0020             MOVS     R0,R4
+   \       0x42   0x....'....        BL       GPIO_SetBits
+     58              Delay_Us(4);
+   \       0x46   0x2004             MOVS     R0,#+4
+   \       0x48   0x....'....        BL       Delay_Us
+     59          }
+   \       0x4C   0xBD10             POP      {R4,PC}          ;; return
+     60          
+     61          //等待应答信号到来
+     62          //返回值：1，接收应答失败
+     63          //        0，接收应答成功
+
+   \                                 In section .text, align 2, keep-with-next
+     64          u8 IIC_Wait_Ack(void)
+     65          {
+   \                     IIC_Wait_Ack: (+1)
+   \        0x0   0xB538             PUSH     {R3-R5,LR}
+     66              u8 ucErrTime = 0;
+   \        0x2   0x2400             MOVS     R4,#+0
+     67              SDA_IN();      //SDA设置为输入
+   \        0x4   0x....             LDR      R5,??DataTable8_1  ;; 0x48000400
+   \        0x6   0x6828             LDR      R0,[R5, #+0]
+   \        0x8   0x....             LDR      R1,??DataTable11  ;; 0xffff3fff
+   \        0xA   0x4001             ANDS     R1,R1,R0
+   \        0xC   0x6029             STR      R1,[R5, #+0]
+     68              Set_IIC_SDA;
+   \        0xE   0x2180             MOVS     R1,#+128
+   \       0x10   0x0028             MOVS     R0,R5
+   \       0x12   0x....'....        BL       GPIO_SetBits
+     69              Delay_Us(1);
+   \       0x16   0x2001             MOVS     R0,#+1
+   \       0x18   0x....'....        BL       Delay_Us
+     70              Set_IIC_SCL;
+   \       0x1C   0x2140             MOVS     R1,#+64
+   \       0x1E   0x0028             MOVS     R0,R5
+   \       0x20   0x....'....        BL       GPIO_SetBits
+     71              Delay_Us(1);
+   \       0x24   0x2001             MOVS     R0,#+1
+   \       0x26   0x....'....        BL       Delay_Us
+     72          
+     73              while (READ_SDA)
+   \                     ??IIC_Wait_Ack_0: (+1)
+   \       0x2A   0x2180             MOVS     R1,#+128
+   \       0x2C   0x0028             MOVS     R0,R5
+   \       0x2E   0x....'....        BL       GPIO_ReadInputDataBit
+   \       0x32   0x2800             CMP      R0,#+0
+   \       0x34   0xD008             BEQ      ??IIC_Wait_Ack_1
+     74              {
+     75                  ucErrTime++;
+   \       0x36   0x1C64             ADDS     R4,R4,#+1
+     76          
+     77                  if (ucErrTime > 250)
+   \       0x38   0x0020             MOVS     R0,R4
+   \       0x3A   0xB2C0             UXTB     R0,R0
+   \       0x3C   0x28FB             CMP      R0,#+251
+   \       0x3E   0xDBF4             BLT      ??IIC_Wait_Ack_0
+     78                  {
+     79                      IIC_Stop();
+   \       0x40   0x....'....        BL       IIC_Stop
+     80                      return 1;
+   \       0x44   0x2001             MOVS     R0,#+1
+   \       0x46   0xE004             B        ??IIC_Wait_Ack_2
+     81                  }
+     82              }
+     83          
+     84              Reset_IIC_SCL;//时钟输出0 
+   \                     ??IIC_Wait_Ack_1: (+1)
+   \       0x48   0x2140             MOVS     R1,#+64
+   \       0x4A   0x0028             MOVS     R0,R5
+   \       0x4C   0x....'....        BL       GPIO_ResetBits
+     85          
+     86              return 0;
+   \       0x50   0x2000             MOVS     R0,#+0
+   \                     ??IIC_Wait_Ack_2: (+1)
+   \       0x52   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+     87          }
+     88          
+     89          //产生ACK应答
+
+   \                                 In section .text, align 2, keep-with-next
+     90          void IIC_Ack(void)
+     91          {
+   \                     IIC_Ack: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+     92              Reset_IIC_SCL;
+   \        0x2   0x....             LDR      R4,??DataTable8_1  ;; 0x48000400
+   \        0x4   0x2140             MOVS     R1,#+64
+   \        0x6   0x0020             MOVS     R0,R4
+   \        0x8   0x....'....        BL       GPIO_ResetBits
+     93              SDA_OUT();
+   \        0xC   0x6820             LDR      R0,[R4, #+0]
+   \        0xE   0x2180             MOVS     R1,#+128
+   \       0x10   0x01C9             LSLS     R1,R1,#+7        ;; #+16384
+   \       0x12   0x4301             ORRS     R1,R1,R0
+   \       0x14   0x6021             STR      R1,[R4, #+0]
+   \       0x16   0x....             LDR      R0,??DataTable8_2  ;; 0x48000404
+   \       0x18   0x8801             LDRH     R1,[R0, #+0]
+   \       0x1A   0x8001             STRH     R1,[R0, #+0]
+   \       0x1C   0x....             LDR      R0,??DataTable9  ;; 0x48000408
+   \       0x1E   0x6801             LDR      R1,[R0, #+0]
+   \       0x20   0x2288             MOVS     R2,#+136
+   \       0x22   0x02D2             LSLS     R2,R2,#+11       ;; #+278528
+   \       0x24   0x430A             ORRS     R2,R2,R1
+   \       0x26   0x6002             STR      R2,[R0, #+0]
+     94              Reset_IIC_SDA;
+   \       0x28   0x2180             MOVS     R1,#+128
+   \       0x2A   0x0020             MOVS     R0,R4
+   \       0x2C   0x....'....        BL       GPIO_ResetBits
+     95              Delay_Us(2);
+   \       0x30   0x2002             MOVS     R0,#+2
+   \       0x32   0x....'....        BL       Delay_Us
+     96              Set_IIC_SCL;
+   \       0x36   0x2140             MOVS     R1,#+64
+   \       0x38   0x0020             MOVS     R0,R4
+   \       0x3A   0x....'....        BL       GPIO_SetBits
+     97              Delay_Us(2);
+   \       0x3E   0x2002             MOVS     R0,#+2
+   \       0x40   0x....'....        BL       Delay_Us
+     98              Reset_IIC_SCL;
+   \       0x44   0x2140             MOVS     R1,#+64
+   \       0x46   0x0020             MOVS     R0,R4
+   \       0x48   0x....'....        BL       GPIO_ResetBits
+     99          }
+   \       0x4C   0xBD10             POP      {R4,PC}          ;; return
+    100          
+    101          //不产生ACK应答
+
+   \                                 In section .text, align 2, keep-with-next
+    102          void IIC_NAck(void)
+    103          {
+   \                     IIC_NAck: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+    104              Reset_IIC_SCL;
+   \        0x2   0x....             LDR      R4,??DataTable8_1  ;; 0x48000400
+   \        0x4   0x2140             MOVS     R1,#+64
+   \        0x6   0x0020             MOVS     R0,R4
+   \        0x8   0x....'....        BL       GPIO_ResetBits
+    105              SDA_OUT();
+   \        0xC   0x6820             LDR      R0,[R4, #+0]
+   \        0xE   0x2180             MOVS     R1,#+128
+   \       0x10   0x01C9             LSLS     R1,R1,#+7        ;; #+16384
+   \       0x12   0x4301             ORRS     R1,R1,R0
+   \       0x14   0x6021             STR      R1,[R4, #+0]
+   \       0x16   0x....             LDR      R0,??DataTable8_2  ;; 0x48000404
+   \       0x18   0x8801             LDRH     R1,[R0, #+0]
+   \       0x1A   0x8001             STRH     R1,[R0, #+0]
+   \       0x1C   0x....             LDR      R0,??DataTable9  ;; 0x48000408
+   \       0x1E   0x6801             LDR      R1,[R0, #+0]
+   \       0x20   0x2288             MOVS     R2,#+136
+   \       0x22   0x02D2             LSLS     R2,R2,#+11       ;; #+278528
+   \       0x24   0x430A             ORRS     R2,R2,R1
+   \       0x26   0x6002             STR      R2,[R0, #+0]
+    106              Set_IIC_SDA;
+   \       0x28   0x2180             MOVS     R1,#+128
+   \       0x2A   0x0020             MOVS     R0,R4
+   \       0x2C   0x....'....        BL       GPIO_SetBits
+    107              Delay_Us(2);
+   \       0x30   0x2002             MOVS     R0,#+2
+   \       0x32   0x....'....        BL       Delay_Us
+    108              Set_IIC_SCL;
+   \       0x36   0x2140             MOVS     R1,#+64
+   \       0x38   0x0020             MOVS     R0,R4
+   \       0x3A   0x....'....        BL       GPIO_SetBits
+    109              Delay_Us(2);
+   \       0x3E   0x2002             MOVS     R0,#+2
+   \       0x40   0x....'....        BL       Delay_Us
+    110              Reset_IIC_SCL;
+   \       0x44   0x2140             MOVS     R1,#+64
+   \       0x46   0x0020             MOVS     R0,R4
+   \       0x48   0x....'....        BL       GPIO_ResetBits
+    111          }
+   \       0x4C   0xBD10             POP      {R4,PC}          ;; return
+    112          
+    113          //IIC发送一个字节
+    114          //返回从机有无应答
+    115          //1，有应答
+    116          //0，无应答   
+    117          // 0,???
+
+   \                                 In section .text, align 2, keep-with-next
+    118          void IIC_Send_Byte(u8 txd)
+    119          {
+   \                     IIC_Send_Byte: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+   \        0x2   0x0004             MOVS     R4,R0
+    120              u8 t;
+    121              SDA_OUT();
+   \        0x4   0x....             LDR      R6,??DataTable8_1  ;; 0x48000400
+   \        0x6   0x6830             LDR      R0,[R6, #+0]
+   \        0x8   0x2180             MOVS     R1,#+128
+   \        0xA   0x01C9             LSLS     R1,R1,#+7        ;; #+16384
+   \        0xC   0x4301             ORRS     R1,R1,R0
+   \        0xE   0x6031             STR      R1,[R6, #+0]
+   \       0x10   0x....             LDR      R0,??DataTable8_2  ;; 0x48000404
+   \       0x12   0x8801             LDRH     R1,[R0, #+0]
+   \       0x14   0x8001             STRH     R1,[R0, #+0]
+   \       0x16   0x....             LDR      R0,??DataTable9  ;; 0x48000408
+   \       0x18   0x6801             LDR      R1,[R0, #+0]
+   \       0x1A   0x2288             MOVS     R2,#+136
+   \       0x1C   0x02D2             LSLS     R2,R2,#+11       ;; #+278528
+   \       0x1E   0x430A             ORRS     R2,R2,R1
+   \       0x20   0x6002             STR      R2,[R0, #+0]
+    122              Reset_IIC_SCL;//拉低时钟开始数据传输
+   \       0x22   0x2140             MOVS     R1,#+64
+   \       0x24   0x0030             MOVS     R0,R6
+   \       0x26   0x....'....        BL       GPIO_ResetBits
+    123          
+    124              for (t = 0;t < 8;t++)
+   \       0x2A   0x2500             MOVS     R5,#+0
+   \       0x2C   0xE019             B        ??IIC_Send_Byte_0
+    125              {
+    126                  Write_SDA((txd&0x80) >> 7);
+   \                     ??IIC_Send_Byte_1: (+1)
+   \       0x2E   0x0022             MOVS     R2,R4
+   \       0x30   0xB2D2             UXTB     R2,R2
+   \       0x32   0x09D2             LSRS     R2,R2,#+7
+   \       0x34   0x2180             MOVS     R1,#+128
+   \       0x36   0x0030             MOVS     R0,R6
+   \       0x38   0x....'....        BL       GPIO_WriteBit
+    127                  txd <<= 1;
+   \       0x3C   0x0064             LSLS     R4,R4,#+1
+    128                  Delay_Us(2);   //对TEA5767这三个延时都是必须的
+   \       0x3E   0x2002             MOVS     R0,#+2
+   \       0x40   0x....'....        BL       Delay_Us
+    129                  Set_IIC_SCL;
+   \       0x44   0x2140             MOVS     R1,#+64
+   \       0x46   0x0030             MOVS     R0,R6
+   \       0x48   0x....'....        BL       GPIO_SetBits
+    130                  Delay_Us(2);
+   \       0x4C   0x2002             MOVS     R0,#+2
+   \       0x4E   0x....'....        BL       Delay_Us
+    131                  Reset_IIC_SCL;
+   \       0x52   0x2140             MOVS     R1,#+64
+   \       0x54   0x0030             MOVS     R0,R6
+   \       0x56   0x....'....        BL       GPIO_ResetBits
+    132                  Delay_Us(2);
+   \       0x5A   0x2002             MOVS     R0,#+2
+   \       0x5C   0x....'....        BL       Delay_Us
+    133              }
+   \       0x60   0x1C6D             ADDS     R5,R5,#+1
+   \                     ??IIC_Send_Byte_0: (+1)
+   \       0x62   0x0028             MOVS     R0,R5
+   \       0x64   0xB2C0             UXTB     R0,R0
+   \       0x66   0x2808             CMP      R0,#+8
+   \       0x68   0xDBE1             BLT      ??IIC_Send_Byte_1
+    134          }
+   \       0x6A   0xBD70             POP      {R4-R6,PC}       ;; return
+    135          
+    136          //读1个字节，ack=1时，发送ACK，ack=0，发送nACK   
+
+   \                                 In section .text, align 2, keep-with-next
+    137          u8 IIC_Read_Byte(unsigned char ack)
+    138          {
+   \                     IIC_Read_Byte: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+   \        0x2   0x0007             MOVS     R7,R0
+    139              unsigned char i, receive = 0;
+   \        0x4   0x2500             MOVS     R5,#+0
+   \        0x6   0x002C             MOVS     R4,R5
+    140              SDA_IN();//SDA设置为输入
+   \        0x8   0x....             LDR      R6,??DataTable8_1  ;; 0x48000400
+   \        0xA   0x6830             LDR      R0,[R6, #+0]
+   \        0xC   0x....             LDR      R1,??DataTable11  ;; 0xffff3fff
+   \        0xE   0x4001             ANDS     R1,R1,R0
+   \       0x10   0x6031             STR      R1,[R6, #+0]
+    141          
+    142              for (i = 0;i < 8;i++)
+   \       0x12   0xE016             B        ??IIC_Read_Byte_0
+    143              {
+    144                  Reset_IIC_SCL;
+   \                     ??IIC_Read_Byte_1: (+1)
+   \       0x14   0x2140             MOVS     R1,#+64
+   \       0x16   0x0030             MOVS     R0,R6
+   \       0x18   0x....'....        BL       GPIO_ResetBits
+    145                  Delay_Us(2);
+   \       0x1C   0x2002             MOVS     R0,#+2
+   \       0x1E   0x....'....        BL       Delay_Us
+    146                  Set_IIC_SCL;
+   \       0x22   0x2140             MOVS     R1,#+64
+   \       0x24   0x0030             MOVS     R0,R6
+   \       0x26   0x....'....        BL       GPIO_SetBits
+    147                  receive <<= 1;
+   \       0x2A   0x0064             LSLS     R4,R4,#+1
+    148          
+    149                  if (READ_SDA)receive++;
+   \       0x2C   0x2180             MOVS     R1,#+128
+   \       0x2E   0x0030             MOVS     R0,R6
+   \       0x30   0x....'....        BL       GPIO_ReadInputDataBit
+   \       0x34   0x2800             CMP      R0,#+0
+   \       0x36   0xD000             BEQ      ??IIC_Read_Byte_2
+   \       0x38   0x1C64             ADDS     R4,R4,#+1
+    150          
+    151                  Delay_Us(1);
+   \                     ??IIC_Read_Byte_2: (+1)
+   \       0x3A   0x2001             MOVS     R0,#+1
+   \       0x3C   0x....'....        BL       Delay_Us
+    152              }
+   \       0x40   0x1C6D             ADDS     R5,R5,#+1
+   \                     ??IIC_Read_Byte_0: (+1)
+   \       0x42   0x0028             MOVS     R0,R5
+   \       0x44   0xB2C0             UXTB     R0,R0
+   \       0x46   0x2808             CMP      R0,#+8
+   \       0x48   0xDBE4             BLT      ??IIC_Read_Byte_1
+    153          
+    154              if (!ack)
+   \       0x4A   0xB2FF             UXTB     R7,R7
+   \       0x4C   0x2F00             CMP      R7,#+0
+   \       0x4E   0xD102             BNE      ??IIC_Read_Byte_3
+    155                  IIC_NAck();//发送nACK
+   \       0x50   0x....'....        BL       IIC_NAck
+   \       0x54   0xE001             B        ??IIC_Read_Byte_4
+    156              else
+    157                  IIC_Ack(); //发送ACK
+   \                     ??IIC_Read_Byte_3: (+1)
+   \       0x56   0x....'....        BL       IIC_Ack
+    158          
+    159              return receive;
+   \                     ??IIC_Read_Byte_4: (+1)
+   \       0x5A   0x0020             MOVS     R0,R4
+   \       0x5C   0xB2C0             UXTB     R0,R0
+   \       0x5E   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+    160          }
+    161          
+    162          
+    163          
+    164          //在AT24CXX指定地址读出一个数据
+    165          //ReadAddr:开始读数的地址
+    166          //返回值  :读到的数据
+
+   \                                 In section .text, align 2, keep-with-next
+    167          u8 I2C1_ReadByte(u16 DriverAddr, u16 ReadAddr)
+    168          {
+   \                     I2C1_ReadByte: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+   \        0x2   0x0005             MOVS     R5,R0
+   \        0x4   0x000F             MOVS     R7,R1
+    169              CPU_SR_ALLOC();
+   \        0x6   0x2600             MOVS     R6,#+0
+   \        0x8   0x0030             MOVS     R0,R6
+    170              OS_CRITICAL_ENTER();
+   \        0xA   0x....'....        BL       CPU_SR_Save
+   \        0xE   0x....             LDR      R4,??DataTable12
+   \       0x10   0x7821             LDRB     R1,[R4, #+0]
+   \       0x12   0x1C49             ADDS     R1,R1,#+1
+   \       0x14   0x7021             STRB     R1,[R4, #+0]
+   \       0x16   0x....'....        BL       CPU_SR_Restore
+    171          
+    172              u8 temp = 0;
+    173              IIC_Start();
+   \       0x1A   0x....'....        BL       IIC_Start
+    174          
+    175              if (EE_TYPE > AT24C16)//AT24C16
+    176              {
+    177                  IIC_Send_Byte(DriverAddr);	   //发送写命令
+    178                  IIC_Wait_Ack();
+    179                  IIC_Send_Byte(ReadAddr >> 8);  //发送高地址
+    180                  IIC_Wait_Ack();
+    181              }
+    182              else
+    183          	{ 
+    184          		IIC_Send_Byte(DriverAddr + ((ReadAddr / 256) << 1));        //发送器件地址0XA0,写数据
+   \       0x1E   0x2680             MOVS     R6,#+128
+   \       0x20   0x0076             LSLS     R6,R6,#+1        ;; #+256
+   \       0x22   0xB2AD             UXTH     R5,R5
+   \       0x24   0x0038             MOVS     R0,R7
+   \       0x26   0xB280             UXTH     R0,R0
+   \       0x28   0x0031             MOVS     R1,R6
+   \       0x2A   0x....'....        BL       __aeabi_idiv
+   \       0x2E   0x0040             LSLS     R0,R0,#+1
+   \       0x30   0x1828             ADDS     R0,R5,R0
+   \       0x32   0xB2C0             UXTB     R0,R0
+   \       0x34   0x....'....        BL       IIC_Send_Byte
+    185          	}
+    186          	
+    187              IIC_Wait_Ack();
+   \       0x38   0x....'....        BL       IIC_Wait_Ack
+    188          
+    189              IIC_Send_Byte(ReadAddr % 256);     //发送低地址
+   \       0x3C   0xB2BF             UXTH     R7,R7
+   \       0x3E   0x0038             MOVS     R0,R7
+   \       0x40   0x0031             MOVS     R1,R6
+   \       0x42   0x....'....        BL       __aeabi_idivmod
+   \       0x46   0x0008             MOVS     R0,R1
+   \       0x48   0xB2C0             UXTB     R0,R0
+   \       0x4A   0x....'....        BL       IIC_Send_Byte
+    190          
+    191              IIC_Wait_Ack();
+   \       0x4E   0x....'....        BL       IIC_Wait_Ack
+    192          
+    193              IIC_Start();
+   \       0x52   0x....'....        BL       IIC_Start
+    194          
+    195              IIC_Send_Byte(0XA1);           //进入接收模式
+   \       0x56   0x20A1             MOVS     R0,#+161
+   \       0x58   0x....'....        BL       IIC_Send_Byte
+    196          
+    197              IIC_Wait_Ack();
+   \       0x5C   0x....'....        BL       IIC_Wait_Ack
+    198          
+    199              temp = IIC_Read_Byte(0);
+   \       0x60   0x2000             MOVS     R0,#+0
+   \       0x62   0x....'....        BL       IIC_Read_Byte
+   \       0x66   0x0005             MOVS     R5,R0
+    200          
+    201              IIC_Stop();//产生一个停止条件
+   \       0x68   0x....'....        BL       IIC_Stop
+    202          
+    203              OS_CRITICAL_EXIT();
+   \       0x6C   0x....'....        BL       CPU_SR_Save
+   \       0x70   0x7821             LDRB     R1,[R4, #+0]
+   \       0x72   0x1E49             SUBS     R1,R1,#+1
+   \       0x74   0x7021             STRB     R1,[R4, #+0]
+   \       0x76   0x7821             LDRB     R1,[R4, #+0]
+   \       0x78   0x2900             CMP      R1,#+0
+   \       0x7A   0xD10B             BNE      ??I2C1_ReadByte_0
+   \       0x7C   0x....             LDR      R1,??DataTable12_1
+   \       0x7E   0x8809             LDRH     R1,[R1, #+0]
+   \       0x80   0x2900             CMP      R1,#+0
+   \       0x82   0xD004             BEQ      ??I2C1_ReadByte_1
+   \       0x84   0x....'....        BL       CPU_SR_Restore
+   \       0x88   0x....'....        BL       OS_Sched0
+   \       0x8C   0xE004             B        ??I2C1_ReadByte_2
+   \                     ??I2C1_ReadByte_1: (+1)
+   \       0x8E   0x....'....        BL       CPU_SR_Restore
+   \       0x92   0xE001             B        ??I2C1_ReadByte_2
+   \                     ??I2C1_ReadByte_0: (+1)
+   \       0x94   0x....'....        BL       CPU_SR_Restore
+    204          
+    205              return temp;
+   \                     ??I2C1_ReadByte_2: (+1)
+   \       0x98   0x0028             MOVS     R0,R5
+   \       0x9A   0xB2C0             UXTB     R0,R0
+   \       0x9C   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+    206          }
+    207          
+    208          //在AT24CXX指定地址写入一个数据
+    209          //WriteAddr  :写入数据的目的地址
+    210          //DataToWrite:要写入的数据
+
+   \                                 In section .text, align 2, keep-with-next
+    211          void I2C1_WriteByte(uint16_t DriverAddr, u16 WriteAddr, u8 DataToWrite)
+    212          {
+   \                     I2C1_WriteByte: (+1)
+   \        0x0   0xB5F4             PUSH     {R2,R4-R7,LR}
+   \        0x2   0x0005             MOVS     R5,R0
+   \        0x4   0x000F             MOVS     R7,R1
+    213              CPU_SR_ALLOC();
+   \        0x6   0x2000             MOVS     R0,#+0
+    214              
+    215          /*    if(ProductPara.bFlashWEn == FLASH_WR_DISABLE)
+    216              {
+    217                  return;
+    218              }
+    219              */
+    220              OS_CRITICAL_ENTER();
+   \        0x8   0x....'....        BL       CPU_SR_Save
+   \        0xC   0x....             LDR      R4,??DataTable12
+   \        0xE   0x7821             LDRB     R1,[R4, #+0]
+   \       0x10   0x1C49             ADDS     R1,R1,#+1
+   \       0x12   0x7021             STRB     R1,[R4, #+0]
+   \       0x14   0x....'....        BL       CPU_SR_Restore
+    221          
+    222              IIC_Start();
+   \       0x18   0x....'....        BL       IIC_Start
+    223          
+    224              if (EE_TYPE > AT24C16)
+    225              {
+    226                  IIC_Send_Byte(DriverAddr);	    //发送写命令
+    227                  IIC_Wait_Ack();
+    228                  IIC_Send_Byte(WriteAddr >> 8);  //发送高地址
+    229              }
+    230              else
+    231              {
+    232                  IIC_Send_Byte(DriverAddr + ((WriteAddr / 256) << 1));        //发送器件地址0XA0,写数据
+   \       0x1C   0x2680             MOVS     R6,#+128
+   \       0x1E   0x0076             LSLS     R6,R6,#+1        ;; #+256
+   \       0x20   0xB2AD             UXTH     R5,R5
+   \       0x22   0x0038             MOVS     R0,R7
+   \       0x24   0xB280             UXTH     R0,R0
+   \       0x26   0x0031             MOVS     R1,R6
+   \       0x28   0x....'....        BL       __aeabi_idiv
+   \       0x2C   0x0040             LSLS     R0,R0,#+1
+   \       0x2E   0x1828             ADDS     R0,R5,R0
+   \       0x30   0xB2C0             UXTB     R0,R0
+   \       0x32   0x....'....        BL       IIC_Send_Byte
+    233              }
+    234          
+    235              IIC_Wait_Ack();
+   \       0x36   0x....'....        BL       IIC_Wait_Ack
+    236          
+    237              IIC_Send_Byte(WriteAddr % 256);     //发送低地址
+   \       0x3A   0xB2BF             UXTH     R7,R7
+   \       0x3C   0x0038             MOVS     R0,R7
+   \       0x3E   0x0031             MOVS     R1,R6
+   \       0x40   0x....'....        BL       __aeabi_idivmod
+   \       0x44   0x0008             MOVS     R0,R1
+   \       0x46   0xB2C0             UXTB     R0,R0
+   \       0x48   0x....'....        BL       IIC_Send_Byte
+    238              IIC_Wait_Ack();
+   \       0x4C   0x....'....        BL       IIC_Wait_Ack
+    239              IIC_Send_Byte(DataToWrite);     //发送字节
+   \       0x50   0x4668             MOV      R0,SP
+   \       0x52   0x7800             LDRB     R0,[R0, #+0]
+   \       0x54   0x....'....        BL       IIC_Send_Byte
+    240              IIC_Wait_Ack();
+   \       0x58   0x....'....        BL       IIC_Wait_Ack
+    241              IIC_Stop();//产生一个停止条件
+   \       0x5C   0x....'....        BL       IIC_Stop
+    242              Delay_Ms(2);
+   \       0x60   0x2002             MOVS     R0,#+2
+   \       0x62   0x....'....        BL       Delay_Ms
+    243          
+    244              OS_CRITICAL_EXIT();
+   \       0x66   0x....'....        BL       CPU_SR_Save
+   \       0x6A   0x7821             LDRB     R1,[R4, #+0]
+   \       0x6C   0x1E49             SUBS     R1,R1,#+1
+   \       0x6E   0x7021             STRB     R1,[R4, #+0]
+   \       0x70   0x7821             LDRB     R1,[R4, #+0]
+   \       0x72   0x2900             CMP      R1,#+0
+   \       0x74   0xD10B             BNE      ??I2C1_WriteByte_0
+   \       0x76   0x....             LDR      R1,??DataTable12_1
+   \       0x78   0x8809             LDRH     R1,[R1, #+0]
+   \       0x7A   0x2900             CMP      R1,#+0
+   \       0x7C   0xD004             BEQ      ??I2C1_WriteByte_1
+   \       0x7E   0x....'....        BL       CPU_SR_Restore
+   \       0x82   0x....'....        BL       OS_Sched0
+   \       0x86   0xE004             B        ??I2C1_WriteByte_2
+   \                     ??I2C1_WriteByte_1: (+1)
+   \       0x88   0x....'....        BL       CPU_SR_Restore
+   \       0x8C   0xE001             B        ??I2C1_WriteByte_2
+   \                     ??I2C1_WriteByte_0: (+1)
+   \       0x8E   0x....'....        BL       CPU_SR_Restore
+    245          }
+   \                     ??I2C1_WriteByte_2: (+1)
+   \       0x92   0xBDF1             POP      {R0,R4-R7,PC}    ;; return
+    246          
+    247          
+    248          //在AT24CXX里面的指定地址开始读出指定个数的数据
+    249          //ReadAddr :开始读出的地址 对24c02为0~255
+    250          //pBuffer  :数据数组首地址
+    251          //NumToRead:要读出数据的个数
+
+   \                                 In section .text, align 2, keep-with-next
+    252          void I2C1_ReadNBytes(u16 DriverAddr, u16 ReadAddr, u16 NumToRead, u8 *pBuffer)
+    253          {
+   \                     I2C1_ReadNBytes: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+   \        0x2   0x0007             MOVS     R7,R0
+   \        0x4   0x000E             MOVS     R6,R1
+   \        0x6   0x0014             MOVS     R4,R2
+   \        0x8   0x001D             MOVS     R5,R3
+   \        0xA   0xE009             B        ??I2C1_ReadNBytes_0
+    254              while (NumToRead)
+    255              {
+    256                  *pBuffer++ = I2C1_ReadByte(DriverAddr, ReadAddr++);
+   \                     ??I2C1_ReadNBytes_1: (+1)
+   \        0xC   0x0031             MOVS     R1,R6
+   \        0xE   0xB289             UXTH     R1,R1
+   \       0x10   0x0038             MOVS     R0,R7
+   \       0x12   0xB280             UXTH     R0,R0
+   \       0x14   0x....'....        BL       I2C1_ReadByte
+   \       0x18   0x1C76             ADDS     R6,R6,#+1
+   \       0x1A   0x7028             STRB     R0,[R5, #+0]
+   \       0x1C   0x1C6D             ADDS     R5,R5,#+1
+    257                  NumToRead--;
+   \       0x1E   0x1E64             SUBS     R4,R4,#+1
+    258              }
+   \                     ??I2C1_ReadNBytes_0: (+1)
+   \       0x20   0x0020             MOVS     R0,R4
+   \       0x22   0xB280             UXTH     R0,R0
+   \       0x24   0x2800             CMP      R0,#+0
+   \       0x26   0xD1F1             BNE      ??I2C1_ReadNBytes_1
+    259          }
+   \       0x28   0xBDF1             POP      {R0,R4-R7,PC}    ;; return
+    260          
+    261          //在AT24CXX里面的指定地址开始写入指定个数的数据
+    262          //WriteAddr :开始写入的地址 对24c02为0~255
+    263          //pBuffer   :数据数组首地址
+    264          //NumToWrite:要写入数据的个数
+
+   \                                 In section .text, align 2, keep-with-next
+    265          void I2C1_WriteNBytes(uint16_t DriverAddr, u16 WriteAddr, u16 NumToWrite, const u8 *pBuffer)
+    266          {
+   \                     I2C1_WriteNBytes: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+   \        0x2   0x0007             MOVS     R7,R0
+   \        0x4   0x000E             MOVS     R6,R1
+   \        0x6   0x0015             MOVS     R5,R2
+   \        0x8   0x001C             MOVS     R4,R3
+    267              if(ProductPara.bFlashWEn == FLASH_WR_DISABLE)
+   \        0xA   0x....             LDR      R0,??DataTable12_2
+   \        0xC   0x78C0             LDRB     R0,[R0, #+3]
+   \        0xE   0x2800             CMP      R0,#+0
+   \       0x10   0xD109             BNE      ??I2C1_WriteNBytes_0
+    268              {
+    269                  return;
+   \       0x12   0xE00D             B        ??I2C1_WriteNBytes_1
+    270              }
+    271              
+    272              while (NumToWrite--)
+    273              {
+    274                  I2C1_WriteByte(DriverAddr, WriteAddr, *pBuffer);
+   \                     ??I2C1_WriteNBytes_2: (+1)
+   \       0x14   0x7822             LDRB     R2,[R4, #+0]
+   \       0x16   0x0031             MOVS     R1,R6
+   \       0x18   0xB289             UXTH     R1,R1
+   \       0x1A   0x0038             MOVS     R0,R7
+   \       0x1C   0xB280             UXTH     R0,R0
+   \       0x1E   0x....'....        BL       I2C1_WriteByte
+    275                  WriteAddr++;
+   \       0x22   0x1C76             ADDS     R6,R6,#+1
+    276                  pBuffer++;
+   \       0x24   0x1C64             ADDS     R4,R4,#+1
+    277              }
+   \                     ??I2C1_WriteNBytes_0: (+1)
+   \       0x26   0x0028             MOVS     R0,R5
+   \       0x28   0x1E45             SUBS     R5,R0,#+1
+   \       0x2A   0xB280             UXTH     R0,R0
+   \       0x2C   0x2800             CMP      R0,#+0
+   \       0x2E   0xD1F1             BNE      ??I2C1_WriteNBytes_2
+    278          }
+   \                     ??I2C1_WriteNBytes_1: (+1)
+   \       0x30   0xBDF1             POP      {R0,R4-R7,PC}    ;; return
+    279          
+
+   \                                 In section .text, align 2, keep-with-next
+    280          void I2C1_WNBytesMul3T(uint16_t DriverAddr, u16 WriteAddr, u16 NumToWrite, const u8 *pBuffer)
+    281          {
+   \                     I2C1_WNBytesMul3T: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+   \        0x2   0x0007             MOVS     R7,R0
+   \        0x4   0x000D             MOVS     R5,R1
+   \        0x6   0x0016             MOVS     R6,R2
+   \        0x8   0x001C             MOVS     R4,R3
+    282              if(ProductPara.bFlashWEn == FLASH_WR_DISABLE)
+   \        0xA   0x....             LDR      R0,??DataTable12_2
+   \        0xC   0x78C0             LDRB     R0,[R0, #+3]
+   \        0xE   0x2800             CMP      R0,#+0
+   \       0x10   0xD11B             BNE      ??I2C1_WNBytesMul3T_0
+    283              {
+    284                  return;
+   \       0x12   0xE01F             B        ??I2C1_WNBytesMul3T_1
+    285              }
+    286              
+    287              while (NumToWrite--)
+    288              {
+    289                  I2C1_WriteByte(DriverAddr, WriteAddr, *pBuffer);
+   \                     ??I2C1_WNBytesMul3T_2: (+1)
+   \       0x14   0x7822             LDRB     R2,[R4, #+0]
+   \       0x16   0x0029             MOVS     R1,R5
+   \       0x18   0xB289             UXTH     R1,R1
+   \       0x1A   0x0038             MOVS     R0,R7
+   \       0x1C   0xB280             UXTH     R0,R0
+   \       0x1E   0x....'....        BL       I2C1_WriteByte
+    290                  I2C1_WriteByte(DriverAddr, WriteAddr + 2 * 0x80, *pBuffer);
+   \       0x22   0x7822             LDRB     R2,[R4, #+0]
+   \       0x24   0x2080             MOVS     R0,#+128
+   \       0x26   0x0040             LSLS     R0,R0,#+1        ;; #+256
+   \       0x28   0x1829             ADDS     R1,R5,R0
+   \       0x2A   0xB289             UXTH     R1,R1
+   \       0x2C   0x0038             MOVS     R0,R7
+   \       0x2E   0xB280             UXTH     R0,R0
+   \       0x30   0x....'....        BL       I2C1_WriteByte
+    291                  I2C1_WriteByte(DriverAddr, WriteAddr + 4 * 0x80, *pBuffer);
+   \       0x34   0x7822             LDRB     R2,[R4, #+0]
+   \       0x36   0x2080             MOVS     R0,#+128
+   \       0x38   0x0080             LSLS     R0,R0,#+2        ;; #+512
+   \       0x3A   0x1829             ADDS     R1,R5,R0
+   \       0x3C   0xB289             UXTH     R1,R1
+   \       0x3E   0x0038             MOVS     R0,R7
+   \       0x40   0xB280             UXTH     R0,R0
+   \       0x42   0x....'....        BL       I2C1_WriteByte
+    292                  WriteAddr++;
+   \       0x46   0x1C6D             ADDS     R5,R5,#+1
+    293                  pBuffer++;
+   \       0x48   0x1C64             ADDS     R4,R4,#+1
+    294              }
+   \                     ??I2C1_WNBytesMul3T_0: (+1)
+   \       0x4A   0x0030             MOVS     R0,R6
+   \       0x4C   0x1E46             SUBS     R6,R0,#+1
+   \       0x4E   0xB280             UXTH     R0,R0
+   \       0x50   0x2800             CMP      R0,#+0
+   \       0x52   0xD1DF             BNE      ??I2C1_WNBytesMul3T_2
+    295          }
+   \                     ??I2C1_WNBytesMul3T_1: (+1)
+   \       0x54   0xBDF1             POP      {R0,R4-R7,PC}    ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8:
+   \        0x0   0x0000'1D4C        DC32     0x1d4c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_1:
+   \        0x0   0x4800'0400        DC32     0x48000400
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_2:
+   \        0x0   0x4800'0404        DC32     0x48000404
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9:
+   \        0x0   0x4800'0408        DC32     0x48000408
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_1:
+   \        0x0   0x4800'0800        DC32     0x48000800
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11:
+   \        0x0   0xFFFF'3FFF        DC32     0xffff3fff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12:
+   \        0x0   0x....'....        DC32     OSSchedLockNestingCtr
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_1:
+   \        0x0   0x....'....        DC32     OSIntQNbrEntries
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_2:
+   \        0x0   0x....'....        DC32     ProductPara
+    296          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       4   Delay_Ms
+       4   Delay_Us
+      24   I2C1_ReadByte
+        24   -> CPU_SR_Restore
+        24   -> CPU_SR_Save
+        24   -> IIC_Read_Byte
+        24   -> IIC_Send_Byte
+        24   -> IIC_Start
+        24   -> IIC_Stop
+        24   -> IIC_Wait_Ack
+        24   -> OS_Sched0
+        24 __aeabi_idiv
+        24 __aeabi_idivmod
+      24   I2C1_ReadNBytes
+        24   -> I2C1_ReadByte
+      24   I2C1_WNBytesMul3T
+        24   -> I2C1_WriteByte
+      24   I2C1_WriteByte
+        24   -> CPU_SR_Restore
+        24   -> CPU_SR_Save
+        24   -> Delay_Ms
+        24   -> IIC_Send_Byte
+        24   -> IIC_Start
+        24   -> IIC_Stop
+        24   -> IIC_Wait_Ack
+        24   -> OS_Sched0
+        24 __aeabi_idiv
+        24 __aeabi_idivmod
+      24   I2C1_WriteNBytes
+        24   -> I2C1_WriteByte
+       8   IIC_Ack
+         8   -> Delay_Us
+         8   -> GPIO_ResetBits
+         8   -> GPIO_SetBits
+      16   IIC_Init
+        16   -> GPIO_Init
+        16   -> GPIO_SetBits
+        16   -> RCC_AHBPeriphClockCmd
+       8   IIC_NAck
+         8   -> Delay_Us
+         8   -> GPIO_ResetBits
+         8   -> GPIO_SetBits
+      24   IIC_Read_Byte
+        24   -> Delay_Us
+        24   -> GPIO_ReadInputDataBit
+        24   -> GPIO_ResetBits
+        24   -> GPIO_SetBits
+        24   -> IIC_Ack
+        24   -> IIC_NAck
+      16   IIC_Send_Byte
+        16   -> Delay_Us
+        16   -> GPIO_ResetBits
+        16   -> GPIO_SetBits
+        16   -> GPIO_WriteBit
+      16   IIC_Start
+        16   -> Delay_Us
+        16   -> GPIO_ResetBits
+        16   -> GPIO_SetBits
+       8   IIC_Stop
+         8   -> Delay_Us
+         8   -> GPIO_ResetBits
+         8   -> GPIO_SetBits
+      16   IIC_Wait_Ack
+        16   -> Delay_Us
+        16   -> GPIO_ReadInputDataBit
+        16   -> GPIO_ResetBits
+        16   -> GPIO_SetBits
+        16   -> IIC_Stop
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable11
+       4  ??DataTable12
+       4  ??DataTable12_1
+       4  ??DataTable12_2
+       4  ??DataTable8
+       4  ??DataTable8_1
+       4  ??DataTable8_2
+       4  ??DataTable9
+       4  ??DataTable9_1
+      16  Delay_Ms
+      16  Delay_Us
+     158  I2C1_ReadByte
+      42  I2C1_ReadNBytes
+      86  I2C1_WNBytesMul3T
+     148  I2C1_WriteByte
+      50  I2C1_WriteNBytes
+      78  IIC_Ack
+      58  IIC_Init
+      78  IIC_NAck
+      96  IIC_Read_Byte
+     108  IIC_Send_Byte
+     100  IIC_Start
+      78  IIC_Stop
+      84  IIC_Wait_Ack
+
+ 
+ 1'232 bytes in section .text
+ 
+ 1'232 bytes of CODE memory
+
+Errors: none
+Warnings: none

@@ -1,0 +1,658 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.4.261/W32 for ARM         10/Jan/2021  16:10:23
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode             
+#    Endian            =  little
+#    Source file       =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\FWLib\src\stm32f0xx_comp.c
+#    Command line      =
+#        -f C:\Users\macanlin\AppData\Local\Temp\EWF419.tmp
+#        ("C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\FWLib\src\stm32f0xx_comp.c" -D USE_STDPERIPH_DRIVER -D
+#        STM32F072 -lC
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List" -o
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj" --no_cse --no_unroll --no_inline
+#        --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug
+#        --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config
+#        C:\rj\IAR\arm\inc\c\DLib_Config_Normal.h -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\BSP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\CMSIS\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\OS_Cfg\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-CPU\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Ports\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Source\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\APP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -Ol -I
+#        C:\rj\IAR\arm\CMSIS\Core\Include\\ -I
+#        C:\rj\IAR\arm\CMSIS\DSP\Include\\)
+#    Locale            =  C
+#    List file         =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List\stm32f0xx_comp.lst
+#    Object file       =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj\stm32f0xx_comp.o
+#    Runtime model:       
+#      __SystemLibrary =  DLib
+#      __dlib_version  =  6
+#
+###############################################################################
+
+C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345 -1-9\Source\FWLib\src\stm32f0xx_comp.c
+      1          /**
+      2            ******************************************************************************
+      3            * @file    stm32f0xx_comp.c
+      4            * @author  MCD Application Team
+      5            * @version V1.3.0
+      6            * @date    16-January-2014
+      7            * @brief   This file provides firmware functions to manage the following 
+      8            *          functionalities of the comparators (COMP1 and COMP2) peripheral
+      9            *          applicable only on STM32F051 and STM32F072 devices: 
+     10            *           + Comparators configuration
+     11            *           + Window mode control
+     12            *
+     13            *  @verbatim
+     14            *
+     15           ===============================================================================
+     16                               ##### How to use this driver #####
+     17           ===============================================================================
+     18              [..]           
+     19             
+     20                   The device integrates two analog comparators COMP1 and COMP2:
+     21                   (+) The non inverting input is set to PA1 for COMP1 and to PA3
+     22                       for COMP2.
+     23            
+     24                   (+) The inverting input can be selected among: DAC1_OUT, DAC2_OUT 
+     25                       1/4 VREFINT, 1/2 VERFINT, 3/4 VREFINT, VREFINT,
+     26                       I/O (PA0 for COMP1 and PA2 for COMP2)
+     27            
+     28                   (+) The COMP output is internally is available using COMP_GetOutputLevel()
+     29                       and can be set on GPIO pins: PA0, PA6, PA11 for COMP1
+     30                       and PA2, PA7, PA12 for COMP2
+     31            
+     32                   (+) The COMP output can be redirected to embedded timers (TIM1, TIM2
+     33                       and TIM3)
+     34            
+     35                   (+) The two comparators COMP1 and COMP2 can be combined in window
+     36                       mode and only COMP1 non inverting (PA1) can be used as non-
+     37                       inverting input.
+     38            
+     39                   (+) The two comparators COMP1 and COMP2 have interrupt capability 
+     40                       with wake-up from Sleep and Stop modes (through the EXTI controller).
+     41                       COMP1 and COMP2 outputs are internally connected to EXTI Line 21
+     42                       and EXTI Line 22 respectively.
+     43                             
+     44          
+     45                               ##### How to configure the comparator #####
+     46           ===============================================================================
+     47              [..] 
+     48                     This driver provides functions to configure and program the Comparators 
+     49                     of all STM32F0xx devices.
+     50                       
+     51              [..]   To use the comparator, perform the following steps:
+     52            
+     53                   (#) Enable the SYSCFG APB clock to get write access to comparator
+     54                       register using RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
+     55            
+     56                   (#) Configure the comparator input in analog mode using GPIO_Init()
+     57            
+     58                   (#) Configure the comparator output in alternate function mode
+     59                       using GPIO_Init() and use GPIO_PinAFConfig() function to map the
+     60                       comparator output to the GPIO pin
+     61            
+     62                   (#) Configure the comparator using COMP_Init() function:
+     63                           (++)  Select the inverting input
+     64                           (++)  Select the output polarity  
+     65                           (++)  Select the output redirection
+     66                           (++)  Select the hysteresis level
+     67                           (++)  Select the power mode
+     68              
+     69                   (#) Enable the comparator using COMP_Cmd() function
+     70            
+     71                   (#) If required enable the COMP interrupt by configuring and enabling
+     72                       EXTI line in Interrupt mode and selecting the desired sensitivity
+     73                       level using EXTI_Init() function. After that enable the comparator
+     74                       interrupt vector using NVIC_Init() function.
+     75            
+     76               @endverbatim
+     77            *    
+     78            ******************************************************************************
+     79            * @attention
+     80            *
+     81            * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
+     82            *
+     83            * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
+     84            * You may not use this file except in compliance with the License.
+     85            * You may obtain a copy of the License at:
+     86            *
+     87            *        http://www.st.com/software_license_agreement_liberty_v2
+     88            *
+     89            * Unless required by applicable law or agreed to in writing, software 
+     90            * distributed under the License is distributed on an "AS IS" BASIS, 
+     91            * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     92            * See the License for the specific language governing permissions and
+     93            * limitations under the License.
+     94            *
+     95            ******************************************************************************
+     96            */
+     97          
+     98          /* Includes ------------------------------------------------------------------*/
+     99          #include "stm32f0xx_comp.h"
+    100          
+    101          /** @addtogroup STM32F0xx_StdPeriph_Driver
+    102            * @{
+    103            */
+    104          
+    105          /** @defgroup COMP 
+    106            * @brief COMP driver modules
+    107            * @{
+    108            */ 
+    109          
+    110          /* Private typedef -----------------------------------------------------------*/
+    111          /* Private define ------------------------------------------------------------*/
+    112          /* CSR register Mask */
+    113          #define COMP_CSR_CLEAR_MASK              ((uint32_t)0x00003FFE)
+    114          
+    115          /* Private macro -------------------------------------------------------------*/
+    116          /* Private variables ---------------------------------------------------------*/
+    117          /* Private function prototypes -----------------------------------------------*/
+    118          /* Private functions ---------------------------------------------------------*/
+    119          
+    120          /** @defgroup COMP_Private_Functions
+    121            * @{
+    122            */
+    123          
+    124          /** @defgroup COMP_Group1 Initialization and Configuration functions
+    125           *  @brief   Initialization and Configuration functions 
+    126           *
+    127          @verbatim   
+    128           ===============================================================================
+    129                         ##### Initialization and Configuration functions #####
+    130           ===============================================================================  
+    131          
+    132          @endverbatim
+    133            * @{
+    134            */
+    135             
+    136          /**
+    137            * @brief  Deinitializes COMP peripheral registers to their default reset values.
+    138            * @note   Deinitialization can't be performed if the COMP configuration is locked.
+    139            *         To unlock the configuration, perform a system reset.
+    140            * @param  None
+    141            * @retval None
+    142            */
+
+   \                                 In section .text, align 2, keep-with-next
+    143          void COMP_DeInit(void)
+    144          {
+    145            COMP->CSR = ((uint32_t)0x00000000);    /*!< Set COMP_CSR register to reset value */
+   \                     COMP_DeInit: (+1)
+   \        0x0   0x2000             MOVS     R0,#+0
+   \        0x2   0x....             LDR      R1,??DataTable6  ;; 0x4001001c
+   \        0x4   0x6008             STR      R0,[R1, #+0]
+    146          }
+   \        0x6   0x4770             BX       LR               ;; return
+    147          
+    148          /**
+    149            * @brief  Initializes the COMP peripheral according to the specified parameters
+    150            *         in COMP_InitStruct
+    151            * @note   If the selected comparator is locked, initialization can't be performed.
+    152            *         To unlock the configuration, perform a system reset.
+    153            * @note   By default, PA1 is selected as COMP1 non inverting input.
+    154            *         To use PA4 as COMP1 non inverting input call COMP_SwitchCmd() after COMP_Init()
+    155            * @param  COMP_Selection: the selected comparator. 
+    156            *          This parameter can be one of the following values:
+    157            *            @arg COMP_Selection_COMP1: COMP1 selected
+    158            *            @arg COMP_Selection_COMP2: COMP2 selected
+    159            * @param  COMP_InitStruct: pointer to an COMP_InitTypeDef structure that contains 
+    160            *         the configuration information for the specified COMP peripheral.
+    161            * @retval None
+    162            */
+
+   \                                 In section .text, align 2, keep-with-next
+    163          void COMP_Init(uint32_t COMP_Selection, COMP_InitTypeDef* COMP_InitStruct)
+    164          {
+   \                     COMP_Init: (+1)
+   \        0x0   0xB430             PUSH     {R4,R5}
+    165            uint32_t tmpreg = 0;
+   \        0x2   0x2200             MOVS     R2,#+0
+    166          
+    167            /* Check the parameters */
+    168            assert_param(IS_COMP_ALL_PERIPH(COMP_Selection));
+    169            assert_param(IS_COMP_INVERTING_INPUT(COMP_InitStruct->COMP_InvertingInput));
+    170            assert_param(IS_COMP_OUTPUT(COMP_InitStruct->COMP_Output));
+    171            assert_param(IS_COMP_OUTPUT_POL(COMP_InitStruct->COMP_OutputPol));
+    172            assert_param(IS_COMP_HYSTERESIS(COMP_InitStruct->COMP_Hysteresis));
+    173            assert_param(IS_COMP_MODE(COMP_InitStruct->COMP_Mode));
+    174          
+    175            /*!< Get the COMP_CSR register value */
+    176            tmpreg = COMP->CSR;
+   \        0x4   0x....             LDR      R2,??DataTable6  ;; 0x4001001c
+   \        0x6   0x6813             LDR      R3,[R2, #+0]
+    177          
+    178            /*!< Clear the COMP1SW1, COMPx_IN_SEL, COMPx_OUT_TIM_SEL, COMPx_POL, COMPx_HYST and COMPx_PWR_MODE bits */ 
+    179            tmpreg &= (uint32_t) ~(COMP_CSR_CLEAR_MASK<<COMP_Selection);
+   \        0x8   0x....             LDR      R4,??DataTable6_1  ;; 0x3ffe
+   \        0xA   0x4084             LSLS     R4,R4,R0
+   \        0xC   0x43A3             BICS     R3,R3,R4
+    180          
+    181            /*!< Configure COMP: inverting input, output redirection, hysteresis value and power mode */
+    182            /*!< Set COMPxINSEL bits according to COMP_InitStruct->COMP_InvertingInput value */
+    183            /*!< Set COMPxOUTSEL bits according to COMP_InitStruct->COMP_Output value */
+    184            /*!< Set COMPxPOL bit according to COMP_InitStruct->COMP_OutputPol value */
+    185            /*!< Set COMPxHYST bits according to COMP_InitStruct->COMP_Hysteresis value */
+    186            /*!< Set COMPxMODE bits according to COMP_InitStruct->COMP_Mode value */   
+    187            tmpreg |= (uint32_t)((COMP_InitStruct->COMP_InvertingInput | COMP_InitStruct->COMP_Output |
+    188                                 COMP_InitStruct->COMP_OutputPol | COMP_InitStruct->COMP_Hysteresis |
+    189                                 COMP_InitStruct->COMP_Mode)<<COMP_Selection);
+   \        0xE   0x680C             LDR      R4,[R1, #+0]
+   \       0x10   0x684D             LDR      R5,[R1, #+4]
+   \       0x12   0x4325             ORRS     R5,R5,R4
+   \       0x14   0x688C             LDR      R4,[R1, #+8]
+   \       0x16   0x432C             ORRS     R4,R4,R5
+   \       0x18   0x68CD             LDR      R5,[R1, #+12]
+   \       0x1A   0x4325             ORRS     R5,R5,R4
+   \       0x1C   0x6909             LDR      R1,[R1, #+16]
+   \       0x1E   0x4329             ORRS     R1,R1,R5
+   \       0x20   0x4081             LSLS     R1,R1,R0
+   \       0x22   0x4319             ORRS     R1,R1,R3
+    190          
+    191            /*!< Write to COMP_CSR register */
+    192            COMP->CSR = tmpreg;  
+   \       0x24   0x6011             STR      R1,[R2, #+0]
+    193          }
+   \       0x26   0xBC30             POP      {R4,R5}
+   \       0x28   0x4770             BX       LR               ;; return
+    194          
+    195          /**
+    196            * @brief  Fills each COMP_InitStruct member with its default value.
+    197            * @param  COMP_InitStruct: pointer to an COMP_InitTypeDef structure which will 
+    198            *         be initialized.
+    199            * @retval None
+    200            */
+
+   \                                 In section .text, align 2, keep-with-next
+    201          void COMP_StructInit(COMP_InitTypeDef* COMP_InitStruct)
+    202          {
+    203            COMP_InitStruct->COMP_InvertingInput = COMP_InvertingInput_1_4VREFINT;
+   \                     COMP_StructInit: (+1)
+   \        0x0   0x2100             MOVS     R1,#+0
+   \        0x2   0x6001             STR      R1,[R0, #+0]
+    204            COMP_InitStruct->COMP_Output = COMP_Output_None;
+   \        0x4   0x6041             STR      R1,[R0, #+4]
+    205            COMP_InitStruct->COMP_OutputPol = COMP_OutputPol_NonInverted;
+   \        0x6   0x6081             STR      R1,[R0, #+8]
+    206            COMP_InitStruct->COMP_Hysteresis = COMP_Hysteresis_No;
+   \        0x8   0x60C1             STR      R1,[R0, #+12]
+    207            COMP_InitStruct->COMP_Mode = COMP_Mode_UltraLowPower;
+   \        0xA   0x210C             MOVS     R1,#+12
+   \        0xC   0x6101             STR      R1,[R0, #+16]
+    208          }
+   \        0xE   0x4770             BX       LR               ;; return
+    209          
+    210          /**
+    211            * @brief  Enable or disable the COMP peripheral.
+    212            * @note   If the selected comparator is locked, enable/disable can't be performed.
+    213            *         To unlock the configuration, perform a system reset.
+    214            * @param  COMP_Selection: the selected comparator.
+    215            *          This parameter can be one of the following values:
+    216            *            @arg COMP_Selection_COMP1: COMP1 selected
+    217            *            @arg COMP_Selection_COMP2: COMP2 selected
+    218            * @param  NewState: new state of the COMP peripheral.
+    219            *          This parameter can be: ENABLE or DISABLE.
+    220            * @note   When enabled, the comparator compares the non inverting input with 
+    221            *         the inverting input and the comparison result is available on comparator output.
+    222            * @note   When disabled, the comparator doesn't perform comparison and the 
+    223            *         output level is low.
+    224            * @retval None
+    225            */
+
+   \                                 In section .text, align 2, keep-with-next
+    226          void COMP_Cmd(uint32_t COMP_Selection, FunctionalState NewState)
+    227          {
+   \                     COMP_Cmd: (+1)
+   \        0x0   0xB500             PUSH     {LR}
+    228            /* Check the parameters */
+    229            assert_param(IS_COMP_ALL_PERIPH(COMP_Selection));
+    230            assert_param(IS_FUNCTIONAL_STATE(NewState));
+    231          
+    232            if (NewState != DISABLE)
+   \        0x2   0xB2C9             UXTB     R1,R1
+   \        0x4   0x2900             CMP      R1,#+0
+   \        0x6   0xD006             BEQ      ??COMP_Cmd_0
+    233            {
+    234              /* Enable the selected COMP peripheral */
+    235              COMP->CSR |= (uint32_t) (1<<COMP_Selection);
+   \        0x8   0x....             LDR      R1,??DataTable6  ;; 0x4001001c
+   \        0xA   0x680A             LDR      R2,[R1, #+0]
+   \        0xC   0x2301             MOVS     R3,#+1
+   \        0xE   0x4083             LSLS     R3,R3,R0
+   \       0x10   0x4313             ORRS     R3,R3,R2
+   \       0x12   0x600B             STR      R3,[R1, #+0]
+   \       0x14   0xE005             B        ??COMP_Cmd_1
+    236            }
+    237            else
+    238            {
+    239              /* Disable the selected COMP peripheral  */
+    240              COMP->CSR &= (uint32_t)(~((uint32_t)1<<COMP_Selection));
+   \                     ??COMP_Cmd_0: (+1)
+   \       0x16   0x....             LDR      R1,??DataTable6  ;; 0x4001001c
+   \       0x18   0x680A             LDR      R2,[R1, #+0]
+   \       0x1A   0x2301             MOVS     R3,#+1
+   \       0x1C   0x4083             LSLS     R3,R3,R0
+   \       0x1E   0x439A             BICS     R2,R2,R3
+   \       0x20   0x600A             STR      R2,[R1, #+0]
+    241            }
+    242          }
+   \                     ??COMP_Cmd_1: (+1)
+   \       0x22   0xBD00             POP      {PC}             ;; return
+    243          
+    244          /**
+    245            * @brief  Close or Open the SW1 switch.
+    246            * @note   This switch is solely intended to redirect signals onto high
+    247            *         impedance input, such as COMP1 non-inverting input (highly resistive switch)
+    248            * @param  NewState: New state of the analog switch.
+    249            *          This parameter can be: ENABLE or DISABLE. 
+    250            * @note   When enabled, the SW1 is closed; PA1 is connected to PA4
+    251            * @note   When disabled, the SW1 switch is open; PA1 is disconnected from PA4
+    252            * @retval None
+    253            */
+
+   \                                 In section .text, align 2, keep-with-next
+    254          void COMP_SwitchCmd(FunctionalState NewState)
+    255          {
+   \                     COMP_SwitchCmd: (+1)
+   \        0x0   0xB500             PUSH     {LR}
+    256            /* Check the parameter */
+    257            assert_param(IS_FUNCTIONAL_STATE(NewState));
+    258          
+    259            if (NewState != DISABLE)
+   \        0x2   0xB2C0             UXTB     R0,R0
+   \        0x4   0x2800             CMP      R0,#+0
+   \        0x6   0xD005             BEQ      ??COMP_SwitchCmd_0
+    260            {
+    261              /* Close SW1 switch */
+    262              COMP->CSR |= (uint32_t) (COMP_CSR_COMP1SW1);
+   \        0x8   0x....             LDR      R0,??DataTable6  ;; 0x4001001c
+   \        0xA   0x6801             LDR      R1,[R0, #+0]
+   \        0xC   0x2202             MOVS     R2,#+2
+   \        0xE   0x430A             ORRS     R2,R2,R1
+   \       0x10   0x6002             STR      R2,[R0, #+0]
+   \       0x12   0xE004             B        ??COMP_SwitchCmd_1
+    263            }
+    264            else
+    265            {
+    266              /* Open SW1 switch */
+    267              COMP->CSR &= (uint32_t)(~COMP_CSR_COMP1SW1);
+   \                     ??COMP_SwitchCmd_0: (+1)
+   \       0x14   0x....             LDR      R0,??DataTable6  ;; 0x4001001c
+   \       0x16   0x6801             LDR      R1,[R0, #+0]
+   \       0x18   0x2202             MOVS     R2,#+2
+   \       0x1A   0x4391             BICS     R1,R1,R2
+   \       0x1C   0x6001             STR      R1,[R0, #+0]
+    268            }
+    269          }
+   \                     ??COMP_SwitchCmd_1: (+1)
+   \       0x1E   0xBD00             POP      {PC}             ;; return
+    270          
+    271          /**
+    272            * @brief  Return the output level (high or low) of the selected comparator. 
+    273            * @note   The output level depends on the selected polarity.
+    274            * @note   If the polarity is not inverted:
+    275            *          - Comparator output is low when the non-inverting input is at a lower
+    276            *            voltage than the inverting input
+    277            *          - Comparator output is high when the non-inverting input is at a higher
+    278            *            voltage than the inverting input
+    279            * @note   If the polarity is inverted:
+    280            *          - Comparator output is high when the non-inverting input is at a lower
+    281            *            voltage than the inverting input
+    282            *          - Comparator output is low when the non-inverting input is at a higher
+    283            *            voltage than the inverting input
+    284            * @param  COMP_Selection: the selected comparator. 
+    285            *          This parameter can be one of the following values:
+    286            *            @arg COMP_Selection_COMP1: COMP1 selected
+    287            *            @arg COMP_Selection_COMP2: COMP2 selected  
+    288            * @retval Returns the selected comparator output level: low or high.
+    289            *       
+    290            */
+
+   \                                 In section .text, align 2, keep-with-next
+    291          uint32_t COMP_GetOutputLevel(uint32_t COMP_Selection)
+    292          {
+   \                     COMP_GetOutputLevel: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+   \        0x2   0x0001             MOVS     R1,R0
+    293            uint32_t compout = 0x0;
+   \        0x4   0x2000             MOVS     R0,#+0
+   \        0x6   0x0002             MOVS     R2,R0
+    294          
+    295            /* Check the parameters */
+    296            assert_param(IS_COMP_ALL_PERIPH(COMP_Selection));
+    297          
+    298            /* Check if selected comparator output is high */
+    299            if ((COMP->CSR & (COMP_CSR_COMP1OUT<<COMP_Selection)) != 0)
+   \        0x8   0x2280             MOVS     R2,#+128
+   \        0xA   0x01D2             LSLS     R2,R2,#+7        ;; #+16384
+   \        0xC   0x....             LDR      R3,??DataTable6  ;; 0x4001001c
+   \        0xE   0x681B             LDR      R3,[R3, #+0]
+   \       0x10   0x0014             MOVS     R4,R2
+   \       0x12   0x408C             LSLS     R4,R4,R1
+   \       0x14   0x401C             ANDS     R4,R4,R3
+   \       0x16   0x2C00             CMP      R4,#+0
+   \       0x18   0xD001             BEQ      ??COMP_GetOutputLevel_0
+    300            {
+    301              compout = COMP_OutputLevel_High;
+   \       0x1A   0x0010             MOVS     R0,R2
+   \       0x1C   0xE7FF             B        ??COMP_GetOutputLevel_1
+    302            }
+    303            else
+    304            {
+    305              compout = COMP_OutputLevel_Low;
+    306            }
+    307          
+    308            /* Return the comparator output level */
+    309            return (uint32_t)(compout);
+   \                     ??COMP_GetOutputLevel_0: (+1)
+   \                     ??COMP_GetOutputLevel_1: (+1)
+   \       0x1E   0xBD10             POP      {R4,PC}          ;; return
+    310          }
+    311          
+    312          /**
+    313            * @}
+    314            */
+    315          
+    316          /** @defgroup COMP_Group2 Window mode control function
+    317           *  @brief   Window mode control function 
+    318           *
+    319          @verbatim   
+    320           ===============================================================================
+    321                               ##### Window mode control function #####
+    322           ===============================================================================  
+    323          
+    324          @endverbatim
+    325            * @{
+    326            */
+    327          
+    328          /**
+    329            * @brief  Enables or disables the window mode.
+    330            * @note   In window mode, COMP1 and COMP2 non inverting inputs are connected
+    331            *         together and only COMP1 non inverting input (PA1) can be used.
+    332            * @param  NewState: new state of the window mode.
+    333            *          This parameter can be :
+    334            *           @arg ENABLE: COMP1 and COMP2 non inverting inputs are connected together.
+    335            *           @arg DISABLE: OMP1 and COMP2 non inverting inputs are disconnected.
+    336            * @retval None
+    337            */
+
+   \                                 In section .text, align 2, keep-with-next
+    338          void COMP_WindowCmd(FunctionalState NewState)
+    339          {
+   \                     COMP_WindowCmd: (+1)
+   \        0x0   0xB500             PUSH     {LR}
+    340            /* Check the parameters */
+    341            assert_param(IS_FUNCTIONAL_STATE(NewState));
+    342            
+    343            if (NewState != DISABLE)
+   \        0x2   0xB2C0             UXTB     R0,R0
+   \        0x4   0x2800             CMP      R0,#+0
+   \        0x6   0xD006             BEQ      ??COMP_WindowCmd_0
+    344            {
+    345              /* Enable the window mode */
+    346              COMP->CSR |= (uint32_t) COMP_CSR_WNDWEN;
+   \        0x8   0x....             LDR      R0,??DataTable6  ;; 0x4001001c
+   \        0xA   0x6801             LDR      R1,[R0, #+0]
+   \        0xC   0x2280             MOVS     R2,#+128
+   \        0xE   0x0412             LSLS     R2,R2,#+16       ;; #+8388608
+   \       0x10   0x430A             ORRS     R2,R2,R1
+   \       0x12   0x6002             STR      R2,[R0, #+0]
+   \       0x14   0xE004             B        ??COMP_WindowCmd_1
+    347            }
+    348            else
+    349            {
+    350              /* Disable the window mode */
+    351              COMP->CSR &= (uint32_t)(~COMP_CSR_WNDWEN);
+   \                     ??COMP_WindowCmd_0: (+1)
+   \       0x16   0x....             LDR      R0,??DataTable6  ;; 0x4001001c
+   \       0x18   0x6801             LDR      R1,[R0, #+0]
+   \       0x1A   0x....             LDR      R2,??DataTable6_2  ;; 0xff7fffff
+   \       0x1C   0x400A             ANDS     R2,R2,R1
+   \       0x1E   0x6002             STR      R2,[R0, #+0]
+    352            }
+    353          }
+   \                     ??COMP_WindowCmd_1: (+1)
+   \       0x20   0xBD00             POP      {PC}             ;; return
+    354          
+    355          /**
+    356            * @}
+    357            */
+    358          
+    359          /** @defgroup COMP_Group3 COMP configuration locking function
+    360           *  @brief   COMP1 and COMP2 configuration locking function
+    361           *           COMP1 and COMP2 configuration can be locked each separately.
+    362           *           Unlocking is performed by system reset.
+    363           *
+    364          @verbatim   
+    365           ===============================================================================
+    366                               ##### Configuration Lock function #####
+    367           ===============================================================================  
+    368          
+    369          @endverbatim
+    370            * @{
+    371            */
+    372          
+    373          /**
+    374            * @brief  Lock the selected comparator (COMP1/COMP2) configuration.
+    375            * @note   Locking the configuration means that all control bits are read-only.
+    376            *         To unlock the comparator configuration, perform a system reset.
+    377            * @param  COMP_Selection: selects the comparator to be locked 
+    378            *          This parameter can be a value of the following values:
+    379            *            @arg COMP_Selection_COMP1: COMP1 configuration is locked.
+    380            *            @arg COMP_Selection_COMP2: COMP2 configuration is locked.  
+    381            * @retval None
+    382            */
+
+   \                                 In section .text, align 2, keep-with-next
+    383          void COMP_LockConfig(uint32_t COMP_Selection)
+    384          {
+    385            /* Check the parameter */
+    386            assert_param(IS_COMP_ALL_PERIPH(COMP_Selection));
+    387          
+    388            /* Set the lock bit corresponding to selected comparator */
+    389            COMP->CSR |= (uint32_t) (COMP_CSR_COMP1LOCK<<COMP_Selection);
+   \                     COMP_LockConfig: (+1)
+   \        0x0   0x....             LDR      R1,??DataTable6  ;; 0x4001001c
+   \        0x2   0x680A             LDR      R2,[R1, #+0]
+   \        0x4   0x2380             MOVS     R3,#+128
+   \        0x6   0x021B             LSLS     R3,R3,#+8        ;; #+32768
+   \        0x8   0x4083             LSLS     R3,R3,R0
+   \        0xA   0x4313             ORRS     R3,R3,R2
+   \        0xC   0x600B             STR      R3,[R1, #+0]
+    390          }
+   \        0xE   0x4770             BX       LR               ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6:
+   \        0x0   0x4001'001C        DC32     0x4001001c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_1:
+   \        0x0   0x0000'3FFE        DC32     0x3ffe
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_2:
+   \        0x0   0xFF7F'FFFF        DC32     0xff7fffff
+    391          
+    392          /**
+    393            * @}
+    394            */
+    395          
+    396          /**
+    397            * @}
+    398            */
+    399          
+    400          /**
+    401            * @}
+    402            */
+    403          
+    404          /**
+    405            * @}
+    406            */
+    407          
+    408          /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       4   COMP_Cmd
+       0   COMP_DeInit
+       8   COMP_GetOutputLevel
+       8   COMP_Init
+       0   COMP_LockConfig
+       0   COMP_StructInit
+       4   COMP_SwitchCmd
+       4   COMP_WindowCmd
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable6
+       4  ??DataTable6_1
+       4  ??DataTable6_2
+      36  COMP_Cmd
+       8  COMP_DeInit
+      32  COMP_GetOutputLevel
+      42  COMP_Init
+      16  COMP_LockConfig
+      16  COMP_StructInit
+      32  COMP_SwitchCmd
+      34  COMP_WindowCmd
+
+ 
+ 228 bytes in section .text
+ 
+ 228 bytes of CODE memory
+
+Errors: none
+Warnings: none

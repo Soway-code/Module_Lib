@@ -1,0 +1,14 @@
+Software modification record
+
+1.修改modbus_asc.c  10功能码 非法数据地址（MB_EX_ILLEGAL_DATA_ADDRESS）的判断条件 20190628 
+2. 修改了AT24cxxx.c 读取设备参数（Rd_Dev_Param函数）中的标定参数初奴化部分。  20190705
+	for(i = RunVar.TotalPacks; i < 5; i++)   //20190705 未标定的数组默认为0xFFFFFFFF 防止初始化为0
+        	{
+         	 	 for(j = 0; j < 10; j++)
+            		{
+             	 		AD_Buff[i][j] = 0xFFFFFFFF;                   //AD值
+             	   		Weight_Buff[i][j] = 0xFFFFFFFF;                 //重量值
+           		 }
+       	 }
+3.修改Get_Unit_Weight函数，将返回类型和调用参数类型改为32位。 20190712
+   修改后可以正常读取标定数据和实时读取载重值。
