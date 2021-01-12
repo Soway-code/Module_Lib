@@ -1,15 +1,13 @@
 # Module_Lib
 module &amp;&amp; lib in common
 
-# Module_Lib
-module &amp;&amp; lib in common
 
 
 -----公共模块及库文件
 
 说明：
 
-~~~
+
 要求：
 
   1）流程图（或方框图），图的格式为BMP,jpg
@@ -37,10 +35,13 @@ XXX_Module （模块目录）
        ----README.txt (说明生成库的输入及输出要求)
        
 
-   ---exp  (引用模块的例程)
+      ---exp  (引用模块的例程)
+
 
 
 
 ##### 在使用模块及库如发现由bug或要求修改的，先在fig_bug的分支中提出issue，讨论之后可以提交PR到fix_bug分支由维护人测试---》
 
+
 ##### 经过审核之后合并到主干master分支
+
