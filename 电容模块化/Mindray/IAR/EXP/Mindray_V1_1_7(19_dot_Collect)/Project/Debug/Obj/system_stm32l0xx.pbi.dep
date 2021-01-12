@@ -1,0 +1,13 @@
+system_stm32l0xx.pbi: \
+  C:\Users\macanlin\Desktop\Mindray_V1_1_7_5\Mindray_V1_1_7(19_dot_Collect)\Source\CMSIS\system_stm32l0xx.c \
+  C:\Users\macanlin\Desktop\Mindray_V1_1_7_5\Mindray_V1_1_7(19_dot_Collect)\Project\..\Source\CMSIS\inc\stm32l0xx.h \
+  C:\Users\macanlin\Desktop\Mindray_V1_1_7_5\Mindray_V1_1_7(19_dot_Collect)\Project\..\Source\CMSIS\inc/stm32l072xx.h \
+  C:\Users\macanlin\Desktop\Mindray_V1_1_7_5\Mindray_V1_1_7(19_dot_Collect)\Project\..\Source\CMSIS\inc/core_cm0plus.h \
+  C:\rj\IAR\arm\inc\c\stdint.h C:\rj\IAR\arm\inc\c\ycheck.h \
+  C:\rj\IAR\arm\inc\c\yvals.h C:\rj\IAR\arm\inc\c\DLib_Defaults.h \
+  C:\rj\IAR\arm\inc\c\DLib_Config_Normal.h \
+  C:\rj\IAR\arm\inc\c\DLib_Product.h \
+  C:\Users\macanlin\Desktop\Mindray_V1_1_7_5\Mindray_V1_1_7(19_dot_Collect)\Project\..\Source\CMSIS\inc\core_cmInstr.h \
+  C:\rj\IAR\arm\inc\c\cmsis_iar.h C:\rj\IAR\arm\inc\c/iccarm_builtin.h \
+  C:\Users\macanlin\Desktop\Mindray_V1_1_7_5\Mindray_V1_1_7(19_dot_Collect)\Project\..\Source\CMSIS\inc\core_cmFunc.h \
+  C:\Users\macanlin\Desktop\Mindray_V1_1_7_5\Mindray_V1_1_7(19_dot_Collect)\Project\..\Source\CMSIS\inc/system_stm32l0xx.h
