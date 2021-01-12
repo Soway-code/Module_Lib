@@ -1,0 +1,1593 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.4.261/W32 for ARM         10/Jan/2021  16:10:14
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode                        
+#    Endian                       =  little
+#    Source file                  =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\APP\Analog.c
+#    Command line                 =
+#        -f C:\Users\macanlin\AppData\Local\Temp\EWCDCA.tmp
+#        ("C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\APP\Analog.c" -D USE_STDPERIPH_DRIVER -D STM32F072 -lC
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List" -o
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj" --no_cse --no_unroll --no_inline
+#        --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug
+#        --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config
+#        C:\rj\IAR\arm\inc\c\DLib_Config_Normal.h -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\BSP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\CMSIS\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\OS_Cfg\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-CPU\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Ports\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Source\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\APP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -Ol -I
+#        C:\rj\IAR\arm\CMSIS\Core\Include\\ -I
+#        C:\rj\IAR\arm\CMSIS\DSP\Include\\)
+#    Locale                       =  C
+#    List file                    =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List\Analog.lst
+#    Object file                  =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj\Analog.o
+#    Runtime model:                  
+#      __SystemLibrary            =  DLib
+#      __dlib_file_descriptor     =  0
+#      __dlib_full_locale_support =  0
+#      __dlib_version             =  6
+#
+###############################################################################
+
+C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345 -1-9\Source\APP\Analog.c
+      1          #include "BSP.h"
+      2          #include "os_cfg_app.h"
+      3          
+      4          
+      5          #define AD_GROUP_MAX 40
+      6          #define AD_CHANNEL_MAX 1
+      7          #define AD_DELETE_NUM  10
+      8          
+      9          #define AD_FILTER_MAX 6
+     10          #define AD_FILTER_DELETE_NUM 1
+     11          
+     12          
+
+   \                                 In section .bss, align 4
+     13          vu16  usADC1ConvertedValue[AD_GROUP_MAX][AD_CHANNEL_MAX];
+   \                     usADC1ConvertedValue:
+   \        0x0                      DS8 80
+
+   \                                 In section .bss, align 4
+     14          u16  usADC1Value[AD_GROUP_MAX];
+   \                     usADC1Value:
+   \        0x0                      DS8 80
+     15          
+     16          typedef struct
+     17          {
+     18              unsigned long   FilterIndex;
+     19              unsigned short  usFilterBuf[AD_FILTER_MAX];
+     20          }struct_ADCFilter;
+     21          
+
+   \                                 In section .bss, align 4
+     22          struct_ADCFilter  ADC1Filter[AD_CHANNEL_MAX];
+   \                     ADC1Filter:
+   \        0x0                      DS8 16
+     23          
+
+   \                                 In section .bss, align 4
+     24          unsigned short  usFilterBuf[AD_FILTER_MAX];
+   \                     usFilterBuf:
+   \        0x0                      DS8 12
+     25          
+     26          static void ADC_Config(void);
+     27          static void DMA_Config(void);
+     28          
+     29          
+
+   \                                 In section .text, align 2, keep-with-next
+     30          static void ADC_Config(void)
+     31          {
+   \                     ADC_Config: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+   \        0x2   0xB088             SUB      SP,SP,#+32
+     32              ADC_InitTypeDef       ADC_InitStructure;
+     33              GPIO_InitTypeDef      GPIO_InitStructure;
+     34          
+     35              ADC_DeInit(ADC1);
+   \        0x4   0x....             LDR      R6,??DataTable1  ;; 0x40012400
+   \        0x6   0x0030             MOVS     R0,R6
+   \        0x8   0x....'....        BL       ADC_DeInit
+     36              RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
+   \        0xC   0x2101             MOVS     R1,#+1
+   \        0xE   0x2080             MOVS     R0,#+128
+   \       0x10   0x0280             LSLS     R0,R0,#+10       ;; #+131072
+   \       0x12   0x....'....        BL       RCC_AHBPeriphClockCmd
+     37              RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);
+   \       0x16   0x2101             MOVS     R1,#+1
+   \       0x18   0x2080             MOVS     R0,#+128
+   \       0x1A   0x0080             LSLS     R0,R0,#+2        ;; #+512
+   \       0x1C   0x....'....        BL       RCC_APB2PeriphClockCmd
+     38              RCC_ADCCLKConfig(RCC_ADCCLK_PCLK_Div4);
+   \       0x20   0x....             LDR      R0,??DataTable1_1  ;; 0x1004000
+   \       0x22   0x....'....        BL       RCC_ADCCLKConfig
+     39              GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;// | GPIO_Pin_1| GPIO_Pin_2| GPIO_Pin_3| GPIO_Pin_6| GPIO_Pin_7;
+   \       0x26   0x2401             MOVS     R4,#+1
+   \       0x28   0x9400             STR      R4,[SP, #+0]
+     40              GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
+   \       0x2A   0x4668             MOV      R0,SP
+   \       0x2C   0x2103             MOVS     R1,#+3
+   \       0x2E   0x7101             STRB     R1,[R0, #+4]
+     41              GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL ;
+   \       0x30   0x2500             MOVS     R5,#+0
+   \       0x32   0x0029             MOVS     R1,R5
+   \       0x34   0x71C1             STRB     R1,[R0, #+7]
+     42              GPIO_Init(GPIOA, &GPIO_InitStructure);
+   \       0x36   0x4669             MOV      R1,SP
+   \       0x38   0x2090             MOVS     R0,#+144
+   \       0x3A   0x05C0             LSLS     R0,R0,#+23       ;; #+1207959552
+   \       0x3C   0x....'....        BL       GPIO_Init
+     43          
+     44              
+     45              //GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1;
+     46              //GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
+     47              //GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL ;
+     48              //GPIO_Init(GPIOB, &GPIO_InitStructure);
+     49          
+     50              ADC_StructInit(&ADC_InitStructure);
+   \       0x40   0xA802             ADD      R0,SP,#+8
+   \       0x42   0x....'....        BL       ADC_StructInit
+     51              ADC_InitStructure.ADC_Resolution = ADC_Resolution_12b;
+   \       0x46   0x9502             STR      R5,[SP, #+8]
+     52              ADC_InitStructure.ADC_ContinuousConvMode = ENABLE;
+   \       0x48   0xA802             ADD      R0,SP,#+8
+   \       0x4A   0x7104             STRB     R4,[R0, #+4]
+     53              ADC_InitStructure.ADC_ExternalTrigConvEdge = ADC_ExternalTrigConvEdge_None;
+   \       0x4C   0x9504             STR      R5,[SP, #+16]
+     54              ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_T1_TRGO;
+   \       0x4E   0x9505             STR      R5,[SP, #+20]
+     55              ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+   \       0x50   0x9506             STR      R5,[SP, #+24]
+     56              ADC_InitStructure.ADC_ScanDirection = ADC_ScanDirection_Upward;
+   \       0x52   0x9507             STR      R5,[SP, #+28]
+     57              ADC_Init(ADC1, &ADC_InitStructure);
+   \       0x54   0xA902             ADD      R1,SP,#+8
+   \       0x56   0x0030             MOVS     R0,R6
+   \       0x58   0x....'....        BL       ADC_Init
+     58          
+     59              ADC_ChannelConfig(ADC1, ADC_Channel_0 , ADC_SampleTime_239_5Cycles);
+   \       0x5C   0x2207             MOVS     R2,#+7
+   \       0x5E   0x2101             MOVS     R1,#+1
+   \       0x60   0x0030             MOVS     R0,R6
+   \       0x62   0x....'....        BL       ADC_ChannelConfig
+     60              //ADC_ChannelConfig(ADC1, ADC_Channel_1 , ADC_SampleTime_239_5Cycles);
+     61              //ADC_ChannelConfig(ADC1, ADC_Channel_2 , ADC_SampleTime_239_5Cycles);
+     62              //ADC_ChannelConfig(ADC1, ADC_Channel_3, ADC_SampleTime_239_5Cycles);
+     63              //ADC_ChannelConfig(ADC1, ADC_Channel_6, ADC_SampleTime_239_5Cycles);
+     64              //ADC_ChannelConfig(ADC1, ADC_Channel_7, ADC_SampleTime_239_5Cycles);
+     65              //ADC_ChannelConfig(ADC1, ADC_Channel_8, ADC_SampleTime_239_5Cycles);
+     66              //ADC_ChannelConfig(ADC1, ADC_Channel_9, ADC_SampleTime_239_5Cycles);
+     67              
+     68              ADC_GetCalibrationFactor(ADC1);
+   \       0x66   0x0030             MOVS     R0,R6
+   \       0x68   0x....'....        BL       ADC_GetCalibrationFactor
+     69              ADC_DMARequestModeConfig(ADC1, ADC_DMAMode_Circular);  //????DMA?-?·?￡ê?
+   \       0x6C   0x2102             MOVS     R1,#+2
+   \       0x6E   0x0030             MOVS     R0,R6
+   \       0x70   0x....'....        BL       ADC_DMARequestModeConfig
+     70              ADC_Cmd(ADC1, ENABLE);
+   \       0x74   0x2101             MOVS     R1,#+1
+   \       0x76   0x0030             MOVS     R0,R6
+   \       0x78   0x....'....        BL       ADC_Cmd
+     71              ADC_DMACmd(ADC1, ENABLE);
+   \       0x7C   0x2101             MOVS     R1,#+1
+   \       0x7E   0x0030             MOVS     R0,R6
+   \       0x80   0x....'....        BL       ADC_DMACmd
+     72              while (!ADC_GetFlagStatus(ADC1, ADC_FLAG_ADRDY));
+   \                     ??ADC_Config_0: (+1)
+   \       0x84   0x2101             MOVS     R1,#+1
+   \       0x86   0x0030             MOVS     R0,R6
+   \       0x88   0x....'....        BL       ADC_GetFlagStatus
+   \       0x8C   0x2800             CMP      R0,#+0
+   \       0x8E   0xD0F9             BEQ      ??ADC_Config_0
+     73              ADC_StartOfConversion(ADC1);
+   \       0x90   0x0030             MOVS     R0,R6
+   \       0x92   0x....'....        BL       ADC_StartOfConversion
+     74          }
+   \       0x96   0xB008             ADD      SP,SP,#+32
+   \       0x98   0xBD70             POP      {R4-R6,PC}       ;; return
+     75          
+     76          
+
+   \                                 In section .text, align 2, keep-with-next
+     77          static void DMA_Config(void)
+     78          {
+   \                     DMA_Config: (+1)
+   \        0x0   0xB518             PUSH     {R3,R4,LR}
+   \        0x2   0xB08B             SUB      SP,SP,#+44
+     79              DMA_InitTypeDef  DMA_InitStructure;
+     80          
+     81              RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
+   \        0x4   0x2101             MOVS     R1,#+1
+   \        0x6   0x2001             MOVS     R0,#+1
+   \        0x8   0x....'....        BL       RCC_AHBPeriphClockCmd
+     82              DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t) & (ADC1->DR);
+   \        0xC   0x....             LDR      R0,??DataTable1_2  ;; 0x40012440
+   \        0xE   0x9000             STR      R0,[SP, #+0]
+     83              DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t) & usADC1ConvertedValue;
+   \       0x10   0x....             LDR      R0,??DataTable1_3
+   \       0x12   0x9001             STR      R0,[SP, #+4]
+     84              DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
+   \       0x14   0x2000             MOVS     R0,#+0
+   \       0x16   0x9002             STR      R0,[SP, #+8]
+     85              DMA_InitStructure.DMA_BufferSize = AD_GROUP_MAX * AD_CHANNEL_MAX;
+   \       0x18   0x2128             MOVS     R1,#+40
+   \       0x1A   0x9103             STR      R1,[SP, #+12]
+     86              DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+   \       0x1C   0x9004             STR      R0,[SP, #+16]
+     87              DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+   \       0x1E   0x2180             MOVS     R1,#+128
+   \       0x20   0x9105             STR      R1,[SP, #+20]
+     88              DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
+   \       0x22   0x2180             MOVS     R1,#+128
+   \       0x24   0x0049             LSLS     R1,R1,#+1        ;; #+256
+   \       0x26   0x9106             STR      R1,[SP, #+24]
+     89              DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+   \       0x28   0x2180             MOVS     R1,#+128
+   \       0x2A   0x00C9             LSLS     R1,R1,#+3        ;; #+1024
+   \       0x2C   0x9107             STR      R1,[SP, #+28]
+     90              DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;
+   \       0x2E   0x2120             MOVS     R1,#+32
+   \       0x30   0x9108             STR      R1,[SP, #+32]
+     91              DMA_InitStructure.DMA_Priority = DMA_Priority_High;
+   \       0x32   0x2180             MOVS     R1,#+128
+   \       0x34   0x0189             LSLS     R1,R1,#+6        ;; #+8192
+   \       0x36   0x9109             STR      R1,[SP, #+36]
+     92              DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
+   \       0x38   0x900A             STR      R0,[SP, #+40]
+     93              DMA_Init(DMA1_Channel1, &DMA_InitStructure);
+   \       0x3A   0x....             LDR      R4,??DataTable1_4  ;; 0x40020008
+   \       0x3C   0x4669             MOV      R1,SP
+   \       0x3E   0x0020             MOVS     R0,R4
+   \       0x40   0x....'....        BL       DMA_Init
+     94              DMA_Cmd(DMA1_Channel1, ENABLE);
+   \       0x44   0x2101             MOVS     R1,#+1
+   \       0x46   0x0020             MOVS     R0,R4
+   \       0x48   0x....'....        BL       DMA_Cmd
+     95          }
+   \       0x4C   0xB00C             ADD      SP,SP,#+48
+   \       0x4E   0xBD10             POP      {R4,PC}          ;; return
+     96          
+
+   \                                 In section .text, align 2, keep-with-next
+     97          void Analog_Init()
+     98          {
+   \                     Analog_Init: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+     99              ADC_Config();
+   \        0x2   0x....'....        BL       ADC_Config
+    100          
+    101              DMA_Config();
+   \        0x6   0x....'....        BL       DMA_Config
+    102          }
+   \        0xA   0xBD01             POP      {R0,PC}          ;; return
+    103          
+    104          
+    105          
+    106          extern u16 g_wRADValue; //实时采集Ad值
+    107          extern u16 g_wFADValue; //经过滤波Ad值
+    108          
+    109          #define ADC_MAX_CNT  300
+
+   \                                 In section .bss, align 4
+    110          u16 g_wAdcBuffer[ADC_MAX_CNT];
+   \                     g_wAdcBuffer:
+   \        0x0                      DS8 600
+
+   \                                 In section .bss, align 4
+    111          u16 g_wTempAdcBuffer[ADC_MAX_CNT];
+   \                     g_wTempAdcBuffer:
+   \        0x0                      DS8 600
+    112          //u16 g_wAdcMaxCnt;
+
+   \                                 In section .bss, align 2
+    113          u16 g_wAdcCnt;
+   \                     g_wAdcCnt:
+   \        0x0                      DS8 2
+    114          
+    115          extern u32 AD_Buff[5][10];                                                             //AD值缓存
+    116          extern u32 Weight_Buff[5][10];                                                         //载重值缓存
+    117          
+    118          
+    119          //根据AD和重量对应表计算
+
+   \                                 In section .text, align 2, keep-with-next
+    120          u32 AD_CalWeight(u16 ADValue, u32 AD_buff[][10], u32 Wei_buff[][10], u32 num)
+    121          {
+   \                     AD_CalWeight: (+1)
+   \        0x0   0xB5FD             PUSH     {R0,R2-R7,LR}
+   \        0x2   0xB084             SUB      SP,SP,#+16
+   \        0x4   0x000C             MOVS     R4,R1
+    122              int Weight, i = 0, j = 0, k = 0;
+   \        0x6   0x2000             MOVS     R0,#+0
+   \        0x8   0x2000             MOVS     R0,#+0
+   \        0xA   0x2000             MOVS     R0,#+0
+    123              u8 m, n, p, q, x, y;
+    124              float tana;
+    125              //u16 tmp=0;
+    126              for(i = 0; i < num; i++)
+   \        0xC   0x2600             MOVS     R6,#+0
+   \        0xE   0xE000             B        ??AD_CalWeight_0
+   \                     ??AD_CalWeight_1: (+1)
+   \       0x10   0x1C76             ADDS     R6,R6,#+1
+   \                     ??AD_CalWeight_0: (+1)
+   \       0x12   0x9806             LDR      R0,[SP, #+24]
+   \       0x14   0x4286             CMP      R6,R0
+   \       0x16   0xD226             BCS      ??AD_CalWeight_2
+    127              {
+    128                  m = (u8)(i / 10);
+   \       0x18   0x250A             MOVS     R5,#+10
+   \       0x1A   0x0030             MOVS     R0,R6
+   \       0x1C   0x0029             MOVS     R1,R5
+   \       0x1E   0x....'....        BL       __aeabi_idiv
+   \       0x22   0x0007             MOVS     R7,R0
+    129                  n = (u8)(i % 10);
+   \       0x24   0x0030             MOVS     R0,R6
+   \       0x26   0x0029             MOVS     R1,R5
+   \       0x28   0x....'....        BL       __aeabi_idivmod
+   \       0x2C   0x4668             MOV      R0,SP
+   \       0x2E   0x7101             STRB     R1,[R0, #+4]
+    130                  if((*(*(&AD_buff[0] + m) + n) == 0xFFFFFFFF) 
+    131                  || (*(*(&Wei_buff[0] + m) + n)== 0xFFFFFFFF))                           //检测标定了多少组数据
+   \       0x30   0x2000             MOVS     R0,#+0
+   \       0x32   0x43C0             MVNS     R0,R0            ;; #-1
+   \       0x34   0x0039             MOVS     R1,R7
+   \       0x36   0xB2C9             UXTB     R1,R1
+   \       0x38   0x2228             MOVS     R2,#+40
+   \       0x3A   0x4351             MULS     R1,R2,R1
+   \       0x3C   0x1861             ADDS     R1,R4,R1
+   \       0x3E   0x466A             MOV      R2,SP
+   \       0x40   0x7912             LDRB     R2,[R2, #+4]
+   \       0x42   0x2304             MOVS     R3,#+4
+   \       0x44   0x435A             MULS     R2,R3,R2
+   \       0x46   0x5889             LDR      R1,[R1, R2]
+   \       0x48   0x4281             CMP      R1,R0
+   \       0x4A   0xD00C             BEQ      ??AD_CalWeight_3
+   \       0x4C   0x9905             LDR      R1,[SP, #+20]
+   \       0x4E   0x003A             MOVS     R2,R7
+   \       0x50   0xB2D2             UXTB     R2,R2
+   \       0x52   0x2328             MOVS     R3,#+40
+   \       0x54   0x435A             MULS     R2,R3,R2
+   \       0x56   0x1889             ADDS     R1,R1,R2
+   \       0x58   0x466A             MOV      R2,SP
+   \       0x5A   0x7912             LDRB     R2,[R2, #+4]
+   \       0x5C   0x2304             MOVS     R3,#+4
+   \       0x5E   0x435A             MULS     R2,R3,R2
+   \       0x60   0x5889             LDR      R1,[R1, R2]
+   \       0x62   0x4281             CMP      R1,R0
+   \       0x64   0xD1D4             BNE      ??AD_CalWeight_1
+    132                  {
+    133                      break;
+    134                  }  
+    135              }
+    136              j = k = i;                                                                  //标定了j组数据
+   \                     ??AD_CalWeight_3: (+1)
+   \                     ??AD_CalWeight_2: (+1)
+   \       0x66   0x9602             STR      R6,[SP, #+8]
+    137          
+    138              if(j == 0 || j == 1)                                                        //没有标定数组或只标定了一组，计算重量为0
+   \       0x68   0x9802             LDR      R0,[SP, #+8]
+   \       0x6A   0x2800             CMP      R0,#+0
+   \       0x6C   0xD002             BEQ      ??AD_CalWeight_4
+   \       0x6E   0x9802             LDR      R0,[SP, #+8]
+   \       0x70   0x2801             CMP      R0,#+1
+   \       0x72   0xD101             BNE      ??AD_CalWeight_5
+    139              {
+    140                  return 0;
+   \                     ??AD_CalWeight_4: (+1)
+   \       0x74   0x2000             MOVS     R0,#+0
+   \       0x76   0xE176             B        ??AD_CalWeight_6
+    141              }
+    142              
+    143              p = (u8)((k - 1) / 10);
+   \                     ??AD_CalWeight_5: (+1)
+   \       0x78   0x1E70             SUBS     R0,R6,#+1
+   \       0x7A   0x210A             MOVS     R1,#+10
+   \       0x7C   0x....'....        BL       __aeabi_idiv
+   \       0x80   0x4669             MOV      R1,SP
+   \       0x82   0x7048             STRB     R0,[R1, #+1]
+    144              q = (u8)((k - 1) % 10);
+   \       0x84   0x1E70             SUBS     R0,R6,#+1
+   \       0x86   0x210A             MOVS     R1,#+10
+   \       0x88   0x....'....        BL       __aeabi_idivmod
+   \       0x8C   0x4668             MOV      R0,SP
+   \       0x8E   0x7001             STRB     R1,[R0, #+0]
+    145              x = (u8)((k - 2) / 10);
+   \       0x90   0x1EB0             SUBS     R0,R6,#+2
+   \       0x92   0x210A             MOVS     R1,#+10
+   \       0x94   0x....'....        BL       __aeabi_idiv
+   \       0x98   0x0005             MOVS     R5,R0
+    146              y = (u8)((k - 2) % 10);
+   \       0x9A   0x1EB6             SUBS     R6,R6,#+2
+   \       0x9C   0x0030             MOVS     R0,R6
+   \       0x9E   0x210A             MOVS     R1,#+10
+   \       0xA0   0x....'....        BL       __aeabi_idivmod
+   \       0xA4   0x000E             MOVS     R6,R1
+    147              
+    148                 
+    149             if(ADValue >= *(*(&AD_buff[0] + p) + q))                                    //AD大于最后一个标定的AD值,用最后一条直线算
+   \       0xA6   0x4668             MOV      R0,SP
+   \       0xA8   0x8A00             LDRH     R0,[R0, #+16]
+   \       0xAA   0x4669             MOV      R1,SP
+   \       0xAC   0x7849             LDRB     R1,[R1, #+1]
+   \       0xAE   0x2228             MOVS     R2,#+40
+   \       0xB0   0x4351             MULS     R1,R2,R1
+   \       0xB2   0x1861             ADDS     R1,R4,R1
+   \       0xB4   0x466A             MOV      R2,SP
+   \       0xB6   0x7812             LDRB     R2,[R2, #+0]
+   \       0xB8   0x2304             MOVS     R3,#+4
+   \       0xBA   0x435A             MULS     R2,R3,R2
+   \       0xBC   0x5889             LDR      R1,[R1, R2]
+   \       0xBE   0x4288             CMP      R0,R1
+   \       0xC0   0xD37B             BCC      ??AD_CalWeight_7
+    150              {
+    151                  if(*(*(&AD_buff[0] + p) + q) -  *(*(&AD_buff[0] + x) + y) == 0)
+   \       0xC2   0x4668             MOV      R0,SP
+   \       0xC4   0x7840             LDRB     R0,[R0, #+1]
+   \       0xC6   0x2128             MOVS     R1,#+40
+   \       0xC8   0x4348             MULS     R0,R1,R0
+   \       0xCA   0x1820             ADDS     R0,R4,R0
+   \       0xCC   0x4669             MOV      R1,SP
+   \       0xCE   0x7809             LDRB     R1,[R1, #+0]
+   \       0xD0   0x2204             MOVS     R2,#+4
+   \       0xD2   0x4351             MULS     R1,R2,R1
+   \       0xD4   0x5840             LDR      R0,[R0, R1]
+   \       0xD6   0x0029             MOVS     R1,R5
+   \       0xD8   0xB2C9             UXTB     R1,R1
+   \       0xDA   0x2228             MOVS     R2,#+40
+   \       0xDC   0x4351             MULS     R1,R2,R1
+   \       0xDE   0x1861             ADDS     R1,R4,R1
+   \       0xE0   0x0032             MOVS     R2,R6
+   \       0xE2   0xB2D2             UXTB     R2,R2
+   \       0xE4   0x2304             MOVS     R3,#+4
+   \       0xE6   0x435A             MULS     R2,R3,R2
+   \       0xE8   0x5889             LDR      R1,[R1, R2]
+   \       0xEA   0x1A40             SUBS     R0,R0,R1
+   \       0xEC   0x2800             CMP      R0,#+0
+   \       0xEE   0xD109             BNE      ??AD_CalWeight_8
+    152                  {
+    153                      return *(*(&Wei_buff[0] + x) + y);
+   \       0xF0   0x9805             LDR      R0,[SP, #+20]
+   \       0xF2   0xB2ED             UXTB     R5,R5
+   \       0xF4   0x2128             MOVS     R1,#+40
+   \       0xF6   0x434D             MULS     R5,R1,R5
+   \       0xF8   0x1940             ADDS     R0,R0,R5
+   \       0xFA   0xB2F6             UXTB     R6,R6
+   \       0xFC   0x2104             MOVS     R1,#+4
+   \       0xFE   0x434E             MULS     R6,R1,R6
+   \      0x100   0x5980             LDR      R0,[R0, R6]
+   \      0x102   0xE130             B        ??AD_CalWeight_6
+    154                  }
+    155                  tana =  (*(*(&Wei_buff[0] + p) + q) -  *(*(&Wei_buff[0] + x) + y)) * 1.0f / (*(*(&AD_buff[0] + p) + q) -  *(*(&AD_buff[0] + x) + y));
+   \                     ??AD_CalWeight_8: (+1)
+   \      0x104   0x9805             LDR      R0,[SP, #+20]
+   \      0x106   0x4669             MOV      R1,SP
+   \      0x108   0x7849             LDRB     R1,[R1, #+1]
+   \      0x10A   0x2228             MOVS     R2,#+40
+   \      0x10C   0x4351             MULS     R1,R2,R1
+   \      0x10E   0x1840             ADDS     R0,R0,R1
+   \      0x110   0x4669             MOV      R1,SP
+   \      0x112   0x7809             LDRB     R1,[R1, #+0]
+   \      0x114   0x2204             MOVS     R2,#+4
+   \      0x116   0x4351             MULS     R1,R2,R1
+   \      0x118   0x5840             LDR      R0,[R0, R1]
+   \      0x11A   0x9905             LDR      R1,[SP, #+20]
+   \      0x11C   0x002A             MOVS     R2,R5
+   \      0x11E   0xB2D2             UXTB     R2,R2
+   \      0x120   0x2328             MOVS     R3,#+40
+   \      0x122   0x435A             MULS     R2,R3,R2
+   \      0x124   0x1889             ADDS     R1,R1,R2
+   \      0x126   0x0032             MOVS     R2,R6
+   \      0x128   0xB2D2             UXTB     R2,R2
+   \      0x12A   0x2304             MOVS     R3,#+4
+   \      0x12C   0x435A             MULS     R2,R3,R2
+   \      0x12E   0x5889             LDR      R1,[R1, R2]
+   \      0x130   0x1A40             SUBS     R0,R0,R1
+   \      0x132   0x....'....        BL       __aeabi_ui2f
+   \      0x136   0x0007             MOVS     R7,R0
+   \      0x138   0x4668             MOV      R0,SP
+   \      0x13A   0x7840             LDRB     R0,[R0, #+1]
+   \      0x13C   0x2128             MOVS     R1,#+40
+   \      0x13E   0x4348             MULS     R0,R1,R0
+   \      0x140   0x1820             ADDS     R0,R4,R0
+   \      0x142   0x4669             MOV      R1,SP
+   \      0x144   0x7809             LDRB     R1,[R1, #+0]
+   \      0x146   0x2204             MOVS     R2,#+4
+   \      0x148   0x4351             MULS     R1,R2,R1
+   \      0x14A   0x5840             LDR      R0,[R0, R1]
+   \      0x14C   0x0029             MOVS     R1,R5
+   \      0x14E   0xB2C9             UXTB     R1,R1
+   \      0x150   0x2228             MOVS     R2,#+40
+   \      0x152   0x4351             MULS     R1,R2,R1
+   \      0x154   0x1861             ADDS     R1,R4,R1
+   \      0x156   0x0032             MOVS     R2,R6
+   \      0x158   0xB2D2             UXTB     R2,R2
+   \      0x15A   0x2304             MOVS     R3,#+4
+   \      0x15C   0x435A             MULS     R2,R3,R2
+   \      0x15E   0x5889             LDR      R1,[R1, R2]
+   \      0x160   0x1A40             SUBS     R0,R0,R1
+   \      0x162   0x....'....        BL       __aeabi_ui2f
+   \      0x166   0x0001             MOVS     R1,R0
+   \      0x168   0x0038             MOVS     R0,R7
+   \      0x16A   0x....'....        BL       __aeabi_fdiv
+   \      0x16E   0x0007             MOVS     R7,R0
+    156                  
+    157                  return *(*(&Wei_buff[0] + x) + y) + (u32)(tana * (ADValue - *(*(&AD_buff[0] + x) + y)) + 0.5f);
+   \      0x170   0x9805             LDR      R0,[SP, #+20]
+   \      0x172   0x0029             MOVS     R1,R5
+   \      0x174   0xB2C9             UXTB     R1,R1
+   \      0x176   0x2228             MOVS     R2,#+40
+   \      0x178   0x4351             MULS     R1,R2,R1
+   \      0x17A   0x1840             ADDS     R0,R0,R1
+   \      0x17C   0x0031             MOVS     R1,R6
+   \      0x17E   0xB2C9             UXTB     R1,R1
+   \      0x180   0x2204             MOVS     R2,#+4
+   \      0x182   0x4351             MULS     R1,R2,R1
+   \      0x184   0x5841             LDR      R1,[R0, R1]
+   \      0x186   0x9100             STR      R1,[SP, #+0]
+   \      0x188   0x4668             MOV      R0,SP
+   \      0x18A   0x8A00             LDRH     R0,[R0, #+16]
+   \      0x18C   0xB2ED             UXTB     R5,R5
+   \      0x18E   0x2128             MOVS     R1,#+40
+   \      0x190   0x434D             MULS     R5,R1,R5
+   \      0x192   0x1961             ADDS     R1,R4,R5
+   \      0x194   0xB2F6             UXTB     R6,R6
+   \      0x196   0x2204             MOVS     R2,#+4
+   \      0x198   0x4356             MULS     R6,R2,R6
+   \      0x19A   0x5989             LDR      R1,[R1, R6]
+   \      0x19C   0x1A40             SUBS     R0,R0,R1
+   \      0x19E   0x....'....        BL       __aeabi_ui2f
+   \      0x1A2   0x0039             MOVS     R1,R7
+   \      0x1A4   0x....'....        BL       __aeabi_fmul
+   \      0x1A8   0x21FC             MOVS     R1,#+252
+   \      0x1AA   0x0589             LSLS     R1,R1,#+22       ;; #+1056964608
+   \      0x1AC   0x....'....        BL       __aeabi_fadd
+   \      0x1B0   0x....'....        BL       __aeabi_f2uiz
+   \      0x1B4   0x9900             LDR      R1,[SP, #+0]
+   \      0x1B6   0x1808             ADDS     R0,R1,R0
+   \      0x1B8   0xE0D5             B        ??AD_CalWeight_6
+    158              }
+    159              for(i = 0; i < j; i++)                                                      //检测AD值在哪个范围
+   \                     ??AD_CalWeight_7: (+1)
+   \      0x1BA   0x2600             MOVS     R6,#+0
+   \      0x1BC   0xE000             B        ??AD_CalWeight_9
+   \                     ??AD_CalWeight_10: (+1)
+   \      0x1BE   0x1C76             ADDS     R6,R6,#+1
+   \                     ??AD_CalWeight_9: (+1)
+   \      0x1C0   0x9802             LDR      R0,[SP, #+8]
+   \      0x1C2   0x4286             CMP      R6,R0
+   \      0x1C4   0xDA19             BGE      ??AD_CalWeight_11
+    160              {
+    161                  m = (u8)(i / 10);
+   \      0x1C6   0x250A             MOVS     R5,#+10
+   \      0x1C8   0x0030             MOVS     R0,R6
+   \      0x1CA   0x0029             MOVS     R1,R5
+   \      0x1CC   0x....'....        BL       __aeabi_idiv
+   \      0x1D0   0x0007             MOVS     R7,R0
+    162                  n = (u8)(i % 10);
+   \      0x1D2   0x0030             MOVS     R0,R6
+   \      0x1D4   0x0029             MOVS     R1,R5
+   \      0x1D6   0x....'....        BL       __aeabi_idivmod
+   \      0x1DA   0x4668             MOV      R0,SP
+   \      0x1DC   0x7101             STRB     R1,[R0, #+4]
+    163                  if(ADValue <= *(*(&AD_buff[0] + m) + n))                                //检测到AD所在区间段
+   \      0x1DE   0x0038             MOVS     R0,R7
+   \      0x1E0   0xB2C0             UXTB     R0,R0
+   \      0x1E2   0x2128             MOVS     R1,#+40
+   \      0x1E4   0x4348             MULS     R0,R1,R0
+   \      0x1E6   0x1820             ADDS     R0,R4,R0
+   \      0x1E8   0x4669             MOV      R1,SP
+   \      0x1EA   0x7909             LDRB     R1,[R1, #+4]
+   \      0x1EC   0x2204             MOVS     R2,#+4
+   \      0x1EE   0x4351             MULS     R1,R2,R1
+   \      0x1F0   0x5840             LDR      R0,[R0, R1]
+   \      0x1F2   0x4669             MOV      R1,SP
+   \      0x1F4   0x8A09             LDRH     R1,[R1, #+16]
+   \      0x1F6   0x4288             CMP      R0,R1
+   \      0x1F8   0xD3E1             BCC      ??AD_CalWeight_10
+    164                  {
+    165                      break;
+    166                  }
+    167              }
+    168          
+    169              if(i == 0)                                                                  //小于第一个标定的数据
+   \                     ??AD_CalWeight_11: (+1)
+   \      0x1FA   0x2E00             CMP      R6,#+0
+   \      0x1FC   0xD12F             BNE      ??AD_CalWeight_12
+    170              {
+    171                  if(*(*(&AD_buff[0]) + 1) - **(&AD_buff[0]) == 0)                        //防止除0
+   \      0x1FE   0x6860             LDR      R0,[R4, #+4]
+   \      0x200   0x6821             LDR      R1,[R4, #+0]
+   \      0x202   0x1A40             SUBS     R0,R0,R1
+   \      0x204   0x2800             CMP      R0,#+0
+   \      0x206   0xD102             BNE      ??AD_CalWeight_13
+    172                  {
+    173                      return **(&Wei_buff[0]);
+   \      0x208   0x9805             LDR      R0,[SP, #+20]
+   \      0x20A   0x6800             LDR      R0,[R0, #+0]
+   \      0x20C   0xE0AB             B        ??AD_CalWeight_6
+    174                  }
+    175                  tana =(float)((*(*(&Wei_buff[0]) + 1) - **(&Wei_buff[0])) * 1.0f / (*(*(&AD_buff[0]) + 1) - **(&AD_buff[0])));
+   \                     ??AD_CalWeight_13: (+1)
+   \      0x20E   0x9805             LDR      R0,[SP, #+20]
+   \      0x210   0x6840             LDR      R0,[R0, #+4]
+   \      0x212   0x9905             LDR      R1,[SP, #+20]
+   \      0x214   0x6809             LDR      R1,[R1, #+0]
+   \      0x216   0x1A40             SUBS     R0,R0,R1
+   \      0x218   0x....'....        BL       __aeabi_ui2f
+   \      0x21C   0x0005             MOVS     R5,R0
+   \      0x21E   0x6860             LDR      R0,[R4, #+4]
+   \      0x220   0x6821             LDR      R1,[R4, #+0]
+   \      0x222   0x1A40             SUBS     R0,R0,R1
+   \      0x224   0x....'....        BL       __aeabi_ui2f
+   \      0x228   0x0001             MOVS     R1,R0
+   \      0x22A   0x0028             MOVS     R0,R5
+   \      0x22C   0x....'....        BL       __aeabi_fdiv
+   \      0x230   0x0005             MOVS     R5,R0
+    176                  Weight = **(&Wei_buff[0]) - (u32)((**(&AD_buff[0]) - ADValue) * tana + 0.5f);
+   \      0x232   0x9805             LDR      R0,[SP, #+20]
+   \      0x234   0x6806             LDR      R6,[R0, #+0]
+   \      0x236   0x6820             LDR      R0,[R4, #+0]
+   \      0x238   0x4669             MOV      R1,SP
+   \      0x23A   0x8A09             LDRH     R1,[R1, #+16]
+   \      0x23C   0x1A40             SUBS     R0,R0,R1
+   \      0x23E   0x....'....        BL       __aeabi_ui2f
+   \      0x242   0x0029             MOVS     R1,R5
+   \      0x244   0x....'....        BL       __aeabi_fmul
+   \      0x248   0x21FC             MOVS     R1,#+252
+   \      0x24A   0x0589             LSLS     R1,R1,#+22       ;; #+1056964608
+   \      0x24C   0x....'....        BL       __aeabi_fadd
+   \      0x250   0x....'....        BL       __aeabi_f2uiz
+   \      0x254   0x1A30             SUBS     R0,R6,R0
+    177                  if(Weight < 0)
+   \      0x256   0x2800             CMP      R0,#+0
+   \      0x258   0xD500             BPL      ??AD_CalWeight_14
+    178                  {
+    179                      Weight = 0;
+   \      0x25A   0x2000             MOVS     R0,#+0
+    180                  }
+    181                  return Weight;
+   \                     ??AD_CalWeight_14: (+1)
+   \      0x25C   0xE083             B        ??AD_CalWeight_6
+    182              }
+    183              else
+    184              {
+    185                  p = (u8)((i - 1) / 10);
+   \                     ??AD_CalWeight_12: (+1)
+   \      0x25E   0x1E70             SUBS     R0,R6,#+1
+   \      0x260   0x210A             MOVS     R1,#+10
+   \      0x262   0x....'....        BL       __aeabi_idiv
+   \      0x266   0x0005             MOVS     R5,R0
+    186                  q = (u8)((i - 1) % 10); 
+   \      0x268   0x1E76             SUBS     R6,R6,#+1
+   \      0x26A   0x0030             MOVS     R0,R6
+   \      0x26C   0x210A             MOVS     R1,#+10
+   \      0x26E   0x....'....        BL       __aeabi_idivmod
+   \      0x272   0x000E             MOVS     R6,R1
+    187                  if(*(*(&AD_buff[0] + m) + n) - *(*(&AD_buff[0] + p) + q) == 0)
+   \      0x274   0x0038             MOVS     R0,R7
+   \      0x276   0xB2C0             UXTB     R0,R0
+   \      0x278   0x2128             MOVS     R1,#+40
+   \      0x27A   0x4348             MULS     R0,R1,R0
+   \      0x27C   0x1820             ADDS     R0,R4,R0
+   \      0x27E   0x4669             MOV      R1,SP
+   \      0x280   0x7909             LDRB     R1,[R1, #+4]
+   \      0x282   0x2204             MOVS     R2,#+4
+   \      0x284   0x4351             MULS     R1,R2,R1
+   \      0x286   0x5840             LDR      R0,[R0, R1]
+   \      0x288   0x0029             MOVS     R1,R5
+   \      0x28A   0xB2C9             UXTB     R1,R1
+   \      0x28C   0x2228             MOVS     R2,#+40
+   \      0x28E   0x4351             MULS     R1,R2,R1
+   \      0x290   0x1861             ADDS     R1,R4,R1
+   \      0x292   0x0032             MOVS     R2,R6
+   \      0x294   0xB2D2             UXTB     R2,R2
+   \      0x296   0x2304             MOVS     R3,#+4
+   \      0x298   0x435A             MULS     R2,R3,R2
+   \      0x29A   0x5889             LDR      R1,[R1, R2]
+   \      0x29C   0x1A40             SUBS     R0,R0,R1
+   \      0x29E   0x2800             CMP      R0,#+0
+   \      0x2A0   0xD108             BNE      ??AD_CalWeight_15
+    188                  {
+    189                      return *(*(&AD_buff[0] + p) + q);
+   \      0x2A2   0xB2ED             UXTB     R5,R5
+   \      0x2A4   0x2028             MOVS     R0,#+40
+   \      0x2A6   0x4345             MULS     R5,R0,R5
+   \      0x2A8   0x1960             ADDS     R0,R4,R5
+   \      0x2AA   0xB2F6             UXTB     R6,R6
+   \      0x2AC   0x2104             MOVS     R1,#+4
+   \      0x2AE   0x434E             MULS     R6,R1,R6
+   \      0x2B0   0x5980             LDR      R0,[R0, R6]
+   \      0x2B2   0xE058             B        ??AD_CalWeight_6
+    190                  }
+    191          
+    192                  tana =(float)((*(*(&Wei_buff[0] + m) + n) - *(*(&Wei_buff[0] + p) + q)) * 1.0f / (*(*(&AD_buff[0] + m) + n) - *(*(&AD_buff[0] + p) + q)));    
+   \                     ??AD_CalWeight_15: (+1)
+   \      0x2B4   0x9805             LDR      R0,[SP, #+20]
+   \      0x2B6   0x0039             MOVS     R1,R7
+   \      0x2B8   0xB2C9             UXTB     R1,R1
+   \      0x2BA   0x2228             MOVS     R2,#+40
+   \      0x2BC   0x4351             MULS     R1,R2,R1
+   \      0x2BE   0x1840             ADDS     R0,R0,R1
+   \      0x2C0   0x4669             MOV      R1,SP
+   \      0x2C2   0x7909             LDRB     R1,[R1, #+4]
+   \      0x2C4   0x2204             MOVS     R2,#+4
+   \      0x2C6   0x4351             MULS     R1,R2,R1
+   \      0x2C8   0x5840             LDR      R0,[R0, R1]
+   \      0x2CA   0x9905             LDR      R1,[SP, #+20]
+   \      0x2CC   0x002A             MOVS     R2,R5
+   \      0x2CE   0xB2D2             UXTB     R2,R2
+   \      0x2D0   0x2328             MOVS     R3,#+40
+   \      0x2D2   0x435A             MULS     R2,R3,R2
+   \      0x2D4   0x1889             ADDS     R1,R1,R2
+   \      0x2D6   0x0032             MOVS     R2,R6
+   \      0x2D8   0xB2D2             UXTB     R2,R2
+   \      0x2DA   0x2304             MOVS     R3,#+4
+   \      0x2DC   0x435A             MULS     R2,R3,R2
+   \      0x2DE   0x5889             LDR      R1,[R1, R2]
+   \      0x2E0   0x1A40             SUBS     R0,R0,R1
+   \      0x2E2   0x....'....        BL       __aeabi_ui2f
+   \      0x2E6   0x9000             STR      R0,[SP, #+0]
+   \      0x2E8   0xB2FF             UXTB     R7,R7
+   \      0x2EA   0x2028             MOVS     R0,#+40
+   \      0x2EC   0x4347             MULS     R7,R0,R7
+   \      0x2EE   0x19E0             ADDS     R0,R4,R7
+   \      0x2F0   0x4669             MOV      R1,SP
+   \      0x2F2   0x7909             LDRB     R1,[R1, #+4]
+   \      0x2F4   0x2204             MOVS     R2,#+4
+   \      0x2F6   0x4351             MULS     R1,R2,R1
+   \      0x2F8   0x5840             LDR      R0,[R0, R1]
+   \      0x2FA   0x0029             MOVS     R1,R5
+   \      0x2FC   0xB2C9             UXTB     R1,R1
+   \      0x2FE   0x2228             MOVS     R2,#+40
+   \      0x300   0x4351             MULS     R1,R2,R1
+   \      0x302   0x1861             ADDS     R1,R4,R1
+   \      0x304   0x0032             MOVS     R2,R6
+   \      0x306   0xB2D2             UXTB     R2,R2
+   \      0x308   0x2304             MOVS     R3,#+4
+   \      0x30A   0x435A             MULS     R2,R3,R2
+   \      0x30C   0x5889             LDR      R1,[R1, R2]
+   \      0x30E   0x1A40             SUBS     R0,R0,R1
+   \      0x310   0x....'....        BL       __aeabi_ui2f
+   \      0x314   0x0001             MOVS     R1,R0
+   \      0x316   0x9800             LDR      R0,[SP, #+0]
+   \      0x318   0x....'....        BL       __aeabi_fdiv
+   \      0x31C   0x0007             MOVS     R7,R0
+    193                      
+    194                  return *(*(&Wei_buff[0] + p) + q) + (u32)((ADValue - *(*(&AD_buff[0] + p) + q)) * tana + 0.5f);
+   \      0x31E   0x9805             LDR      R0,[SP, #+20]
+   \      0x320   0x0029             MOVS     R1,R5
+   \      0x322   0xB2C9             UXTB     R1,R1
+   \      0x324   0x2228             MOVS     R2,#+40
+   \      0x326   0x4351             MULS     R1,R2,R1
+   \      0x328   0x1840             ADDS     R0,R0,R1
+   \      0x32A   0x0031             MOVS     R1,R6
+   \      0x32C   0xB2C9             UXTB     R1,R1
+   \      0x32E   0x2204             MOVS     R2,#+4
+   \      0x330   0x4351             MULS     R1,R2,R1
+   \      0x332   0x5841             LDR      R1,[R0, R1]
+   \      0x334   0x9100             STR      R1,[SP, #+0]
+   \      0x336   0x4668             MOV      R0,SP
+   \      0x338   0x8A00             LDRH     R0,[R0, #+16]
+   \      0x33A   0xB2ED             UXTB     R5,R5
+   \      0x33C   0x2128             MOVS     R1,#+40
+   \      0x33E   0x434D             MULS     R5,R1,R5
+   \      0x340   0x1961             ADDS     R1,R4,R5
+   \      0x342   0xB2F6             UXTB     R6,R6
+   \      0x344   0x2204             MOVS     R2,#+4
+   \      0x346   0x4356             MULS     R6,R2,R6
+   \      0x348   0x5989             LDR      R1,[R1, R6]
+   \      0x34A   0x1A40             SUBS     R0,R0,R1
+   \      0x34C   0x....'....        BL       __aeabi_ui2f
+   \      0x350   0x0039             MOVS     R1,R7
+   \      0x352   0x....'....        BL       __aeabi_fmul
+   \      0x356   0x21FC             MOVS     R1,#+252
+   \      0x358   0x0589             LSLS     R1,R1,#+22       ;; #+1056964608
+   \      0x35A   0x....'....        BL       __aeabi_fadd
+   \      0x35E   0x....'....        BL       __aeabi_f2uiz
+   \      0x362   0x9900             LDR      R1,[SP, #+0]
+   \      0x364   0x1808             ADDS     R0,R1,R0
+   \                     ??AD_CalWeight_6: (+1)
+   \      0x366   0xB007             ADD      SP,SP,#+28
+   \      0x368   0xBDF0             POP      {R4-R7,PC}       ;; return
+    195              }
+    196          }
+    197          
+    198          
+
+   \                                 In section .text, align 2, keep-with-next
+    199          u16 HandleADValue(u16 *pWBuffer, u16 wLen)
+    200          {
+   \                     HandleADValue: (+1)
+   \        0x0   0xB5F0             PUSH     {R4-R7,LR}
+   \        0x2   0x0002             MOVS     R2,R0
+    201              u16 wTemp;
+    202              u16 i;
+    203              u16 j;
+    204              u32 dwSum;
+    205              
+    206              for (i = 0; i < wLen; i++)                                                  //把AD值装进数组
+   \        0x4   0x2000             MOVS     R0,#+0
+   \        0x6   0x0003             MOVS     R3,R0
+   \        0x8   0xE00B             B        ??HandleADValue_0
+    207              {
+    208                  g_wTempAdcBuffer[i] = *(pWBuffer + i);
+   \                     ??HandleADValue_1: (+1)
+   \        0xA   0x001C             MOVS     R4,R3
+   \        0xC   0xB2A4             UXTH     R4,R4
+   \        0xE   0x2502             MOVS     R5,#+2
+   \       0x10   0x4365             MULS     R5,R4,R5
+   \       0x12   0x5B54             LDRH     R4,[R2, R5]
+   \       0x14   0x....             LDR      R5,??DataTable5_10
+   \       0x16   0x001E             MOVS     R6,R3
+   \       0x18   0xB2B6             UXTH     R6,R6
+   \       0x1A   0x2702             MOVS     R7,#+2
+   \       0x1C   0x4377             MULS     R7,R6,R7
+   \       0x1E   0x53EC             STRH     R4,[R5, R7]
+    209              }
+   \       0x20   0x1C5B             ADDS     R3,R3,#+1
+   \                     ??HandleADValue_0: (+1)
+   \       0x22   0x001C             MOVS     R4,R3
+   \       0x24   0x000D             MOVS     R5,R1
+   \       0x26   0xB2A4             UXTH     R4,R4
+   \       0x28   0xB2AD             UXTH     R5,R5
+   \       0x2A   0x42AC             CMP      R4,R5
+   \       0x2C   0xD3ED             BCC      ??HandleADValue_1
+    210          
+    211              for (i = 0; i < wLen; i++)                                                  //从小到大排序
+   \       0x2E   0x0002             MOVS     R2,R0
+   \       0x30   0xE026             B        ??HandleADValue_2
+    212              {
+    213                  wTemp = g_wTempAdcBuffer[i];
+    214                  for (j = i + 1; j < wLen; j++)
+    215                  {
+    216                      if (wTemp > g_wTempAdcBuffer[j])
+   \                     ??HandleADValue_3: (+1)
+   \       0x32   0x0026             MOVS     R6,R4
+   \       0x34   0xB2B6             UXTH     R6,R6
+   \       0x36   0x2702             MOVS     R7,#+2
+   \       0x38   0x4377             MULS     R7,R6,R7
+   \       0x3A   0x5BEE             LDRH     R6,[R5, R7]
+   \       0x3C   0x001F             MOVS     R7,R3
+   \       0x3E   0xB2BF             UXTH     R7,R7
+   \       0x40   0x42BE             CMP      R6,R7
+   \       0x42   0xD215             BCS      ??HandleADValue_4
+    217                      {
+    218                          g_wTempAdcBuffer[i] = g_wTempAdcBuffer[j];
+   \       0x44   0x0026             MOVS     R6,R4
+   \       0x46   0xB2B6             UXTH     R6,R6
+   \       0x48   0x2702             MOVS     R7,#+2
+   \       0x4A   0x4377             MULS     R7,R6,R7
+   \       0x4C   0x5BEF             LDRH     R7,[R5, R7]
+   \       0x4E   0x46BC             MOV      R12,R7
+   \       0x50   0x0017             MOVS     R7,R2
+   \       0x52   0xB2BF             UXTH     R7,R7
+   \       0x54   0x2602             MOVS     R6,#+2
+   \       0x56   0x437E             MULS     R6,R7,R6
+   \       0x58   0x4667             MOV      R7,R12
+   \       0x5A   0x53AF             STRH     R7,[R5, R6]
+    219                          g_wTempAdcBuffer[j] = wTemp;
+   \       0x5C   0x0026             MOVS     R6,R4
+   \       0x5E   0xB2B6             UXTH     R6,R6
+   \       0x60   0x2702             MOVS     R7,#+2
+   \       0x62   0x4377             MULS     R7,R6,R7
+   \       0x64   0x53EB             STRH     R3,[R5, R7]
+    220                          wTemp = g_wTempAdcBuffer[i];
+   \       0x66   0x0013             MOVS     R3,R2
+   \       0x68   0xB29B             UXTH     R3,R3
+   \       0x6A   0x2602             MOVS     R6,#+2
+   \       0x6C   0x435E             MULS     R6,R3,R6
+   \       0x6E   0x5BAB             LDRH     R3,[R5, R6]
+    221                      }
+    222                  }
+   \                     ??HandleADValue_4: (+1)
+   \       0x70   0x1C64             ADDS     R4,R4,#+1
+   \                     ??HandleADValue_5: (+1)
+   \       0x72   0x0026             MOVS     R6,R4
+   \       0x74   0x000F             MOVS     R7,R1
+   \       0x76   0xB2B6             UXTH     R6,R6
+   \       0x78   0xB2BF             UXTH     R7,R7
+   \       0x7A   0x42BE             CMP      R6,R7
+   \       0x7C   0xD3D9             BCC      ??HandleADValue_3
+   \       0x7E   0x1C52             ADDS     R2,R2,#+1
+   \                     ??HandleADValue_2: (+1)
+   \       0x80   0x0013             MOVS     R3,R2
+   \       0x82   0x000C             MOVS     R4,R1
+   \       0x84   0xB29B             UXTH     R3,R3
+   \       0x86   0xB2A4             UXTH     R4,R4
+   \       0x88   0x42A3             CMP      R3,R4
+   \       0x8A   0xD208             BCS      ??HandleADValue_6
+   \       0x8C   0x....             LDR      R5,??DataTable5_10
+   \       0x8E   0x0013             MOVS     R3,R2
+   \       0x90   0xB29B             UXTH     R3,R3
+   \       0x92   0x2402             MOVS     R4,#+2
+   \       0x94   0x435C             MULS     R4,R3,R4
+   \       0x96   0x5B2B             LDRH     R3,[R5, R4]
+   \       0x98   0x0014             MOVS     R4,R2
+   \       0x9A   0x1C64             ADDS     R4,R4,#+1
+   \       0x9C   0xE7E9             B        ??HandleADValue_5
+    223              }
+    224              
+    225              dwSum = 0;                              
+    226              for (i = 10; i < wLen - 10; i++)                                            //去掉最大和最小的各10个值，剩下求均值                              
+   \                     ??HandleADValue_6: (+1)
+   \       0x9E   0x220A             MOVS     R2,#+10
+   \       0xA0   0xE007             B        ??HandleADValue_7
+    227              {
+    228                  dwSum += g_wTempAdcBuffer[i];
+   \                     ??HandleADValue_8: (+1)
+   \       0xA2   0x....             LDR      R3,??DataTable5_10
+   \       0xA4   0x0014             MOVS     R4,R2
+   \       0xA6   0xB2A4             UXTH     R4,R4
+   \       0xA8   0x2502             MOVS     R5,#+2
+   \       0xAA   0x4365             MULS     R5,R4,R5
+   \       0xAC   0x5B5B             LDRH     R3,[R3, R5]
+   \       0xAE   0x18C0             ADDS     R0,R0,R3
+    229              }
+   \       0xB0   0x1C52             ADDS     R2,R2,#+1
+   \                     ??HandleADValue_7: (+1)
+   \       0xB2   0x0013             MOVS     R3,R2
+   \       0xB4   0xB29B             UXTH     R3,R3
+   \       0xB6   0x000C             MOVS     R4,R1
+   \       0xB8   0xB2A4             UXTH     R4,R4
+   \       0xBA   0x3C0A             SUBS     R4,R4,#+10
+   \       0xBC   0x42A3             CMP      R3,R4
+   \       0xBE   0xDBF0             BLT      ??HandleADValue_8
+    230              
+    231              wTemp = dwSum / (wLen - 20);
+   \       0xC0   0xB289             UXTH     R1,R1
+   \       0xC2   0x3914             SUBS     R1,R1,#+20
+   \       0xC4   0x....'....        BL       __aeabi_uidiv
+    232              return (wTemp);
+   \       0xC8   0xB280             UXTH     R0,R0
+   \       0xCA   0xBDF0             POP      {R4-R7,PC}       ;; return
+    233          }
+    234          
+    235          
+    236          
+    237          
+    238          
+    239          
+    240          
+
+   \                                 In section .text, align 2, keep-with-next
+    241          void App_FifoData(u16 *pWBuffer, u16 wData, u16 wLen)                           //把最新的值放在数组最后面(FIFO)
+    242          {
+   \                     App_FifoData: (+1)
+   \        0x0   0xB5F0             PUSH     {R4-R7,LR}
+    243              u16 i;
+    244              
+    245              for (i = 0; i < wLen - 1; i++)
+   \        0x2   0x2400             MOVS     R4,#+0
+   \        0x4   0x0023             MOVS     R3,R4
+   \        0x6   0xE00B             B        ??App_FifoData_0
+    246              {
+    247                  *(pWBuffer + i) = *(pWBuffer + i + 1);
+   \                     ??App_FifoData_1: (+1)
+   \        0x8   0x001D             MOVS     R5,R3
+   \        0xA   0xB2AD             UXTH     R5,R5
+   \        0xC   0x2602             MOVS     R6,#+2
+   \        0xE   0x436E             MULS     R6,R5,R6
+   \       0x10   0x1985             ADDS     R5,R0,R6
+   \       0x12   0x886D             LDRH     R5,[R5, #+2]
+   \       0x14   0x001E             MOVS     R6,R3
+   \       0x16   0xB2B6             UXTH     R6,R6
+   \       0x18   0x2702             MOVS     R7,#+2
+   \       0x1A   0x4377             MULS     R7,R6,R7
+   \       0x1C   0x53C5             STRH     R5,[R0, R7]
+    248              }
+   \       0x1E   0x1C5B             ADDS     R3,R3,#+1
+   \                     ??App_FifoData_0: (+1)
+   \       0x20   0x001D             MOVS     R5,R3
+   \       0x22   0xB2AD             UXTH     R5,R5
+   \       0x24   0x0016             MOVS     R6,R2
+   \       0x26   0xB2B6             UXTH     R6,R6
+   \       0x28   0x1E76             SUBS     R6,R6,#+1
+   \       0x2A   0x42B5             CMP      R5,R6
+   \       0x2C   0xDBEC             BLT      ??App_FifoData_1
+    249              
+    250              *(pWBuffer + i) = wData;
+   \       0x2E   0xB29B             UXTH     R3,R3
+   \       0x30   0x2502             MOVS     R5,#+2
+   \       0x32   0x435D             MULS     R5,R3,R5
+   \       0x34   0x5341             STRH     R1,[R0, R5]
+    251              
+    252              for (i = 0; i < wLen; i++)                                                 
+   \       0x36   0xE00B             B        ??App_FifoData_2
+    253              {
+    254                  *(g_wTempAdcBuffer + i) = *(pWBuffer + i);
+   \                     ??App_FifoData_3: (+1)
+   \       0x38   0x0021             MOVS     R1,R4
+   \       0x3A   0xB289             UXTH     R1,R1
+   \       0x3C   0x2302             MOVS     R3,#+2
+   \       0x3E   0x434B             MULS     R3,R1,R3
+   \       0x40   0x5AC1             LDRH     R1,[R0, R3]
+   \       0x42   0x....             LDR      R3,??DataTable5_10
+   \       0x44   0x0025             MOVS     R5,R4
+   \       0x46   0xB2AD             UXTH     R5,R5
+   \       0x48   0x2602             MOVS     R6,#+2
+   \       0x4A   0x436E             MULS     R6,R5,R6
+   \       0x4C   0x5399             STRH     R1,[R3, R6]
+    255              }
+   \       0x4E   0x1C64             ADDS     R4,R4,#+1
+   \                     ??App_FifoData_2: (+1)
+   \       0x50   0x0021             MOVS     R1,R4
+   \       0x52   0x0013             MOVS     R3,R2
+   \       0x54   0xB289             UXTH     R1,R1
+   \       0x56   0xB29B             UXTH     R3,R3
+   \       0x58   0x4299             CMP      R1,R3
+   \       0x5A   0xD3ED             BCC      ??App_FifoData_3
+    256          }
+   \       0x5C   0xBDF0             POP      {R4-R7,PC}       ;; return
+    257          
+    258          /*
+    259          u16 Get_Unit_Weight(u16 Weight)
+    260          {
+    261              u16 uWeight;
+    262              
+    263              switch(RunVar.Weight_Unit)
+    264              {
+    265              case 0:
+    266                  uWeight = (u16)Weight * 10;
+    267                  break;
+    268              case 1:
+    269                  uWeight = (u16)Weight;
+    270                  break;
+    271              case 2:
+    272                  uWeight = (u16)(Weight * 0.1);
+    273                  break;        
+    274              case 3:
+    275                  uWeight = (u16)(Weight * 0.01);
+    276                  break;
+    277              default:
+    278                  break;
+    279              }
+    280              return uWeight;
+    281          }
+    282          */
+
+   \                                 In section .text, align 2, keep-with-next
+    283          u32 Get_Unit_Weight(u32 Weight)// 3.修改Get_Unit_Weight函数，将返回类型和调用参数类型改为32位。 20190712
+    284          {
+   \                     Get_Unit_Weight: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+   \        0x2   0x0001             MOVS     R1,R0
+    285              u32 uWeight;
+    286              
+    287              switch(RunVar.Weight_Unit)
+   \        0x4   0x....             LDR      R2,??DataTable5
+   \        0x6   0x7812             LDRB     R2,[R2, #+0]
+   \        0x8   0x2A00             CMP      R2,#+0
+   \        0xA   0xD005             BEQ      ??Get_Unit_Weight_0
+   \        0xC   0x2A02             CMP      R2,#+2
+   \        0xE   0xD009             BEQ      ??Get_Unit_Weight_1
+   \       0x10   0xD306             BCC      ??Get_Unit_Weight_2
+   \       0x12   0x2A03             CMP      R2,#+3
+   \       0x14   0xD010             BEQ      ??Get_Unit_Weight_3
+   \       0x16   0xE019             B        ??Get_Unit_Weight_4
+    288              {
+    289              case 0:
+    290                  uWeight = (u32)Weight * 10;
+   \                     ??Get_Unit_Weight_0: (+1)
+   \       0x18   0x200A             MOVS     R0,#+10
+   \       0x1A   0x4341             MULS     R1,R0,R1
+   \       0x1C   0x0008             MOVS     R0,R1
+    291                  break;
+   \       0x1E   0xE015             B        ??Get_Unit_Weight_5
+    292              case 1:
+    293                  uWeight = (u32)Weight;
+   \                     ??Get_Unit_Weight_2: (+1)
+   \       0x20   0x0008             MOVS     R0,R1
+    294                  break;
+   \       0x22   0xE013             B        ??Get_Unit_Weight_5
+    295              case 2:
+    296                  uWeight = (u32)(Weight * 0.1);
+   \                     ??Get_Unit_Weight_1: (+1)
+   \       0x24   0x0008             MOVS     R0,R1
+   \       0x26   0x....'....        BL       __aeabi_ui2d
+   \       0x2A   0x....             ADR      R2,??DataTable5_1
+   \       0x2C   0xCA0C             LDM      R2,{R2,R3}
+   \       0x2E   0x....'....        BL       __aeabi_dmul
+   \       0x32   0x....'....        BL       __aeabi_d2uiz
+    297                  break;        
+   \       0x36   0xE009             B        ??Get_Unit_Weight_5
+    298              case 3:
+    299                  uWeight = (u32)(Weight * 0.01);
+   \                     ??Get_Unit_Weight_3: (+1)
+   \       0x38   0x0008             MOVS     R0,R1
+   \       0x3A   0x....'....        BL       __aeabi_ui2d
+   \       0x3E   0x....             ADR      R2,??DataTable5_15
+   \       0x40   0xCA0C             LDM      R2,{R2,R3}
+   \       0x42   0x....'....        BL       __aeabi_dmul
+   \       0x46   0x....'....        BL       __aeabi_d2uiz
+    300                  break;
+   \       0x4A   0xE7FF             B        ??Get_Unit_Weight_5
+    301              default:
+    302                  break;
+    303              }
+    304              return uWeight;
+   \                     ??Get_Unit_Weight_4: (+1)
+   \                     ??Get_Unit_Weight_5: (+1)
+   \       0x4C   0xBD02             POP      {R1,PC}          ;; return
+    305          }
+    306          
+    307          
+    308          //extern struct OutData myOutData;
+
+   \                                 In section .text, align 2, keep-with-next
+    309          void App_Analog_Task (void *p_arg)
+    310          {
+   \                     App_Analog_Task: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+    311              OS_ERR Err;
+    312              
+    313              FlagStatus FillBuffFlag = RESET;
+   \        0x2   0x2700             MOVS     R7,#+0
+    314              
+    315              CPU_SR_ALLOC();
+   \        0x4   0x2000             MOVS     R0,#+0
+    316                  
+    317              Analog_Init();
+   \        0x6   0x....'....        BL       Analog_Init
+   \        0xA   0xE002             B        ??App_Analog_Task_0
+    318          
+    319          //    RunVar.ulLoadStatue = 0xffffffff;
+    320              
+    321          //    LOAD_GetPar();
+    322          	
+    323              while(1)
+    324              {
+    325                  #if IWDG_EN > 0
+    326                      IWDG_ReloadCounter();
+    327                  #endif	
+    328          
+    329                  OSTaskSemPend(10U, OS_OPT_PEND_BLOCKING, NULL, &Err);                   //等待10个节拍1000ms
+    330                  
+    331                  for(long channel = 0; channel < AD_CHANNEL_MAX; channel++)             //采集的AD值求均值
+    332                    //只有一个通道
+    333                  {
+    334                      CPU_CRITICAL_ENTER();  //禁止CPU中断
+    335                      for(long i = 0; i < AD_GROUP_MAX; i++)  //AD_GROUP_MAX = 40
+    336                      {
+    337                          usADC1Value[i] = usADC1ConvertedValue[i][channel];
+    338                      }
+    339                      CPU_CRITICAL_EXIT(); //开户CPU中断
+    340                 
+    341                      RunVar.uiAI[channel] = LOAD_GetAverage(usADC1Value, AD_GROUP_MAX);
+    342                  }       
+    343                  g_wRADValue = RunVar.uiAI[0];
+    344                  //RunVar.AdcMaxCnt = ProductPara.cyFilterLevel * 90;
+    345                  if(FillBuffFlag == RESET)
+    346                  {
+    347                      FillBuffFlag = SET;
+    348                      g_wFADValue = g_wRADValue;                                          //上电滤波值先置一个固定值
+    349                  }
+    350                  if (RunVar.AdcMaxCnt > ADC_MAX_CNT)                                     //ADC最大采集数量300个（滤波系数最大设置为6）
+    351                  {
+    352                      RunVar.AdcMaxCnt = ADC_MAX_CNT;
+    353                  }
+    354                  if (ProductPara.cyFilterLevel == 1)                                     //滤波系数设置为1，实时数据
+    355                  {
+    356                      g_wFADValue = RunVar.uiAI[0]; 
+    357                  }     
+    358                  else
+    359                  {
+    360                      if(RunVar.AdcMaxCnt > g_wAdcCnt)                                    //取满g_wAdcMaxCnt个值
+    361                      {
+    362                          g_wAdcBuffer[g_wAdcCnt++] = RunVar.uiAI[0];                       
+    363                      } 
+    364                      else                                                               //剩下的按照FIFO方式填满数组
+    365                      {                
+    366                          App_FifoData(g_wAdcBuffer, RunVar.uiAI[0], RunVar.AdcMaxCnt);   //最新的数据放在队尾             
+    367                          //g_wFADValue = HandleADValue(g_wAdcBuffer, g_wAdcMaxCnt);      //排序，去掉最大和最小各10个后取均值
+    368                          g_wFADValue = GetDelExtremeAndAverage(g_wTempAdcBuffer, RunVar.AdcMaxCnt, 10U, 10U);               
+    369                      }                                                                   
+    370                  }
+    371                 // g_wFADValue = 0x0006;
+    372                  
+    373                  UserParam.CarLoadWeight = AD_CalWeight(g_wFADValue, AD_Buff, Weight_Buff, 50U);
+    374                  UserParam.CarLoadWeight = Get_Unit_Weight(UserParam.CarLoadWeight);
+    375                  if(UserParam.CarLoadWeight > RunVar.OverloadLimit)
+    376                  {
+    377                      g_cyWorkState = 3;  //超载
+   \                     ??App_Analog_Task_1: (+1)
+   \        0xC   0x2003             MOVS     R0,#+3
+   \        0xE   0x....             LDR      R1,??DataTable5_16
+   \       0x10   0x7008             STRB     R0,[R1, #+0]
+    378                  }
+   \                     ??App_Analog_Task_0: (+1)
+   \       0x12   0x466B             MOV      R3,SP
+   \       0x14   0x2200             MOVS     R2,#+0
+   \       0x16   0x2100             MOVS     R1,#+0
+   \       0x18   0x200A             MOVS     R0,#+10
+   \       0x1A   0x....'....        BL       OSTaskSemPend
+   \       0x1E   0x2400             MOVS     R4,#+0
+   \       0x20   0x0025             MOVS     R5,R4
+   \       0x22   0xE019             B        ??App_Analog_Task_2
+   \                     ??App_Analog_Task_3: (+1)
+   \       0x24   0x....             LDR      R2,??DataTable5_2
+   \       0x26   0x2302             MOVS     R3,#+2
+   \       0x28   0x434B             MULS     R3,R1,R3
+   \       0x2A   0x18D2             ADDS     R2,R2,R3
+   \       0x2C   0x2302             MOVS     R3,#+2
+   \       0x2E   0x436B             MULS     R3,R5,R3
+   \       0x30   0x5AD2             LDRH     R2,[R2, R3]
+   \       0x32   0x....             LDR      R3,??DataTable5_3
+   \       0x34   0x2602             MOVS     R6,#+2
+   \       0x36   0x434E             MULS     R6,R1,R6
+   \       0x38   0x539A             STRH     R2,[R3, R6]
+   \       0x3A   0x1C49             ADDS     R1,R1,#+1
+   \                     ??App_Analog_Task_4: (+1)
+   \       0x3C   0x2928             CMP      R1,#+40
+   \       0x3E   0xDBF1             BLT      ??App_Analog_Task_3
+   \       0x40   0x....'....        BL       CPU_SR_Restore
+   \       0x44   0x2128             MOVS     R1,#+40
+   \       0x46   0x....             LDR      R0,??DataTable5_3
+   \       0x48   0x....'....        BL       LOAD_GetAverage
+   \       0x4C   0x....             LDR      R1,??DataTable5_4
+   \       0x4E   0x2202             MOVS     R2,#+2
+   \       0x50   0x436A             MULS     R2,R5,R2
+   \       0x52   0x1889             ADDS     R1,R1,R2
+   \       0x54   0x8088             STRH     R0,[R1, #+4]
+   \       0x56   0x1C6D             ADDS     R5,R5,#+1
+   \                     ??App_Analog_Task_2: (+1)
+   \       0x58   0x2D01             CMP      R5,#+1
+   \       0x5A   0xDA03             BGE      ??App_Analog_Task_5
+   \       0x5C   0x....'....        BL       CPU_SR_Save
+   \       0x60   0x0021             MOVS     R1,R4
+   \       0x62   0xE7EB             B        ??App_Analog_Task_4
+   \                     ??App_Analog_Task_5: (+1)
+   \       0x64   0x....             LDR      R0,??DataTable5_5
+   \       0x66   0x....             LDR      R4,??DataTable5_4
+   \       0x68   0x88A1             LDRH     R1,[R4, #+4]
+   \       0x6A   0x8001             STRH     R1,[R0, #+0]
+   \       0x6C   0x0039             MOVS     R1,R7
+   \       0x6E   0xB2C9             UXTB     R1,R1
+   \       0x70   0x2900             CMP      R1,#+0
+   \       0x72   0xD103             BNE      ??App_Analog_Task_6
+   \       0x74   0x2701             MOVS     R7,#+1
+   \       0x76   0x8800             LDRH     R0,[R0, #+0]
+   \       0x78   0x....             LDR      R1,??DataTable5_7
+   \       0x7A   0x8008             STRH     R0,[R1, #+0]
+   \                     ??App_Analog_Task_6: (+1)
+   \       0x7C   0x8D20             LDRH     R0,[R4, #+40]
+   \       0x7E   0x21FF             MOVS     R1,#+255
+   \       0x80   0x312E             ADDS     R1,R1,#+46       ;; #+301
+   \       0x82   0x4288             CMP      R0,R1
+   \       0x84   0xDB02             BLT      ??App_Analog_Task_7
+   \       0x86   0x2096             MOVS     R0,#+150
+   \       0x88   0x0040             LSLS     R0,R0,#+1        ;; #+300
+   \       0x8A   0x8520             STRH     R0,[R4, #+40]
+   \                     ??App_Analog_Task_7: (+1)
+   \       0x8C   0x....             LDR      R0,??DataTable5_6
+   \       0x8E   0x7840             LDRB     R0,[R0, #+1]
+   \       0x90   0x2801             CMP      R0,#+1
+   \       0x92   0xD103             BNE      ??App_Analog_Task_8
+   \       0x94   0x88A0             LDRH     R0,[R4, #+4]
+   \       0x96   0x....             LDR      R1,??DataTable5_7
+   \       0x98   0x8008             STRH     R0,[R1, #+0]
+   \       0x9A   0xE01B             B        ??App_Analog_Task_9
+   \                     ??App_Analog_Task_8: (+1)
+   \       0x9C   0x....             LDR      R0,??DataTable5_8
+   \       0x9E   0x8801             LDRH     R1,[R0, #+0]
+   \       0xA0   0x8D22             LDRH     R2,[R4, #+40]
+   \       0xA2   0x4291             CMP      R1,R2
+   \       0xA4   0xD209             BCS      ??App_Analog_Task_10
+   \       0xA6   0x88A1             LDRH     R1,[R4, #+4]
+   \       0xA8   0x....             LDR      R2,??DataTable5_9
+   \       0xAA   0x8803             LDRH     R3,[R0, #+0]
+   \       0xAC   0x2502             MOVS     R5,#+2
+   \       0xAE   0x435D             MULS     R5,R3,R5
+   \       0xB0   0x5351             STRH     R1,[R2, R5]
+   \       0xB2   0x8801             LDRH     R1,[R0, #+0]
+   \       0xB4   0x1C49             ADDS     R1,R1,#+1
+   \       0xB6   0x8001             STRH     R1,[R0, #+0]
+   \       0xB8   0xE00C             B        ??App_Analog_Task_9
+   \                     ??App_Analog_Task_10: (+1)
+   \       0xBA   0x8D22             LDRH     R2,[R4, #+40]
+   \       0xBC   0x88A1             LDRH     R1,[R4, #+4]
+   \       0xBE   0x....             LDR      R0,??DataTable5_9
+   \       0xC0   0x....'....        BL       App_FifoData
+   \       0xC4   0x230A             MOVS     R3,#+10
+   \       0xC6   0x220A             MOVS     R2,#+10
+   \       0xC8   0x8D21             LDRH     R1,[R4, #+40]
+   \       0xCA   0x....             LDR      R0,??DataTable5_10
+   \       0xCC   0x....'....        BL       GetDelExtremeAndAverage
+   \       0xD0   0x....             LDR      R1,??DataTable5_7
+   \       0xD2   0x8008             STRH     R0,[R1, #+0]
+   \                     ??App_Analog_Task_9: (+1)
+   \       0xD4   0x....             LDR      R5,??DataTable5_11
+   \       0xD6   0x....             LDR      R6,??DataTable5_12
+   \       0xD8   0x2332             MOVS     R3,#+50
+   \       0xDA   0x....             LDR      R2,??DataTable5_13
+   \       0xDC   0x....             LDR      R1,??DataTable5_14
+   \       0xDE   0x....             LDR      R0,??DataTable5_7
+   \       0xE0   0x8800             LDRH     R0,[R0, #+0]
+   \       0xE2   0x....'....        BL       AD_CalWeight
+   \       0xE6   0x6030             STR      R0,[R6, #+0]
+   \       0xE8   0x68A8             LDR      R0,[R5, #+8]
+   \       0xEA   0x....'....        BL       Get_Unit_Weight
+   \       0xEE   0x6030             STR      R0,[R6, #+0]
+   \       0xF0   0x8B20             LDRH     R0,[R4, #+24]
+   \       0xF2   0x68A9             LDR      R1,[R5, #+8]
+   \       0xF4   0x4288             CMP      R0,R1
+   \       0xF6   0xD389             BCC      ??App_Analog_Task_1
+    379                  else if(UserParam.CarLoadWeight > RunVar.LoadLimit)     
+   \       0xF8   0x8BA0             LDRH     R0,[R4, #+28]
+   \       0xFA   0x68A9             LDR      R1,[R5, #+8]
+   \       0xFC   0x4288             CMP      R0,R1
+   \       0xFE   0xD203             BCS      ??App_Analog_Task_11
+    380                  {
+    381                      g_cyWorkState = 2;  //满载
+   \      0x100   0x2002             MOVS     R0,#+2
+   \      0x102   0x....             LDR      R1,??DataTable5_16
+   \      0x104   0x7008             STRB     R0,[R1, #+0]
+   \      0x106   0xE784             B        ??App_Analog_Task_0
+    382                  }                             
+    383                  else if(UserParam.CarLoadWeight > RunVar.LightLimit)
+   \                     ??App_Analog_Task_11: (+1)
+   \      0x108   0x8CA0             LDRH     R0,[R4, #+36]
+   \      0x10A   0x68A9             LDR      R1,[R5, #+8]
+   \      0x10C   0x4288             CMP      R0,R1
+   \      0x10E   0xD203             BCS      ??App_Analog_Task_12
+    384                  {
+    385                      g_cyWorkState = 7;  //重载
+   \      0x110   0x2007             MOVS     R0,#+7
+   \      0x112   0x....             LDR      R1,??DataTable5_16
+   \      0x114   0x7008             STRB     R0,[R1, #+0]
+   \      0x116   0xE77C             B        ??App_Analog_Task_0
+    386                  }
+    387                  else if(UserParam.CarLoadWeight > RunVar.EmptyLimit)
+   \                     ??App_Analog_Task_12: (+1)
+   \      0x118   0x8C20             LDRH     R0,[R4, #+32]
+   \      0x11A   0x68A9             LDR      R1,[R5, #+8]
+   \      0x11C   0x4288             CMP      R0,R1
+   \      0x11E   0xD203             BCS      ??App_Analog_Task_13
+    388                  {
+    389                      g_cyWorkState = 6;  //轻载
+   \      0x120   0x2006             MOVS     R0,#+6
+   \      0x122   0x....             LDR      R1,??DataTable5_16
+   \      0x124   0x7008             STRB     R0,[R1, #+0]
+   \      0x126   0xE774             B        ??App_Analog_Task_0
+    390                  }
+    391                  else
+    392                  {
+    393                      g_cyWorkState = 1;  //空载
+   \                     ??App_Analog_Task_13: (+1)
+   \      0x128   0x2001             MOVS     R0,#+1
+   \      0x12A   0x....             LDR      R1,??DataTable5_16
+   \      0x12C   0x7008             STRB     R0,[R1, #+0]
+   \      0x12E   0xE770             B        ??App_Analog_Task_0
+    394                  }
+    395                //LOAD_LoadTask();       
+    396              }
+    397          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1:
+   \        0x0   0x4001'2400        DC32     0x40012400
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_1:
+   \        0x0   0x0100'4000        DC32     0x1004000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_2:
+   \        0x0   0x4001'2440        DC32     0x40012440
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_3:
+   \        0x0   0x....'....        DC32     usADC1ConvertedValue
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_4:
+   \        0x0   0x4002'0008        DC32     0x40020008
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5:
+   \        0x0   0x....'....        DC32     RunVar+0x2C
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_1:
+   \        0x0   0x9999'999A        DC32     0x9999999A,0x3FB99999
+
+   \              0x3FB9'9999
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_2:
+   \        0x0   0x....'....        DC32     usADC1ConvertedValue
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_3:
+   \        0x0   0x....'....        DC32     usADC1Value
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_4:
+   \        0x0   0x....'....        DC32     RunVar
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_5:
+   \        0x0   0x....'....        DC32     g_wRADValue
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_6:
+   \        0x0   0x....'....        DC32     ProductPara
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_7:
+   \        0x0   0x....'....        DC32     g_wFADValue
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_8:
+   \        0x0   0x....'....        DC32     g_wAdcCnt
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_9:
+   \        0x0   0x....'....        DC32     g_wAdcBuffer
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_10:
+   \        0x0   0x....'....        DC32     g_wTempAdcBuffer
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_11:
+   \        0x0   0x....'....        DC32     UserParam
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_12:
+   \        0x0   0x....'....        DC32     UserParam+0x8
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_13:
+   \        0x0   0x....'....        DC32     Weight_Buff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_14:
+   \        0x0   0x....'....        DC32     AD_Buff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_15:
+   \        0x0   0x47AE'147B        DC32     0x47AE147B,0x3F847AE1
+
+   \              0x3F84'7AE1
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_16:
+   \        0x0   0x....'....        DC32     g_cyWorkState
+    398          
+    399          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      48   ADC_Config
+        48   -> ADC_ChannelConfig
+        48   -> ADC_Cmd
+        48   -> ADC_DMACmd
+        48   -> ADC_DMARequestModeConfig
+        48   -> ADC_DeInit
+        48   -> ADC_GetCalibrationFactor
+        48   -> ADC_GetFlagStatus
+        48   -> ADC_Init
+        48   -> ADC_StartOfConversion
+        48   -> ADC_StructInit
+        48   -> GPIO_Init
+        48   -> RCC_ADCCLKConfig
+        48   -> RCC_AHBPeriphClockCmd
+        48   -> RCC_APB2PeriphClockCmd
+      48   AD_CalWeight
+        48   -> __aeabi_f2uiz
+        48   -> __aeabi_fadd
+        48   -> __aeabi_fdiv
+        48   -> __aeabi_fmul
+        48   -> __aeabi_ui2f
+        48 __aeabi_idiv
+        48 __aeabi_idivmod
+       8   Analog_Init
+         8   -> ADC_Config
+         8   -> DMA_Config
+      24   App_Analog_Task
+        24   -> AD_CalWeight
+        24   -> Analog_Init
+        24   -> App_FifoData
+        24   -> CPU_SR_Restore
+        24   -> CPU_SR_Save
+        24   -> GetDelExtremeAndAverage
+        24   -> Get_Unit_Weight
+        24   -> LOAD_GetAverage
+        24   -> OSTaskSemPend
+      20   App_FifoData
+      56   DMA_Config
+        56   -> DMA_Cmd
+        56   -> DMA_Init
+        56   -> RCC_AHBPeriphClockCmd
+       8   Get_Unit_Weight
+         8   -> __aeabi_d2uiz
+         8   -> __aeabi_dmul
+         8   -> __aeabi_ui2d
+      20   HandleADValue
+        20 __aeabi_uidiv
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable1
+       4  ??DataTable1_1
+       4  ??DataTable1_2
+       4  ??DataTable1_3
+       4  ??DataTable1_4
+       4  ??DataTable5
+       8  ??DataTable5_1
+       4  ??DataTable5_10
+       4  ??DataTable5_11
+       4  ??DataTable5_12
+       4  ??DataTable5_13
+       4  ??DataTable5_14
+       8  ??DataTable5_15
+       4  ??DataTable5_16
+       4  ??DataTable5_2
+       4  ??DataTable5_3
+       4  ??DataTable5_4
+       4  ??DataTable5_5
+       4  ??DataTable5_6
+       4  ??DataTable5_7
+       4  ??DataTable5_8
+       4  ??DataTable5_9
+      16  ADC1Filter
+     154  ADC_Config
+     874  AD_CalWeight
+      12  Analog_Init
+     304  App_Analog_Task
+      94  App_FifoData
+      80  DMA_Config
+      78  Get_Unit_Weight
+     204  HandleADValue
+     600  g_wAdcBuffer
+       2  g_wAdcCnt
+     600  g_wTempAdcBuffer
+      80  usADC1ConvertedValue
+      80  usADC1Value
+      12  usFilterBuf
+
+ 
+ 1'390 bytes in section .bss
+ 1'896 bytes in section .text
+ 
+ 1'896 bytes of CODE memory
+ 1'390 bytes of DATA memory
+
+Errors: none
+Warnings: none

@@ -1,0 +1,16 @@
+.\object\mbs_core.o: Modbus\Source\MBS_CORE.C
+.\object\mbs_core.o: Modbus\Source\mb.h
+.\object\mbs_core.o: .\modbus\uC-CPU\cpu.h
+.\object\mbs_core.o: .\modbus\Cfg\mb_cfg.h
+.\object\mbs_core.o: .\modbus\Source\mb_def.h
+.\object\mbs_core.o: .\flash\flash.h
+.\object\mbs_core.o: .\Libraries\CMSIS\stm32f10x.h
+.\object\mbs_core.o: .\Libraries\CMSIS\core_cm3.h
+.\object\mbs_core.o: C:\rj\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\object\mbs_core.o: .\Libraries\CMSIS\system_stm32f10x.h
+.\object\mbs_core.o: .\User\stm32f10x_conf.h
+.\object\mbs_core.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h
+.\object\mbs_core.o: .\Libraries\CMSIS\stm32f10x.h
+.\object\mbs_core.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
+.\object\mbs_core.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
+.\object\mbs_core.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_flash.h

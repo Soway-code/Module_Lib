@@ -1,0 +1,12 @@
+lib_math.pbi: \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Source\System\uC-LIB\lib_math.c \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Source\System\uC-LIB\lib_math.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\System\uC-CPU\cpu.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\System\uC-CPU\cpu_def.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\System\OS_Cfg\cpu_cfg.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\System\uC-CPU\cpu_core.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Source\System\uC-LIB\lib_def.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Source\System\uC-LIB\lib_mem.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\APP\inc\app_cfg.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Source\System\uC-LIB\lib_str.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Source\System\uC-LIB\lib_ascii.h

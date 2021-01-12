@@ -1,0 +1,1080 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.4.261/W32 for ARM         10/Jan/2021  16:10:18
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode                        
+#    Endian                       =  little
+#    Source file                  =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\APP\modbus_ascii.c
+#    Command line                 =
+#        -f C:\Users\macanlin\AppData\Local\Temp\EWDCCF.tmp
+#        ("C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\APP\modbus_ascii.c" -D USE_STDPERIPH_DRIVER -D STM32F072
+#        -lC "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List" -o
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj" --no_cse --no_unroll --no_inline
+#        --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug
+#        --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config
+#        C:\rj\IAR\arm\inc\c\DLib_Config_Normal.h -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\BSP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\CMSIS\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\OS_Cfg\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-CPU\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Ports\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Source\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\APP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -Ol -I
+#        C:\rj\IAR\arm\CMSIS\Core\Include\\ -I
+#        C:\rj\IAR\arm\CMSIS\DSP\Include\\)
+#    Locale                       =  C
+#    List file                    =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List\modbus_ascii.lst
+#    Object file                  =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj\modbus_ascii.o
+#    Runtime model:                  
+#      __SystemLibrary            =  DLib
+#      __dlib_file_descriptor     =  0
+#      __dlib_full_locale_support =  0
+#      __dlib_version             =  6
+#
+###############################################################################
+
+C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345 -1-9\Source\APP\modbus_ascii.c
+      1          #include "bsp.h"
+      2          
+      3          /************************************************************************************************************************************************************************
+      4          ** 版权：   2015-2025, 深圳市信为科技发展有限公司
+      5          ** 文件名:  Modbus_Ascii.h
+      6          ** 作者:    陈锦
+      7          ** 版本:    V1.0.0
+      8          ** 日期:    2015-07-10
+      9          ** 描述:    各种算法
+     10          ** 功能:         
+     11          *************************************************************************************************************************************************************************
+     12          ** 修改者:          No
+     13          ** 版本:  		
+     14          ** 修改内容:    No 
+     15          ** 日期:            No
+     16          *************************************************************************************************************************************************************************/
+     17          
+     18          extern u8 UART1_RXBuff[MAX_USART1_DATA_LEN];     //接收缓冲,最大USART_REC_LEN个字节.
+     19          
+     20          extern BitAction UartRecvNewData ;
+     21          extern BitAction UartRecvFrameOK ;
+     22          extern OS_TCB  AppTaskMBTCB;
+     23          
+
+   \                                 In section .bss, align 4
+     24          u8 cyAsciiBuff[MAX_USART1_DATA_LEN];
+   \                     cyAsciiBuff:
+   \        0x0                      DS8 256
+     25          
+
+   \                                 In section .data, align 1
+     26          static u8 g_cyRevState = ASCII_IDLE_STATE;
+   \                     g_cyRevState:
+   \        0x0   0x02               DC8 2
+
+   \                                 In section .bss, align 1
+     27          static u8 g_cyRevBufffLen = 0;
+   \                     g_cyRevBufffLen:
+   \        0x0                      DS8 1
+     28          
+     29          //**************************************************************************************************
+     30          // 名称         : MODBUS_ASCII_HexToAscii()
+     31          // 创建日期     : 2015-07-24
+     32          // 作者         : 陈锦
+     33          // 功能         : 十六进制数转ASCII码
+     34          // 输入参数     : 十六进制数(u8 cyHexData)
+     35          // 输出参数     : ASCII码(u8 *pCyAsciiBuf)
+     36          // 返回结果     : 无
+     37          // 注意和说明   : 
+     38          // 修改内容     :
+     39          //**************************************************************************************************
+
+   \                                 In section .text, align 2, keep-with-next
+     40          void MODBUS_ASCII_HexToAscii(u8 cyHexData, u8 *pCyAsciiBuf)
+     41          {
+   \                     MODBUS_ASCII_HexToAscii: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+   \        0x2   0x0005             MOVS     R5,R0
+   \        0x4   0x000C             MOVS     R4,R1
+     42              u8 cyTemp;
+     43              
+     44              cyTemp = cyHexData / 16;                                
+   \        0x6   0x2610             MOVS     R6,#+16
+   \        0x8   0x0028             MOVS     R0,R5
+   \        0xA   0xB2C0             UXTB     R0,R0
+   \        0xC   0x0031             MOVS     R1,R6
+   \        0xE   0x....'....        BL       __aeabi_idiv
+     45              if (10 > cyTemp) //0-9
+   \       0x12   0x0001             MOVS     R1,R0
+   \       0x14   0xB2C9             UXTB     R1,R1
+   \       0x16   0x290A             CMP      R1,#+10
+   \       0x18   0xDA02             BGE      ??MODBUS_ASCII_HexToAscii_0
+     46              {
+     47                  *(pCyAsciiBuf + 0) = cyTemp + '0';                                  //高4bits转换成数字0~9（0x30~0x39）
+   \       0x1A   0x3030             ADDS     R0,R0,#+48
+   \       0x1C   0x7020             STRB     R0,[R4, #+0]
+   \       0x1E   0xE001             B        ??MODBUS_ASCII_HexToAscii_1
+     48              }
+     49              else
+     50              {
+     51                  *(pCyAsciiBuf + 0) = (cyTemp - 10) + 'A';                           //低4bits转换成字母A~F(0x41~0x46)
+   \                     ??MODBUS_ASCII_HexToAscii_0: (+1)
+   \       0x20   0x3037             ADDS     R0,R0,#+55
+   \       0x22   0x7020             STRB     R0,[R4, #+0]
+     52              }
+     53          
+     54              cyTemp = cyHexData % 16;
+   \                     ??MODBUS_ASCII_HexToAscii_1: (+1)
+   \       0x24   0xB2ED             UXTB     R5,R5
+   \       0x26   0x0028             MOVS     R0,R5
+   \       0x28   0x0031             MOVS     R1,R6
+   \       0x2A   0x....'....        BL       __aeabi_idivmod
+     55              if (10 > cyTemp) //0-9
+   \       0x2E   0x0008             MOVS     R0,R1
+   \       0x30   0xB2C0             UXTB     R0,R0
+   \       0x32   0x280A             CMP      R0,#+10
+   \       0x34   0xDA02             BGE      ??MODBUS_ASCII_HexToAscii_2
+     56              {
+     57                  *(pCyAsciiBuf + 1) = cyTemp + '0';                                  //高4bits转换成数字0~9（0x30~0x39）
+   \       0x36   0x3130             ADDS     R1,R1,#+48
+   \       0x38   0x7061             STRB     R1,[R4, #+1]
+   \       0x3A   0xE001             B        ??MODBUS_ASCII_HexToAscii_3
+     58              }
+     59              else
+     60              {
+     61                  *(pCyAsciiBuf + 1) = (cyTemp - 10) + 'A';                           //低4bits转换成字母A~F(0x41~0x46)
+   \                     ??MODBUS_ASCII_HexToAscii_2: (+1)
+   \       0x3C   0x3137             ADDS     R1,R1,#+55
+   \       0x3E   0x7061             STRB     R1,[R4, #+1]
+     62              }
+     63          }
+   \                     ??MODBUS_ASCII_HexToAscii_3: (+1)
+   \       0x40   0xBD70             POP      {R4-R6,PC}       ;; return
+     64          
+     65          
+     66          //**************************************************************************************************
+     67          // 名称         : MODBUS_ASCII_AsciiToHex()
+     68          // 创建日期     : 2015-07-24
+     69          // 作者         : 陈锦
+     70          // 功能         : ASCII码转十六进制数
+     71          // 输入参数     : ASCII码(u8 *pCyAsciiBuf)
+     72          // 输出参数     : 无
+     73          // 返回结果     : 十六进制数(u8 cyHexData)
+     74          // 注意和说明   : 
+     75          // 修改内容     :
+     76          //**************************************************************************************************
+
+   \                                 In section .text, align 2, keep-with-next
+     77          u8 MODBUS_ASCII_AsciiToHex(u8 *pCyAsciiBuf)
+     78          {
+   \                     MODBUS_ASCII_AsciiToHex: (+1)
+   \        0x0   0xB500             PUSH     {LR}
+     79              u8 cyHexData;
+     80              
+     81              cyHexData = 0;
+   \        0x2   0x2100             MOVS     R1,#+0
+     82              if ('A' > *(pCyAsciiBuf + 0) ) //0-9
+   \        0x4   0x7802             LDRB     R2,[R0, #+0]
+   \        0x6   0x2A41             CMP      R2,#+65
+   \        0x8   0xDA03             BGE      ??MODBUS_ASCII_AsciiToHex_0
+     83              {
+     84                  cyHexData += *(pCyAsciiBuf + 0) - '0';
+   \        0xA   0x7802             LDRB     R2,[R0, #+0]
+   \        0xC   0x3A30             SUBS     R2,R2,#+48
+   \        0xE   0x1889             ADDS     R1,R1,R2
+   \       0x10   0xE009             B        ??MODBUS_ASCII_AsciiToHex_1
+     85              }
+     86              else if ('a' > *(pCyAsciiBuf + 0) ) //大写
+   \                     ??MODBUS_ASCII_AsciiToHex_0: (+1)
+   \       0x12   0x7802             LDRB     R2,[R0, #+0]
+   \       0x14   0x2A61             CMP      R2,#+97
+   \       0x16   0xDA03             BGE      ??MODBUS_ASCII_AsciiToHex_2
+     87              {
+     88                  cyHexData += *(pCyAsciiBuf + 0) - 'A' + 10;
+   \       0x18   0x7802             LDRB     R2,[R0, #+0]
+   \       0x1A   0x3A37             SUBS     R2,R2,#+55
+   \       0x1C   0x1889             ADDS     R1,R1,R2
+   \       0x1E   0xE002             B        ??MODBUS_ASCII_AsciiToHex_1
+     89              }
+     90              else
+     91              {
+     92                  cyHexData += *(pCyAsciiBuf + 0) - 'a' + 10;
+   \                     ??MODBUS_ASCII_AsciiToHex_2: (+1)
+   \       0x20   0x7802             LDRB     R2,[R0, #+0]
+   \       0x22   0x3A57             SUBS     R2,R2,#+87
+   \       0x24   0x1889             ADDS     R1,R1,R2
+     93              }
+     94          
+     95              cyHexData *= 16;
+   \                     ??MODBUS_ASCII_AsciiToHex_1: (+1)
+   \       0x26   0x2210             MOVS     R2,#+16
+   \       0x28   0x4351             MULS     R1,R2,R1
+     96              
+     97              if ('A' > *(pCyAsciiBuf + 1) ) //0-9
+   \       0x2A   0x7842             LDRB     R2,[R0, #+1]
+   \       0x2C   0x2A41             CMP      R2,#+65
+   \       0x2E   0xDA03             BGE      ??MODBUS_ASCII_AsciiToHex_3
+     98              {
+     99                  cyHexData += *(pCyAsciiBuf + 1) - '0';
+   \       0x30   0x7840             LDRB     R0,[R0, #+1]
+   \       0x32   0x3830             SUBS     R0,R0,#+48
+   \       0x34   0x1808             ADDS     R0,R1,R0
+   \       0x36   0xE009             B        ??MODBUS_ASCII_AsciiToHex_4
+    100              }
+    101              else if ('a' > *(pCyAsciiBuf + 1) ) //大写
+   \                     ??MODBUS_ASCII_AsciiToHex_3: (+1)
+   \       0x38   0x7842             LDRB     R2,[R0, #+1]
+   \       0x3A   0x2A61             CMP      R2,#+97
+   \       0x3C   0xDA03             BGE      ??MODBUS_ASCII_AsciiToHex_5
+    102              {
+    103                  cyHexData += *(pCyAsciiBuf + 1) - 'A' + 10;
+   \       0x3E   0x7840             LDRB     R0,[R0, #+1]
+   \       0x40   0x3837             SUBS     R0,R0,#+55
+   \       0x42   0x1808             ADDS     R0,R1,R0
+   \       0x44   0xE002             B        ??MODBUS_ASCII_AsciiToHex_4
+    104              }
+    105              else
+    106              {
+    107                  cyHexData += *(pCyAsciiBuf + 1) - 'a' + 10;
+   \                     ??MODBUS_ASCII_AsciiToHex_5: (+1)
+   \       0x46   0x7840             LDRB     R0,[R0, #+1]
+   \       0x48   0x3857             SUBS     R0,R0,#+87
+   \       0x4A   0x1808             ADDS     R0,R1,R0
+    108              }
+    109              
+    110              return (cyHexData);
+   \                     ??MODBUS_ASCII_AsciiToHex_4: (+1)
+   \       0x4C   0xB2C0             UXTB     R0,R0
+   \       0x4E   0xBD00             POP      {PC}             ;; return
+    111          }
+    112          
+    113          //**************************************************************************************************
+    114          // 名称         : MODBUS_ASCII_GetLrc()
+    115          // 创建日期     : 2015-07-24
+    116          // 作者         : 陈锦
+    117          // 功能         : 获取LRC值
+    118          // 输入参数     : ASCII码串(u8 *pCyAsciiBuf), 数据长度(u8 cyLen)
+    119          // 输出参数     : 无
+    120          // 返回结果     : LRC值(u8 cyLrcVal)
+    121          // 注意和说明   : 
+    122          // 修改内容     :
+    123          //**************************************************************************************************
+
+   \                                 In section .text, align 2, keep-with-next
+    124          u8 MODBUS_ASCII_GetLrc(u8 *pCyAsciiBuf, u8 cyLen)
+    125          {
+   \                     MODBUS_ASCII_GetLrc: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+   \        0x2   0x0007             MOVS     R7,R0
+   \        0x4   0x000C             MOVS     R4,R1
+    126              u8 i;
+    127              u8 cyLrcVal;
+    128              
+    129              if (1 == (cyLen % 2) )
+   \        0x6   0x2502             MOVS     R5,#+2
+   \        0x8   0x0020             MOVS     R0,R4
+   \        0xA   0xB2C0             UXTB     R0,R0
+   \        0xC   0x0029             MOVS     R1,R5
+   \        0xE   0x....'....        BL       __aeabi_idivmod
+   \       0x12   0x2901             CMP      R1,#+1
+   \       0x14   0xD101             BNE      ??MODBUS_ASCII_GetLrc_0
+    130              {
+    131                  return 0;
+   \       0x16   0x2000             MOVS     R0,#+0
+   \       0x18   0xE01B             B        ??MODBUS_ASCII_GetLrc_1
+    132              }
+    133              
+    134              cyLen /= 2;
+   \                     ??MODBUS_ASCII_GetLrc_0: (+1)
+   \       0x1A   0xB2E4             UXTB     R4,R4
+   \       0x1C   0x0020             MOVS     R0,R4
+   \       0x1E   0x0029             MOVS     R1,R5
+   \       0x20   0x....'....        BL       __aeabi_idiv
+   \       0x24   0x0004             MOVS     R4,R0
+    135              cyLrcVal = 0;
+   \       0x26   0x2500             MOVS     R5,#+0
+   \       0x28   0x002E             MOVS     R6,R5
+    136              for (i = 0; i < cyLen; i++)
+   \       0x2A   0xE008             B        ??MODBUS_ASCII_GetLrc_2
+    137              {
+    138                  cyLrcVal += MODBUS_ASCII_AsciiToHex(pCyAsciiBuf + i * 2);
+   \                     ??MODBUS_ASCII_GetLrc_3: (+1)
+   \       0x2C   0x0028             MOVS     R0,R5
+   \       0x2E   0xB2C0             UXTB     R0,R0
+   \       0x30   0x2102             MOVS     R1,#+2
+   \       0x32   0x4348             MULS     R0,R1,R0
+   \       0x34   0x1838             ADDS     R0,R7,R0
+   \       0x36   0x....'....        BL       MODBUS_ASCII_AsciiToHex
+   \       0x3A   0x1836             ADDS     R6,R6,R0
+    139              }
+   \       0x3C   0x1C6D             ADDS     R5,R5,#+1
+   \                     ??MODBUS_ASCII_GetLrc_2: (+1)
+   \       0x3E   0x0028             MOVS     R0,R5
+   \       0x40   0x0021             MOVS     R1,R4
+   \       0x42   0xB2C0             UXTB     R0,R0
+   \       0x44   0xB2C9             UXTB     R1,R1
+   \       0x46   0x4288             CMP      R0,R1
+   \       0x48   0xD3F0             BCC      ??MODBUS_ASCII_GetLrc_3
+    140              //求补码
+    141              cyLrcVal = ~cyLrcVal;
+   \       0x4A   0xB2F6             UXTB     R6,R6
+   \       0x4C   0x43F0             MVNS     R0,R6
+    142              cyLrcVal += 1;
+   \       0x4E   0x1C40             ADDS     R0,R0,#+1
+    143              
+    144              return (cyLrcVal);
+   \       0x50   0xB2C0             UXTB     R0,R0
+   \                     ??MODBUS_ASCII_GetLrc_1: (+1)
+   \       0x52   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+    145          }
+    146          
+    147          
+    148          //**************************************************************************************************
+    149          // 名称         : MODBUS_ASCII_AsciiPacketToRtuPacket()
+    150          // 创建日期     : 2015-07-24
+    151          // 作者         : 陈锦
+    152          // 功能         : ASCII数据包转成RTU数据包
+    153          // 输入参数     : ASCII码串(u8 *pCyAsciiBuf),  ASCII码串包长度(u8 cyAsciiLen)
+    154          // 输出参数     : RTU码串(u8 *pCyRtuBuf),
+    155          // 返回结果     : 0:错误；其他：RTU码串包长度(u8 cyRtuLen)
+    156          // 注意和说明   : 
+    157          // 修改内容     :
+    158          //**************************************************************************************************
+
+   \                                 In section .text, align 2, keep-with-next
+    159          u8 MODBUS_ASCII_AsciiPacketToRtuPacket(u8 *pCyAsciiBuf, u8 cyAsciiLen, u8 *pCyRtuBuf)
+    160          {
+   \                     MODBUS_ASCII_AsciiPacketToRtuPacket: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+   \        0x2   0x0007             MOVS     R7,R0
+   \        0x4   0x000C             MOVS     R4,R1
+   \        0x6   0x0016             MOVS     R6,R2
+    161              u8 i;
+    162              u8 cyRtuLen;
+    163              
+    164              if (1 == (cyAsciiLen % 2) )                                                 //ASCII长度不能为奇数
+   \        0x8   0x2502             MOVS     R5,#+2
+   \        0xA   0x0020             MOVS     R0,R4
+   \        0xC   0xB2C0             UXTB     R0,R0
+   \        0xE   0x0029             MOVS     R1,R5
+   \       0x10   0x....'....        BL       __aeabi_idivmod
+   \       0x14   0x2901             CMP      R1,#+1
+   \       0x16   0xD101             BNE      ??MODBUS_ASCII_AsciiPacketToRtuPacket_0
+    165              {
+    166                  return 0;
+   \       0x18   0x2000             MOVS     R0,#+0
+   \       0x1A   0xE01A             B        ??MODBUS_ASCII_AsciiPacketToRtuPacket_1
+    167              }  
+    168              cyRtuLen = cyAsciiLen / 2;                                                  //RTU码的长度
+   \                     ??MODBUS_ASCII_AsciiPacketToRtuPacket_0: (+1)
+   \       0x1C   0xB2E4             UXTB     R4,R4
+   \       0x1E   0x0020             MOVS     R0,R4
+   \       0x20   0x0029             MOVS     R1,R5
+   \       0x22   0x....'....        BL       __aeabi_idiv
+   \       0x26   0x0004             MOVS     R4,R0
+    169              for (i = 0; i < cyRtuLen; i++)
+   \       0x28   0x2500             MOVS     R5,#+0
+   \       0x2A   0xE00A             B        ??MODBUS_ASCII_AsciiPacketToRtuPacket_2
+    170              {
+    171                  *(pCyRtuBuf + i) = MODBUS_ASCII_AsciiToHex(pCyAsciiBuf + i * 2);
+   \                     ??MODBUS_ASCII_AsciiPacketToRtuPacket_3: (+1)
+   \       0x2C   0x0028             MOVS     R0,R5
+   \       0x2E   0xB2C0             UXTB     R0,R0
+   \       0x30   0x2102             MOVS     R1,#+2
+   \       0x32   0x4348             MULS     R0,R1,R0
+   \       0x34   0x1838             ADDS     R0,R7,R0
+   \       0x36   0x....'....        BL       MODBUS_ASCII_AsciiToHex
+   \       0x3A   0x0029             MOVS     R1,R5
+   \       0x3C   0xB2C9             UXTB     R1,R1
+   \       0x3E   0x5470             STRB     R0,[R6, R1]
+    172              }
+   \       0x40   0x1C6D             ADDS     R5,R5,#+1
+   \                     ??MODBUS_ASCII_AsciiPacketToRtuPacket_2: (+1)
+   \       0x42   0x0028             MOVS     R0,R5
+   \       0x44   0x0021             MOVS     R1,R4
+   \       0x46   0xB2C0             UXTB     R0,R0
+   \       0x48   0xB2C9             UXTB     R1,R1
+   \       0x4A   0x4288             CMP      R0,R1
+   \       0x4C   0xD3EE             BCC      ??MODBUS_ASCII_AsciiPacketToRtuPacket_3
+    173              return (cyRtuLen);
+   \       0x4E   0x0020             MOVS     R0,R4
+   \       0x50   0xB2C0             UXTB     R0,R0
+   \                     ??MODBUS_ASCII_AsciiPacketToRtuPacket_1: (+1)
+   \       0x52   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+    174          }
+    175          
+    176          //**************************************************************************************************
+    177          // 名称         : MODBUS_ASCII_RtuPacketToAsciiPacket()
+    178          // 创建日期     : 2015-07-24
+    179          // 作者         : 陈锦
+    180          // 功能         : RTU数据包转成ASCII数据包
+    181          // 输入参数     : RTU码串(u8 *pCyRtuBuf),  RTU码串包长度(u8 cyRtuLen)
+    182          // 输出参数     : ASCII码串(u8 *pCyAsciiBuf),
+    183          // 返回结果     : ASCII码串包长度(u8 cyAsciiLen)
+    184          // 注意和说明   : 
+    185          // 修改内容     :
+    186          //**************************************************************************************************
+    187          
+
+   \                                 In section .text, align 2, keep-with-next
+    188          u8 MODBUS_ASCII_RtuPacketToAsciiPacket(u8 *pCyRtuBuf, u8 cyRtuLen, u8 *pCyAsciiBuf)
+    189          {
+   \                     MODBUS_ASCII_RtuPacketToAsciiPacket: (+1)
+   \        0x0   0xB5F4             PUSH     {R2,R4-R7,LR}
+   \        0x2   0x0006             MOVS     R6,R0
+   \        0x4   0x000C             MOVS     R4,R1
+    190              u8 i;
+    191              u8 cyAsciiLen;
+    192              
+    193              cyAsciiLen = cyRtuLen * 2;
+   \        0x6   0x2702             MOVS     R7,#+2
+   \        0x8   0x4367             MULS     R7,R4,R7
+    194              for (i = 0; i < cyRtuLen; i++)
+   \        0xA   0x2500             MOVS     R5,#+0
+   \        0xC   0xE00B             B        ??MODBUS_ASCII_RtuPacketToAsciiPacket_0
+    195              {
+    196                  MODBUS_ASCII_HexToAscii( *(pCyRtuBuf + i), pCyAsciiBuf + i * 2);
+   \                     ??MODBUS_ASCII_RtuPacketToAsciiPacket_1: (+1)
+   \        0xE   0x9800             LDR      R0,[SP, #+0]
+   \       0x10   0x0029             MOVS     R1,R5
+   \       0x12   0xB2C9             UXTB     R1,R1
+   \       0x14   0x2202             MOVS     R2,#+2
+   \       0x16   0x4351             MULS     R1,R2,R1
+   \       0x18   0x1841             ADDS     R1,R0,R1
+   \       0x1A   0x0028             MOVS     R0,R5
+   \       0x1C   0xB2C0             UXTB     R0,R0
+   \       0x1E   0x5C30             LDRB     R0,[R6, R0]
+   \       0x20   0x....'....        BL       MODBUS_ASCII_HexToAscii
+    197              }
+   \       0x24   0x1C6D             ADDS     R5,R5,#+1
+   \                     ??MODBUS_ASCII_RtuPacketToAsciiPacket_0: (+1)
+   \       0x26   0x0028             MOVS     R0,R5
+   \       0x28   0x0021             MOVS     R1,R4
+   \       0x2A   0xB2C0             UXTB     R0,R0
+   \       0x2C   0xB2C9             UXTB     R1,R1
+   \       0x2E   0x4288             CMP      R0,R1
+   \       0x30   0xD3ED             BCC      ??MODBUS_ASCII_RtuPacketToAsciiPacket_1
+    198              return (cyAsciiLen);
+   \       0x32   0x0038             MOVS     R0,R7
+   \       0x34   0xB2C0             UXTB     R0,R0
+   \       0x36   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+    199          }
+    200          
+    201          
+    202          //**************************************************************************************************
+    203          // 名称         : MODBUS_ASCII_HandlRevData()
+    204          // 创建日期     : 2015-07-27
+    205          // 作者         : 陈锦
+    206          // 功能         : ASCII处理接收数据
+    207          // 输入参数     : 接收数据(u8 cyRevData)
+    208          // 输出参数     : 无
+    209          // 返回结果     : 无
+    210          // 注意和说明   :
+    211          // 修改内容     :
+    212          //**************************************************************************************************
+
+   \                                 In section .text, align 2, keep-with-next
+    213          void MODBUS_ASCII_HandlRevData(u8 cyRevData)//ASCII码    接收串口中断数据处理
+    214          {
+   \                     MODBUS_ASCII_HandlRevData: (+1)
+   \        0x0   0xB51C             PUSH     {R2-R4,LR}
+    215              OS_ERR  os_err;
+    216          	
+    217              switch(g_cyRevState)
+   \        0x2   0x....             LDR      R1,??DataTable3
+   \        0x4   0x780A             LDRB     R2,[R1, #+0]
+   \        0x6   0x2A00             CMP      R2,#+0
+   \        0x8   0xD003             BEQ      ??MODBUS_ASCII_HandlRevData_0
+   \        0xA   0x2A02             CMP      R2,#+2
+   \        0xC   0xD045             BEQ      ??MODBUS_ASCII_HandlRevData_1
+   \        0xE   0xD31B             BCC      ??MODBUS_ASCII_HandlRevData_2
+   \       0x10   0xE053             B        ??MODBUS_ASCII_HandlRevData_3
+    218              {
+    219                case ASCII_HEAD_STATE:  //0   头状态
+    220                    if (ASCII_HEAD_DATA == cyRevData)  //如果是':',即0x3A
+   \                     ??MODBUS_ASCII_HandlRevData_0: (+1)
+   \       0x12   0x0002             MOVS     R2,R0
+   \       0x14   0xB2D2             UXTB     R2,R2
+   \       0x16   0x2A3A             CMP      R2,#+58
+   \       0x18   0xD103             BNE      ??MODBUS_ASCII_HandlRevData_4
+    221                    {
+    222                        g_cyRevBufffLen = 0;//记为 接收数据首字节
+   \       0x1A   0x2200             MOVS     R2,#+0
+   \       0x1C   0x....             LDR      R3,??DataTable3_1
+   \       0x1E   0x701A             STRB     R2,[R3, #+0]
+   \       0x20   0xE005             B        ??MODBUS_ASCII_HandlRevData_5
+    223                    }
+    224                    else if (0x0D == cyRevData)  //若是0x0D  
+   \                     ??MODBUS_ASCII_HandlRevData_4: (+1)
+   \       0x22   0x0002             MOVS     R2,R0
+   \       0x24   0xB2D2             UXTB     R2,R2
+   \       0x26   0x2A0D             CMP      R2,#+13
+   \       0x28   0xD101             BNE      ??MODBUS_ASCII_HandlRevData_5
+    225                    {
+    226                        g_cyRevState = ASCII_END_STATE;  //变为结束状态
+   \       0x2A   0x2201             MOVS     R2,#+1
+   \       0x2C   0x700A             STRB     R2,[R1, #+0]
+    227                    }
+    228                    
+    229                    UART1_RXBuff[g_cyRevBufffLen] = cyRevData;
+   \                     ??MODBUS_ASCII_HandlRevData_5: (+1)
+   \       0x2E   0x....             LDR      R2,??DataTable3_1
+   \       0x30   0x....             LDR      R3,??DataTable3_2
+   \       0x32   0x7814             LDRB     R4,[R2, #+0]
+   \       0x34   0x5518             STRB     R0,[R3, R4]
+    230                    g_cyRevBufffLen++;
+   \       0x36   0x7810             LDRB     R0,[R2, #+0]
+   \       0x38   0x1C40             ADDS     R0,R0,#+1
+   \       0x3A   0x7010             STRB     R0,[R2, #+0]
+    231                    
+    232                    if (MAX_USART1_DATA_LEN <= g_cyRevBufffLen)// MAX_USART1_DATA_LEN =  255
+   \       0x3C   0x7810             LDRB     R0,[R2, #+0]
+   \       0x3E   0x28FF             CMP      R0,#+255
+   \       0x40   0xD101             BNE      ??MODBUS_ASCII_HandlRevData_6
+    233                    {
+    234                        g_cyRevState = ASCII_IDLE_STATE;//空闲状态
+   \       0x42   0x2002             MOVS     R0,#+2
+   \       0x44   0x7008             STRB     R0,[R1, #+0]
+    235                    }
+    236                    break;
+   \                     ??MODBUS_ASCII_HandlRevData_6: (+1)
+   \       0x46   0xE03A             B        ??MODBUS_ASCII_HandlRevData_7
+    237                
+    238                case ASCII_END_STATE:   //1
+    239                    if (ASCII_HEAD_DATA == cyRevData)//若是‘：’，帧头
+   \                     ??MODBUS_ASCII_HandlRevData_2: (+1)
+   \       0x48   0x0002             MOVS     R2,R0
+   \       0x4A   0xB2D2             UXTB     R2,R2
+   \       0x4C   0x2A3A             CMP      R2,#+58
+   \       0x4E   0xD10B             BNE      ??MODBUS_ASCII_HandlRevData_8
+    240                    {
+    241                        g_cyRevBufffLen = 0;
+   \       0x50   0x2300             MOVS     R3,#+0
+   \       0x52   0x....             LDR      R2,??DataTable3_1
+   \       0x54   0x001C             MOVS     R4,R3
+   \       0x56   0x7014             STRB     R4,[R2, #+0]
+    242                        g_cyRevState = ASCII_HEAD_STATE;//重新开始保存，并变为头状态
+   \       0x58   0x700B             STRB     R3,[R1, #+0]
+    243                        UART1_RXBuff[g_cyRevBufffLen] = cyRevData;
+   \       0x5A   0x....             LDR      R1,??DataTable3_2
+   \       0x5C   0x7813             LDRB     R3,[R2, #+0]
+   \       0x5E   0x54C8             STRB     R0,[R1, R3]
+    244                        g_cyRevBufffLen++;
+   \       0x60   0x7810             LDRB     R0,[R2, #+0]
+   \       0x62   0x1C40             ADDS     R0,R0,#+1
+   \       0x64   0x7010             STRB     R0,[R2, #+0]
+   \       0x66   0xE017             B        ??MODBUS_ASCII_HandlRevData_9
+    245                    }
+    246                    else if (0x0A == cyRevData)
+   \                     ??MODBUS_ASCII_HandlRevData_8: (+1)
+   \       0x68   0x0002             MOVS     R2,R0
+   \       0x6A   0xB2D2             UXTB     R2,R2
+   \       0x6C   0x2A0A             CMP      R2,#+10
+   \       0x6E   0xD111             BNE      ??MODBUS_ASCII_HandlRevData_10
+    247                    {
+    248                          g_cyRevState = ASCII_IDLE_STATE;
+   \       0x70   0x2202             MOVS     R2,#+2
+   \       0x72   0x700A             STRB     R2,[R1, #+0]
+    249                          
+    250                          UART1_RXBuff[g_cyRevBufffLen] = cyRevData;
+   \       0x74   0x....             LDR      R1,??DataTable3_1
+   \       0x76   0x....             LDR      R2,??DataTable3_2
+   \       0x78   0x780B             LDRB     R3,[R1, #+0]
+   \       0x7A   0x54D0             STRB     R0,[R2, R3]
+    251                          g_cyRevBufffLen++;
+   \       0x7C   0x7808             LDRB     R0,[R1, #+0]
+   \       0x7E   0x1C40             ADDS     R0,R0,#+1
+   \       0x80   0x7008             STRB     R0,[R1, #+0]
+    252          
+    253                        //成功接收一包数据的标志
+    254                        UartRecvFrameOK = Bit_SET;
+   \       0x82   0x2001             MOVS     R0,#+1
+   \       0x84   0x....             LDR      R1,??DataTable3_3
+   \       0x86   0x7008             STRB     R0,[R1, #+0]
+    255                                          
+    256                        
+    257                        
+    258                        //调用此函数是为了向等待信号的任务发出信号。
+    259                        OSTaskSemPost((OS_TCB *)&AppTaskMBTCB, (OS_OPT) OS_OPT_POST_NONE,
+    260                              (OS_ERR *)&os_err);
+   \       0x88   0x466A             MOV      R2,SP
+   \       0x8A   0x2100             MOVS     R1,#+0
+   \       0x8C   0x....             LDR      R0,??DataTable3_4
+   \       0x8E   0x....'....        BL       OSTaskSemPost
+   \       0x92   0xE001             B        ??MODBUS_ASCII_HandlRevData_9
+    261                    }
+    262                    else
+    263                    {
+    264                        g_cyRevState = ASCII_IDLE_STATE;//空闲状态
+   \                     ??MODBUS_ASCII_HandlRevData_10: (+1)
+   \       0x94   0x2002             MOVS     R0,#+2
+   \       0x96   0x7008             STRB     R0,[R1, #+0]
+    265                    }
+    266                    break; 
+   \                     ??MODBUS_ASCII_HandlRevData_9: (+1)
+   \       0x98   0xE011             B        ??MODBUS_ASCII_HandlRevData_7
+    267                  
+    268                 case ASCII_IDLE_STATE:  
+    269                    if (ASCII_HEAD_DATA == cyRevData)//若是‘：’，帧头
+   \                     ??MODBUS_ASCII_HandlRevData_1: (+1)
+   \       0x9A   0x0002             MOVS     R2,R0
+   \       0x9C   0xB2D2             UXTB     R2,R2
+   \       0x9E   0x2A3A             CMP      R2,#+58
+   \       0xA0   0xD10A             BNE      ??MODBUS_ASCII_HandlRevData_11
+    270                    {
+    271                        g_cyRevBufffLen = 0;
+   \       0xA2   0x2300             MOVS     R3,#+0
+   \       0xA4   0x....             LDR      R2,??DataTable3_1
+   \       0xA6   0x001C             MOVS     R4,R3
+   \       0xA8   0x7014             STRB     R4,[R2, #+0]
+    272                        g_cyRevState = ASCII_HEAD_STATE;//重新开始保存，并变为头状态
+   \       0xAA   0x700B             STRB     R3,[R1, #+0]
+    273                        UART1_RXBuff[g_cyRevBufffLen] = cyRevData;
+   \       0xAC   0x....             LDR      R1,??DataTable3_2
+   \       0xAE   0x7813             LDRB     R3,[R2, #+0]
+   \       0xB0   0x54C8             STRB     R0,[R1, R3]
+    274                        g_cyRevBufffLen++;
+   \       0xB2   0x7810             LDRB     R0,[R2, #+0]
+   \       0xB4   0x1C40             ADDS     R0,R0,#+1
+   \       0xB6   0x7010             STRB     R0,[R2, #+0]
+    275                    }
+    276                      break;
+   \                     ??MODBUS_ASCII_HandlRevData_11: (+1)
+   \       0xB8   0xE001             B        ??MODBUS_ASCII_HandlRevData_7
+    277                  
+    278                 default:               
+    279                      g_cyRevState = ASCII_IDLE_STATE; //默认为空闲
+   \                     ??MODBUS_ASCII_HandlRevData_3: (+1)
+   \       0xBA   0x2002             MOVS     R0,#+2
+   \       0xBC   0x7008             STRB     R0,[R1, #+0]
+    280                      break;
+    281              }//end switch
+    282          }
+   \                     ??MODBUS_ASCII_HandlRevData_7: (+1)
+   \       0xBE   0xBD13             POP      {R0,R1,R4,PC}    ;; return
+    283          
+    284          //**************************************************************************************************
+    285          // 名称         : MODBUS_ASCII_CheckAscii()
+    286          // 创建日期     : 2015-07-27
+    287          // 作者         : 陈锦
+    288          // 功能         : 检验是否都是Ascii码
+    289          // 输入参数     : ASCII码串(u8 *pCyAsciiBuf), 数据长度(u8 cyLen)
+    290          // 输出参数     : 无
+    291          // 返回结果     : 检测(0 不全是， 1 全是)
+    292          // 注意和说明   : 
+    293          // 修改内容     :
+    294          //**************************************************************************************************
+
+   \                                 In section .text, align 2, keep-with-next
+    295          u8 MODBUS_ASCII_CheckAscii(u8 *pCyAsciiBuf, u8 cyLen)
+    296          {
+   \                     MODBUS_ASCII_CheckAscii: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+    297              u8 i;
+    298              for (i = 0; i < cyLen; i++)
+   \        0x2   0x2200             MOVS     R2,#+0
+   \        0x4   0xE011             B        ??MODBUS_ASCII_CheckAscii_0
+    299              {
+    300                  if ('0' > *(pCyAsciiBuf + i) )                                          //值不能小于31（‘0’）
+    301                  {
+    302                      break;
+    303                  }
+    304                  if ( ('9' < *(pCyAsciiBuf + i) ) && ( *(pCyAsciiBuf + i) < 'A' ) )      //值在‘0’~‘9’，‘A’~‘F’
+   \                     ??MODBUS_ASCII_CheckAscii_1: (+1)
+   \        0x6   0x0013             MOVS     R3,R2
+   \        0x8   0xB2DB             UXTB     R3,R3
+   \        0xA   0x5CC3             LDRB     R3,[R0, R3]
+   \        0xC   0x3B3A             SUBS     R3,R3,#+58
+   \        0xE   0x2B07             CMP      R3,#+7
+   \       0x10   0xD317             BCC      ??MODBUS_ASCII_CheckAscii_2
+    305                  {
+    306                      break;
+    307                  }
+    308                  if ( ('F' < *(pCyAsciiBuf + i) ) && ( *(pCyAsciiBuf + i) < 'a' ) )
+   \                     ??MODBUS_ASCII_CheckAscii_3: (+1)
+   \       0x12   0x0013             MOVS     R3,R2
+   \       0x14   0xB2DB             UXTB     R3,R3
+   \       0x16   0x5CC3             LDRB     R3,[R0, R3]
+   \       0x18   0x3B47             SUBS     R3,R3,#+71
+   \       0x1A   0x2B1A             CMP      R3,#+26
+   \       0x1C   0xD312             BCC      ??MODBUS_ASCII_CheckAscii_4
+    309                  {
+    310                      break;
+    311                  }
+    312                  if ('f' < *(pCyAsciiBuf + i) )
+   \                     ??MODBUS_ASCII_CheckAscii_5: (+1)
+   \       0x1E   0x0013             MOVS     R3,R2
+   \       0x20   0xB2DB             UXTB     R3,R3
+   \       0x22   0x5CC3             LDRB     R3,[R0, R3]
+   \       0x24   0x2B67             CMP      R3,#+103
+   \       0x26   0xDA0E             BGE      ??MODBUS_ASCII_CheckAscii_6
+   \                     ??MODBUS_ASCII_CheckAscii_7: (+1)
+   \       0x28   0x1C52             ADDS     R2,R2,#+1
+   \                     ??MODBUS_ASCII_CheckAscii_0: (+1)
+   \       0x2A   0x0013             MOVS     R3,R2
+   \       0x2C   0x000C             MOVS     R4,R1
+   \       0x2E   0xB2DB             UXTB     R3,R3
+   \       0x30   0xB2E4             UXTB     R4,R4
+   \       0x32   0x42A3             CMP      R3,R4
+   \       0x34   0xD207             BCS      ??MODBUS_ASCII_CheckAscii_8
+   \       0x36   0x0013             MOVS     R3,R2
+   \       0x38   0xB2DB             UXTB     R3,R3
+   \       0x3A   0x5CC3             LDRB     R3,[R0, R3]
+   \       0x3C   0x2B30             CMP      R3,#+48
+   \       0x3E   0xDAE2             BGE      ??MODBUS_ASCII_CheckAscii_1
+   \       0x40   0xE001             B        ??MODBUS_ASCII_CheckAscii_8
+   \                     ??MODBUS_ASCII_CheckAscii_2: (+1)
+   \       0x42   0xE000             B        ??MODBUS_ASCII_CheckAscii_8
+   \                     ??MODBUS_ASCII_CheckAscii_4: (+1)
+   \       0x44   0xE7FF             B        ??MODBUS_ASCII_CheckAscii_8
+    313                  {
+    314                      break;
+    315                  }
+    316              }
+    317              if (i == cyLen)
+   \                     ??MODBUS_ASCII_CheckAscii_6: (+1)
+   \                     ??MODBUS_ASCII_CheckAscii_8: (+1)
+   \       0x46   0xB2D2             UXTB     R2,R2
+   \       0x48   0xB2C9             UXTB     R1,R1
+   \       0x4A   0x428A             CMP      R2,R1
+   \       0x4C   0xD101             BNE      ??MODBUS_ASCII_CheckAscii_9
+    318              {
+    319                  return (1);                                                             //返回1值为正常的
+   \       0x4E   0x2001             MOVS     R0,#+1
+   \       0x50   0xE000             B        ??MODBUS_ASCII_CheckAscii_10
+    320              }
+    321              return (0);                                                                 //返回0，值不正常
+   \                     ??MODBUS_ASCII_CheckAscii_9: (+1)
+   \       0x52   0x2000             MOVS     R0,#+0
+   \                     ??MODBUS_ASCII_CheckAscii_10: (+1)
+   \       0x54   0xBD10             POP      {R4,PC}          ;; return
+    322          }
+    323          
+    324          //**************************************************************************************************
+    325          // 名称         : MODBUS_ASCII_RecvData()
+    326          // 创建日期     : 2015-07-27
+    327          // 作者         : 陈锦
+    328          // 功能         : 接收一串数据
+    329          // 输入参数     : 数据串(cyRecvBuff)
+    330          // 输出参数     : 数据长度(u8 *cyLen)
+    331          // 返回结果     : 执行结果(0 没有接收数据， 1 接收数据出现不是ASCII码， 2 效验码错误， 3 成功)
+    332          // 注意和说明   :
+    333          // 修改内容     : 发送错误的LRC时，获得从机地址为0x3A，因为LRC错误时直接退出，未执行ASC->RTU
+    334          //                所以在LRC错误时添加一句    2016.09.09      
+    335          //**************************************************************************************************
+    336          
+
+   \                                 In section .text, align 2, keep-with-next
+    337          u8 MODBUS_ASCII_RecvData(u8* cyRecvBuff, u8 *pCyLen)
+    338            {
+   \                     MODBUS_ASCII_RecvData: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+   \        0x2   0x0006             MOVS     R6,R0
+   \        0x4   0x000D             MOVS     R5,R1
+    339              u8 cyLrc;
+    340          	
+    341              if (((u8*)NULL) == cyRecvBuff)
+   \        0x6   0x2E00             CMP      R6,#+0
+   \        0x8   0xD101             BNE      ??MODBUS_ASCII_RecvData_0
+    342              {
+    343                  return 0;
+   \        0xA   0x2000             MOVS     R0,#+0
+   \        0xC   0xE033             B        ??MODBUS_ASCII_RecvData_1
+    344              }
+    345          
+    346              if ((Bit_RESET == UartRecvFrameOK) || (0 == g_cyRevBufffLen))
+   \                     ??MODBUS_ASCII_RecvData_0: (+1)
+   \        0xE   0x....             LDR      R0,??DataTable3_3
+   \       0x10   0x7801             LDRB     R1,[R0, #+0]
+   \       0x12   0x2900             CMP      R1,#+0
+   \       0x14   0xD003             BEQ      ??MODBUS_ASCII_RecvData_2
+   \       0x16   0x....             LDR      R4,??DataTable3_1
+   \       0x18   0x7821             LDRB     R1,[R4, #+0]
+   \       0x1A   0x2900             CMP      R1,#+0
+   \       0x1C   0xD101             BNE      ??MODBUS_ASCII_RecvData_3
+    347              {
+    348                  return 0;
+   \                     ??MODBUS_ASCII_RecvData_2: (+1)
+   \       0x1E   0x2000             MOVS     R0,#+0
+   \       0x20   0xE029             B        ??MODBUS_ASCII_RecvData_1
+    349              }
+    350              
+    351              UartRecvFrameOK = Bit_RESET;
+   \                     ??MODBUS_ASCII_RecvData_3: (+1)
+   \       0x22   0x2100             MOVS     R1,#+0
+   \       0x24   0x7001             STRB     R1,[R0, #+0]
+    352              
+    353              if (0 == MODBUS_ASCII_CheckAscii(&UART1_RXBuff[1], g_cyRevBufffLen - 3) )
+   \       0x26   0x7820             LDRB     R0,[R4, #+0]
+   \       0x28   0x1EC1             SUBS     R1,R0,#+3
+   \       0x2A   0xB2C9             UXTB     R1,R1
+   \       0x2C   0x....             LDR      R0,??DataTable3_5
+   \       0x2E   0x....'....        BL       MODBUS_ASCII_CheckAscii
+   \       0x32   0x2800             CMP      R0,#+0
+   \       0x34   0xD101             BNE      ??MODBUS_ASCII_RecvData_4
+    354              {
+    355              	return 1;
+   \       0x36   0x2001             MOVS     R0,#+1
+   \       0x38   0xE01D             B        ??MODBUS_ASCII_RecvData_1
+    356              }
+    357          
+    358              cyLrc = MODBUS_ASCII_GetLrc(&UART1_RXBuff[1], g_cyRevBufffLen - 5);         //去掉3A、LRC和0d 0a后求校验码
+   \                     ??MODBUS_ASCII_RecvData_4: (+1)
+   \       0x3A   0x....             LDR      R7,??DataTable3_5
+   \       0x3C   0x7820             LDRB     R0,[R4, #+0]
+   \       0x3E   0x1F41             SUBS     R1,R0,#+5
+   \       0x40   0xB2C9             UXTB     R1,R1
+   \       0x42   0x0038             MOVS     R0,R7
+   \       0x44   0x....'....        BL       MODBUS_ASCII_GetLrc
+   \       0x48   0x0001             MOVS     R1,R0
+    359              if (cyLrc != MODBUS_ASCII_AsciiToHex(&UART1_RXBuff[g_cyRevBufffLen - 4]) )  //比较校验码
+   \       0x4A   0x9100             STR      R1,[SP, #+0]
+   \       0x4C   0x....             LDR      R0,??DataTable3_2
+   \       0x4E   0x7821             LDRB     R1,[R4, #+0]
+   \       0x50   0x1840             ADDS     R0,R0,R1
+   \       0x52   0x1F00             SUBS     R0,R0,#+4
+   \       0x54   0x....'....        BL       MODBUS_ASCII_AsciiToHex
+   \       0x58   0x9900             LDR      R1,[SP, #+0]
+   \       0x5A   0xB2C9             UXTB     R1,R1
+   \       0x5C   0x4281             CMP      R1,R0
+   \       0x5E   0xD001             BEQ      ??MODBUS_ASCII_RecvData_5
+    360              {                                                                           //添加以下这句，在发送LRC错误时保证接收到的数据被转换成RTU格式                                                                      
+    361              	return 2;                                                               //发送数据效验错误
+   \       0x60   0x2002             MOVS     R0,#+2
+   \       0x62   0xE008             B        ??MODBUS_ASCII_RecvData_1
+    362              }
+    363          
+    364              *pCyLen = MODBUS_ASCII_AsciiPacketToRtuPacket(&UART1_RXBuff[1], g_cyRevBufffLen - 5, cyRecvBuff);
+   \                     ??MODBUS_ASCII_RecvData_5: (+1)
+   \       0x64   0x0032             MOVS     R2,R6
+   \       0x66   0x7820             LDRB     R0,[R4, #+0]
+   \       0x68   0x1F41             SUBS     R1,R0,#+5
+   \       0x6A   0xB2C9             UXTB     R1,R1
+   \       0x6C   0x0038             MOVS     R0,R7
+   \       0x6E   0x....'....        BL       MODBUS_ASCII_AsciiPacketToRtuPacket
+   \       0x72   0x7028             STRB     R0,[R5, #+0]
+    365          
+    366              return (3);
+   \       0x74   0x2003             MOVS     R0,#+3
+   \                     ??MODBUS_ASCII_RecvData_1: (+1)
+   \       0x76   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+    367          }
+    368          
+    369          
+    370          //**************************************************************************************************
+    371          // 名称         : MODBUS_ASCII_SendData()
+    372          // 创建日期     : 2015-07-13
+    373          // 作者         : 陈锦
+    374          // 功能         : 发送一串数据
+    375          // 输入参数     : 数据串(u8 *cySendBuff), 数据长度(cyLen) (数据长度 小于 123)
+    376          // 输出参数     : 无
+    377          // 返回结果     : 执行结果(0 失败， 数据长度 成功)
+    378          // 注意和说明   :
+    379          // 修改内容     :
+    380          //**************************************************************************************************
+
+   \                                 In section .text, align 2, keep-with-next
+    381          u8 MODBUS_ASCII_SendData(u8 *cySendBuff, u8 cyLen)
+    382          {
+   \                     MODBUS_ASCII_SendData: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+    383              u8 cyLrc;
+    384              u8 cyAsciiLen;
+    385          	
+    386              if ( (0 == cyLen) || ( ((u8*)NULL) == cySendBuff) )
+   \        0x2   0x000A             MOVS     R2,R1
+   \        0x4   0xB2D2             UXTB     R2,R2
+   \        0x6   0x2A00             CMP      R2,#+0
+   \        0x8   0xD001             BEQ      ??MODBUS_ASCII_SendData_0
+   \        0xA   0x2800             CMP      R0,#+0
+   \        0xC   0xD101             BNE      ??MODBUS_ASCII_SendData_1
+    387              {
+    388                  return 0;
+   \                     ??MODBUS_ASCII_SendData_0: (+1)
+   \        0xE   0x2000             MOVS     R0,#+0
+   \       0x10   0xE02E             B        ??MODBUS_ASCII_SendData_2
+    389              }
+    390              
+    391              if ( (cyLen * 2 + 5) > MAX_USART1_DATA_LEN)
+   \                     ??MODBUS_ASCII_SendData_1: (+1)
+   \       0x12   0x000A             MOVS     R2,R1
+   \       0x14   0xB2D2             UXTB     R2,R2
+   \       0x16   0x2302             MOVS     R3,#+2
+   \       0x18   0x435A             MULS     R2,R3,R2
+   \       0x1A   0x1D52             ADDS     R2,R2,#+5
+   \       0x1C   0x2AFF             CMP      R2,#+255
+   \       0x1E   0xDD01             BLE      ??MODBUS_ASCII_SendData_3
+    392              {
+    393              	return 0;
+   \       0x20   0x2000             MOVS     R0,#+0
+   \       0x22   0xE025             B        ??MODBUS_ASCII_SendData_2
+    394              }
+    395              
+    396              cyAsciiBuff[0] = ASCII_HEAD_DATA;
+   \                     ??MODBUS_ASCII_SendData_3: (+1)
+   \       0x24   0x....             LDR      R4,??DataTable3_6
+   \       0x26   0x223A             MOVS     R2,#+58
+   \       0x28   0x7022             STRB     R2,[R4, #+0]
+    397              cyAsciiLen = 1;
+   \       0x2A   0x2501             MOVS     R5,#+1
+    398              
+    399              cyAsciiLen += MODBUS_ASCII_RtuPacketToAsciiPacket(cySendBuff, cyLen, &cyAsciiBuff[1]);
+   \       0x2C   0x1C66             ADDS     R6,R4,#+1
+   \       0x2E   0x0032             MOVS     R2,R6
+   \       0x30   0xB2C9             UXTB     R1,R1
+   \       0x32   0x....'....        BL       MODBUS_ASCII_RtuPacketToAsciiPacket
+   \       0x36   0x182D             ADDS     R5,R5,R0
+    400              cyLrc = MODBUS_ASCII_GetLrc(&cyAsciiBuff[1], cyAsciiLen - 1);
+   \       0x38   0x1E69             SUBS     R1,R5,#+1
+   \       0x3A   0xB2C9             UXTB     R1,R1
+   \       0x3C   0x0030             MOVS     R0,R6
+   \       0x3E   0x....'....        BL       MODBUS_ASCII_GetLrc
+    401              MODBUS_ASCII_HexToAscii(cyLrc, &cyAsciiBuff[cyAsciiLen]);
+   \       0x42   0x0029             MOVS     R1,R5
+   \       0x44   0xB2C9             UXTB     R1,R1
+   \       0x46   0x1861             ADDS     R1,R4,R1
+   \       0x48   0xB2C0             UXTB     R0,R0
+   \       0x4A   0x....'....        BL       MODBUS_ASCII_HexToAscii
+    402              cyAsciiLen += 2;
+   \       0x4E   0x1CAD             ADDS     R5,R5,#+2
+   \       0x50   0x0029             MOVS     R1,R5
+    403              cyAsciiBuff[cyAsciiLen] = 0x0D;
+   \       0x52   0x200D             MOVS     R0,#+13
+   \       0x54   0x000A             MOVS     R2,R1
+   \       0x56   0xB2D2             UXTB     R2,R2
+   \       0x58   0x54A0             STRB     R0,[R4, R2]
+    404              cyAsciiLen++;
+   \       0x5A   0x1C49             ADDS     R1,R1,#+1
+    405              cyAsciiBuff[cyAsciiLen] = 0x0A;
+   \       0x5C   0x200A             MOVS     R0,#+10
+   \       0x5E   0x000A             MOVS     R2,R1
+   \       0x60   0xB2D2             UXTB     R2,R2
+   \       0x62   0x54A0             STRB     R0,[R4, R2]
+    406              cyAsciiLen++;
+   \       0x64   0x1C49             ADDS     R1,R1,#+1
+    407              return (UART1_SendData(cyAsciiBuff, cyAsciiLen) );
+   \       0x66   0xB2C9             UXTB     R1,R1
+   \       0x68   0x0020             MOVS     R0,R4
+   \       0x6A   0x....'....        BL       UART1_SendData
+   \       0x6E   0xB2C0             UXTB     R0,R0
+   \                     ??MODBUS_ASCII_SendData_2: (+1)
+   \       0x70   0xBD70             POP      {R4-R6,PC}       ;; return
+    408          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3:
+   \        0x0   0x....'....        DC32     g_cyRevState
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_1:
+   \        0x0   0x....'....        DC32     g_cyRevBufffLen
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_2:
+   \        0x0   0x....'....        DC32     UART1_RXBuff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_3:
+   \        0x0   0x....'....        DC32     UartRecvFrameOK
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_4:
+   \        0x0   0x....'....        DC32     AppTaskMBTCB
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_5:
+   \        0x0   0x....'....        DC32     UART1_RXBuff+0x1
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_6:
+   \        0x0   0x....'....        DC32     cyAsciiBuff
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      24   MODBUS_ASCII_AsciiPacketToRtuPacket
+        24   -> MODBUS_ASCII_AsciiToHex
+        24 __aeabi_idiv
+        24 __aeabi_idivmod
+       4   MODBUS_ASCII_AsciiToHex
+       8   MODBUS_ASCII_CheckAscii
+      24   MODBUS_ASCII_GetLrc
+        24   -> MODBUS_ASCII_AsciiToHex
+        24 __aeabi_idiv
+        24 __aeabi_idivmod
+      16   MODBUS_ASCII_HandlRevData
+        16   -> OSTaskSemPost
+      16   MODBUS_ASCII_HexToAscii
+        16 __aeabi_idiv
+        16 __aeabi_idivmod
+      24   MODBUS_ASCII_RecvData
+        24   -> MODBUS_ASCII_AsciiPacketToRtuPacket
+        24   -> MODBUS_ASCII_AsciiToHex
+        24   -> MODBUS_ASCII_CheckAscii
+        24   -> MODBUS_ASCII_GetLrc
+      24   MODBUS_ASCII_RtuPacketToAsciiPacket
+        24   -> MODBUS_ASCII_HexToAscii
+      16   MODBUS_ASCII_SendData
+        16   -> MODBUS_ASCII_GetLrc
+        16   -> MODBUS_ASCII_HexToAscii
+        16   -> MODBUS_ASCII_RtuPacketToAsciiPacket
+        16   -> UART1_SendData
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable3
+       4  ??DataTable3_1
+       4  ??DataTable3_2
+       4  ??DataTable3_3
+       4  ??DataTable3_4
+       4  ??DataTable3_5
+       4  ??DataTable3_6
+      84  MODBUS_ASCII_AsciiPacketToRtuPacket
+      80  MODBUS_ASCII_AsciiToHex
+      86  MODBUS_ASCII_CheckAscii
+      84  MODBUS_ASCII_GetLrc
+     192  MODBUS_ASCII_HandlRevData
+      66  MODBUS_ASCII_HexToAscii
+     120  MODBUS_ASCII_RecvData
+      56  MODBUS_ASCII_RtuPacketToAsciiPacket
+     114  MODBUS_ASCII_SendData
+     256  cyAsciiBuff
+       1  g_cyRevBufffLen
+       1  g_cyRevState
+
+ 
+ 257 bytes in section .bss
+   1 byte  in section .data
+ 910 bytes in section .text
+ 
+ 910 bytes of CODE memory
+ 258 bytes of DATA memory
+
+Errors: none
+Warnings: none

@@ -1,0 +1,14 @@
+.\object\ads1256.o: User\ADS1256.c
+.\object\ads1256.o: C:\rj\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\object\ads1256.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_gpio.h
+.\object\ads1256.o: .\Libraries\CMSIS\stm32f10x.h
+.\object\ads1256.o: .\Libraries\CMSIS\core_cm3.h
+.\object\ads1256.o: C:\rj\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\object\ads1256.o: .\Libraries\CMSIS\system_stm32f10x.h
+.\object\ads1256.o: .\User\stm32f10x_conf.h
+.\object\ads1256.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h
+.\object\ads1256.o: .\Libraries\CMSIS\stm32f10x.h
+.\object\ads1256.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
+.\object\ads1256.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
+.\object\ads1256.o: User\ADS1256.h
+.\object\ads1256.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_spi.h

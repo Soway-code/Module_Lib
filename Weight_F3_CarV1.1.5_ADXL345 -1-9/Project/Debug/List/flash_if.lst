@@ -1,0 +1,399 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.4.261/W32 for ARM         10/Jan/2021  16:10:15
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode             
+#    Endian            =  little
+#    Source file       =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\APP\flash_if.c
+#    Command line      =
+#        -f C:\Users\macanlin\AppData\Local\Temp\EWD4C8.tmp
+#        ("C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\APP\flash_if.c" -D USE_STDPERIPH_DRIVER -D STM32F072 -lC
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List" -o
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj" --no_cse --no_unroll --no_inline
+#        --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug
+#        --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config
+#        C:\rj\IAR\arm\inc\c\DLib_Config_Normal.h -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\BSP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\CMSIS\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\OS_Cfg\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-CPU\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Ports\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Source\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\APP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -Ol -I
+#        C:\rj\IAR\arm\CMSIS\Core\Include\\ -I
+#        C:\rj\IAR\arm\CMSIS\DSP\Include\\)
+#    Locale            =  C
+#    List file         =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List\flash_if.lst
+#    Object file       =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj\flash_if.o
+#    Runtime model:       
+#      __SystemLibrary =  DLib
+#      __dlib_version  =  6
+#
+###############################################################################
+
+C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345 -1-9\Source\APP\flash_if.c
+      1          //**************************************************************************************************
+      2          //  Copyright (C), 2013-2023, The Chinese University of Hong Kong
+      3          //  FileName:      flash_if.c
+      4          //  Author:        chenjin      
+      5          //  Version:       1.0.0.0        
+      6          //  Date:          2015/11/17
+      7          //  Description:   FLASH操作
+      8          //  Function List: 
+      9          //  History:         // 历史修改记录
+     10          //  	author:       
+     11          //      Date:         
+     12          //      version:      
+     13          //      desc:         
+     14          //**************************************************************************************************
+     15          
+     16          #include "stm32f0xx.h"
+     17          #include "flash_if.h"
+     18          
+     19          //**************************************************************************************************
+     20          // Name         : FLASH_If_Init()
+     21          // CreateDate   : 2015-11-17
+     22          // Author       : chenjin
+     23          // Function     : 初始化FLASH
+     24          // ParameIn     : 无
+     25          // ParameOut    : 无
+     26          // Return       : 无
+     27          // commments    :
+     28          // Modification :
+     29          //**************************************************************************************************
+     30          
+
+   \                                 In section .text, align 2, keep-with-next
+     31          void FLASH_If_Init(void)
+     32          { 
+   \                     FLASH_If_Init: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+     33              //Unlock the Program memory 
+     34              FLASH_Unlock();
+   \        0x2   0x....'....        BL       FLASH_Unlock
+     35              //Clear all FLASH flags 
+     36              FLASH_ClearFlag(FLASH_FLAG_EOP | FLASH_FLAG_WRPERR | FLASH_FLAG_PGERR | FLASH_FLAG_BSY);   
+   \        0x6   0x2035             MOVS     R0,#+53
+   \        0x8   0x....'....        BL       FLASH_ClearFlag
+     37          }
+   \        0xC   0xBD01             POP      {R0,PC}          ;; return
+     38          
+     39          //**************************************************************************************************
+     40          // Name         : FLASH_If_Erase()
+     41          // CreateDate   : 2015-11-17
+     42          // Author       : chenjin
+     43          // Function     : 删除FLASH
+     44          // ParameIn     : 无
+     45          // ParameOut    : 无
+     46          // Return       : 无
+     47          // commments    :
+     48          // Modification :
+     49          //**************************************************************************************************
+     50          
+
+   \                                 In section .text, align 2, keep-with-next
+     51          uint32_t FLASH_If_Erase(uint32_t dwStartSector)
+     52          {
+   \                     FLASH_If_Erase: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+   \        0x2   0x0004             MOVS     R4,R0
+     53            	uint32_t dwFlashaddress;
+     54            
+     55            	dwFlashaddress = dwStartSector;
+   \        0x4   0xE002             B        ??FLASH_If_Erase_0
+     56            
+     57            	while (USER_FLASH_LAST_PAGE_ADDRESS > dwFlashaddress)
+     58            	{
+     59          	    if (FLASH_COMPLETE == FLASH_ErasePage(dwFlashaddress) )
+     60          	    {
+     61          	      	dwFlashaddress += FLASH_PAGE_SIZE;
+   \                     ??FLASH_If_Erase_1: (+1)
+   \        0x6   0x2080             MOVS     R0,#+128
+   \        0x8   0x00C0             LSLS     R0,R0,#+3        ;; #+1024
+   \        0xA   0x1824             ADDS     R4,R4,R0
+     62          	    }
+   \                     ??FLASH_If_Erase_0: (+1)
+   \        0xC   0x....             LDR      R0,??DataTable2  ;; 0x8004000
+   \        0xE   0x4284             CMP      R4,R0
+   \       0x10   0xD206             BCS      ??FLASH_If_Erase_2
+   \       0x12   0x0020             MOVS     R0,R4
+   \       0x14   0x....'....        BL       FLASH_ErasePage
+   \       0x18   0x2804             CMP      R0,#+4
+   \       0x1A   0xD0F4             BEQ      ??FLASH_If_Erase_1
+     63          	    else
+     64          	    {
+     65          	      	//Error occurred while page erase 
+     66          	      	return (1);
+   \       0x1C   0x2001             MOVS     R0,#+1
+   \       0x1E   0xE000             B        ??FLASH_If_Erase_3
+     67          	    }
+     68            	}
+     69            	
+     70            	return (0);
+   \                     ??FLASH_If_Erase_2: (+1)
+   \       0x20   0x2000             MOVS     R0,#+0
+   \                     ??FLASH_If_Erase_3: (+1)
+   \       0x22   0xBD10             POP      {R4,PC}          ;; return
+     71          }
+     72          
+     73          //**************************************************************************************************
+     74          // Name         : FLASH_If_Write()
+     75          // CreateDate   : 2015-11-17
+     76          // Author       : chenjin
+     77          // Function     : 写FLASH
+     78          // ParameIn     : 无
+     79          // ParameOut    : 无
+     80          // Return       : 无
+     81          // commments    :
+     82          // Modification :
+     83          //**************************************************************************************************
+     84          /*
+     85          uint32_t FLASH_If_Write(__IO uint32_t* dwFlashAddress, uint32_t *pDwData, uint16_t wDataLength)
+     86          {
+     87            	uint32_t i = 0;
+     88          
+     89            	for (i = 0; (i < wDataLength) && (*dwFlashAddress <= (USER_FLASH_END_ADDRESS - 4) ); i++)
+     90            	{
+     91              	//the operation will be done by word 
+     92              	if (FLASH_COMPLETE == FLASH_ProgramWord(*dwFlashAddress, *(uint32_t*)(pDwData + i) ) )
+     93              	{
+     94               		//Check the written value 
+     95                		if (*(uint32_t*)*dwFlashAddress != *(uint32_t*)(pDwData + i) )
+     96                		{
+     97                  		//Flash content doesn't match SRAM content 
+     98                  		return(2);
+     99                		}
+    100                		//Increment FLASH destination address 
+    101                		*dwFlashAddress += 4;
+    102              	}
+    103              	else
+    104              	{
+    105                		// Error occurred while writing data in Flash memory 
+    106                		return (1);
+    107              	}
+    108            	}
+    109          
+    110            	return (0);
+    111          }*/
+    112          
+
+   \                                 In section .text, align 2, keep-with-next
+    113          uint32_t FLASH_If_Write(uint32_t *dwFlashAddress, uint16_t *pWData, uint16_t wDataLength)
+    114          {
+   \                     FLASH_If_Write: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+   \        0x2   0x0004             MOVS     R4,R0
+   \        0x4   0x000E             MOVS     R6,R1
+   \        0x6   0x0017             MOVS     R7,R2
+    115            	uint16_t i;
+    116          
+    117            	for (i = 0; (i < wDataLength) && (*dwFlashAddress <= (USER_FLASH_END_ADDRESS - 2) ); i++)
+   \        0x8   0x2500             MOVS     R5,#+0
+   \        0xA   0xE003             B        ??FLASH_If_Write_0
+    118            	{
+    119              	//the operation will be done by word 
+    120              	if (FLASH_COMPLETE == FLASH_ProgramHalfWord(*dwFlashAddress, *(pWData + i) ) )
+    121              	{
+    122               		//Check the written value 
+    123                		if (*(vu16*)(*dwFlashAddress) != *(uint16_t*)(pWData + i) )
+    124                		{
+    125                  		//Flash content doesn't match SRAM content 
+    126                  		return(2);
+    127                		}
+    128                		//Increment FLASH destination address 
+    129                		*dwFlashAddress += 2;
+   \                     ??FLASH_If_Write_1: (+1)
+   \        0xC   0x6820             LDR      R0,[R4, #+0]
+   \        0xE   0x1C80             ADDS     R0,R0,#+2
+   \       0x10   0x6020             STR      R0,[R4, #+0]
+   \       0x12   0x1C6D             ADDS     R5,R5,#+1
+   \                     ??FLASH_If_Write_0: (+1)
+   \       0x14   0x0028             MOVS     R0,R5
+   \       0x16   0x0039             MOVS     R1,R7
+   \       0x18   0xB280             UXTH     R0,R0
+   \       0x1A   0xB289             UXTH     R1,R1
+   \       0x1C   0x4288             CMP      R0,R1
+   \       0x1E   0xD21A             BCS      ??FLASH_If_Write_2
+   \       0x20   0x6820             LDR      R0,[R4, #+0]
+   \       0x22   0x....             LDR      R1,??DataTable2_1  ;; 0x800ffff
+   \       0x24   0x4288             CMP      R0,R1
+   \       0x26   0xD216             BCS      ??FLASH_If_Write_2
+   \       0x28   0x0028             MOVS     R0,R5
+   \       0x2A   0xB280             UXTH     R0,R0
+   \       0x2C   0x2102             MOVS     R1,#+2
+   \       0x2E   0x4341             MULS     R1,R0,R1
+   \       0x30   0x5A71             LDRH     R1,[R6, R1]
+   \       0x32   0x6820             LDR      R0,[R4, #+0]
+   \       0x34   0x....'....        BL       FLASH_ProgramHalfWord
+   \       0x38   0x2804             CMP      R0,#+4
+   \       0x3A   0xD10A             BNE      ??FLASH_If_Write_3
+   \       0x3C   0x6820             LDR      R0,[R4, #+0]
+   \       0x3E   0x8800             LDRH     R0,[R0, #+0]
+   \       0x40   0x0029             MOVS     R1,R5
+   \       0x42   0xB289             UXTH     R1,R1
+   \       0x44   0x2202             MOVS     R2,#+2
+   \       0x46   0x434A             MULS     R2,R1,R2
+   \       0x48   0x5AB1             LDRH     R1,[R6, R2]
+   \       0x4A   0x4288             CMP      R0,R1
+   \       0x4C   0xD0DE             BEQ      ??FLASH_If_Write_1
+   \       0x4E   0x2002             MOVS     R0,#+2
+   \       0x50   0xE002             B        ??FLASH_If_Write_4
+    130              	}
+    131              	else
+    132              	{
+    133                		// Error occurred while writing data in Flash memory 
+    134                		return (1);
+   \                     ??FLASH_If_Write_3: (+1)
+   \       0x52   0x2001             MOVS     R0,#+1
+   \       0x54   0xE000             B        ??FLASH_If_Write_4
+    135              	}
+    136            	}
+    137          
+    138            	return (0);
+   \                     ??FLASH_If_Write_2: (+1)
+   \       0x56   0x2000             MOVS     R0,#+0
+   \                     ??FLASH_If_Write_4: (+1)
+   \       0x58   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+    139          }
+    140          
+    141          
+    142          //**************************************************************************************************
+    143          // Name         : FLASH_If_ReadHalfWord()
+    144          // CreateDate   : 2015-11-17
+    145          // Author       : chenjin
+    146          // Function     : 读半个Word
+    147          // ParameIn     : 无
+    148          // ParameOut    : 无
+    149          // Return       : 无
+    150          // commments    :
+    151          // Modification :
+    152          //**************************************************************************************************
+    153          
+
+   \                                 In section .text, align 2, keep-with-next
+    154          static uint16_t FLASH_If_ReadHalfWord(uint32_t faddr)
+    155          {
+    156          	return *(vu16*)faddr;
+   \                     FLASH_If_ReadHalfWord: (+1)
+   \        0x0   0x8800             LDRH     R0,[R0, #+0]
+   \        0x2   0x4770             BX       LR               ;; return
+    157          }
+    158          
+    159          //**************************************************************************************************
+    160          // Name         : LASH_If_Read()
+    161          // CreateDate   : 2015-11-17
+    162          // Author       : chenjin
+    163          // Function     : 读半个Word
+    164          // ParameIn     : 无
+    165          // ParameOut    : 无
+    166          // Return       : 无
+    167          // commments    :
+    168          // Modification :
+    169          //**************************************************************************************************
+    170          
+
+   \                                 In section .text, align 2, keep-with-next
+    171          void FLASH_If_Read(uint32_t dwAddr, uint16_t *pBuffer, uint16_t wLen)
+    172          {
+   \                     FLASH_If_Read: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+   \        0x2   0x0004             MOVS     R4,R0
+   \        0x4   0x000F             MOVS     R7,R1
+   \        0x6   0x0015             MOVS     R5,R2
+    173          	uint16_t i;
+    174          
+    175          	for (i = 0; i < wLen; i++)
+   \        0x8   0x2600             MOVS     R6,#+0
+   \        0xA   0xE009             B        ??FLASH_If_Read_0
+    176          	{
+    177          		pBuffer[i] = FLASH_If_ReadHalfWord(dwAddr);//读2个字节
+   \                     ??FLASH_If_Read_1: (+1)
+   \        0xC   0x0020             MOVS     R0,R4
+   \        0xE   0x....'....        BL       FLASH_If_ReadHalfWord
+   \       0x12   0x0031             MOVS     R1,R6
+   \       0x14   0xB289             UXTH     R1,R1
+   \       0x16   0x2202             MOVS     R2,#+2
+   \       0x18   0x434A             MULS     R2,R1,R2
+   \       0x1A   0x52B8             STRH     R0,[R7, R2]
+    178          		dwAddr += 2;
+   \       0x1C   0x1CA4             ADDS     R4,R4,#+2
+    179          	}
+   \       0x1E   0x1C76             ADDS     R6,R6,#+1
+   \                     ??FLASH_If_Read_0: (+1)
+   \       0x20   0x0030             MOVS     R0,R6
+   \       0x22   0x0029             MOVS     R1,R5
+   \       0x24   0xB280             UXTH     R0,R0
+   \       0x26   0xB289             UXTH     R1,R1
+   \       0x28   0x4288             CMP      R0,R1
+   \       0x2A   0xD3EF             BCC      ??FLASH_If_Read_1
+    180          }
+   \       0x2C   0xBDF1             POP      {R0,R4-R7,PC}    ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2:
+   \        0x0   0x0800'4000        DC32     0x8004000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_1:
+   \        0x0   0x0800'FFFF        DC32     0x800ffff
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   FLASH_If_Erase
+         8   -> FLASH_ErasePage
+       8   FLASH_If_Init
+         8   -> FLASH_ClearFlag
+         8   -> FLASH_Unlock
+      24   FLASH_If_Read
+        24   -> FLASH_If_ReadHalfWord
+       0   FLASH_If_ReadHalfWord
+      24   FLASH_If_Write
+        24   -> FLASH_ProgramHalfWord
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable2
+       4  ??DataTable2_1
+      36  FLASH_If_Erase
+      14  FLASH_If_Init
+      46  FLASH_If_Read
+       4  FLASH_If_ReadHalfWord
+      90  FLASH_If_Write
+
+ 
+ 198 bytes in section .text
+ 
+ 198 bytes of CODE memory
+
+Errors: none
+Warnings: none

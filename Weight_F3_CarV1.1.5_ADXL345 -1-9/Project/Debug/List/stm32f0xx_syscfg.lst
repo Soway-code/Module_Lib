@@ -1,0 +1,595 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.4.261/W32 for ARM         10/Jan/2021  16:10:27
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode             
+#    Endian            =  little
+#    Source file       =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\FWLib\src\stm32f0xx_syscfg.c
+#    Command line      =
+#        -f C:\Users\macanlin\AppData\Local\Temp\EW252.tmp
+#        ("C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\FWLib\src\stm32f0xx_syscfg.c" -D USE_STDPERIPH_DRIVER -D
+#        STM32F072 -lC
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List" -o
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj" --no_cse --no_unroll --no_inline
+#        --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug
+#        --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config
+#        C:\rj\IAR\arm\inc\c\DLib_Config_Normal.h -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\BSP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\CMSIS\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\OS_Cfg\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-CPU\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Ports\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Source\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\APP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -Ol -I
+#        C:\rj\IAR\arm\CMSIS\Core\Include\\ -I
+#        C:\rj\IAR\arm\CMSIS\DSP\Include\\)
+#    Locale            =  C
+#    List file         =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List\stm32f0xx_syscfg.lst
+#    Object file       =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj\stm32f0xx_syscfg.o
+#    Runtime model:       
+#      __SystemLibrary =  DLib
+#      __dlib_version  =  6
+#
+###############################################################################
+
+C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345 -1-9\Source\FWLib\src\stm32f0xx_syscfg.c
+      1          /**
+      2            ******************************************************************************
+      3            * @file    stm32f0xx_syscfg.c
+      4            * @author  MCD Application Team
+      5            * @version V1.3.0
+      6            * @date    16-January-2014
+      7            * @brief   This file provides firmware functions to manage the following 
+      8            *          functionalities of the SYSCFG peripheral:
+      9            *           + Remapping the memory mapped at 0x00000000  
+     10            *           + Remapping the DMA channels
+     11            *           + Enabling I2C fast mode plus driving capability for I2C pins   
+     12            *           + Configuring the EXTI lines connection to the GPIO port
+     13            *           + Configuring the CFGR2 features (Connecting some internal signal
+     14            *             to the break input of TIM1)
+     15            *   
+     16            *  @verbatim
+     17           ===============================================================================
+     18                               ##### How to use this driver #####
+     19           ===============================================================================
+     20              [..] 
+     21                         The SYSCFG registers can be accessed only when the SYSCFG 
+     22                         interface APB clock is enabled.
+     23                         To enable SYSCFG APB clock use:
+     24                         RCC_APBPeriphClockCmd(RCC_APBPeriph_SYSCFG, ENABLE).
+     25            *  @endverbatim
+     26            *
+     27            ******************************************************************************
+     28            * @attention
+     29            *
+     30            * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
+     31            *
+     32            * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
+     33            * You may not use this file except in compliance with the License.
+     34            * You may obtain a copy of the License at:
+     35            *
+     36            *        http://www.st.com/software_license_agreement_liberty_v2
+     37            *
+     38            * Unless required by applicable law or agreed to in writing, software 
+     39            * distributed under the License is distributed on an "AS IS" BASIS, 
+     40            * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     41            * See the License for the specific language governing permissions and
+     42            * limitations under the License.
+     43            *
+     44            ******************************************************************************
+     45            */
+     46          
+     47          /* Includes ------------------------------------------------------------------*/
+     48          #include "stm32f0xx_syscfg.h"
+     49          
+     50          /** @addtogroup STM32F0xx_StdPeriph_Driver
+     51            * @{
+     52            */
+     53          
+     54          /** @defgroup SYSCFG 
+     55            * @brief SYSCFG driver modules
+     56            * @{
+     57            */ 
+     58          
+     59          /* Private typedef -----------------------------------------------------------*/
+     60          /* Private define ------------------------------------------------------------*/
+     61          /* Private macro -------------------------------------------------------------*/
+     62          /* Private variables ---------------------------------------------------------*/
+     63          /* Private function prototypes -----------------------------------------------*/
+     64          /* Private functions ---------------------------------------------------------*/
+     65          
+     66          /** @defgroup SYSCFG_Private_Functions
+     67            * @{
+     68            */ 
+     69          
+     70          /** @defgroup SYSCFG_Group1 SYSCFG Initialization and Configuration functions
+     71           *  @brief   SYSCFG Initialization and Configuration functions 
+     72           *
+     73          @verbatim
+     74           ===============================================================================
+     75                  ##### SYSCFG Initialization and Configuration functions #####
+     76           ===============================================================================
+     77          
+     78          @endverbatim
+     79            * @{
+     80            */
+     81          
+     82          /**
+     83            * @brief  Deinitializes the SYSCFG registers to their default reset values.
+     84            * @param  None
+     85            * @retval None
+     86            * @note   MEM_MODE bits are not affected by APB reset.
+     87            * @note   MEM_MODE bits took the value from the user option bytes.
+     88            * @note   CFGR2 register is not affected by APB reset.
+     89            * @note   CLABBB configuration bits are locked when set.
+     90            * @note   To unlock the configuration, perform a system reset.
+     91            */
+
+   \                                 In section .text, align 2, keep-with-next
+     92          void SYSCFG_DeInit(void)
+     93          {
+     94            /* Set SYSCFG_CFGR1 register to reset value without affecting MEM_MODE bits */
+     95            SYSCFG->CFGR1 &= SYSCFG_CFGR1_MEM_MODE;
+   \                     SYSCFG_DeInit: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable7  ;; 0x40010000
+   \        0x2   0x6801             LDR      R1,[R0, #+0]
+   \        0x4   0x0789             LSLS     R1,R1,#+30       ;; ZeroExtS R1,R1,#+30,#+30
+   \        0x6   0x0F89             LSRS     R1,R1,#+30
+   \        0x8   0x6001             STR      R1,[R0, #+0]
+     96            /* Set EXTICRx registers to reset value */
+     97            SYSCFG->EXTICR[0] = 0;
+   \        0xA   0x2000             MOVS     R0,#+0
+   \        0xC   0x....             LDR      R1,??DataTable7_1  ;; 0x40010008
+   \        0xE   0x6008             STR      R0,[R1, #+0]
+     98            SYSCFG->EXTICR[1] = 0;
+   \       0x10   0x....             LDR      R1,??DataTable7_2  ;; 0x4001000c
+   \       0x12   0x6008             STR      R0,[R1, #+0]
+     99            SYSCFG->EXTICR[2] = 0;
+   \       0x14   0x....             LDR      R1,??DataTable7_3  ;; 0x40010010
+   \       0x16   0x6008             STR      R0,[R1, #+0]
+    100            SYSCFG->EXTICR[3] = 0;
+   \       0x18   0x....             LDR      R1,??DataTable7_4  ;; 0x40010014
+   \       0x1A   0x6008             STR      R0,[R1, #+0]
+    101            /* Set CFGR2 register to reset value: clear SRAM parity error flag */
+    102            SYSCFG->CFGR2 |= (uint32_t) SYSCFG_CFGR2_SRAM_PE;
+   \       0x1C   0x....             LDR      R0,??DataTable7_5  ;; 0x40010018
+   \       0x1E   0x6801             LDR      R1,[R0, #+0]
+   \       0x20   0x2280             MOVS     R2,#+128
+   \       0x22   0x0052             LSLS     R2,R2,#+1        ;; #+256
+   \       0x24   0x430A             ORRS     R2,R2,R1
+   \       0x26   0x6002             STR      R2,[R0, #+0]
+    103          }
+   \       0x28   0x4770             BX       LR               ;; return
+    104          
+    105          /**
+    106            * @brief  Configures the memory mapping at address 0x00000000.
+    107            * @param  SYSCFG_MemoryRemap: selects the memory remapping.
+    108            *          This parameter can be one of the following values:
+    109            *            @arg SYSCFG_MemoryRemap_Flash: Main Flash memory mapped at 0x00000000  
+    110            *            @arg SYSCFG_MemoryRemap_SystemMemory: System Flash memory mapped at 0x00000000
+    111            *            @arg SYSCFG_MemoryRemap_SRAM: Embedded SRAM mapped at 0x00000000
+    112            * @retval None
+    113            */
+
+   \                                 In section .text, align 2, keep-with-next
+    114          void SYSCFG_MemoryRemapConfig(uint32_t SYSCFG_MemoryRemap)
+    115          {
+    116            uint32_t tmpctrl = 0;
+   \                     SYSCFG_MemoryRemapConfig: (+1)
+   \        0x0   0x2100             MOVS     R1,#+0
+    117          
+    118            /* Check the parameter */
+    119            assert_param(IS_SYSCFG_MEMORY_REMAP(SYSCFG_MemoryRemap));
+    120          
+    121            /* Get CFGR1 register value */
+    122            tmpctrl = SYSCFG->CFGR1;
+   \        0x2   0x....             LDR      R2,??DataTable7  ;; 0x40010000
+   \        0x4   0x6811             LDR      R1,[R2, #+0]
+    123          
+    124            /* Clear MEM_MODE bits */
+    125            tmpctrl &= (uint32_t) (~SYSCFG_CFGR1_MEM_MODE);
+   \        0x6   0x2303             MOVS     R3,#+3
+   \        0x8   0x4399             BICS     R1,R1,R3
+    126          
+    127            /* Set the new MEM_MODE bits value */
+    128            tmpctrl |= (uint32_t) SYSCFG_MemoryRemap;
+   \        0xA   0x4308             ORRS     R0,R0,R1
+    129          
+    130            /* Set CFGR1 register with the new memory remap configuration */
+    131            SYSCFG->CFGR1 = tmpctrl;
+   \        0xC   0x6010             STR      R0,[R2, #+0]
+    132          }
+   \        0xE   0x4770             BX       LR               ;; return
+    133          
+    134          /**
+    135            * @brief  Configure the DMA channels remapping.
+    136            * @param  SYSCFG_DMARemap: selects the DMA channels remap.
+    137            *          This parameter can be one of the following values:
+    138            *            @arg SYSCFG_DMARemap_TIM17: Remap TIM17 DMA requests from channel1 to channel2
+    139            *            @arg SYSCFG_DMARemap_TIM16: Remap TIM16 DMA requests from channel3 to channel4
+    140            *            @arg SYSCFG_DMARemap_USART1Rx: Remap USART1 Rx DMA requests from channel3 to channel5
+    141            *            @arg SYSCFG_DMARemap_USART1Tx: Remap USART1 Tx DMA requests from channel2 to channel4
+    142            *            @arg SYSCFG_DMARemap_ADC1: Remap ADC1 DMA requests from channel1 to channel2
+    143            * @param  NewState: new state of the DMA channel remapping. 
+    144            *         This parameter can be: ENABLE or DISABLE.
+    145            * @note   When enabled, DMA channel of the selected peripheral is remapped
+    146            * @note   When disabled, Default DMA channel is mapped to the selected peripheral
+    147            * @note   By default TIM17 DMA requests is mapped to channel 1, 
+    148            *         use SYSCFG_DMAChannelRemapConfig(SYSCFG_DMARemap_TIM17, Enable) to remap
+    149            *         TIM17 DMA requests to channel 2 and use
+    150            *         SYSCFG_DMAChannelRemapConfig(SYSCFG_DMARemap_TIM17, Disable) to map
+    151            *         TIM17 DMA requests to channel 1 (default mapping)
+    152            * @retval None
+    153            */
+
+   \                                 In section .text, align 2, keep-with-next
+    154          void SYSCFG_DMAChannelRemapConfig(uint32_t SYSCFG_DMARemap, FunctionalState NewState)
+    155          {
+   \                     SYSCFG_DMAChannelRemapConfig: (+1)
+   \        0x0   0xB500             PUSH     {LR}
+    156            /* Check the parameters */
+    157            assert_param(IS_SYSCFG_DMA_REMAP(SYSCFG_DMARemap));
+    158            assert_param(IS_FUNCTIONAL_STATE(NewState));
+    159          
+    160            if (NewState != DISABLE)
+   \        0x2   0xB2C9             UXTB     R1,R1
+   \        0x4   0x2900             CMP      R1,#+0
+   \        0x6   0xD004             BEQ      ??SYSCFG_DMAChannelRemapConfig_0
+    161            {
+    162              /* Remap the DMA channel */
+    163              SYSCFG->CFGR1 |= (uint32_t)SYSCFG_DMARemap;
+   \        0x8   0x....             LDR      R1,??DataTable7  ;; 0x40010000
+   \        0xA   0x680A             LDR      R2,[R1, #+0]
+   \        0xC   0x4310             ORRS     R0,R0,R2
+   \        0xE   0x6008             STR      R0,[R1, #+0]
+   \       0x10   0xE003             B        ??SYSCFG_DMAChannelRemapConfig_1
+    164            }
+    165            else
+    166            {
+    167              /* use the default DMA channel mapping */
+    168              SYSCFG->CFGR1 &= (uint32_t)(~SYSCFG_DMARemap);
+   \                     ??SYSCFG_DMAChannelRemapConfig_0: (+1)
+   \       0x12   0x....             LDR      R1,??DataTable7  ;; 0x40010000
+   \       0x14   0x680A             LDR      R2,[R1, #+0]
+   \       0x16   0x4382             BICS     R2,R2,R0
+   \       0x18   0x600A             STR      R2,[R1, #+0]
+    169            }
+    170          }
+   \                     ??SYSCFG_DMAChannelRemapConfig_1: (+1)
+   \       0x1A   0xBD00             POP      {PC}             ;; return
+    171          
+    172          /**
+    173            * @brief  Configure the I2C fast mode plus driving capability.
+    174            * @param  SYSCFG_I2CFastModePlus: selects the pin.
+    175            *          This parameter can be one of the following values:
+    176            *            @arg SYSCFG_I2CFastModePlus_PB6: Configure fast mode plus driving capability for PB6
+    177            *            @arg SYSCFG_I2CFastModePlus_PB7: Configure fast mode plus driving capability for PB7
+    178            *            @arg SYSCFG_I2CFastModePlus_PB8: Configure fast mode plus driving capability for PB8
+    179            *            @arg SYSCFG_I2CFastModePlus_PB9: Configure fast mode plus driving capability for PB9
+    180            *            @arg SYSCFG_I2CFastModePlus_PA9: Configure fast mode plus driving capability for PA9 (only for STM32F031 and STM32F030 devices)
+    181            *            @arg SYSCFG_I2CFastModePlus_PA10: Configure fast mode plus driving capability for PA10 (only for STM32F031 and STM32F030 devices)
+    182            *            @arg SYSCFG_I2CFastModePlus_I2C1: Configure fast mode plus driving capability for PB10, PB11, PF6 and PF7(only for STM32F031 and STM32F030 devices)
+    183            *            @arg SYSCFG_I2CFastModePlus_I2C2: Configure fast mode plus driving capability for I2C2 pins, available only for STM32F072 devices
+    184            *                
+    185            * @param  NewState: new state of the DMA channel remapping. 
+    186            *         This parameter can be:  ENABLE or DISABLE.
+    187            * @note   ENABLE: Enable fast mode plus driving capability for selected I2C pin
+    188            * @note   DISABLE: Disable fast mode plus driving capability for selected I2C pin
+    189            * @note  For I2C1, fast mode plus driving capability can be enabled on all selected
+    190            *        I2C1 pins using SYSCFG_I2CFastModePlus_I2C1 parameter or independently
+    191            *        on each one of the following pins PB6, PB7, PB8 and PB9.
+    192            * @note  For remaing I2C1 pins (PA14, PA15...) fast mode plus driving capability
+    193            *        can be enabled only by using SYSCFG_I2CFastModePlus_I2C1 parameter.
+    194            * @note  For all I2C2 pins fast mode plus driving capability can be enabled
+    195            *        only by using SYSCFG_I2CFastModePlus_I2C2 parameter.
+    196            * @retval None
+    197            */
+
+   \                                 In section .text, align 2, keep-with-next
+    198          void SYSCFG_I2CFastModePlusConfig(uint32_t SYSCFG_I2CFastModePlus, FunctionalState NewState)
+    199          {
+   \                     SYSCFG_I2CFastModePlusConfig: (+1)
+   \        0x0   0xB500             PUSH     {LR}
+    200            /* Check the parameters */
+    201            assert_param(IS_SYSCFG_I2C_FMP(SYSCFG_I2CFastModePlus));
+    202            assert_param(IS_FUNCTIONAL_STATE(NewState));
+    203          
+    204            if (NewState != DISABLE)
+   \        0x2   0xB2C9             UXTB     R1,R1
+   \        0x4   0x2900             CMP      R1,#+0
+   \        0x6   0xD004             BEQ      ??SYSCFG_I2CFastModePlusConfig_0
+    205            {
+    206              /* Enable fast mode plus driving capability for selected pin */
+    207              SYSCFG->CFGR1 |= (uint32_t)SYSCFG_I2CFastModePlus;
+   \        0x8   0x....             LDR      R1,??DataTable7  ;; 0x40010000
+   \        0xA   0x680A             LDR      R2,[R1, #+0]
+   \        0xC   0x4310             ORRS     R0,R0,R2
+   \        0xE   0x6008             STR      R0,[R1, #+0]
+   \       0x10   0xE003             B        ??SYSCFG_I2CFastModePlusConfig_1
+    208            }
+    209            else
+    210            {
+    211              /* Disable fast mode plus driving capability for selected pin */
+    212              SYSCFG->CFGR1 &= (uint32_t)(~SYSCFG_I2CFastModePlus);
+   \                     ??SYSCFG_I2CFastModePlusConfig_0: (+1)
+   \       0x12   0x....             LDR      R1,??DataTable7  ;; 0x40010000
+   \       0x14   0x680A             LDR      R2,[R1, #+0]
+   \       0x16   0x4382             BICS     R2,R2,R0
+   \       0x18   0x600A             STR      R2,[R1, #+0]
+    213            }
+    214          }
+   \                     ??SYSCFG_I2CFastModePlusConfig_1: (+1)
+   \       0x1A   0xBD00             POP      {PC}             ;; return
+    215          
+    216          /**
+    217            * @brief  Selects the GPIO pin used as EXTI Line.
+    218            * @param  EXTI_PortSourceGPIOx: selects the GPIO port to be used as source 
+    219            *                               for EXTI lines where x can be (A, B, C, D, E or F).
+    220            * @note   GPIOE is available only for STM32F072.
+    221            * @note   GPIOD is not available for STM32F031.    
+    222            * @param  EXTI_PinSourcex: specifies the EXTI line to be configured.
+    223            * @note   This parameter can be EXTI_PinSourcex where x can be:
+    224            *         For STM32F051 and STM32F030: (0..15) for GPIOA, GPIOB, GPIOC, (2) for GPIOD and (0..1, 4..7) for GIIOF.
+    225            *         For STM32F072: (0..15) for GPIOA, GPIOB, GPIOC, GPIOD, GPIOE, (0..10) for GPIOF.
+    226            *         For STM32F031: (0..15) for GPIOA, GPIOB, (13..15) for GPIOC and (0..1, 6..7) for GPIOF.
+    227            * @retval None
+    228            */
+
+   \                                 In section .text, align 2, keep-with-next
+    229          void SYSCFG_EXTILineConfig(uint8_t EXTI_PortSourceGPIOx, uint8_t EXTI_PinSourcex)
+    230          {
+   \                     SYSCFG_EXTILineConfig: (+1)
+   \        0x0   0xB470             PUSH     {R4-R6}
+    231            uint32_t tmp = 0x00;
+   \        0x2   0x2200             MOVS     R2,#+0
+    232          
+    233            /* Check the parameters */
+    234            assert_param(IS_EXTI_PORT_SOURCE(EXTI_PortSourceGPIOx));
+    235            assert_param(IS_EXTI_PIN_SOURCE(EXTI_PinSourcex));
+    236            
+    237            tmp = ((uint32_t)0x0F) << (0x04 * (EXTI_PinSourcex & (uint8_t)0x03));
+   \        0x4   0x2203             MOVS     R2,#+3
+   \        0x6   0x230F             MOVS     R3,#+15
+   \        0x8   0x0014             MOVS     R4,R2
+   \        0xA   0x400C             ANDS     R4,R4,R1
+   \        0xC   0x2504             MOVS     R5,#+4
+   \        0xE   0x436C             MULS     R4,R5,R4
+   \       0x10   0x40A3             LSLS     R3,R3,R4
+    238            SYSCFG->EXTICR[EXTI_PinSourcex >> 0x02] &= ~tmp;
+   \       0x12   0x....             LDR      R4,??DataTable7_1  ;; 0x40010008
+   \       0x14   0x000D             MOVS     R5,R1
+   \       0x16   0xB2ED             UXTB     R5,R5
+   \       0x18   0x10AD             ASRS     R5,R5,#+2
+   \       0x1A   0x2604             MOVS     R6,#+4
+   \       0x1C   0x4375             MULS     R5,R6,R5
+   \       0x1E   0x5965             LDR      R5,[R4, R5]
+   \       0x20   0x439D             BICS     R5,R5,R3
+   \       0x22   0x000B             MOVS     R3,R1
+   \       0x24   0xB2DB             UXTB     R3,R3
+   \       0x26   0x109B             ASRS     R3,R3,#+2
+   \       0x28   0x2604             MOVS     R6,#+4
+   \       0x2A   0x4373             MULS     R3,R6,R3
+   \       0x2C   0x50E5             STR      R5,[R4, R3]
+    239            SYSCFG->EXTICR[EXTI_PinSourcex >> 0x02] |= (((uint32_t)EXTI_PortSourceGPIOx) << (0x04 * (EXTI_PinSourcex & (uint8_t)0x03)));
+   \       0x2E   0x000B             MOVS     R3,R1
+   \       0x30   0xB2DB             UXTB     R3,R3
+   \       0x32   0x109B             ASRS     R3,R3,#+2
+   \       0x34   0x2504             MOVS     R5,#+4
+   \       0x36   0x436B             MULS     R3,R5,R3
+   \       0x38   0x58E3             LDR      R3,[R4, R3]
+   \       0x3A   0xB2C0             UXTB     R0,R0
+   \       0x3C   0x400A             ANDS     R2,R2,R1
+   \       0x3E   0x2504             MOVS     R5,#+4
+   \       0x40   0x436A             MULS     R2,R5,R2
+   \       0x42   0x4090             LSLS     R0,R0,R2
+   \       0x44   0x4318             ORRS     R0,R0,R3
+   \       0x46   0xB2C9             UXTB     R1,R1
+   \       0x48   0x1089             ASRS     R1,R1,#+2
+   \       0x4A   0x2204             MOVS     R2,#+4
+   \       0x4C   0x4351             MULS     R1,R2,R1
+   \       0x4E   0x5060             STR      R0,[R4, R1]
+    240          }
+   \       0x50   0xBC70             POP      {R4-R6}
+   \       0x52   0x4770             BX       LR               ;; return
+    241          
+    242          /**
+    243            * @brief  Connect the selected parameter to the break input of TIM1.
+    244            * @note   The selected configuration is locked and can be unlocked by system reset
+    245            * @param  SYSCFG_Break: selects the configuration to be connected to break
+    246            *         input of TIM1
+    247            *          This parameter can be any combination of the following values:
+    248            *            @arg SYSCFG_Break_PVD: Connects the PVD event to the Break Input of TIM1,, not avaailable for  STM32F030 devices.
+    249            *            @arg SYSCFG_Break_SRAMParity: Connects the SRAM_PARITY error signal to the Break Input of TIM1 .
+    250            *            @arg SYSCFG_Break_Lockup: Connects Lockup output of CortexM0 to the break input of TIM1.
+    251            * @retval None
+    252            */
+
+   \                                 In section .text, align 2, keep-with-next
+    253          void SYSCFG_BreakConfig(uint32_t SYSCFG_Break)
+    254          {
+    255            /* Check the parameter */
+    256            assert_param(IS_SYSCFG_LOCK_CONFIG(SYSCFG_Break));
+    257          
+    258            SYSCFG->CFGR2 |= (uint32_t) SYSCFG_Break;
+   \                     SYSCFG_BreakConfig: (+1)
+   \        0x0   0x....             LDR      R1,??DataTable7_5  ;; 0x40010018
+   \        0x2   0x680A             LDR      R2,[R1, #+0]
+   \        0x4   0x4310             ORRS     R0,R0,R2
+   \        0x6   0x6008             STR      R0,[R1, #+0]
+    259          }
+   \        0x8   0x4770             BX       LR               ;; return
+    260          
+    261          /**
+    262            * @brief  Checks whether the specified SYSCFG flag is set or not.
+    263            * @param  SYSCFG_Flag: specifies the SYSCFG flag to check. 
+    264            *          This parameter can be one of the following values:
+    265            *            @arg SYSCFG_FLAG_PE: SRAM parity error flag.
+    266            * @retval The new state of SYSCFG_Flag (SET or RESET).
+    267            */
+
+   \                                 In section .text, align 2, keep-with-next
+    268          FlagStatus SYSCFG_GetFlagStatus(uint32_t SYSCFG_Flag)
+    269          {
+   \                     SYSCFG_GetFlagStatus: (+1)
+   \        0x0   0xB500             PUSH     {LR}
+    270            FlagStatus bitstatus = RESET;
+   \        0x2   0x2000             MOVS     R0,#+0
+   \        0x4   0x0001             MOVS     R1,R0
+    271          
+    272            /* Check the parameter */
+    273            assert_param(IS_SYSCFG_FLAG(SYSCFG_Flag));
+    274          
+    275            /* Check the status of the specified SPI flag */
+    276            if ((SYSCFG->CFGR2 & SYSCFG_CFGR2_SRAM_PE) != (uint32_t)RESET)
+   \        0x6   0x....             LDR      R1,??DataTable7_5  ;; 0x40010018
+   \        0x8   0x6809             LDR      R1,[R1, #+0]
+   \        0xA   0x05C9             LSLS     R1,R1,#+23
+   \        0xC   0xD501             BPL      ??SYSCFG_GetFlagStatus_0
+    277            {
+    278              /* SYSCFG_Flag is set */
+    279              bitstatus = SET;
+   \        0xE   0x2001             MOVS     R0,#+1
+   \       0x10   0xE7FF             B        ??SYSCFG_GetFlagStatus_1
+    280            }
+    281            else
+    282            {
+    283              /* SYSCFG_Flag is reset */
+    284              bitstatus = RESET;
+    285            }
+    286            /* Return the SYSCFG_Flag status */
+    287            return  bitstatus;
+   \                     ??SYSCFG_GetFlagStatus_0: (+1)
+   \                     ??SYSCFG_GetFlagStatus_1: (+1)
+   \       0x12   0xB2C0             UXTB     R0,R0
+   \       0x14   0xBD00             POP      {PC}             ;; return
+    288          }
+    289          
+    290          /**
+    291            * @brief  Clear the selected SYSCFG flag.
+    292            * @param  SYSCFG_Flag: selects the flag to be cleared.
+    293            *          This parameter can be any combination of the following values:
+    294            *            @arg SYSCFG_FLAG_PE: SRAM parity error flag.
+    295            * @retval None
+    296            */
+
+   \                                 In section .text, align 2, keep-with-next
+    297          void SYSCFG_ClearFlag(uint32_t SYSCFG_Flag)
+    298          {
+    299            /* Check the parameter */
+    300            assert_param(IS_SYSCFG_FLAG(SYSCFG_Flag));
+    301          
+    302            SYSCFG->CFGR2 |= (uint32_t) SYSCFG_Flag;
+   \                     SYSCFG_ClearFlag: (+1)
+   \        0x0   0x....             LDR      R1,??DataTable7_5  ;; 0x40010018
+   \        0x2   0x680A             LDR      R2,[R1, #+0]
+   \        0x4   0x4310             ORRS     R0,R0,R2
+   \        0x6   0x6008             STR      R0,[R1, #+0]
+    303          }
+   \        0x8   0x4770             BX       LR               ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7:
+   \        0x0   0x4001'0000        DC32     0x40010000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_1:
+   \        0x0   0x4001'0008        DC32     0x40010008
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_2:
+   \        0x0   0x4001'000C        DC32     0x4001000c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_3:
+   \        0x0   0x4001'0010        DC32     0x40010010
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_4:
+   \        0x0   0x4001'0014        DC32     0x40010014
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_5:
+   \        0x0   0x4001'0018        DC32     0x40010018
+    304          
+    305          /**
+    306            * @}
+    307            */
+    308          
+    309          /**
+    310            * @}
+    311            */ 
+    312          
+    313          /**
+    314            * @}
+    315            */ 
+    316          
+    317          /**
+    318            * @}
+    319            */ 
+    320          /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   SYSCFG_BreakConfig
+       0   SYSCFG_ClearFlag
+       4   SYSCFG_DMAChannelRemapConfig
+       0   SYSCFG_DeInit
+      12   SYSCFG_EXTILineConfig
+       4   SYSCFG_GetFlagStatus
+       4   SYSCFG_I2CFastModePlusConfig
+       0   SYSCFG_MemoryRemapConfig
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable7
+       4  ??DataTable7_1
+       4  ??DataTable7_2
+       4  ??DataTable7_3
+       4  ??DataTable7_4
+       4  ??DataTable7_5
+      10  SYSCFG_BreakConfig
+      10  SYSCFG_ClearFlag
+      28  SYSCFG_DMAChannelRemapConfig
+      42  SYSCFG_DeInit
+      84  SYSCFG_EXTILineConfig
+      22  SYSCFG_GetFlagStatus
+      28  SYSCFG_I2CFastModePlusConfig
+      16  SYSCFG_MemoryRemapConfig
+
+ 
+ 264 bytes in section .text
+ 
+ 264 bytes of CODE memory
+
+Errors: none
+Warnings: none

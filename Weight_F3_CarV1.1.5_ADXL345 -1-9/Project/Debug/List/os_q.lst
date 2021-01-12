@@ -1,0 +1,1921 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.4.261/W32 for ARM         10/Jan/2021  16:10:20
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode             
+#    Endian            =  little
+#    Source file       =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\System\uCOS-III\Source\os_q.c
+#    Command line      =
+#        -f C:\Users\macanlin\AppData\Local\Temp\EWE97D.tmp
+#        ("C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\System\uCOS-III\Source\os_q.c" -D USE_STDPERIPH_DRIVER -D
+#        STM32F072 -lC
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List" -o
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj" --no_cse --no_unroll --no_inline
+#        --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug
+#        --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config
+#        C:\rj\IAR\arm\inc\c\DLib_Config_Normal.h -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\BSP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\CMSIS\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\OS_Cfg\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-CPU\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Ports\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Source\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\APP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -Ol -I
+#        C:\rj\IAR\arm\CMSIS\Core\Include\\ -I
+#        C:\rj\IAR\arm\CMSIS\DSP\Include\\)
+#    Locale            =  C
+#    List file         =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List\os_q.lst
+#    Object file       =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj\os_q.o
+#    Runtime model:       
+#      __SystemLibrary =  DLib
+#
+###############################################################################
+
+C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345 -1-9\Source\System\uCOS-III\Source\os_q.c
+      1          /*
+      2          ************************************************************************************************************************
+      3          *                                                      uC/OS-III
+      4          *                                                 The Real-Time Kernel
+      5          *
+      6          *                                  (c) Copyright 2009-2012; Micrium, Inc.; Weston, FL
+      7          *                           All rights reserved.  Protected by international copyright laws.
+      8          *
+      9          *                                               MESSAGE QUEUE MANAGEMENT
+     10          *
+     11          * File    : OS_Q.C
+     12          * By      : JJL
+     13          * Version : V3.03.01
+     14          *
+     15          * LICENSING TERMS:
+     16          * ---------------
+     17          *           uC/OS-III is provided in source form for FREE short-term evaluation, for educational use or 
+     18          *           for peaceful research.  If you plan or intend to use uC/OS-III in a commercial application/
+     19          *           product then, you need to contact Micrium to properly license uC/OS-III for its use in your 
+     20          *           application/product.   We provide ALL the source code for your convenience and to help you 
+     21          *           experience uC/OS-III.  The fact that the source is provided does NOT mean that you can use 
+     22          *           it commercially without paying a licensing fee.
+     23          *
+     24          *           Knowledge of the source code may NOT be used to develop a similar product.
+     25          *
+     26          *           Please help us continue to provide the embedded community with the finest software available.
+     27          *           Your honesty is greatly appreciated.
+     28          *
+     29          *           You can contact us at www.micrium.com, or by phone at +1 (954) 217-2036.
+     30          ************************************************************************************************************************
+     31          */
+     32          
+     33          #define  MICRIUM_SOURCE
+     34          #include <os.h>
+     35          
+     36          #ifdef VSC_INCLUDE_SOURCE_FILE_NAMES
+     37          const  CPU_CHAR  *os_q__c = "$Id: $";
+     38          #endif
+     39          
+     40          
+     41          #if OS_CFG_Q_EN > 0u
+     42          /*
+     43          ************************************************************************************************************************
+     44          *                                               CREATE A MESSAGE QUEUE
+     45          *
+     46          * Description: This function is called by your application to create a message queue.  Message queues MUST be created
+     47          *              before they can be used.
+     48          *
+     49          * Arguments  : p_q         is a pointer to the message queue
+     50          *
+     51          *              p_name      is a pointer to an ASCII string that will be used to name the message queue
+     52          *
+     53          *              max_qty     indicates the maximum size of the message queue (must be non-zero).  Note that it's also not
+     54          *                          possible to have a size higher than the maximum number of OS_MSGs available.
+     55          *
+     56          *              p_err       is a pointer to a variable that will contain an error code returned by this function.
+     57          *
+     58          *                              OS_ERR_NONE                    the call was successful
+     59          *                              OS_ERR_CREATE_ISR              can't create from an ISR
+     60          *                              OS_ERR_ILLEGAL_CREATE_RUN_TIME if you are trying to create the Queue after you called
+     61          *                                                               OSSafetyCriticalStart().
+     62          *                              OS_ERR_NAME                    if 'p_name' is a NULL pointer
+     63          *                              OS_ERR_OBJ_CREATED             if the message queue has already been created
+     64          *                              OS_ERR_OBJ_PTR_NULL            if you passed a NULL pointer for 'p_q'
+     65          *                              OS_ERR_Q_SIZE                  if the size you specified is 0
+     66          *
+     67          * Returns    : none
+     68          ************************************************************************************************************************
+     69          */
+     70          
+
+   \                                 In section .text, align 2, keep-with-next
+     71          void  OSQCreate (OS_Q        *p_q,
+     72                           CPU_CHAR    *p_name,
+     73                           OS_MSG_QTY   max_qty,
+     74                           OS_ERR      *p_err)
+     75          
+     76          {
+   \                     OSQCreate: (+1)
+   \        0x0   0xB5FE             PUSH     {R1-R7,LR}
+   \        0x2   0x001E             MOVS     R6,R3
+     77              CPU_SR_ALLOC();
+   \        0x4   0x2400             MOVS     R4,#+0
+   \        0x6   0x0023             MOVS     R3,R4
+     78          
+     79          
+     80          
+     81          #ifdef OS_SAFETY_CRITICAL
+     82              if (p_err == (OS_ERR *)0) {
+     83                  OS_SAFETY_CRITICAL_EXCEPTION();
+     84                  return;
+     85              }
+     86          #endif
+     87          
+     88          #ifdef OS_SAFETY_CRITICAL_IEC61508
+     89              if (OSSafetyCriticalStartFlag == DEF_TRUE) {
+     90                 *p_err = OS_ERR_ILLEGAL_CREATE_RUN_TIME;
+     91                  return;
+     92              }
+     93          #endif
+     94          
+     95          #if OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u
+     96              if (OSIntNestingCtr > (OS_NESTING_CTR)0) {              /* Not allowed to be called from an ISR                   */
+   \        0x8   0x....             LDR      R3,??DataTable1
+   \        0xA   0x781B             LDRB     R3,[R3, #+0]
+   \        0xC   0x2B00             CMP      R3,#+0
+   \        0xE   0xD002             BEQ      ??OSQCreate_0
+     97                 *p_err = OS_ERR_CREATE_ISR;
+   \       0x10   0x....             LDR      R0,??DataTable1_1  ;; 0x2ee1
+   \       0x12   0x8030             STRH     R0,[R6, #+0]
+     98                  return;
+   \       0x14   0xE036             B        ??OSQCreate_1
+     99              }
+   \                     ??OSQCreate_0: (+1)
+   \       0x16   0x9000             STR      R0,[SP, #+0]
+    100          #endif
+    101          
+    102          #if OS_CFG_ARG_CHK_EN > 0u
+    103              if (p_q == (OS_Q *)0) {                                 /* Validate arguments                                     */
+   \       0x18   0x9800             LDR      R0,[SP, #+0]
+   \       0x1A   0x2800             CMP      R0,#+0
+   \       0x1C   0xD102             BNE      ??OSQCreate_2
+    104                 *p_err = OS_ERR_OBJ_PTR_NULL;
+   \       0x1E   0x....             LDR      R0,??DataTable1_2  ;; 0x5dc3
+   \       0x20   0x8030             STRH     R0,[R6, #+0]
+    105                  return;
+   \       0x22   0xE02F             B        ??OSQCreate_1
+    106              }
+   \                     ??OSQCreate_2: (+1)
+   \       0x24   0x4668             MOV      R0,SP
+   \       0x26   0x8082             STRH     R2,[R0, #+4]
+    107              if (max_qty == (OS_MSG_QTY)0) {                         /* Cannot specify a zero size queue                       */
+   \       0x28   0x4668             MOV      R0,SP
+   \       0x2A   0x8880             LDRH     R0,[R0, #+4]
+   \       0x2C   0x2800             CMP      R0,#+0
+   \       0x2E   0xD102             BNE      ??OSQCreate_3
+    108                 *p_err = OS_ERR_Q_SIZE;
+   \       0x30   0x....             LDR      R0,??DataTable1_3  ;; 0x6594
+   \       0x32   0x8030             STRH     R0,[R6, #+0]
+    109                  return;
+   \       0x34   0xE026             B        ??OSQCreate_1
+    110              }
+   \                     ??OSQCreate_3: (+1)
+   \       0x36   0x000F             MOVS     R7,R1
+    111          #endif
+    112          
+    113              OS_CRITICAL_ENTER();
+   \       0x38   0x....'....        BL       CPU_SR_Save
+   \       0x3C   0x....             LDR      R5,??DataTable1_4
+   \       0x3E   0x7829             LDRB     R1,[R5, #+0]
+   \       0x40   0x1C49             ADDS     R1,R1,#+1
+   \       0x42   0x7029             STRB     R1,[R5, #+0]
+   \       0x44   0x....'....        BL       CPU_SR_Restore
+    114              p_q->Type    = OS_OBJ_TYPE_Q;                           /* Mark the data structure as a message queue             */
+   \       0x48   0x....             LDR      R0,??DataTable1_5  ;; 0x55455551
+   \       0x4A   0x9900             LDR      R1,[SP, #+0]
+   \       0x4C   0x6008             STR      R0,[R1, #+0]
+    115              p_q->NamePtr = p_name;
+   \       0x4E   0x9800             LDR      R0,[SP, #+0]
+   \       0x50   0x6047             STR      R7,[R0, #+4]
+    116              OS_MsgQInit(&p_q->MsgQ,                                 /* Initialize the queue                                   */
+    117                          max_qty);
+   \       0x52   0x4668             MOV      R0,SP
+   \       0x54   0x8881             LDRH     R1,[R0, #+4]
+   \       0x56   0x9800             LDR      R0,[SP, #+0]
+   \       0x58   0x3020             ADDS     R0,R0,#+32
+   \       0x5A   0x....'....        BL       OS_MsgQInit
+    118              OS_PendListInit(&p_q->PendList);                        /* Initialize the waiting list                            */
+   \       0x5E   0x9800             LDR      R0,[SP, #+0]
+   \       0x60   0x3008             ADDS     R0,R0,#+8
+   \       0x62   0x....'....        BL       OS_PendListInit
+    119          
+    120          #if OS_CFG_DBG_EN > 0u
+    121              OS_QDbgListAdd(p_q);
+   \       0x66   0x9800             LDR      R0,[SP, #+0]
+   \       0x68   0x....'....        BL       OS_QDbgListAdd
+    122          #endif
+    123              OSQQty++;                                               /* One more queue created                                 */
+   \       0x6C   0x....             LDR      R0,??DataTable2
+   \       0x6E   0x8801             LDRH     R1,[R0, #+0]
+   \       0x70   0x1C49             ADDS     R1,R1,#+1
+   \       0x72   0x8001             STRH     R1,[R0, #+0]
+    124          
+    125              OS_CRITICAL_EXIT_NO_SCHED();
+   \       0x74   0x....'....        BL       CPU_SR_Save
+   \       0x78   0x7829             LDRB     R1,[R5, #+0]
+   \       0x7A   0x1E49             SUBS     R1,R1,#+1
+   \       0x7C   0x7029             STRB     R1,[R5, #+0]
+   \       0x7E   0x....'....        BL       CPU_SR_Restore
+    126             *p_err = OS_ERR_NONE;
+   \       0x82   0x8034             STRH     R4,[R6, #+0]
+    127          }
+   \                     ??OSQCreate_1: (+1)
+   \       0x84   0xBDF7             POP      {R0-R2,R4-R7,PC}  ;; return
+    128          
+    129          /*$PAGE*/
+    130          /*
+    131          ************************************************************************************************************************
+    132          *                                               DELETE A MESSAGE QUEUE
+    133          *
+    134          * Description: This function deletes a message queue and readies all tasks pending on the queue.
+    135          *
+    136          * Arguments  : p_q       is a pointer to the message queue you want to delete
+    137          *
+    138          *              opt       determines delete options as follows:
+    139          *
+    140          *                            OS_OPT_DEL_NO_PEND          Delete the queue ONLY if no task pending
+    141          *                            OS_OPT_DEL_ALWAYS           Deletes the queue even if tasks are waiting.
+    142          *                                                        In this case, all the tasks pending will be readied.
+    143          *
+    144          *              p_err     is a pointer to a variable that will contain an error code returned by this function.
+    145          *
+    146          *                            OS_ERR_NONE                 The call was successful and the queue was deleted
+    147          *                            OS_ERR_DEL_ISR              If you tried to delete the queue from an ISR
+    148          *                            OS_ERR_OBJ_PTR_NULL         if you pass a NULL pointer for 'p_q'
+    149          *                            OS_ERR_OBJ_TYPE             if the message queue was not created
+    150          *                            OS_ERR_OPT_INVALID          An invalid option was specified
+    151          *                            OS_ERR_TASK_WAITING         One or more tasks were waiting on the queue
+    152          *
+    153          * Returns    : == 0          if no tasks were waiting on the queue, or upon error.
+    154          *              >  0          if one or more tasks waiting on the queue are now readied and informed.
+    155          *
+    156          * Note(s)    : 1) This function must be used with care.  Tasks that would normally expect the presence of the queue MUST
+    157          *                 check the return code of OSQPend().
+    158          *
+    159          *              2) OSQAccept() callers will not know that the intended queue has been deleted.
+    160          *
+    161          *              3) Because ALL tasks pending on the queue will be readied, you MUST be careful in applications where the
+    162          *                 queue is used for mutual exclusion because the resource(s) will no longer be guarded by the queue.
+    163          ************************************************************************************************************************
+    164          */
+    165          
+    166          #if OS_CFG_Q_DEL_EN > 0u
+    167          OS_OBJ_QTY  OSQDel (OS_Q    *p_q,
+    168                              OS_OPT   opt,
+    169                              OS_ERR  *p_err)
+    170          {
+    171              OS_OBJ_QTY     cnt;
+    172              OS_OBJ_QTY     nbr_tasks;
+    173              OS_PEND_DATA  *p_pend_data;
+    174              OS_PEND_LIST  *p_pend_list;
+    175              OS_TCB        *p_tcb;
+    176              CPU_TS         ts;
+    177              CPU_SR_ALLOC();
+    178          
+    179          
+    180          
+    181          #ifdef OS_SAFETY_CRITICAL
+    182              if (p_err == (OS_ERR *)0) {
+    183                  OS_SAFETY_CRITICAL_EXCEPTION();
+    184                  return ((OS_OBJ_QTY)0);
+    185              }
+    186          #endif
+    187          
+    188          #if OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u
+    189              if (OSIntNestingCtr > (OS_NESTING_CTR)0) {              /* Can't delete a message queue from an ISR               */
+    190                 *p_err = OS_ERR_DEL_ISR;
+    191                  return ((OS_OBJ_QTY)0);
+    192              }
+    193          #endif
+    194          
+    195          #if OS_CFG_ARG_CHK_EN > 0u
+    196              if (p_q == (OS_Q *)0) {                                 /* Validate 'p_q'                                         */
+    197                 *p_err =  OS_ERR_OBJ_PTR_NULL;
+    198                  return ((OS_OBJ_QTY)0u);
+    199              }
+    200              switch (opt) {                                          /* Validate 'opt'                                         */
+    201                  case OS_OPT_DEL_NO_PEND:
+    202                  case OS_OPT_DEL_ALWAYS:
+    203                       break;
+    204          
+    205                  default:
+    206                      *p_err =  OS_ERR_OPT_INVALID;
+    207                       return ((OS_OBJ_QTY)0u);
+    208              }
+    209          #endif
+    210          
+    211          #if OS_CFG_OBJ_TYPE_CHK_EN > 0u
+    212              if (p_q->Type != OS_OBJ_TYPE_Q) {                       /* Make sure message queue was created                    */
+    213                 *p_err = OS_ERR_OBJ_TYPE;
+    214                  return ((OS_OBJ_QTY)0);
+    215              }
+    216          #endif
+    217          
+    218              CPU_CRITICAL_ENTER();
+    219              p_pend_list = &p_q->PendList;
+    220              cnt         = p_pend_list->NbrEntries;
+    221              nbr_tasks   = cnt;
+    222              switch (opt) {
+    223                  case OS_OPT_DEL_NO_PEND:                            /* Delete message queue only if no task waiting           */
+    224                       if (nbr_tasks == (OS_OBJ_QTY)0) {
+    225          #if OS_CFG_DBG_EN > 0u
+    226                           OS_QDbgListRemove(p_q);
+    227          #endif
+    228                           OSQQty--;
+    229                           OS_QClr(p_q);
+    230                           CPU_CRITICAL_EXIT();
+    231                          *p_err = OS_ERR_NONE;
+    232                       } else {
+    233                           CPU_CRITICAL_EXIT();
+    234                          *p_err = OS_ERR_TASK_WAITING;
+    235                       }
+    236                       break;
+    237          
+    238                  case OS_OPT_DEL_ALWAYS:                             /* Always delete the message queue                        */
+    239                       OS_CRITICAL_ENTER_CPU_EXIT();
+    240                       ts = OS_TS_GET();                              /* Get local time stamp so all tasks get the same time    */
+    241                       while (cnt > 0u) {                             /* Remove all tasks from the pend list                    */
+    242                           p_pend_data = p_pend_list->HeadPtr;
+    243                           p_tcb       = p_pend_data->TCBPtr;
+    244                           OS_PendObjDel((OS_PEND_OBJ *)((void *)p_q),
+    245                                         p_tcb,
+    246                                         ts);
+    247                           cnt--;
+    248                       }
+    249          #if OS_CFG_DBG_EN > 0u
+    250                       OS_QDbgListRemove(p_q);
+    251          #endif
+    252                       OSQQty--;
+    253                       OS_QClr(p_q);
+    254                       OS_CRITICAL_EXIT_NO_SCHED();
+    255                       OSSched();                                     /* Find highest priority task ready to run                */
+    256                      *p_err = OS_ERR_NONE;
+    257                       break;
+    258          
+    259                  default:
+    260                       CPU_CRITICAL_EXIT();
+    261                      *p_err = OS_ERR_OPT_INVALID;
+    262                       break;
+    263              }
+    264              return (nbr_tasks);
+    265          }
+    266          #endif
+    267          
+    268          /*$PAGE*/
+    269          /*
+    270          ************************************************************************************************************************
+    271          *                                                     FLUSH QUEUE
+    272          *
+    273          * Description : This function is used to flush the contents of the message queue.
+    274          *
+    275          * Arguments   : p_q        is a pointer to the message queue to flush
+    276          *
+    277          *               p_err      is a pointer to a variable that will contain an error code returned by this function.
+    278          *
+    279          *                              OS_ERR_NONE           upon success
+    280          *                              OS_ERR_FLUSH_ISR      if you called this function from an ISR
+    281          *                              OS_ERR_OBJ_PTR_NULL   If you passed a NULL pointer for 'p_q'
+    282          *                              OS_ERR_OBJ_TYPE       If you didn't create the message queue
+    283          *
+    284          * Returns     : The number of entries freed from the queue
+    285          *
+    286          * Note(s)     : 1) You should use this function with great care because, when to flush the queue, you LOOSE the
+    287          *                  references to what the queue entries are pointing to and thus, you could cause 'memory leaks'.  In
+    288          *                  other words, the data you are pointing to that's being referenced by the queue entries should, most
+    289          *                  likely, need to be de-allocated (i.e. freed).
+    290          ************************************************************************************************************************
+    291          */
+    292          
+    293          #if OS_CFG_Q_FLUSH_EN > 0u
+    294          OS_MSG_QTY  OSQFlush (OS_Q    *p_q,
+    295                                OS_ERR  *p_err)
+    296          {
+    297              OS_MSG_QTY  entries;
+    298              CPU_SR_ALLOC();
+    299          
+    300          
+    301          
+    302          #ifdef OS_SAFETY_CRITICAL
+    303              if (p_err == (OS_ERR *)0) {
+    304                  OS_SAFETY_CRITICAL_EXCEPTION();
+    305                  return ((OS_MSG_QTY)0);
+    306              }
+    307          #endif
+    308          
+    309          #if OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u
+    310              if (OSIntNestingCtr > (OS_NESTING_CTR)0) {              /* Can't flush a message queue from an ISR                */
+    311                 *p_err = OS_ERR_FLUSH_ISR;
+    312                  return ((OS_MSG_QTY)0);
+    313              }
+    314          #endif
+    315          
+    316          #if OS_CFG_ARG_CHK_EN > 0u
+    317              if (p_q == (OS_Q *)0) {                                 /* Validate arguments                                     */
+    318                 *p_err = OS_ERR_OBJ_PTR_NULL;
+    319                  return ((OS_MSG_QTY)0);
+    320              }
+    321          #endif
+    322          
+    323          #if OS_CFG_OBJ_TYPE_CHK_EN > 0u
+    324              if (p_q->Type != OS_OBJ_TYPE_Q) {                       /* Make sure message queue was created                    */
+    325                 *p_err = OS_ERR_OBJ_TYPE;
+    326                  return ((OS_MSG_QTY)0);
+    327              }
+    328          #endif
+    329          
+    330              OS_CRITICAL_ENTER();
+    331              entries = OS_MsgQFreeAll(&p_q->MsgQ);                   /* Return all OS_MSGs to the OS_MSG pool                  */
+    332              OS_CRITICAL_EXIT();
+    333             *p_err   = OS_ERR_NONE;
+    334              return ((OS_MSG_QTY)entries);
+    335          }
+    336          #endif
+    337          
+    338          /*$PAGE*/
+    339          /*
+    340          ************************************************************************************************************************
+    341          *                                            PEND ON A QUEUE FOR A MESSAGE
+    342          *
+    343          * Description: This function waits for a message to be sent to a queue
+    344          *
+    345          * Arguments  : p_q           is a pointer to the message queue
+    346          *
+    347          *              timeout       is an optional timeout period (in clock ticks).  If non-zero, your task will wait for a
+    348          *                            message to arrive at the queue up to the amount of time specified by this argument.  If you
+    349          *                            specify 0, however, your task will wait forever at the specified queue or, until a message
+    350          *                            arrives.
+    351          *
+    352          *              opt           determines whether the user wants to block if the queue is empty or not:
+    353          *
+    354          *                                OS_OPT_PEND_BLOCKING
+    355          *                                OS_OPT_PEND_NON_BLOCKING
+    356          *
+    357          *              p_msg_size    is a pointer to a variable that will receive the size of the message
+    358          *
+    359          *              p_ts          is a pointer to a variable that will receive the timestamp of when the message was
+    360          *                            received, pend aborted or the message queue deleted,  If you pass a NULL pointer (i.e.
+    361          *                            (CPU_TS *)0) then you will not get the timestamp.  In other words, passing a NULL pointer
+    362          *                            is valid and indicates that you don't need the timestamp.
+    363          *
+    364          *              p_err         is a pointer to a variable that will contain an error code returned by this function.
+    365          *
+    366          *                                OS_ERR_NONE               The call was successful and your task received a message.
+    367          *                                OS_ERR_OBJ_PTR_NULL       if you pass a NULL pointer for 'p_q'
+    368          *                                OS_ERR_OBJ_TYPE           if the message queue was not created
+    369          *                                OS_ERR_PEND_ABORT         the pend was aborted
+    370          *                                OS_ERR_PEND_ISR           if you called this function from an ISR
+    371          *                                OS_ERR_PEND_WOULD_BLOCK   If you specified non-blocking but the queue was not empty
+    372          *                                OS_ERR_SCHED_LOCKED       the scheduler is locked
+    373          *                                OS_ERR_TIMEOUT            A message was not received within the specified timeout
+    374          *                                                          would lead to a suspension.
+    375          *
+    376          * Returns    : != (void *)0  is a pointer to the message received
+    377          *              == (void *)0  if you received a NULL pointer message or,
+    378          *                            if no message was received or,
+    379          *                            if 'p_q' is a NULL pointer or,
+    380          *                            if you didn't pass a pointer to a queue.
+    381          ************************************************************************************************************************
+    382          */
+    383          
+
+   \                                 In section .text, align 2, keep-with-next
+    384          void  *OSQPend (OS_Q         *p_q,
+    385                          OS_TICK       timeout,
+    386                          OS_OPT        opt,
+    387                          OS_MSG_SIZE  *p_msg_size,
+    388                          CPU_TS       *p_ts,
+    389                          OS_ERR       *p_err)
+    390          {
+   \                     OSQPend: (+1)
+   \        0x0   0xB5F2             PUSH     {R1,R4-R7,LR}
+   \        0x2   0xB08C             SUB      SP,SP,#+48
+   \        0x4   0x9D13             LDR      R5,[SP, #+76]
+    391              OS_PEND_DATA  pend_data;
+    392              void         *p_void;
+    393              CPU_SR_ALLOC();
+   \        0x6   0x2400             MOVS     R4,#+0
+   \        0x8   0x0021             MOVS     R1,R4
+    394          
+    395          
+    396          
+    397          #ifdef OS_SAFETY_CRITICAL
+    398              if (p_err == (OS_ERR *)0) {
+    399                  OS_SAFETY_CRITICAL_EXCEPTION();
+    400                  return ((void *)0);
+    401              }
+    402          #endif
+    403          
+    404          #if OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u
+    405              if (OSIntNestingCtr > (OS_NESTING_CTR)0) {              /* Not allowed to call from an ISR                        */
+   \        0xA   0x....             LDR      R1,??DataTable1
+   \        0xC   0x7809             LDRB     R1,[R1, #+0]
+   \        0xE   0x2900             CMP      R1,#+0
+   \       0x10   0xD003             BEQ      ??OSQPend_0
+    406                 *p_err = OS_ERR_PEND_ISR;
+   \       0x12   0x....             LDR      R0,??DataTable2_1  ;; 0x61ae
+   \       0x14   0x8028             STRH     R0,[R5, #+0]
+    407                  return ((void *)0);
+   \       0x16   0x2000             MOVS     R0,#+0
+   \       0x18   0xE0B0             B        ??OSQPend_1
+    408              }
+   \                     ??OSQPend_0: (+1)
+   \       0x1A   0x9002             STR      R0,[SP, #+8]
+    409          #endif
+    410          
+    411          #if OS_CFG_ARG_CHK_EN > 0u
+    412              if (p_q == (OS_Q *)0) {                                 /* Validate arguments                                     */
+   \       0x1C   0x9802             LDR      R0,[SP, #+8]
+   \       0x1E   0x2800             CMP      R0,#+0
+   \       0x20   0xD103             BNE      ??OSQPend_2
+    413                 *p_err = OS_ERR_OBJ_PTR_NULL;
+   \       0x22   0x....             LDR      R0,??DataTable1_2  ;; 0x5dc3
+   \       0x24   0x8028             STRH     R0,[R5, #+0]
+    414                  return ((void *)0);
+   \       0x26   0x2000             MOVS     R0,#+0
+   \       0x28   0xE0A8             B        ??OSQPend_1
+    415              }
+   \                     ??OSQPend_2: (+1)
+   \       0x2A   0x9300             STR      R3,[SP, #+0]
+    416              if (p_msg_size == (OS_MSG_SIZE *)0) {
+   \       0x2C   0x9800             LDR      R0,[SP, #+0]
+   \       0x2E   0x2800             CMP      R0,#+0
+   \       0x30   0xD103             BNE      ??OSQPend_3
+    417                 *p_err = OS_ERR_PTR_INVALID;
+   \       0x32   0x....             LDR      R0,??DataTable2_2  ;; 0x62d5
+   \       0x34   0x8028             STRH     R0,[R5, #+0]
+    418                  return ((void *)0);
+   \       0x36   0x2000             MOVS     R0,#+0
+   \       0x38   0xE0A0             B        ??OSQPend_1
+    419              }
+   \                     ??OSQPend_3: (+1)
+   \       0x3A   0x4668             MOV      R0,SP
+   \       0x3C   0x8082             STRH     R2,[R0, #+4]
+    420              switch (opt) {
+   \       0x3E   0x4668             MOV      R0,SP
+   \       0x40   0x8880             LDRH     R0,[R0, #+4]
+   \       0x42   0x2800             CMP      R0,#+0
+   \       0x44   0xD003             BEQ      ??OSQPend_4
+   \       0x46   0x2180             MOVS     R1,#+128
+   \       0x48   0x0209             LSLS     R1,R1,#+8        ;; #+32768
+   \       0x4A   0x4288             CMP      R0,R1
+   \       0x4C   0xD11B             BNE      ??OSQPend_5
+    421                  case OS_OPT_PEND_BLOCKING:
+    422                  case OS_OPT_PEND_NON_BLOCKING:
+    423                       break;
+    424          
+    425                  default:
+    426                      *p_err = OS_ERR_OPT_INVALID;
+    427                       return ((void *)0);
+    428              }
+    429          #endif
+    430          
+    431          #if OS_CFG_OBJ_TYPE_CHK_EN > 0u
+    432              if (p_q->Type != OS_OBJ_TYPE_Q) {                       /* Make sure message queue was created                    */
+   \                     ??OSQPend_4: (+1)
+   \       0x4E   0x9802             LDR      R0,[SP, #+8]
+   \       0x50   0x6800             LDR      R0,[R0, #+0]
+   \       0x52   0x....             LDR      R1,??DataTable1_5  ;; 0x55455551
+   \       0x54   0x4288             CMP      R0,R1
+   \       0x56   0xD11A             BNE      ??OSQPend_6
+   \       0x58   0x9E12             LDR      R6,[SP, #+72]
+    433                 *p_err = OS_ERR_OBJ_TYPE;
+    434                  return ((void *)0);
+    435              }
+    436          #endif
+    437          
+    438              if (p_ts != (CPU_TS *)0) {
+   \       0x5A   0x2E00             CMP      R6,#+0
+   \       0x5C   0xD000             BEQ      ??OSQPend_7
+    439                 *p_ts  = (CPU_TS  )0;                                /* Initialize the returned timestamp                      */
+   \       0x5E   0x6034             STR      R4,[R6, #+0]
+    440              }
+    441          
+    442              CPU_CRITICAL_ENTER();
+   \                     ??OSQPend_7: (+1)
+   \       0x60   0x....'....        BL       CPU_SR_Save
+   \       0x64   0x0007             MOVS     R7,R0
+    443              p_void = OS_MsgQGet(&p_q->MsgQ,                         /* Any message waiting in the message queue?              */
+    444                                  p_msg_size,
+    445                                  p_ts,
+    446                                  p_err);
+   \       0x66   0x002B             MOVS     R3,R5
+   \       0x68   0x0032             MOVS     R2,R6
+   \       0x6A   0x9900             LDR      R1,[SP, #+0]
+   \       0x6C   0x9802             LDR      R0,[SP, #+8]
+   \       0x6E   0x3020             ADDS     R0,R0,#+32
+   \       0x70   0x....'....        BL       OS_MsgQGet
+   \       0x74   0x9003             STR      R0,[SP, #+12]
+    447              if (*p_err == OS_ERR_NONE) {
+   \       0x76   0x8828             LDRH     R0,[R5, #+0]
+   \       0x78   0x2800             CMP      R0,#+0
+   \       0x7A   0xD10C             BNE      ??OSQPend_8
+    448                  CPU_CRITICAL_EXIT();
+   \       0x7C   0x0038             MOVS     R0,R7
+   \       0x7E   0x....'....        BL       CPU_SR_Restore
+    449                  return (p_void);                                    /* Yes, Return message received                           */
+   \       0x82   0x9803             LDR      R0,[SP, #+12]
+   \       0x84   0xE07A             B        ??OSQPend_1
+    450              }
+   \                     ??OSQPend_5: (+1)
+   \       0x86   0x....             LDR      R0,??DataTable3  ;; 0x5e25
+   \       0x88   0x8028             STRH     R0,[R5, #+0]
+   \       0x8A   0x2000             MOVS     R0,#+0
+   \       0x8C   0xE076             B        ??OSQPend_1
+   \                     ??OSQPend_6: (+1)
+   \       0x8E   0x....             LDR      R0,??DataTable3_1  ;; 0x5dc4
+   \       0x90   0x8028             STRH     R0,[R5, #+0]
+   \       0x92   0x2000             MOVS     R0,#+0
+   \       0x94   0xE072             B        ??OSQPend_1
+    451          
+    452              if ((opt & OS_OPT_PEND_NON_BLOCKING) != (OS_OPT)0) {    /* Caller wants to block if not available?                */
+   \                     ??OSQPend_8: (+1)
+   \       0x96   0x4668             MOV      R0,SP
+   \       0x98   0x8880             LDRH     R0,[R0, #+4]
+   \       0x9A   0x0400             LSLS     R0,R0,#+16
+   \       0x9C   0xD506             BPL      ??OSQPend_9
+    453                  CPU_CRITICAL_EXIT();
+   \       0x9E   0x0038             MOVS     R0,R7
+   \       0xA0   0x....'....        BL       CPU_SR_Restore
+    454                 *p_err = OS_ERR_PEND_WOULD_BLOCK;                    /* No                                                     */
+   \       0xA4   0x....             LDR      R0,??DataTable4  ;; 0x61b0
+   \       0xA6   0x8028             STRH     R0,[R5, #+0]
+    455                  return ((void *)0);
+   \       0xA8   0x2000             MOVS     R0,#+0
+   \       0xAA   0xE067             B        ??OSQPend_1
+    456              } else {
+    457                  if (OSSchedLockNestingCtr > (OS_NESTING_CTR)0) {    /* Can't pend when the scheduler is locked                */
+   \                     ??OSQPend_9: (+1)
+   \       0xAC   0x....             LDR      R0,??DataTable1_4
+   \       0xAE   0x7800             LDRB     R0,[R0, #+0]
+   \       0xB0   0x2800             CMP      R0,#+0
+   \       0xB2   0xD006             BEQ      ??OSQPend_10
+    458                      CPU_CRITICAL_EXIT();
+   \       0xB4   0x0038             MOVS     R0,R7
+   \       0xB6   0x....'....        BL       CPU_SR_Restore
+    459                     *p_err = OS_ERR_SCHED_LOCKED;
+   \       0xBA   0x....             LDR      R0,??DataTable4_1  ;; 0x6d63
+   \       0xBC   0x8028             STRH     R0,[R5, #+0]
+    460                      return ((void *)0);
+   \       0xBE   0x2000             MOVS     R0,#+0
+   \       0xC0   0xE05C             B        ??OSQPend_1
+    461                  }
+    462              }
+    463                                                                      /* Lock the scheduler/re-enable interrupts                */
+    464              OS_CRITICAL_ENTER_CPU_EXIT();
+   \                     ??OSQPend_10: (+1)
+   \       0xC2   0x....             LDR      R0,??DataTable1_4
+   \       0xC4   0x7800             LDRB     R0,[R0, #+0]
+   \       0xC6   0x1C40             ADDS     R0,R0,#+1
+   \       0xC8   0x....             LDR      R1,??DataTable1_4
+   \       0xCA   0x7008             STRB     R0,[R1, #+0]
+   \       0xCC   0x0038             MOVS     R0,R7
+   \       0xCE   0x....'....        BL       CPU_SR_Restore
+    465              OS_Pend(&pend_data,                                     /* Block task pending on Message Queue                    */
+    466                      (OS_PEND_OBJ *)((void *)p_q),
+    467                      OS_TASK_PEND_ON_Q,
+    468                      timeout);
+   \       0xD2   0x9B0C             LDR      R3,[SP, #+48]
+   \       0xD4   0x2205             MOVS     R2,#+5
+   \       0xD6   0x9902             LDR      R1,[SP, #+8]
+   \       0xD8   0xA804             ADD      R0,SP,#+16
+   \       0xDA   0x....'....        BL       OS_Pend
+    469              OS_CRITICAL_EXIT_NO_SCHED();
+   \       0xDE   0x....'....        BL       CPU_SR_Save
+   \       0xE2   0x....             LDR      R1,??DataTable1_4
+   \       0xE4   0x7809             LDRB     R1,[R1, #+0]
+   \       0xE6   0x1E49             SUBS     R1,R1,#+1
+   \       0xE8   0x....             LDR      R2,??DataTable1_4
+   \       0xEA   0x7011             STRB     R1,[R2, #+0]
+   \       0xEC   0x....'....        BL       CPU_SR_Restore
+    470          
+    471              OSSched();                                              /* Find the next highest priority task ready to run       */
+   \       0xF0   0x....'....        BL       OSSched
+    472          
+    473              CPU_CRITICAL_ENTER();
+   \       0xF4   0x....'....        BL       CPU_SR_Save
+    474              switch (OSTCBCurPtr->PendStatus) {
+   \       0xF8   0x....             LDR      R1,??DataTable5
+   \       0xFA   0x680A             LDR      R2,[R1, #+0]
+   \       0xFC   0x2335             MOVS     R3,#+53
+   \       0xFE   0x5CD2             LDRB     R2,[R2, R3]
+   \      0x100   0x2A00             CMP      R2,#+0
+   \      0x102   0xD005             BEQ      ??OSQPend_11
+   \      0x104   0x2A02             CMP      R2,#+2
+   \      0x106   0xD026             BEQ      ??OSQPend_12
+   \      0x108   0xD310             BCC      ??OSQPend_13
+   \      0x10A   0x2A03             CMP      R2,#+3
+   \      0x10C   0xD019             BEQ      ??OSQPend_14
+   \      0x10E   0xE02D             B        ??OSQPend_15
+    475                  case OS_STATUS_PEND_OK:                             /* Extract message from TCB (Put there by Post)           */
+    476                       p_void     = OSTCBCurPtr->MsgPtr;
+   \                     ??OSQPend_11: (+1)
+   \      0x110   0x680A             LDR      R2,[R1, #+0]
+   \      0x112   0x6DD7             LDR      R7,[R2, #+92]
+    477                      *p_msg_size = OSTCBCurPtr->MsgSize;
+   \      0x114   0x680A             LDR      R2,[R1, #+0]
+   \      0x116   0x2360             MOVS     R3,#+96
+   \      0x118   0x5AD2             LDRH     R2,[R2, R3]
+   \      0x11A   0x9B00             LDR      R3,[SP, #+0]
+   \      0x11C   0x801A             STRH     R2,[R3, #+0]
+    478                       if (p_ts  != (CPU_TS *)0) {
+   \      0x11E   0x2E00             CMP      R6,#+0
+   \      0x120   0xD002             BEQ      ??OSQPend_16
+    479                          *p_ts   =  OSTCBCurPtr->TS;
+   \      0x122   0x6809             LDR      R1,[R1, #+0]
+   \      0x124   0x6C09             LDR      R1,[R1, #+64]
+   \      0x126   0x6031             STR      R1,[R6, #+0]
+    480                       }
+    481                      *p_err      = OS_ERR_NONE;
+   \                     ??OSQPend_16: (+1)
+   \      0x128   0x802C             STRH     R4,[R5, #+0]
+    482                       break;
+   \      0x12A   0xE024             B        ??OSQPend_17
+    483          
+    484                  case OS_STATUS_PEND_ABORT:                          /* Indicate that we aborted                               */
+    485                       p_void     = (void      *)0;
+   \                     ??OSQPend_13: (+1)
+   \      0x12C   0x0027             MOVS     R7,R4
+    486                      *p_msg_size = (OS_MSG_SIZE)0;
+   \      0x12E   0x9A00             LDR      R2,[SP, #+0]
+   \      0x130   0x8014             STRH     R4,[R2, #+0]
+    487                       if (p_ts  != (CPU_TS *)0) {
+   \      0x132   0x2E00             CMP      R6,#+0
+   \      0x134   0xD002             BEQ      ??OSQPend_18
+    488                          *p_ts   =  OSTCBCurPtr->TS;
+   \      0x136   0x6809             LDR      R1,[R1, #+0]
+   \      0x138   0x6C09             LDR      R1,[R1, #+64]
+   \      0x13A   0x6031             STR      R1,[R6, #+0]
+    489                       }
+    490                      *p_err      = OS_ERR_PEND_ABORT;
+   \                     ??OSQPend_18: (+1)
+   \      0x13C   0x....             LDR      R1,??DataTable7  ;; 0x61a9
+   \      0x13E   0x8029             STRH     R1,[R5, #+0]
+    491                       break;
+   \      0x140   0xE019             B        ??OSQPend_17
+    492          
+    493                  case OS_STATUS_PEND_TIMEOUT:                        /* Indicate that we didn't get event within TO            */
+    494                       p_void     = (void      *)0;
+   \                     ??OSQPend_14: (+1)
+   \      0x142   0x0027             MOVS     R7,R4
+    495                      *p_msg_size = (OS_MSG_SIZE)0;
+   \      0x144   0x0021             MOVS     R1,R4
+   \      0x146   0x9A00             LDR      R2,[SP, #+0]
+   \      0x148   0x8011             STRH     R1,[R2, #+0]
+    496                       if (p_ts  != (CPU_TS *)0) {
+   \      0x14A   0x2E00             CMP      R6,#+0
+   \      0x14C   0xD000             BEQ      ??OSQPend_19
+    497                          *p_ts   = (CPU_TS  )0;
+   \      0x14E   0x6034             STR      R4,[R6, #+0]
+    498                       }
+    499                      *p_err      = OS_ERR_TIMEOUT;
+   \                     ??OSQPend_19: (+1)
+   \      0x150   0x....             LDR      R1,??DataTable7_1  ;; 0x72d9
+   \      0x152   0x8029             STRH     R1,[R5, #+0]
+    500                       break;
+   \      0x154   0xE00F             B        ??OSQPend_17
+    501          
+    502                  case OS_STATUS_PEND_DEL:                            /* Indicate that object pended on has been deleted        */
+    503                       p_void     = (void      *)0;
+   \                     ??OSQPend_12: (+1)
+   \      0x156   0x0027             MOVS     R7,R4
+    504                      *p_msg_size = (OS_MSG_SIZE)0;
+   \      0x158   0x9A00             LDR      R2,[SP, #+0]
+   \      0x15A   0x8014             STRH     R4,[R2, #+0]
+    505                       if (p_ts  != (CPU_TS *)0) {
+   \      0x15C   0x2E00             CMP      R6,#+0
+   \      0x15E   0xD002             BEQ      ??OSQPend_20
+    506                          *p_ts   =  OSTCBCurPtr->TS;
+   \      0x160   0x6809             LDR      R1,[R1, #+0]
+   \      0x162   0x6C09             LDR      R1,[R1, #+64]
+   \      0x164   0x6031             STR      R1,[R6, #+0]
+    507                       }
+    508                      *p_err      = OS_ERR_OBJ_DEL;
+   \                     ??OSQPend_20: (+1)
+   \      0x166   0x....             LDR      R1,??DataTable7_2  ;; 0x5dc2
+   \      0x168   0x8029             STRH     R1,[R5, #+0]
+    509                       break;
+   \      0x16A   0xE004             B        ??OSQPend_17
+    510          
+    511                  default:
+    512                       p_void     = (void      *)0;
+   \                     ??OSQPend_15: (+1)
+   \      0x16C   0x0027             MOVS     R7,R4
+    513                      *p_msg_size = (OS_MSG_SIZE)0;
+   \      0x16E   0x9900             LDR      R1,[SP, #+0]
+   \      0x170   0x800C             STRH     R4,[R1, #+0]
+    514                      *p_err      = OS_ERR_STATUS_INVALID;
+   \      0x172   0x....             LDR      R1,??DataTable7_3  ;; 0x6e2e
+   \      0x174   0x8029             STRH     R1,[R5, #+0]
+    515                       break;
+    516              }
+    517              CPU_CRITICAL_EXIT();
+   \                     ??OSQPend_17: (+1)
+   \      0x176   0x....'....        BL       CPU_SR_Restore
+    518              return (p_void);
+   \      0x17A   0x0038             MOVS     R0,R7
+   \                     ??OSQPend_1: (+1)
+   \      0x17C   0xB00D             ADD      SP,SP,#+52
+   \      0x17E   0xBDF0             POP      {R4-R7,PC}       ;; return
+    519          }
+    520          
+    521          
+    522          /*$PAGE*/
+    523          /*
+    524          ************************************************************************************************************************
+    525          *                                             ABORT WAITING ON A MESSAGE QUEUE
+    526          *
+    527          * Description: This function aborts & readies any tasks currently waiting on a queue.  This function should be used to
+    528          *              fault-abort the wait on the queue, rather than to normally signal the queue via OSQPost().
+    529          *
+    530          * Arguments  : p_q       is a pointer to the message queue
+    531          *
+    532          *              opt       determines the type of ABORT performed:
+    533          *
+    534          *                            OS_OPT_PEND_ABORT_1          ABORT wait for a single task (HPT) waiting on the queue
+    535          *                            OS_OPT_PEND_ABORT_ALL        ABORT wait for ALL tasks that are  waiting on the queue
+    536          *                            OS_OPT_POST_NO_SCHED         Do not call the scheduler
+    537          *
+    538          *              p_err     is a pointer to a variable that will contain an error code returned by this function.
+    539          *
+    540          *                            OS_ERR_NONE                  At least one task waiting on the queue was readied and
+    541          *                                                         informed of the aborted wait; check return value for the
+    542          *                                                         number of tasks whose wait on the queue was aborted.
+    543          *                            OS_ERR_OPT_INVALID           if you specified an invalid option
+    544          *                            OS_ERR_OBJ_PTR_NULL          if you pass a NULL pointer for 'p_q'
+    545          *                            OS_ERR_OBJ_TYPE              if the message queue was not created
+    546          *                            OS_ERR_PEND_ABORT_ISR        If this function was called from an ISR
+    547          *                            OS_ERR_PEND_ABORT_NONE       No task were pending
+    548          *
+    549          * Returns    : == 0          if no tasks were waiting on the queue, or upon error.
+    550          *              >  0          if one or more tasks waiting on the queue are now readied and informed.
+    551          ************************************************************************************************************************
+    552          */
+    553          
+    554          #if OS_CFG_Q_PEND_ABORT_EN > 0u
+
+   \                                 In section .text, align 2, keep-with-next
+    555          OS_OBJ_QTY  OSQPendAbort (OS_Q    *p_q,
+    556                                    OS_OPT   opt,
+    557                                    OS_ERR  *p_err)
+    558          {
+   \                     OSQPendAbort: (+1)
+   \        0x0   0xB5FE             PUSH     {R1-R7,LR}
+   \        0x2   0x0016             MOVS     R6,R2
+    559              OS_PEND_LIST  *p_pend_list;
+    560              OS_TCB        *p_tcb;
+    561              CPU_TS         ts;
+    562              OS_OBJ_QTY     nbr_tasks;
+    563              CPU_SR_ALLOC();
+   \        0x4   0x2500             MOVS     R5,#+0
+   \        0x6   0x002A             MOVS     R2,R5
+    564          
+    565          
+    566          
+    567          #ifdef OS_SAFETY_CRITICAL
+    568              if (p_err == (OS_ERR *)0) {
+    569                  OS_SAFETY_CRITICAL_EXCEPTION();
+    570                  return ((OS_OBJ_QTY)0u);
+    571              }
+    572          #endif
+    573          
+    574          #if OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u
+    575              if (OSIntNestingCtr > (OS_NESTING_CTR)0u) {             /* Not allowed to Pend Abort from an ISR                  */
+   \        0x8   0x....             LDR      R2,??DataTable7_4
+   \        0xA   0x7812             LDRB     R2,[R2, #+0]
+   \        0xC   0x2A00             CMP      R2,#+0
+   \        0xE   0xD003             BEQ      ??OSQPendAbort_0
+    576                 *p_err =  OS_ERR_PEND_ABORT_ISR;
+   \       0x10   0x....             LDR      R0,??DataTable7_5  ;; 0x61aa
+   \       0x12   0x8030             STRH     R0,[R6, #+0]
+    577                  return ((OS_OBJ_QTY)0u);
+   \       0x14   0x2000             MOVS     R0,#+0
+   \       0x16   0xE05E             B        ??OSQPendAbort_1
+    578              }
+   \                     ??OSQPendAbort_0: (+1)
+   \       0x18   0x9000             STR      R0,[SP, #+0]
+    579          #endif
+    580          
+    581          #if OS_CFG_ARG_CHK_EN > 0u
+    582              if (p_q == (OS_Q *)0) {                                 /* Validate 'p_q'                                         */
+   \       0x1A   0x9800             LDR      R0,[SP, #+0]
+   \       0x1C   0x2800             CMP      R0,#+0
+   \       0x1E   0xD103             BNE      ??OSQPendAbort_2
+    583                 *p_err =  OS_ERR_OBJ_PTR_NULL;
+   \       0x20   0x....             LDR      R0,??DataTable7_6  ;; 0x5dc3
+   \       0x22   0x8030             STRH     R0,[R6, #+0]
+    584                  return ((OS_OBJ_QTY)0u);
+   \       0x24   0x2000             MOVS     R0,#+0
+   \       0x26   0xE056             B        ??OSQPendAbort_1
+    585              }
+   \                     ??OSQPendAbort_2: (+1)
+   \       0x28   0x000F             MOVS     R7,R1
+    586              switch (opt) {                                          /* Validate 'opt'                                         */
+   \       0x2A   0x0038             MOVS     R0,R7
+   \       0x2C   0xB280             UXTH     R0,R0
+   \       0x2E   0x2800             CMP      R0,#+0
+   \       0x30   0xD00B             BEQ      ??OSQPendAbort_3
+   \       0x32   0x2180             MOVS     R1,#+128
+   \       0x34   0x0049             LSLS     R1,R1,#+1        ;; #+256
+   \       0x36   0x4288             CMP      R0,R1
+   \       0x38   0xD007             BEQ      ??OSQPendAbort_3
+   \       0x3A   0x2180             MOVS     R1,#+128
+   \       0x3C   0x0209             LSLS     R1,R1,#+8        ;; #+32768
+   \       0x3E   0x4288             CMP      R0,R1
+   \       0x40   0xD003             BEQ      ??OSQPendAbort_3
+   \       0x42   0x2181             MOVS     R1,#+129
+   \       0x44   0x0209             LSLS     R1,R1,#+8        ;; #+33024
+   \       0x46   0x4288             CMP      R0,R1
+   \       0x48   0xD113             BNE      ??OSQPendAbort_4
+    587                  case OS_OPT_PEND_ABORT_1:
+    588                  case OS_OPT_PEND_ABORT_ALL:
+    589                  case OS_OPT_PEND_ABORT_1   | OS_OPT_POST_NO_SCHED:
+    590                  case OS_OPT_PEND_ABORT_ALL | OS_OPT_POST_NO_SCHED:
+    591                       break;
+    592          
+    593                  default:
+    594                      *p_err =  OS_ERR_OPT_INVALID;
+    595                       return ((OS_OBJ_QTY)0u);
+    596              }
+    597          #endif
+    598          
+    599          #if OS_CFG_OBJ_TYPE_CHK_EN > 0u
+    600              if (p_q->Type != OS_OBJ_TYPE_Q) {                       /* Make sure queue was created                            */
+   \                     ??OSQPendAbort_3: (+1)
+   \       0x4A   0x9800             LDR      R0,[SP, #+0]
+   \       0x4C   0x6800             LDR      R0,[R0, #+0]
+   \       0x4E   0x....             LDR      R1,??DataTable8  ;; 0x55455551
+   \       0x50   0x4288             CMP      R0,R1
+   \       0x52   0xD112             BNE      ??OSQPendAbort_5
+    601                 *p_err =  OS_ERR_OBJ_TYPE;
+    602                  return ((OS_OBJ_QTY)0u);
+    603              }
+    604          #endif
+    605          
+    606              CPU_CRITICAL_ENTER();
+   \       0x54   0x....'....        BL       CPU_SR_Save
+    607              p_pend_list = &p_q->PendList;
+   \       0x58   0x9900             LDR      R1,[SP, #+0]
+   \       0x5A   0x3108             ADDS     R1,R1,#+8
+   \       0x5C   0x9101             STR      R1,[SP, #+4]
+    608              if (p_pend_list->NbrEntries == (OS_OBJ_QTY)0u) {        /* Any task waiting on queue?                             */
+   \       0x5E   0x9901             LDR      R1,[SP, #+4]
+   \       0x60   0x8909             LDRH     R1,[R1, #+8]
+   \       0x62   0x2900             CMP      R1,#+0
+   \       0x64   0xD10D             BNE      ??OSQPendAbort_6
+    609                  CPU_CRITICAL_EXIT();                                /* No                                                     */
+   \       0x66   0x....'....        BL       CPU_SR_Restore
+    610                 *p_err =  OS_ERR_PEND_ABORT_NONE;
+   \       0x6A   0x....             LDR      R0,??DataTable8_1  ;; 0x61ab
+   \       0x6C   0x8030             STRH     R0,[R6, #+0]
+    611                  return ((OS_OBJ_QTY)0u);
+   \       0x6E   0x2000             MOVS     R0,#+0
+   \       0x70   0xE031             B        ??OSQPendAbort_1
+    612              }
+   \                     ??OSQPendAbort_4: (+1)
+   \       0x72   0x....             LDR      R0,??DataTable3  ;; 0x5e25
+   \       0x74   0x8030             STRH     R0,[R6, #+0]
+   \       0x76   0x2000             MOVS     R0,#+0
+   \       0x78   0xE02D             B        ??OSQPendAbort_1
+   \                     ??OSQPendAbort_5: (+1)
+   \       0x7A   0x....             LDR      R0,??DataTable3_1  ;; 0x5dc4
+   \       0x7C   0x8030             STRH     R0,[R6, #+0]
+   \       0x7E   0x2000             MOVS     R0,#+0
+   \       0x80   0xE029             B        ??OSQPendAbort_1
+    613          
+    614              OS_CRITICAL_ENTER_CPU_EXIT();
+   \                     ??OSQPendAbort_6: (+1)
+   \       0x82   0x....             LDR      R1,??DataTable8_2
+   \       0x84   0x7809             LDRB     R1,[R1, #+0]
+   \       0x86   0x1C49             ADDS     R1,R1,#+1
+   \       0x88   0x....             LDR      R2,??DataTable8_2
+   \       0x8A   0x7011             STRB     R1,[R2, #+0]
+   \       0x8C   0x....'....        BL       CPU_SR_Restore
+    615              nbr_tasks = 0u;
+   \       0x90   0x002C             MOVS     R4,R5
+    616              ts        = OS_TS_GET();                                /* Get local time stamp so all tasks get the same time    */
+   \       0x92   0x9502             STR      R5,[SP, #+8]
+    617              while (p_pend_list->NbrEntries > (OS_OBJ_QTY)0u) {
+   \                     ??OSQPendAbort_7: (+1)
+   \       0x94   0x9801             LDR      R0,[SP, #+4]
+   \       0x96   0x8900             LDRH     R0,[R0, #+8]
+   \       0x98   0x2800             CMP      R0,#+0
+   \       0x9A   0xD00D             BEQ      ??OSQPendAbort_8
+    618                  p_tcb = p_pend_list->HeadPtr->TCBPtr;
+   \       0x9C   0x9801             LDR      R0,[SP, #+4]
+   \       0x9E   0x6800             LDR      R0,[R0, #+0]
+   \       0xA0   0x6881             LDR      R1,[R0, #+8]
+    619                  OS_PendAbort((OS_PEND_OBJ *)((void *)p_q),
+    620                               p_tcb,
+    621                               ts);
+   \       0xA2   0x9A02             LDR      R2,[SP, #+8]
+   \       0xA4   0x9800             LDR      R0,[SP, #+0]
+   \       0xA6   0x....'....        BL       OS_PendAbort
+    622                  nbr_tasks++;
+   \       0xAA   0x1C64             ADDS     R4,R4,#+1
+    623                  if (opt != OS_OPT_PEND_ABORT_ALL) {                 /* Pend abort all tasks waiting?                          */
+   \       0xAC   0x0038             MOVS     R0,R7
+   \       0xAE   0xB280             UXTH     R0,R0
+   \       0xB0   0x2180             MOVS     R1,#+128
+   \       0xB2   0x0049             LSLS     R1,R1,#+1        ;; #+256
+   \       0xB4   0x4288             CMP      R0,R1
+   \       0xB6   0xD0ED             BEQ      ??OSQPendAbort_7
+    624                      break;                                          /* No                                                     */
+    625                  }
+    626              }
+    627              OS_CRITICAL_EXIT_NO_SCHED();
+   \                     ??OSQPendAbort_8: (+1)
+   \       0xB8   0x....'....        BL       CPU_SR_Save
+   \       0xBC   0x....             LDR      R1,??DataTable8_2
+   \       0xBE   0x780A             LDRB     R2,[R1, #+0]
+   \       0xC0   0x1E52             SUBS     R2,R2,#+1
+   \       0xC2   0x700A             STRB     R2,[R1, #+0]
+   \       0xC4   0x....'....        BL       CPU_SR_Restore
+    628          
+    629              if ((opt & OS_OPT_POST_NO_SCHED) == (OS_OPT)0u) {
+   \       0xC8   0x0438             LSLS     R0,R7,#+16
+   \       0xCA   0xD401             BMI      ??OSQPendAbort_9
+    630                  OSSched();                                          /* Run the scheduler                                      */
+   \       0xCC   0x....'....        BL       OSSched
+    631              }
+    632          
+    633             *p_err = OS_ERR_NONE;
+   \                     ??OSQPendAbort_9: (+1)
+   \       0xD0   0x8035             STRH     R5,[R6, #+0]
+    634              return (nbr_tasks);
+   \       0xD2   0x0020             MOVS     R0,R4
+   \       0xD4   0xB280             UXTH     R0,R0
+   \                     ??OSQPendAbort_1: (+1)
+   \       0xD6   0xBDFE             POP      {R1-R7,PC}       ;; return
+    635          }
+    636          #endif
+    637          
+    638          /*$PAGE*/
+    639          /*
+    640          ************************************************************************************************************************
+    641          *                                               POST MESSAGE TO A QUEUE
+    642          *
+    643          * Description: This function sends a message to a queue.  With the 'opt' argument, you can specify whether the message
+    644          *              is broadcast to all waiting tasks and/or whether you post the message to the front of the queue (LIFO)
+    645          *              or normally (FIFO) at the end of the queue.
+    646          *
+    647          * Arguments  : p_q           is a pointer to a message queue that must have been created by OSQCreate().
+    648          *
+    649          *              p_void        is a pointer to the message to send.
+    650          *
+    651          *              msg_size      specifies the size of the message (in bytes)
+    652          *
+    653          *              opt           determines the type of POST performed:
+    654          *
+    655          *                                OS_OPT_POST_ALL          POST to ALL tasks that are waiting on the queue.  This option
+    656          *                                                         can be added to either OS_OPT_POST_FIFO or OS_OPT_POST_LIFO
+    657          *                                OS_OPT_POST_FIFO         POST message to end of queue (FIFO) and wake up a single
+    658          *                                                         waiting task.
+    659          *                                OS_OPT_POST_LIFO         POST message to the front of the queue (LIFO) and wake up
+    660          *                                                         a single waiting task.
+    661          *                                OS_OPT_POST_NO_SCHED     Do not call the scheduler
+    662          *
+    663          *                            Note(s): 1) OS_OPT_POST_NO_SCHED can be added (or OR'd) with one of the other options.
+    664          *                                     2) OS_OPT_POST_ALL      can be added (or OR'd) with one of the other options.
+    665          *                                     3) Possible combination of options are:
+    666          *
+    667          *                                        OS_OPT_POST_FIFO
+    668          *                                        OS_OPT_POST_LIFO
+    669          *                                        OS_OPT_POST_FIFO + OS_OPT_POST_ALL
+    670          *                                        OS_OPT_POST_LIFO + OS_OPT_POST_ALL
+    671          *                                        OS_OPT_POST_FIFO + OS_OPT_POST_NO_SCHED
+    672          *                                        OS_OPT_POST_LIFO + OS_OPT_POST_NO_SCHED
+    673          *                                        OS_OPT_POST_FIFO + OS_OPT_POST_ALL + OS_OPT_POST_NO_SCHED
+    674          *                                        OS_OPT_POST_LIFO + OS_OPT_POST_ALL + OS_OPT_POST_NO_SCHED
+    675          *
+    676          *              p_err         is a pointer to a variable that will contain an error code returned by this function.
+    677          *
+    678          *                                OS_ERR_NONE            The call was successful and the message was sent
+    679          *                                OS_ERR_MSG_POOL_EMPTY  If there are no more OS_MSGs to use to place the message into
+    680          *                                OS_ERR_OBJ_PTR_NULL    If 'p_q' is a NULL pointer
+    681          *                                OS_ERR_OBJ_TYPE        If the message queue was not initialized
+    682          *                                OS_ERR_Q_MAX           If the queue is full
+    683          *
+    684          * Returns    : None
+    685          ************************************************************************************************************************
+    686          */
+    687          
+
+   \                                 In section .text, align 2, keep-with-next
+    688          void  OSQPost (OS_Q         *p_q,
+    689                         void         *p_void,
+    690                         OS_MSG_SIZE   msg_size,
+    691                         OS_OPT        opt,
+    692                         OS_ERR       *p_err)
+    693          {
+   \                     OSQPost: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+   \        0x2   0xB084             SUB      SP,SP,#+16
+   \        0x4   0x9D0A             LDR      R5,[SP, #+40]
+    694              CPU_TS  ts;
+    695          
+    696          
+    697          
+    698          #ifdef OS_SAFETY_CRITICAL
+    699              if (p_err == (OS_ERR *)0) {
+    700                  OS_SAFETY_CRITICAL_EXCEPTION();
+    701                  return;
+    702              }
+    703          #endif
+    704          
+    705          #if OS_CFG_ARG_CHK_EN > 0u
+    706              if (p_q == (OS_Q *)0) {                                 /* Validate 'p_q'                                         */
+   \        0x6   0x2800             CMP      R0,#+0
+   \        0x8   0xD102             BNE      ??OSQPost_0
+    707                 *p_err = OS_ERR_OBJ_PTR_NULL;
+   \        0xA   0x....             LDR      R0,??DataTable7_6  ;; 0x5dc3
+   \        0xC   0x8028             STRH     R0,[R5, #+0]
+    708                  return;
+   \        0xE   0xE039             B        ??OSQPost_1
+    709              }
+    710              switch (opt) {                                          /* Validate 'opt'                                         */
+   \                     ??OSQPost_0: (+1)
+   \       0x10   0x001C             MOVS     R4,R3
+   \       0x12   0xB2A4             UXTH     R4,R4
+   \       0x14   0x2C00             CMP      R4,#+0
+   \       0x16   0xD012             BEQ      ??OSQPost_2
+   \       0x18   0x3C10             SUBS     R4,R4,#+16
+   \       0x1A   0xD010             BEQ      ??OSQPost_2
+   \       0x1C   0x26F8             MOVS     R6,#+248
+   \       0x1E   0x0076             LSLS     R6,R6,#+1        ;; #+496
+   \       0x20   0x1BA4             SUBS     R4,R4,R6
+   \       0x22   0xD00C             BEQ      ??OSQPost_2
+   \       0x24   0x3C10             SUBS     R4,R4,#+16
+   \       0x26   0xD00A             BEQ      ??OSQPost_2
+   \       0x28   0x....             LDR      R6,??DataTable8_3  ;; 0x7df0
+   \       0x2A   0x1BA4             SUBS     R4,R4,R6
+   \       0x2C   0xD007             BEQ      ??OSQPost_2
+   \       0x2E   0x3C10             SUBS     R4,R4,#+16
+   \       0x30   0xD005             BEQ      ??OSQPost_2
+   \       0x32   0x26F8             MOVS     R6,#+248
+   \       0x34   0x0076             LSLS     R6,R6,#+1        ;; #+496
+   \       0x36   0x1BA4             SUBS     R4,R4,R6
+   \       0x38   0xD001             BEQ      ??OSQPost_2
+   \       0x3A   0x3C10             SUBS     R4,R4,#+16
+   \       0x3C   0xD116             BNE      ??OSQPost_3
+    711                  case OS_OPT_POST_FIFO:
+    712                  case OS_OPT_POST_LIFO:
+    713                  case OS_OPT_POST_FIFO | OS_OPT_POST_ALL:
+    714                  case OS_OPT_POST_LIFO | OS_OPT_POST_ALL:
+    715                  case OS_OPT_POST_FIFO | OS_OPT_POST_NO_SCHED:
+    716                  case OS_OPT_POST_LIFO | OS_OPT_POST_NO_SCHED:
+    717                  case OS_OPT_POST_FIFO | OS_OPT_POST_ALL | OS_OPT_POST_NO_SCHED:
+    718                  case OS_OPT_POST_LIFO | OS_OPT_POST_ALL | OS_OPT_POST_NO_SCHED:
+    719                       break;
+    720          
+    721                  default:
+    722                      *p_err =  OS_ERR_OPT_INVALID;
+    723                       return;
+    724              }
+    725          #endif
+    726          
+    727          #if OS_CFG_OBJ_TYPE_CHK_EN > 0u
+    728              if (p_q->Type != OS_OBJ_TYPE_Q) {                       /* Make sure message queue was created                    */
+   \                     ??OSQPost_2: (+1)
+   \       0x3E   0x....             LDR      R4,??DataTable8  ;; 0x55455551
+   \       0x40   0x6806             LDR      R6,[R0, #+0]
+   \       0x42   0x42A6             CMP      R6,R4
+   \       0x44   0xD115             BNE      ??OSQPost_4
+    729                 *p_err = OS_ERR_OBJ_TYPE;
+    730                  return;
+    731              }
+    732          #endif
+    733          
+    734              ts = OS_TS_GET();                                       /* Get timestamp                                          */
+   \       0x46   0x2600             MOVS     R6,#+0
+    735          
+    736          #if OS_CFG_ISR_POST_DEFERRED_EN > 0u
+    737              if (OSIntNestingCtr > (OS_NESTING_CTR)0) {
+   \       0x48   0x....             LDR      R7,??DataTable7_4
+   \       0x4A   0x783F             LDRB     R7,[R7, #+0]
+   \       0x4C   0x2F00             CMP      R7,#+0
+   \       0x4E   0xD013             BEQ      ??OSQPost_5
+    738                  OS_IntQPost((OS_OBJ_TYPE)OS_OBJ_TYPE_Q,             /* Post to ISR queue                                      */
+    739                              (void      *)p_q,
+    740                              (void      *)p_void,
+    741                              (OS_MSG_SIZE)msg_size,
+    742                              (OS_FLAGS   )0,
+    743                              (OS_OPT     )opt,
+    744                              (CPU_TS     )ts,
+    745                              (OS_ERR    *)p_err);
+   \       0x50   0x9503             STR      R5,[SP, #+12]
+   \       0x52   0x9602             STR      R6,[SP, #+8]
+   \       0x54   0xB29B             UXTH     R3,R3
+   \       0x56   0x9301             STR      R3,[SP, #+4]
+   \       0x58   0x2300             MOVS     R3,#+0
+   \       0x5A   0x9300             STR      R3,[SP, #+0]
+   \       0x5C   0x0013             MOVS     R3,R2
+   \       0x5E   0xB29B             UXTH     R3,R3
+   \       0x60   0x000A             MOVS     R2,R1
+   \       0x62   0x0001             MOVS     R1,R0
+   \       0x64   0x0020             MOVS     R0,R4
+   \       0x66   0x....'....        BL       OS_IntQPost
+    746                  return;
+   \       0x6A   0xE00B             B        ??OSQPost_1
+    747              }
+   \                     ??OSQPost_3: (+1)
+   \       0x6C   0x....             LDR      R0,??DataTable3  ;; 0x5e25
+   \       0x6E   0x8028             STRH     R0,[R5, #+0]
+   \       0x70   0xE008             B        ??OSQPost_1
+   \                     ??OSQPost_4: (+1)
+   \       0x72   0x....             LDR      R0,??DataTable3_1  ;; 0x5dc4
+   \       0x74   0x8028             STRH     R0,[R5, #+0]
+   \       0x76   0xE005             B        ??OSQPost_1
+    748          #endif
+    749          
+    750              OS_QPost(p_q,
+    751                       p_void,
+    752                       msg_size,
+    753                       opt,
+    754                       ts,
+    755                       p_err);
+   \                     ??OSQPost_5: (+1)
+   \       0x78   0x9501             STR      R5,[SP, #+4]
+   \       0x7A   0x9600             STR      R6,[SP, #+0]
+   \       0x7C   0xB29B             UXTH     R3,R3
+   \       0x7E   0xB292             UXTH     R2,R2
+   \       0x80   0x....'....        BL       OS_QPost
+    756          }
+   \                     ??OSQPost_1: (+1)
+   \       0x84   0xB005             ADD      SP,SP,#+20
+   \       0x86   0xBDF0             POP      {R4-R7,PC}       ;; return
+    757          
+    758          /*$PAGE*/
+    759          /*
+    760          ************************************************************************************************************************
+    761          *                                        CLEAR THE CONTENTS OF A MESSAGE QUEUE
+    762          *
+    763          * Description: This function is called by OSQDel() to clear the contents of a message queue
+    764          *
+    765          
+    766          * Argument(s): p_q      is a pointer to the queue to clear
+    767          *              ---
+    768          *
+    769          * Returns    : none
+    770          *
+    771          * Note(s)    : 1) This function is INTERNAL to uC/OS-III and your application MUST NOT call it.
+    772          ************************************************************************************************************************
+    773          */
+    774          
+
+   \                                 In section .text, align 2, keep-with-next
+    775          void  OS_QClr (OS_Q  *p_q)
+    776          {
+   \                     OS_QClr: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+   \        0x2   0x0004             MOVS     R4,R0
+    777              (void)OS_MsgQFreeAll(&p_q->MsgQ);                       /* Return all OS_MSGs to the free list                    */
+   \        0x4   0x0020             MOVS     R0,R4
+   \        0x6   0x3020             ADDS     R0,R0,#+32
+   \        0x8   0x....'....        BL       OS_MsgQFreeAll
+    778              p_q->Type    =  OS_OBJ_TYPE_NONE;                       /* Mark the data structure as a NONE                      */
+   \        0xC   0x....             LDR      R0,??DataTable8_4  ;; 0x454e4f4e
+   \        0xE   0x6020             STR      R0,[R4, #+0]
+    779              p_q->NamePtr = (CPU_CHAR *)((void *)"?Q");
+   \       0x10   0x....             ADR      R0,??DataTable8_5  ;; 0x3F, 0x51, 0x00, 0x00
+   \       0x12   0x6060             STR      R0,[R4, #+4]
+    780              OS_MsgQInit(&p_q->MsgQ,                                 /* Initialize the list of OS_MSGs                         */
+    781                          0u);
+   \       0x14   0x2100             MOVS     R1,#+0
+   \       0x16   0x0020             MOVS     R0,R4
+   \       0x18   0x3020             ADDS     R0,R0,#+32
+   \       0x1A   0x....'....        BL       OS_MsgQInit
+    782              OS_PendListInit(&p_q->PendList);                        /* Initialize the waiting list                            */
+   \       0x1E   0x0020             MOVS     R0,R4
+   \       0x20   0x3008             ADDS     R0,R0,#+8
+   \       0x22   0x....'....        BL       OS_PendListInit
+    783          }
+   \       0x26   0xBD10             POP      {R4,PC}          ;; return
+    784          
+    785          /*$PAGE*/
+    786          /*
+    787          ************************************************************************************************************************
+    788          *                                      ADD/REMOVE MESSAGE QUEUE TO/FROM DEBUG LIST
+    789          *
+    790          * Description: These functions are called by uC/OS-III to add or remove a message queue to/from a message queue debug
+    791          *              list.
+    792          *
+    793          * Arguments  : p_q     is a pointer to the message queue to add/remove
+    794          *
+    795          * Returns    : none
+    796          *
+    797          * Note(s)    : These functions are INTERNAL to uC/OS-III and your application should not call it.
+    798          ************************************************************************************************************************
+    799          */
+    800          
+    801          
+    802          #if OS_CFG_DBG_EN > 0u
+
+   \                                 In section .text, align 2, keep-with-next
+    803          void  OS_QDbgListAdd (OS_Q  *p_q)
+    804          {
+   \                     OS_QDbgListAdd: (+1)
+   \        0x0   0xB500             PUSH     {LR}
+    805              p_q->DbgNamePtr               = (CPU_CHAR *)((void *)" ");
+   \        0x2   0x....             ADR      R1,??DataTable8_6  ;; " "
+   \        0x4   0x61C1             STR      R1,[R0, #+28]
+    806              p_q->DbgPrevPtr               = (OS_Q     *)0;
+   \        0x6   0x2100             MOVS     R1,#+0
+   \        0x8   0x6141             STR      R1,[R0, #+20]
+    807              if (OSQDbgListPtr == (OS_Q *)0) {
+   \        0xA   0x....             LDR      R2,??DataTable8_7
+   \        0xC   0x6813             LDR      R3,[R2, #+0]
+   \        0xE   0x2B00             CMP      R3,#+0
+   \       0x10   0xD101             BNE      ??OS_QDbgListAdd_0
+    808                  p_q->DbgNextPtr           = (OS_Q     *)0;
+   \       0x12   0x6181             STR      R1,[R0, #+24]
+   \       0x14   0xE003             B        ??OS_QDbgListAdd_1
+    809              } else {
+    810                  p_q->DbgNextPtr           =  OSQDbgListPtr;
+   \                     ??OS_QDbgListAdd_0: (+1)
+   \       0x16   0x6811             LDR      R1,[R2, #+0]
+   \       0x18   0x6181             STR      R1,[R0, #+24]
+    811                  OSQDbgListPtr->DbgPrevPtr =  p_q;
+   \       0x1A   0x6811             LDR      R1,[R2, #+0]
+   \       0x1C   0x6148             STR      R0,[R1, #+20]
+    812              }
+    813              OSQDbgListPtr                 =  p_q;
+   \                     ??OS_QDbgListAdd_1: (+1)
+   \       0x1E   0x6010             STR      R0,[R2, #+0]
+    814          }
+   \       0x20   0xBD00             POP      {PC}             ;; return
+    815          
+    816          
+    817          
+
+   \                                 In section .text, align 2, keep-with-next
+    818          void  OS_QDbgListRemove (OS_Q  *p_q)
+    819          {
+   \                     OS_QDbgListRemove: (+1)
+   \        0x0   0xB500             PUSH     {LR}
+    820              OS_Q  *p_q_next;
+    821              OS_Q  *p_q_prev;
+    822          
+    823          
+    824              p_q_prev = p_q->DbgPrevPtr;
+   \        0x2   0x6942             LDR      R2,[R0, #+20]
+    825              p_q_next = p_q->DbgNextPtr;
+   \        0x4   0x6981             LDR      R1,[R0, #+24]
+    826          
+    827              if (p_q_prev == (OS_Q *)0) {
+   \        0x6   0x2A00             CMP      R2,#+0
+   \        0x8   0xD108             BNE      ??OS_QDbgListRemove_0
+    828                  OSQDbgListPtr = p_q_next;
+   \        0xA   0x....             LDR      R2,??DataTable8_7
+   \        0xC   0x6011             STR      R1,[R2, #+0]
+    829                  if (p_q_next != (OS_Q *)0) {
+   \        0xE   0x2900             CMP      R1,#+0
+   \       0x10   0xD001             BEQ      ??OS_QDbgListRemove_1
+    830                      p_q_next->DbgPrevPtr = (OS_Q *)0;
+   \       0x12   0x2200             MOVS     R2,#+0
+   \       0x14   0x614A             STR      R2,[R1, #+20]
+    831                  }
+    832                  p_q->DbgNextPtr = (OS_Q *)0;
+   \                     ??OS_QDbgListRemove_1: (+1)
+   \       0x16   0x2100             MOVS     R1,#+0
+   \       0x18   0x6181             STR      R1,[R0, #+24]
+   \       0x1A   0xE00A             B        ??OS_QDbgListRemove_2
+    833          
+    834              } else if (p_q_next == (OS_Q *)0) {
+   \                     ??OS_QDbgListRemove_0: (+1)
+   \       0x1C   0x2900             CMP      R1,#+0
+   \       0x1E   0xD103             BNE      ??OS_QDbgListRemove_3
+    835                  p_q_prev->DbgNextPtr = (OS_Q *)0;
+   \       0x20   0x2100             MOVS     R1,#+0
+   \       0x22   0x6191             STR      R1,[R2, #+24]
+    836                  p_q->DbgPrevPtr      = (OS_Q *)0;
+   \       0x24   0x6141             STR      R1,[R0, #+20]
+   \       0x26   0xE004             B        ??OS_QDbgListRemove_2
+    837          
+    838              } else {
+    839                  p_q_prev->DbgNextPtr =  p_q_next;
+   \                     ??OS_QDbgListRemove_3: (+1)
+   \       0x28   0x6191             STR      R1,[R2, #+24]
+    840                  p_q_next->DbgPrevPtr =  p_q_prev;
+   \       0x2A   0x614A             STR      R2,[R1, #+20]
+    841                  p_q->DbgNextPtr      = (OS_Q *)0;
+   \       0x2C   0x2100             MOVS     R1,#+0
+   \       0x2E   0x6181             STR      R1,[R0, #+24]
+    842                  p_q->DbgPrevPtr      = (OS_Q *)0;
+   \       0x30   0x6141             STR      R1,[R0, #+20]
+    843              }
+    844          }
+   \                     ??OS_QDbgListRemove_2: (+1)
+   \       0x32   0xBD00             POP      {PC}             ;; return
+    845          #endif
+    846          
+    847          /*$PAGE*/
+    848          /*
+    849          ************************************************************************************************************************
+    850          *                                              MESSAGE QUEUE INITIALIZATION
+    851          *
+    852          * Description: This function is called by OSInit() to initialize the message queue management.
+    853          *
+    854          
+    855          * Arguments  : p_err         is a pointer to a variable that will receive an error code.
+    856          *
+    857          *                                OS_ERR_NONE     the call was successful
+    858          *
+    859          * Returns    : none
+    860          *
+    861          * Note(s)    : 1) This function is INTERNAL to uC/OS-III and your application MUST NOT call it.
+    862          ************************************************************************************************************************
+    863          */
+    864          
+
+   \                                 In section .text, align 2, keep-with-next
+    865          void  OS_QInit (OS_ERR  *p_err)
+    866          {
+    867          #ifdef OS_SAFETY_CRITICAL
+    868              if (p_err == (OS_ERR *)0) {
+    869                  OS_SAFETY_CRITICAL_EXCEPTION();
+    870                  return;
+    871              }
+    872          #endif
+    873          
+    874          #if OS_CFG_DBG_EN > 0u
+    875              OSQDbgListPtr = (OS_Q *)0;
+   \                     OS_QInit: (+1)
+   \        0x0   0x2100             MOVS     R1,#+0
+   \        0x2   0x....             LDR      R2,??DataTable8_7
+   \        0x4   0x6011             STR      R1,[R2, #+0]
+    876          #endif
+    877          
+    878              OSQQty        = (OS_OBJ_QTY)0;
+   \        0x6   0x2100             MOVS     R1,#+0
+   \        0x8   0x....             LDR      R2,??DataTable8_8
+   \        0xA   0x8011             STRH     R1,[R2, #+0]
+    879             *p_err         = OS_ERR_NONE;
+   \        0xC   0x8001             STRH     R1,[R0, #+0]
+    880          }
+   \        0xE   0x4770             BX       LR               ;; return
+    881          
+    882          /*$PAGE*/
+    883          /*
+    884          ************************************************************************************************************************
+    885          *                                               POST MESSAGE TO A QUEUE
+    886          *
+    887          * Description: This function sends a message to a queue.  With the 'opt' argument, you can specify whether the message
+    888          *              is broadcast to all waiting tasks and/or whether you post the message to the front of the queue (LIFO)
+    889          *              or normally (FIFO) at the end of the queue.
+    890          *
+    891          * Arguments  : p_q           is a pointer to a message queue that must have been created by OSQCreate().
+    892          *
+    893          *              p_void        is a pointer to the message to send.
+    894          *
+    895          *              msg_size      specifies the size of the message (in bytes)
+    896          *
+    897          *              opt           determines the type of POST performed:
+    898          *
+    899          *                                OS_OPT_POST_ALL          POST to ALL tasks that are waiting on the queue
+    900          *
+    901          *                                OS_OPT_POST_FIFO         POST as FIFO and wake up single waiting task
+    902          *                                OS_OPT_POST_LIFO         POST as LIFO and wake up single waiting task
+    903          *
+    904          *                                OS_OPT_POST_NO_SCHED     Do not call the scheduler
+    905          *
+    906          *              ts            is the timestamp of the post
+    907          *
+    908          *              p_err         is a pointer to a variable that will contain an error code returned by this function.
+    909          *
+    910          *                                OS_ERR_NONE            The call was successful and the message was sent
+    911          *                                OS_ERR_MSG_POOL_EMPTY  If there are no more OS_MSGs to use to place the message into
+    912          *                                OS_ERR_OBJ_PTR_NULL    If 'p_q' is a NULL pointer
+    913          *                                OS_ERR_OBJ_TYPE        If the message queue was not initialized
+    914          *                                OS_ERR_Q_MAX           If the queue is full
+    915          *
+    916          * Returns    : None
+    917          *
+    918          * Note(s)    : This function is INTERNAL to uC/OS-III and your application should not call it.
+    919          ************************************************************************************************************************
+    920          */
+    921          
+
+   \                                 In section .text, align 2, keep-with-next
+    922          void  OS_QPost (OS_Q         *p_q,
+    923                          void         *p_void,
+    924                          OS_MSG_SIZE   msg_size,
+    925                          OS_OPT        opt,
+    926                          CPU_TS        ts,
+    927                          OS_ERR       *p_err)
+    928          {
+   \                     OS_QPost: (+1)
+   \        0x0   0xB5F7             PUSH     {R0-R2,R4-R7,LR}
+   \        0x2   0xB082             SUB      SP,SP,#+8
+   \        0x4   0x0007             MOVS     R7,R0
+   \        0x6   0x001C             MOVS     R4,R3
+    929              OS_OBJ_QTY     cnt;
+    930              OS_OPT         post_type;
+    931              OS_PEND_LIST  *p_pend_list;
+    932              OS_PEND_DATA  *p_pend_data;
+    933              OS_PEND_DATA  *p_pend_data_next;
+    934              OS_TCB        *p_tcb;
+    935              CPU_SR_ALLOC();
+   \        0x8   0x2000             MOVS     R0,#+0
+    936          
+    937          
+    938          
+    939              OS_CRITICAL_ENTER();
+   \        0xA   0x....'....        BL       CPU_SR_Save
+   \        0xE   0x....             LDR      R6,??DataTable8_2
+   \       0x10   0x7831             LDRB     R1,[R6, #+0]
+   \       0x12   0x1C49             ADDS     R1,R1,#+1
+   \       0x14   0x7031             STRB     R1,[R6, #+0]
+   \       0x16   0x....'....        BL       CPU_SR_Restore
+    940              p_pend_list = &p_q->PendList;
+   \       0x1A   0x0038             MOVS     R0,R7
+   \       0x1C   0x3008             ADDS     R0,R0,#+8
+    941              if (p_pend_list->NbrEntries == (OS_OBJ_QTY)0) {         /* Any task waiting on message queue?                     */
+   \       0x1E   0x8901             LDRH     R1,[R0, #+8]
+   \       0x20   0x2900             CMP      R1,#+0
+   \       0x22   0xD127             BNE      ??OS_QPost_0
+    942                  if ((opt & OS_OPT_POST_LIFO) == (OS_OPT)0) {        /* Determine whether we post FIFO or LIFO                 */
+   \       0x24   0x2310             MOVS     R3,#+16
+   \       0x26   0x421C             TST      R4,R3
+   \       0x28   0xD101             BNE      ??OS_QPost_1
+    943                      post_type = OS_OPT_POST_FIFO;
+   \       0x2A   0x2300             MOVS     R3,#+0
+   \       0x2C   0xE7FF             B        ??OS_QPost_2
+    944                  } else {
+    945                      post_type = OS_OPT_POST_LIFO;
+    946                  }
+    947                  OS_MsgQPut(&p_q->MsgQ,                              /* Place message in the message queue                     */
+    948                             p_void,
+    949                             msg_size,
+    950                             post_type,
+    951                             ts,
+    952                             p_err);
+   \                     ??OS_QPost_1: (+1)
+   \                     ??OS_QPost_2: (+1)
+   \       0x2E   0x980B             LDR      R0,[SP, #+44]
+   \       0x30   0x9001             STR      R0,[SP, #+4]
+   \       0x32   0x980A             LDR      R0,[SP, #+40]
+   \       0x34   0x9000             STR      R0,[SP, #+0]
+   \       0x36   0xB29B             UXTH     R3,R3
+   \       0x38   0x4668             MOV      R0,SP
+   \       0x3A   0x8A02             LDRH     R2,[R0, #+16]
+   \       0x3C   0x9903             LDR      R1,[SP, #+12]
+   \       0x3E   0x0038             MOVS     R0,R7
+   \       0x40   0x3020             ADDS     R0,R0,#+32
+   \       0x42   0x....'....        BL       OS_MsgQPut
+    953                  OS_CRITICAL_EXIT();
+   \       0x46   0x....'....        BL       CPU_SR_Save
+   \       0x4A   0x7831             LDRB     R1,[R6, #+0]
+   \       0x4C   0x1E49             SUBS     R1,R1,#+1
+   \       0x4E   0x7031             STRB     R1,[R6, #+0]
+   \       0x50   0x7831             LDRB     R1,[R6, #+0]
+   \       0x52   0x2900             CMP      R1,#+0
+   \       0x54   0xD10B             BNE      ??OS_QPost_3
+   \       0x56   0x....             LDR      R1,??DataTable8_9
+   \       0x58   0x8809             LDRH     R1,[R1, #+0]
+   \       0x5A   0x2900             CMP      R1,#+0
+   \       0x5C   0xD004             BEQ      ??OS_QPost_4
+   \       0x5E   0x....'....        BL       CPU_SR_Restore
+   \       0x62   0x....'....        BL       OS_Sched0
+   \       0x66   0xE004             B        ??OS_QPost_5
+   \                     ??OS_QPost_4: (+1)
+   \       0x68   0x....'....        BL       CPU_SR_Restore
+   \       0x6C   0xE001             B        ??OS_QPost_5
+   \                     ??OS_QPost_3: (+1)
+   \       0x6E   0x....'....        BL       CPU_SR_Restore
+    954                  return;
+   \                     ??OS_QPost_5: (+1)
+   \       0x72   0xE025             B        ??OS_QPost_6
+    955              }
+    956          
+    957              if ((opt & OS_OPT_POST_ALL) != (OS_OPT)0) {             /* Post message to all tasks waiting?                     */
+   \                     ??OS_QPost_0: (+1)
+   \       0x74   0x05A1             LSLS     R1,R4,#+22
+   \       0x76   0xD501             BPL      ??OS_QPost_7
+    958                  cnt = p_pend_list->NbrEntries;                      /* Yes                                                    */
+   \       0x78   0x8905             LDRH     R5,[R0, #+8]
+   \       0x7A   0xE000             B        ??OS_QPost_8
+    959              } else {
+    960                  cnt = (OS_OBJ_QTY)1;                                /* No                                                     */
+   \                     ??OS_QPost_7: (+1)
+   \       0x7C   0x2501             MOVS     R5,#+1
+    961              }
+    962              p_pend_data = p_pend_list->HeadPtr;
+   \                     ??OS_QPost_8: (+1)
+   \       0x7E   0x6800             LDR      R0,[R0, #+0]
+   \       0x80   0xE00C             B        ??OS_QPost_9
+    963              while (cnt > 0u) {
+    964                  p_tcb            = p_pend_data->TCBPtr;
+   \                     ??OS_QPost_10: (+1)
+   \       0x82   0x6881             LDR      R1,[R0, #+8]
+    965                  p_pend_data_next = p_pend_data->NextPtr;
+   \       0x84   0x6840             LDR      R0,[R0, #+4]
+   \       0x86   0x9001             STR      R0,[SP, #+4]
+    966                  OS_Post((OS_PEND_OBJ *)((void *)p_q),
+    967                          p_tcb,
+    968                          p_void,
+    969                          msg_size,
+    970                          ts);
+   \       0x88   0x980A             LDR      R0,[SP, #+40]
+   \       0x8A   0x9000             STR      R0,[SP, #+0]
+   \       0x8C   0x4668             MOV      R0,SP
+   \       0x8E   0x8A03             LDRH     R3,[R0, #+16]
+   \       0x90   0x9A03             LDR      R2,[SP, #+12]
+   \       0x92   0x0038             MOVS     R0,R7
+   \       0x94   0x....'....        BL       OS_Post
+    971                  p_pend_data = p_pend_data_next;
+   \       0x98   0x9801             LDR      R0,[SP, #+4]
+    972                  cnt--;
+   \       0x9A   0x1E6D             SUBS     R5,R5,#+1
+    973              }
+   \                     ??OS_QPost_9: (+1)
+   \       0x9C   0x0029             MOVS     R1,R5
+   \       0x9E   0xB289             UXTH     R1,R1
+   \       0xA0   0x2900             CMP      R1,#+0
+   \       0xA2   0xD1EE             BNE      ??OS_QPost_10
+    974              OS_CRITICAL_EXIT_NO_SCHED();
+   \       0xA4   0x....'....        BL       CPU_SR_Save
+   \       0xA8   0x7831             LDRB     R1,[R6, #+0]
+   \       0xAA   0x1E49             SUBS     R1,R1,#+1
+   \       0xAC   0x7031             STRB     R1,[R6, #+0]
+   \       0xAE   0x....'....        BL       CPU_SR_Restore
+    975              if ((opt & OS_OPT_POST_NO_SCHED) == (OS_OPT)0) {
+   \       0xB2   0x0420             LSLS     R0,R4,#+16
+   \       0xB4   0xD401             BMI      ??OS_QPost_11
+    976                  OSSched();                                          /* Run the scheduler                                      */
+   \       0xB6   0x....'....        BL       OSSched
+    977              }
+    978             *p_err = OS_ERR_NONE;
+   \                     ??OS_QPost_11: (+1)
+   \       0xBA   0x2000             MOVS     R0,#+0
+   \       0xBC   0x990B             LDR      R1,[SP, #+44]
+   \       0xBE   0x8008             STRH     R0,[R1, #+0]
+    979          }
+   \                     ??OS_QPost_6: (+1)
+   \       0xC0   0xB005             ADD      SP,SP,#+20
+   \       0xC2   0xBDF0             POP      {R4-R7,PC}       ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1:
+   \        0x0   0x....'....        DC32     OSIntNestingCtr
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_1:
+   \        0x0   0x0000'2EE1        DC32     0x2ee1
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_2:
+   \        0x0   0x0000'5DC3        DC32     0x5dc3
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_3:
+   \        0x0   0x0000'6594        DC32     0x6594
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_4:
+   \        0x0   0x....'....        DC32     OSSchedLockNestingCtr
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_5:
+   \        0x0   0x5545'5551        DC32     0x55455551
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2:
+   \        0x0   0x....'....        DC32     OSQQty
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_1:
+   \        0x0   0x0000'61AE        DC32     0x61ae
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_2:
+   \        0x0   0x0000'62D5        DC32     0x62d5
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3:
+   \        0x0   0x0000'5E25        DC32     0x5e25
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_1:
+   \        0x0   0x0000'5DC4        DC32     0x5dc4
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4:
+   \        0x0   0x0000'61B0        DC32     0x61b0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_1:
+   \        0x0   0x0000'6D63        DC32     0x6d63
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5:
+   \        0x0   0x....'....        DC32     OSTCBCurPtr
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7:
+   \        0x0   0x0000'61A9        DC32     0x61a9
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_1:
+   \        0x0   0x0000'72D9        DC32     0x72d9
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_2:
+   \        0x0   0x0000'5DC2        DC32     0x5dc2
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_3:
+   \        0x0   0x0000'6E2E        DC32     0x6e2e
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_4:
+   \        0x0   0x....'....        DC32     OSIntNestingCtr
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_5:
+   \        0x0   0x0000'61AA        DC32     0x61aa
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_6:
+   \        0x0   0x0000'5DC3        DC32     0x5dc3
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8:
+   \        0x0   0x5545'5551        DC32     0x55455551
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_1:
+   \        0x0   0x0000'61AB        DC32     0x61ab
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_2:
+   \        0x0   0x....'....        DC32     OSSchedLockNestingCtr
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_3:
+   \        0x0   0x0000'7DF0        DC32     0x7df0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_4:
+   \        0x0   0x454E'4F4E        DC32     0x454e4f4e
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_5:
+   \        0x0   0x3F 0x51          DC8      0x3F, 0x51, 0x00, 0x00
+
+   \              0x00 0x00
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_6:
+   \        0x0   0x20 0x00          DC8      " ",0x0,0x0
+
+   \              0x00 0x00
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_7:
+   \        0x0   0x....'....        DC32     OSQDbgListPtr
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_8:
+   \        0x0   0x....'....        DC32     OSQQty
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_9:
+   \        0x0   0x....'....        DC32     OSIntQNbrEntries
+
+   \                                 In section .rodata, align 4
+   \        0x0   0x3F 0x51          DC8 "?Q"
+
+   \              0x00
+   \        0x3                      DS8 1
+
+   \                                 In section .rodata, align 2
+   \        0x0   0x20 0x00          DC8 " "
+    980          
+    981          #endif
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      32   OSQCreate
+        32   -> CPU_SR_Restore
+        32   -> CPU_SR_Save
+        32   -> OS_MsgQInit
+        32   -> OS_PendListInit
+        32   -> OS_QDbgListAdd
+      72   OSQPend
+        72   -> CPU_SR_Restore
+        72   -> CPU_SR_Save
+        72   -> OSSched
+        72   -> OS_MsgQGet
+        72   -> OS_Pend
+      32   OSQPendAbort
+        32   -> CPU_SR_Restore
+        32   -> CPU_SR_Save
+        32   -> OSSched
+        32   -> OS_PendAbort
+      40   OSQPost
+        40   -> OS_IntQPost
+        40   -> OS_QPost
+       8   OS_QClr
+         8   -> OS_MsgQFreeAll
+         8   -> OS_MsgQInit
+         8   -> OS_PendListInit
+       4   OS_QDbgListAdd
+       4   OS_QDbgListRemove
+       0   OS_QInit
+      40   OS_QPost
+        40   -> CPU_SR_Restore
+        40   -> CPU_SR_Save
+        40   -> OSSched
+        40   -> OS_MsgQPut
+        40   -> OS_Post
+        40   -> OS_Sched0
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable1
+       4  ??DataTable1_1
+       4  ??DataTable1_2
+       4  ??DataTable1_3
+       4  ??DataTable1_4
+       4  ??DataTable1_5
+       4  ??DataTable2
+       4  ??DataTable2_1
+       4  ??DataTable2_2
+       4  ??DataTable3
+       4  ??DataTable3_1
+       4  ??DataTable4
+       4  ??DataTable4_1
+       4  ??DataTable5
+       4  ??DataTable7
+       4  ??DataTable7_1
+       4  ??DataTable7_2
+       4  ??DataTable7_3
+       4  ??DataTable7_4
+       4  ??DataTable7_5
+       4  ??DataTable7_6
+       4  ??DataTable8
+       4  ??DataTable8_1
+       4  ??DataTable8_2
+       4  ??DataTable8_3
+       4  ??DataTable8_4
+       4  ??DataTable8_5
+       4  ??DataTable8_6
+       4  ??DataTable8_7
+       4  ??DataTable8_8
+       4  ??DataTable8_9
+       4  ?_0
+       2  ?_1
+     134  OSQCreate
+     384  OSQPend
+     216  OSQPendAbort
+     136  OSQPost
+      40  OS_QClr
+      34  OS_QDbgListAdd
+      52  OS_QDbgListRemove
+      16  OS_QInit
+     196  OS_QPost
+
+ 
+     6 bytes in section .rodata
+ 1'332 bytes in section .text
+ 
+ 1'332 bytes of CODE  memory
+     6 bytes of CONST memory
+
+Errors: none
+Warnings: none

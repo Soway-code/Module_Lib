@@ -1,0 +1,1259 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.4.261/W32 for ARM         10/Jan/2021  16:10:28
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode                        
+#    Endian                       =  little
+#    Source file                  =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\APP\Weight.c
+#    Command line                 =
+#        -f C:\Users\macanlin\AppData\Local\Temp\EW650.tmp
+#        ("C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\APP\Weight.c" -D USE_STDPERIPH_DRIVER -D STM32F072 -lC
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List" -o
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj" --no_cse --no_unroll --no_inline
+#        --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug
+#        --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config
+#        C:\rj\IAR\arm\inc\c\DLib_Config_Normal.h -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\BSP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\CMSIS\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\OS_Cfg\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-CPU\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Ports\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Source\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\APP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -Ol -I
+#        C:\rj\IAR\arm\CMSIS\Core\Include\\ -I
+#        C:\rj\IAR\arm\CMSIS\DSP\Include\\)
+#    Locale                       =  C
+#    List file                    =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List\Weight.lst
+#    Object file                  =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj\Weight.o
+#    Runtime model:                  
+#      __SystemLibrary            =  DLib
+#      __dlib_file_descriptor     =  0
+#      __dlib_full_locale_support =  0
+#      __dlib_version             =  6
+#
+###############################################################################
+
+C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345 -1-9\Source\APP\Weight.c
+      1          #include "weight.h"
+      2          #include "math.h"
+      3             
+
+   \                                 In section .bss, align 4
+      4          struct Empirical_Data EmpiricalData;
+   \                     EmpiricalData:
+   \        0x0                      DS8 40
+      5          
+
+   \                                 In section .bss, align 4
+      6          struct OutData tempOutData;                                                    //输出数据
+   \                     tempOutData:
+   \        0x0                      DS8 4
+      7          extern struct OutData myOutData;
+      8          
+      9          #define  LEARNDATA_BUF_LEN  100                                                 //学习数据缓存长度
+
+   \                                 In section .bss, align 2
+     10          UInt16 LearnDataCounter = 0;
+   \                     LearnDataCounter:
+   \        0x0                      DS8 2
+
+   \                                 In section .bss, align 2
+     11          UInt16 LearnData1 = 0;                                                          //第一次学习数据
+   \                     LearnData1:
+   \        0x0                      DS8 2
+
+   \                                 In section .bss, align 2
+     12          UInt16 LearnData2 = 0;                                                          //第二次学习数据
+   \                     LearnData2:
+   \        0x0                      DS8 2
+
+   \                                 In section .bss, align 4
+     13          UInt16 LearnData_Buf[LEARNDATA_BUF_LEN];                                        //学习数据缓存
+   \                     LearnData_Buf:
+   \        0x0                      DS8 200
+     14          
+     15          #define  FULLLOADDATA_BUF_LEN  180                                              //满载缓存长度
+     16          #define  EMPTYLOADDATA_BUF_LEN  180                                             //空载缓存长度
+
+   \                                 In section .bss, align 2
+     17          UInt16 FullLoadData_Counter = 0, EmptyLoadData_Counter = 0;                     //计数器
+   \                     FullLoadData_Counter:
+   \        0x0                      DS8 2
+
+   \                                 In section .bss, align 2
+   \                     EmptyLoadData_Counter:
+   \        0x0                      DS8 2
+
+   \                                 In section .bss, align 4
+     18          UInt16 FullLoadData_Buf[FULLLOADDATA_BUF_LEN];                                  //满载缓存
+   \                     FullLoadData_Buf:
+   \        0x0                      DS8 360
+
+   \                                 In section .bss, align 4
+     19          UInt16 EmptyLoadData_Buf[EMPTYLOADDATA_BUF_LEN];                                //空载缓存
+   \                     EmptyLoadData_Buf:
+   \        0x0                      DS8 360
+
+   \                                 In section .bss, align 2
+     20          UInt16 EmptyLoad=0, FullLoad=0;                                                 //临时保存空载和满载值
+   \                     EmptyLoad:
+   \        0x0                      DS8 2
+
+   \                                 In section .bss, align 2
+   \                     FullLoad:
+   \        0x0                      DS8 2
+
+   \                                 In section .bss, align 2
+     21          UInt16 filterData=0;                                                            //AD滤波值
+   \                     filterData:
+   \        0x0                      DS8 2
+     22          
+
+   \                                 In section .bss, align 2
+     23          UInt16 Speed;
+   \                     Speed:
+   \        0x0                      DS8 2
+     24          
+
+   \                                 In section .text, align 2, keep-with-next
+     25          void ResetFlashPara()                                                           //经验数据初始化
+     26          {
+   \                     ResetFlashPara: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+     27              EmpiricalData.Counter =0;                                                   //保存参数到EEPROM        
+   \        0x2   0x....             LDR      R3,??DataTable3
+   \        0x4   0x2400             MOVS     R4,#+0
+   \        0x6   0x801C             STRH     R4,[R3, #+0]
+     28              I2C1_WriteNBytes(EEPROM_ADDRESS,WEIGHTPARAADDR,sizeof(EmpiricalData),(u8*)&EmpiricalData); 
+   \        0x8   0x2226             MOVS     R2,#+38
+   \        0xA   0x218C             MOVS     R1,#+140
+   \        0xC   0x20A0             MOVS     R0,#+160
+   \        0xE   0x....'....        BL       I2C1_WriteNBytes
+     29              EmptyLoad=0;
+   \       0x12   0x....             LDR      R0,??DataTable4
+   \       0x14   0x8004             STRH     R4,[R0, #+0]
+     30              FullLoad=0;
+   \       0x16   0x....             LDR      R0,??DataTable4_1
+   \       0x18   0x8004             STRH     R4,[R0, #+0]
+     31              FullLoadData_Counter = 0;
+   \       0x1A   0x....             LDR      R0,??DataTable4_2
+   \       0x1C   0x8004             STRH     R4,[R0, #+0]
+     32              EmptyLoadData_Counter = 0;
+   \       0x1E   0x....             LDR      R0,??DataTable4_3
+   \       0x20   0x8004             STRH     R4,[R0, #+0]
+     33              LearnDataCounter = 0;
+   \       0x22   0x....             LDR      R0,??DataTable4_4
+   \       0x24   0x8004             STRH     R4,[R0, #+0]
+     34              LearnData1 = 0;
+   \       0x26   0x....             LDR      R0,??DataTable4_5
+   \       0x28   0x8004             STRH     R4,[R0, #+0]
+     35              LearnData2 = 0;
+   \       0x2A   0x....             LDR      R0,??DataTable4_6
+   \       0x2C   0x8004             STRH     R4,[R0, #+0]
+     36          }
+   \       0x2E   0xBD10             POP      {R4,PC}          ;; return
+     37                 
+
+   \                                 In section .text, align 2, keep-with-next
+     38          void Init_xx()
+     39          {                                                                               //读取EEPROM中存储的数据
+   \                     Init_xx: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+     40              I2C1_ReadNBytes(EEPROM_ADDRESS,WEIGHTPARAADDR,sizeof(EmpiricalData),(u8*)&EmpiricalData); 
+   \        0x2   0x....             LDR      R4,??DataTable3
+   \        0x4   0x0023             MOVS     R3,R4
+   \        0x6   0x2226             MOVS     R2,#+38
+   \        0x8   0x218C             MOVS     R1,#+140
+   \        0xA   0x20A0             MOVS     R0,#+160
+   \        0xC   0x....'....        BL       I2C1_ReadNBytes
+     41          
+     42              tempOutData.Weight =1;                                                      //浮动零点初始化为1
+   \       0x10   0x2001             MOVS     R0,#+1
+   \       0x12   0x....             LDR      R1,??DataTable4_7
+   \       0x14   0x8048             STRH     R0,[R1, #+2]
+     43          
+     44              if((EmpiricalData.Counter >6)||(EmpiricalData.Counter ==0))
+   \       0x16   0x8820             LDRH     R0,[R4, #+0]
+   \       0x18   0x2807             CMP      R0,#+7
+   \       0x1A   0xDA02             BGE      ??Init_xx_0
+   \       0x1C   0x8820             LDRH     R0,[R4, #+0]
+   \       0x1E   0x2800             CMP      R0,#+0
+   \       0x20   0xD101             BNE      ??Init_xx_1
+     45              {
+     46                // 经验数据初始化
+     47                ResetFlashPara();
+   \                     ??Init_xx_0: (+1)
+   \       0x22   0x....'....        BL       ResetFlashPara
+     48              }
+     49          }
+   \                     ??Init_xx_1: (+1)
+   \       0x26   0xBD10             POP      {R4,PC}          ;; return
+     50          
+     51          
+     52          
+     53          		
+
+   \                                 In section .text, align 2, keep-with-next
+     54          void UpdateEmpiricalData(struct S_Weight NewData)                              //更新经验数据
+     55          {
+   \                     UpdateEmpiricalData: (+1)
+   \        0x0   0xB5F3             PUSH     {R0,R1,R4-R7,LR}
+   \        0x2   0xB081             SUB      SP,SP,#+4
+     56              float Sum_EmptyLoad = 0.0f, Sum_FullLoad = 0.0f, Sum_Weight = 0.0f;
+   \        0x4   0x2500             MOVS     R5,#+0
+   \        0x6   0x9500             STR      R5,[SP, #+0]
+   \        0x8   0x002C             MOVS     R4,R5
+     57              UInt16 i;
+     58              EmpiricalData.Counter++;                                                    //经验值加一
+   \        0xA   0x....             LDR      R6,??DataTable3
+   \        0xC   0x8830             LDRH     R0,[R6, #+0]
+   \        0xE   0x1C40             ADDS     R0,R0,#+1
+   \       0x10   0x8030             STRH     R0,[R6, #+0]
+     59              if (EmpiricalData.Counter >= EMPIRICAL_BUF_LEN)  //#define EMPIRICAL_BUF_LEN  5    //历史/经验数据个数
+   \       0x12   0x8830             LDRH     R0,[R6, #+0]
+   \       0x14   0x2805             CMP      R0,#+5
+   \       0x16   0xDB01             BLT      ??UpdateEmpiricalData_0
+     60              {
+     61                  EmpiricalData.Counter = EMPIRICAL_BUF_LEN;
+   \       0x18   0x2005             MOVS     R0,#+5
+   \       0x1A   0x8030             STRH     R0,[R6, #+0]
+     62              }
+     63              
+     64              for (i = 0; i < EMPIRICAL_BUF_LEN - 1; i++)                                 //先进先出，扔掉一个老的，新进一个新的(FIFO)
+   \                     ??UpdateEmpiricalData_0: (+1)
+   \       0x1C   0x2700             MOVS     R7,#+0
+   \       0x1E   0x0038             MOVS     R0,R7
+   \       0x20   0xE024             B        ??UpdateEmpiricalData_1
+     65              {
+     66                  EmpiricalData.Data[i].EmptyLoad = EmpiricalData.Data[i + 1].EmptyLoad;
+   \                     ??UpdateEmpiricalData_2: (+1)
+   \       0x22   0x0001             MOVS     R1,R0
+   \       0x24   0xB289             UXTH     R1,R1
+   \       0x26   0x2206             MOVS     R2,#+6
+   \       0x28   0x434A             MULS     R2,R1,R2
+   \       0x2A   0x18B1             ADDS     R1,R6,R2
+   \       0x2C   0x8A09             LDRH     R1,[R1, #+16]
+   \       0x2E   0x0002             MOVS     R2,R0
+   \       0x30   0xB292             UXTH     R2,R2
+   \       0x32   0x2306             MOVS     R3,#+6
+   \       0x34   0x4353             MULS     R3,R2,R3
+   \       0x36   0x18F2             ADDS     R2,R6,R3
+   \       0x38   0x8151             STRH     R1,[R2, #+10]
+     67                  EmpiricalData.Data[i].FullLoad = EmpiricalData.Data[i + 1].FullLoad;
+   \       0x3A   0x0001             MOVS     R1,R0
+   \       0x3C   0xB289             UXTH     R1,R1
+   \       0x3E   0x2206             MOVS     R2,#+6
+   \       0x40   0x434A             MULS     R2,R1,R2
+   \       0x42   0x18B1             ADDS     R1,R6,R2
+   \       0x44   0x89C9             LDRH     R1,[R1, #+14]
+   \       0x46   0x0002             MOVS     R2,R0
+   \       0x48   0xB292             UXTH     R2,R2
+   \       0x4A   0x2306             MOVS     R3,#+6
+   \       0x4C   0x4353             MULS     R3,R2,R3
+   \       0x4E   0x18F2             ADDS     R2,R6,R3
+   \       0x50   0x8111             STRH     R1,[R2, #+8]
+     68                  EmpiricalData.Data[i].Weight = EmpiricalData.Data[i + 1].Weight;
+   \       0x52   0x0001             MOVS     R1,R0
+   \       0x54   0xB289             UXTH     R1,R1
+   \       0x56   0x2206             MOVS     R2,#+6
+   \       0x58   0x434A             MULS     R2,R1,R2
+   \       0x5A   0x18B1             ADDS     R1,R6,R2
+   \       0x5C   0x8A49             LDRH     R1,[R1, #+18]
+   \       0x5E   0x0002             MOVS     R2,R0
+   \       0x60   0xB292             UXTH     R2,R2
+   \       0x62   0x2306             MOVS     R3,#+6
+   \       0x64   0x4353             MULS     R3,R2,R3
+   \       0x66   0x18F2             ADDS     R2,R6,R3
+   \       0x68   0x8191             STRH     R1,[R2, #+12]
+     69              }
+   \       0x6A   0x1C40             ADDS     R0,R0,#+1
+   \                     ??UpdateEmpiricalData_1: (+1)
+   \       0x6C   0x0001             MOVS     R1,R0
+   \       0x6E   0xB289             UXTH     R1,R1
+   \       0x70   0x2904             CMP      R1,#+4
+   \       0x72   0xDBD6             BLT      ??UpdateEmpiricalData_2
+     70              EmpiricalData.Data[EMPIRICAL_BUF_LEN - 1].EmptyLoad = NewData.EmptyLoad;    //队尾放入最新数据
+   \       0x74   0xA801             ADD      R0,SP,#+4
+   \       0x76   0x8840             LDRH     R0,[R0, #+2]
+   \       0x78   0x8470             STRH     R0,[R6, #+34]
+     71              EmpiricalData.Data[EMPIRICAL_BUF_LEN - 1].FullLoad = NewData.FullLoad;
+   \       0x7A   0x4668             MOV      R0,SP
+   \       0x7C   0x8880             LDRH     R0,[R0, #+4]
+   \       0x7E   0x8430             STRH     R0,[R6, #+32]
+     72              EmpiricalData.Data[EMPIRICAL_BUF_LEN - 1].Weight = NewData.Weight;
+   \       0x80   0xA801             ADD      R0,SP,#+4
+   \       0x82   0x8880             LDRH     R0,[R0, #+4]
+   \       0x84   0x84B0             STRH     R0,[R6, #+36]
+     73          
+     74              for (i = 0; i < EmpiricalData.Counter; i++)                                 //求和
+   \       0x86   0xE028             B        ??UpdateEmpiricalData_3
+     75              {
+     76                  Sum_EmptyLoad += EmpiricalData.Data[EMPIRICAL_BUF_LEN - 1 - i].EmptyLoad;
+   \                     ??UpdateEmpiricalData_4: (+1)
+   \       0x88   0x0038             MOVS     R0,R7
+   \       0x8A   0xB280             UXTH     R0,R0
+   \       0x8C   0x4241             RSBS     R1,R0,#+0
+   \       0x8E   0x2006             MOVS     R0,#+6
+   \       0x90   0x4341             MULS     R1,R0,R1
+   \       0x92   0x1870             ADDS     R0,R6,R1
+   \       0x94   0x8C40             LDRH     R0,[R0, #+34]
+   \       0x96   0x....'....        BL       __aeabi_ui2f
+   \       0x9A   0x0001             MOVS     R1,R0
+   \       0x9C   0x9800             LDR      R0,[SP, #+0]
+   \       0x9E   0x....'....        BL       __aeabi_fadd
+   \       0xA2   0x9000             STR      R0,[SP, #+0]
+     77                  Sum_FullLoad += EmpiricalData.Data[EMPIRICAL_BUF_LEN - 1 - i].FullLoad;
+   \       0xA4   0x0038             MOVS     R0,R7
+   \       0xA6   0xB280             UXTH     R0,R0
+   \       0xA8   0x4241             RSBS     R1,R0,#+0
+   \       0xAA   0x2006             MOVS     R0,#+6
+   \       0xAC   0x4341             MULS     R1,R0,R1
+   \       0xAE   0x1870             ADDS     R0,R6,R1
+   \       0xB0   0x8C00             LDRH     R0,[R0, #+32]
+   \       0xB2   0x....'....        BL       __aeabi_ui2f
+   \       0xB6   0x0021             MOVS     R1,R4
+   \       0xB8   0x....'....        BL       __aeabi_fadd
+   \       0xBC   0x0004             MOVS     R4,R0
+     78                  Sum_Weight += EmpiricalData.Data[EMPIRICAL_BUF_LEN - 1 - i].Weight;
+   \       0xBE   0x0038             MOVS     R0,R7
+   \       0xC0   0xB280             UXTH     R0,R0
+   \       0xC2   0x4241             RSBS     R1,R0,#+0
+   \       0xC4   0x2006             MOVS     R0,#+6
+   \       0xC6   0x4341             MULS     R1,R0,R1
+   \       0xC8   0x1870             ADDS     R0,R6,R1
+   \       0xCA   0x8C80             LDRH     R0,[R0, #+36]
+   \       0xCC   0x....'....        BL       __aeabi_ui2f
+   \       0xD0   0x0029             MOVS     R1,R5
+   \       0xD2   0x....'....        BL       __aeabi_fadd
+   \       0xD6   0x0005             MOVS     R5,R0
+     79              }                                                                           //得到平均值(四舍五入)
+   \       0xD8   0x1C7F             ADDS     R7,R7,#+1
+   \                     ??UpdateEmpiricalData_3: (+1)
+   \       0xDA   0x0038             MOVS     R0,R7
+   \       0xDC   0x8831             LDRH     R1,[R6, #+0]
+   \       0xDE   0xB280             UXTH     R0,R0
+   \       0xE0   0x4288             CMP      R0,R1
+   \       0xE2   0xD3D1             BCC      ??UpdateEmpiricalData_4
+     80              EmpiricalData.AverageEmptyLoad = (UInt16)(Sum_EmptyLoad / EmpiricalData.Counter + 0.5f);
+   \       0xE4   0x27FC             MOVS     R7,#+252
+   \       0xE6   0x05BF             LSLS     R7,R7,#+22       ;; #+1056964608
+   \       0xE8   0x8830             LDRH     R0,[R6, #+0]
+   \       0xEA   0x....'....        BL       __aeabi_ui2f
+   \       0xEE   0x0001             MOVS     R1,R0
+   \       0xF0   0x9800             LDR      R0,[SP, #+0]
+   \       0xF2   0x....'....        BL       __aeabi_fdiv
+   \       0xF6   0x0039             MOVS     R1,R7
+   \       0xF8   0x....'....        BL       __aeabi_fadd
+   \       0xFC   0x....'....        BL       __aeabi_f2iz
+   \      0x100   0x80B0             STRH     R0,[R6, #+4]
+     81              EmpiricalData.AverageFullLoad = (UInt16)(Sum_FullLoad / EmpiricalData.Counter + 0.5f);
+   \      0x102   0x8830             LDRH     R0,[R6, #+0]
+   \      0x104   0x....'....        BL       __aeabi_ui2f
+   \      0x108   0x0001             MOVS     R1,R0
+   \      0x10A   0x0020             MOVS     R0,R4
+   \      0x10C   0x....'....        BL       __aeabi_fdiv
+   \      0x110   0x0039             MOVS     R1,R7
+   \      0x112   0x....'....        BL       __aeabi_fadd
+   \      0x116   0x....'....        BL       __aeabi_f2iz
+   \      0x11A   0x8070             STRH     R0,[R6, #+2]
+     82              EmpiricalData.AverageWeight = (UInt16)(Sum_Weight / EmpiricalData.Counter + 0.5f);
+   \      0x11C   0x8830             LDRH     R0,[R6, #+0]
+   \      0x11E   0x....'....        BL       __aeabi_ui2f
+   \      0x122   0x0001             MOVS     R1,R0
+   \      0x124   0x0028             MOVS     R0,R5
+   \      0x126   0x....'....        BL       __aeabi_fdiv
+   \      0x12A   0x0039             MOVS     R1,R7
+   \      0x12C   0x....'....        BL       __aeabi_fadd
+   \      0x130   0x....'....        BL       __aeabi_f2iz
+   \      0x134   0x80F0             STRH     R0,[R6, #+6]
+     83          }
+   \      0x136   0xBDF7             POP      {R0-R2,R4-R7,PC}  ;; return
+     84          
+     85          
+     86           
+     87          
+
+   \                                 In section .text, align 2, keep-with-next
+     88          UInt16 BubbleSort_Filter(UInt16 buf[], UInt16 len)                              //冒泡排序滤波（取中间值）
+     89          {
+   \                     BubbleSort_Filter: (+1)
+   \        0x0   0xB5F0             PUSH     {R4-R7,LR}
+   \        0x2   0x0004             MOVS     R4,R0
+     90              UInt16 i, j;
+     91              UInt16 temp;
+     92              for (j = 0; j < len - 1; j++)                                               //采样值从小到大排列（冒泡法）
+   \        0x4   0x2000             MOVS     R0,#+0
+   \        0x6   0x0002             MOVS     R2,R0
+   \        0x8   0xE030             B        ??BubbleSort_Filter_0
+     93              {
+     94                  for (i = 0; i < len - 1 - j; i++)
+     95                  {
+     96                      if (buf[i] > buf[i + 1])
+   \                     ??BubbleSort_Filter_1: (+1)
+   \        0xA   0x001D             MOVS     R5,R3
+   \        0xC   0xB2AD             UXTH     R5,R5
+   \        0xE   0x2602             MOVS     R6,#+2
+   \       0x10   0x436E             MULS     R6,R5,R6
+   \       0x12   0x19A5             ADDS     R5,R4,R6
+   \       0x14   0x886D             LDRH     R5,[R5, #+2]
+   \       0x16   0x001E             MOVS     R6,R3
+   \       0x18   0xB2B6             UXTH     R6,R6
+   \       0x1A   0x2702             MOVS     R7,#+2
+   \       0x1C   0x4377             MULS     R7,R6,R7
+   \       0x1E   0x5BE6             LDRH     R6,[R4, R7]
+   \       0x20   0x42B5             CMP      R5,R6
+   \       0x22   0xD217             BCS      ??BubbleSort_Filter_2
+     97                      {
+     98                          temp = buf[i];
+   \       0x24   0x001D             MOVS     R5,R3
+   \       0x26   0xB2AD             UXTH     R5,R5
+   \       0x28   0x2602             MOVS     R6,#+2
+   \       0x2A   0x436E             MULS     R6,R5,R6
+   \       0x2C   0x5BA5             LDRH     R5,[R4, R6]
+     99                          buf[i] = buf[i + 1];
+   \       0x2E   0x001E             MOVS     R6,R3
+   \       0x30   0xB2B6             UXTH     R6,R6
+   \       0x32   0x2702             MOVS     R7,#+2
+   \       0x34   0x4377             MULS     R7,R6,R7
+   \       0x36   0x19E6             ADDS     R6,R4,R7
+   \       0x38   0x8877             LDRH     R7,[R6, #+2]
+   \       0x3A   0x46BC             MOV      R12,R7
+   \       0x3C   0x001F             MOVS     R7,R3
+   \       0x3E   0xB2BF             UXTH     R7,R7
+   \       0x40   0x2602             MOVS     R6,#+2
+   \       0x42   0x437E             MULS     R6,R7,R6
+   \       0x44   0x4667             MOV      R7,R12
+   \       0x46   0x53A7             STRH     R7,[R4, R6]
+    100                          buf[i + 1] = temp;
+   \       0x48   0x001E             MOVS     R6,R3
+   \       0x4A   0xB2B6             UXTH     R6,R6
+   \       0x4C   0x2702             MOVS     R7,#+2
+   \       0x4E   0x4377             MULS     R7,R6,R7
+   \       0x50   0x19E6             ADDS     R6,R4,R7
+   \       0x52   0x8075             STRH     R5,[R6, #+2]
+    101                      }
+    102                  }
+   \                     ??BubbleSort_Filter_2: (+1)
+   \       0x54   0x1C5B             ADDS     R3,R3,#+1
+   \                     ??BubbleSort_Filter_3: (+1)
+   \       0x56   0x001D             MOVS     R5,R3
+   \       0x58   0xB2AD             UXTH     R5,R5
+   \       0x5A   0x000E             MOVS     R6,R1
+   \       0x5C   0xB2B6             UXTH     R6,R6
+   \       0x5E   0x1E76             SUBS     R6,R6,#+1
+   \       0x60   0x0017             MOVS     R7,R2
+   \       0x62   0xB2BF             UXTH     R7,R7
+   \       0x64   0x1BF6             SUBS     R6,R6,R7
+   \       0x66   0x42B5             CMP      R5,R6
+   \       0x68   0xDBCF             BLT      ??BubbleSort_Filter_1
+   \       0x6A   0x1C52             ADDS     R2,R2,#+1
+   \                     ??BubbleSort_Filter_0: (+1)
+   \       0x6C   0x0013             MOVS     R3,R2
+   \       0x6E   0xB29B             UXTH     R3,R3
+   \       0x70   0x000D             MOVS     R5,R1
+   \       0x72   0xB2AD             UXTH     R5,R5
+   \       0x74   0x1E6D             SUBS     R5,R5,#+1
+   \       0x76   0x42AB             CMP      R3,R5
+   \       0x78   0xDA01             BGE      ??BubbleSort_Filter_4
+   \       0x7A   0x0003             MOVS     R3,R0
+   \       0x7C   0xE7EB             B        ??BubbleSort_Filter_3
+    103              }
+    104              return (buf[len / 2]);                                                      //取中间值
+   \                     ??BubbleSort_Filter_4: (+1)
+   \       0x7E   0x0008             MOVS     R0,R1
+   \       0x80   0xB280             UXTH     R0,R0
+   \       0x82   0x2102             MOVS     R1,#+2
+   \       0x84   0x....'....        BL       __aeabi_idiv
+   \       0x88   0x2102             MOVS     R1,#+2
+   \       0x8A   0x4348             MULS     R0,R1,R0
+   \       0x8C   0x5A20             LDRH     R0,[R4, R0]
+   \       0x8E   0xBDF0             POP      {R4-R7,PC}       ;; return
+    105          }
+    106          
+    107          
+    108          
+    109          
+    110          #define  FILTER_N  30                                                           //30个值，滤波深度
+
+   \                                 In section .bss, align 4
+    111          UInt16 filter_buf[FILTER_N + 1];
+   \                     filter_buf:
+   \        0x0                      DS8 64
+
+   \                                 In section .text, align 2, keep-with-next
+    112          UInt16 Filter(UInt16 NewData)
+    113          {
+   \                     Filter: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+    114              int i, j;
+    115              UInt16 filter_temp;
+    116              float filter_sum = 0;
+   \        0x2   0x2400             MOVS     R4,#+0
+    117          
+    118              for (j = 0; j < FILTER_N - 1; j++)                                          //采样值从小到大排列（冒泡法）
+   \        0x4   0x2100             MOVS     R1,#+0
+   \        0x6   0xE01D             B        ??Filter_0
+    119              {
+    120                  for (i = 0; i < FILTER_N - 1 - j; i++)
+    121                  {
+    122                      if (filter_buf[i] > filter_buf[i + 1])
+   \                     ??Filter_1: (+1)
+   \        0x8   0x....             LDR      R3,??DataTable4_8
+   \        0xA   0x2502             MOVS     R5,#+2
+   \        0xC   0x4355             MULS     R5,R2,R5
+   \        0xE   0x195D             ADDS     R5,R3,R5
+   \       0x10   0x886D             LDRH     R5,[R5, #+2]
+   \       0x12   0x2602             MOVS     R6,#+2
+   \       0x14   0x4356             MULS     R6,R2,R6
+   \       0x16   0x5B9E             LDRH     R6,[R3, R6]
+   \       0x18   0x42B5             CMP      R5,R6
+   \       0x1A   0xD20D             BCS      ??Filter_2
+    123                      {
+    124                          filter_temp = filter_buf[i];
+   \       0x1C   0x2502             MOVS     R5,#+2
+   \       0x1E   0x4355             MULS     R5,R2,R5
+   \       0x20   0x5B5D             LDRH     R5,[R3, R5]
+    125                          filter_buf[i] = filter_buf[i + 1];
+   \       0x22   0x2602             MOVS     R6,#+2
+   \       0x24   0x4356             MULS     R6,R2,R6
+   \       0x26   0x199E             ADDS     R6,R3,R6
+   \       0x28   0x8876             LDRH     R6,[R6, #+2]
+   \       0x2A   0x2702             MOVS     R7,#+2
+   \       0x2C   0x4357             MULS     R7,R2,R7
+   \       0x2E   0x53DE             STRH     R6,[R3, R7]
+    126                          filter_buf[i + 1] = filter_temp;
+   \       0x30   0x2602             MOVS     R6,#+2
+   \       0x32   0x4356             MULS     R6,R2,R6
+   \       0x34   0x199B             ADDS     R3,R3,R6
+   \       0x36   0x805D             STRH     R5,[R3, #+2]
+    127                      }
+    128                  }
+   \                     ??Filter_2: (+1)
+   \       0x38   0x1C52             ADDS     R2,R2,#+1
+   \                     ??Filter_3: (+1)
+   \       0x3A   0x231D             MOVS     R3,#+29
+   \       0x3C   0x1A5B             SUBS     R3,R3,R1
+   \       0x3E   0x429A             CMP      R2,R3
+   \       0x40   0xDBE2             BLT      ??Filter_1
+   \       0x42   0x1C49             ADDS     R1,R1,#+1
+   \                     ??Filter_0: (+1)
+   \       0x44   0x291D             CMP      R1,#+29
+   \       0x46   0xDA01             BGE      ??Filter_4
+   \       0x48   0x2200             MOVS     R2,#+0
+   \       0x4A   0xE7F6             B        ??Filter_3
+    129              }
+    130              filter_buf[0] = NewData;                                                    //FIFO
+   \                     ??Filter_4: (+1)
+   \       0x4C   0x....             LDR      R5,??DataTable4_8
+   \       0x4E   0x8028             STRH     R0,[R5, #+0]
+    131              for (i = FILTER_N; i > 0; i--)
+   \       0x50   0x201E             MOVS     R0,#+30
+   \       0x52   0xE008             B        ??Filter_5
+    132              {
+    133                  filter_buf[i] = filter_buf[i - 1];
+   \                     ??Filter_6: (+1)
+   \       0x54   0x2102             MOVS     R1,#+2
+   \       0x56   0x4341             MULS     R1,R0,R1
+   \       0x58   0x1869             ADDS     R1,R5,R1
+   \       0x5A   0x1E89             SUBS     R1,R1,#+2
+   \       0x5C   0x8809             LDRH     R1,[R1, #+0]
+   \       0x5E   0x2202             MOVS     R2,#+2
+   \       0x60   0x4342             MULS     R2,R0,R2
+   \       0x62   0x52A9             STRH     R1,[R5, R2]
+    134              }
+   \       0x64   0x1E40             SUBS     R0,R0,#+1
+   \                     ??Filter_5: (+1)
+   \       0x66   0x2801             CMP      R0,#+1
+   \       0x68   0xDAF4             BGE      ??Filter_6
+    135              for (i = 2; i < FILTER_N - 2; i++)                                          //去掉最大和最小各2个求均值
+   \       0x6A   0x2602             MOVS     R6,#+2
+   \       0x6C   0xE009             B        ??Filter_7
+    136              {
+    137                  filter_sum += filter_buf[i];
+   \                     ??Filter_8: (+1)
+   \       0x6E   0x2002             MOVS     R0,#+2
+   \       0x70   0x4370             MULS     R0,R6,R0
+   \       0x72   0x5A28             LDRH     R0,[R5, R0]
+   \       0x74   0x....'....        BL       __aeabi_ui2f
+   \       0x78   0x0021             MOVS     R1,R4
+   \       0x7A   0x....'....        BL       __aeabi_fadd
+   \       0x7E   0x0004             MOVS     R4,R0
+    138              }
+   \       0x80   0x1C76             ADDS     R6,R6,#+1
+   \                     ??Filter_7: (+1)
+   \       0x82   0x2E1C             CMP      R6,#+28
+   \       0x84   0xDBF3             BLT      ??Filter_8
+    139              filter_sum = filter_sum / (FILTER_N - 4);
+   \       0x86   0x0020             MOVS     R0,R4
+   \       0x88   0x....             LDR      R1,??DataTable5  ;; 0x41d00000
+   \       0x8A   0x....'....        BL       __aeabi_fdiv
+   \       0x8E   0x0001             MOVS     R1,R0
+    140              return (UInt16) (filter_sum+0.5f);                                         //四舍五入
+   \       0x90   0x20FC             MOVS     R0,#+252
+   \       0x92   0x0580             LSLS     R0,R0,#+22       ;; #+1056964608
+   \       0x94   0x....'....        BL       __aeabi_fadd
+   \       0x98   0x....'....        BL       __aeabi_f2iz
+   \       0x9C   0xB280             UXTH     R0,R0
+   \       0x9E   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+    141          
+    142          }
+    143          
+    144          
+    145          
+    146          #define  SPEEDFILTER_N  10                                                      //10个值，速度滤波
+
+   \                                 In section .bss, align 4
+    147          UInt16 SpeedFilter_buf[SPEEDFILTER_N + 1];
+   \                     SpeedFilter_buf:
+   \        0x0                      DS8 24
+
+   \                                 In section .text, align 2, keep-with-next
+    148          UInt16 SpeedFilter(UInt16 NewData)                                              //速度滤波(递推)
+    149          {
+   \                     SpeedFilter: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+    150              UInt16 i;
+    151              float sum = 0;
+   \        0x2   0x2500             MOVS     R5,#+0
+    152              for (i = 0; i < SPEEDFILTER_N - 1; i++)                                     //FIFO
+   \        0x4   0x2400             MOVS     R4,#+0
+   \        0x6   0x0021             MOVS     R1,R4
+   \        0x8   0xE00C             B        ??SpeedFilter_0
+    153              {
+    154                  SpeedFilter_buf[i] = SpeedFilter_buf[i + 1];
+   \                     ??SpeedFilter_1: (+1)
+   \        0xA   0x....             LDR      R2,??DataTable5_1
+   \        0xC   0x000B             MOVS     R3,R1
+   \        0xE   0xB29B             UXTH     R3,R3
+   \       0x10   0x2602             MOVS     R6,#+2
+   \       0x12   0x435E             MULS     R6,R3,R6
+   \       0x14   0x1993             ADDS     R3,R2,R6
+   \       0x16   0x885B             LDRH     R3,[R3, #+2]
+   \       0x18   0x000E             MOVS     R6,R1
+   \       0x1A   0xB2B6             UXTH     R6,R6
+   \       0x1C   0x2702             MOVS     R7,#+2
+   \       0x1E   0x4377             MULS     R7,R6,R7
+   \       0x20   0x53D3             STRH     R3,[R2, R7]
+    155              }
+   \       0x22   0x1C49             ADDS     R1,R1,#+1
+   \                     ??SpeedFilter_0: (+1)
+   \       0x24   0x000A             MOVS     R2,R1
+   \       0x26   0xB292             UXTH     R2,R2
+   \       0x28   0x2A09             CMP      R2,#+9
+   \       0x2A   0xDBEE             BLT      ??SpeedFilter_1
+    156              SpeedFilter_buf[SPEEDFILTER_N - 1] = NewData;                               //最新的数据给最后一个元素
+   \       0x2C   0x....             LDR      R6,??DataTable5_1
+   \       0x2E   0x8270             STRH     R0,[R6, #+18]
+    157          
+    158              for (i = 0; i < SPEEDFILTER_N; i++) 
+   \       0x30   0xE00B             B        ??SpeedFilter_2
+    159              {
+    160                  sum += SpeedFilter_buf[i];
+   \                     ??SpeedFilter_3: (+1)
+   \       0x32   0x0020             MOVS     R0,R4
+   \       0x34   0xB280             UXTH     R0,R0
+   \       0x36   0x2102             MOVS     R1,#+2
+   \       0x38   0x4341             MULS     R1,R0,R1
+   \       0x3A   0x5A70             LDRH     R0,[R6, R1]
+   \       0x3C   0x....'....        BL       __aeabi_ui2f
+   \       0x40   0x0029             MOVS     R1,R5
+   \       0x42   0x....'....        BL       __aeabi_fadd
+   \       0x46   0x0005             MOVS     R5,R0
+    161              }
+   \       0x48   0x1C64             ADDS     R4,R4,#+1
+   \                     ??SpeedFilter_2: (+1)
+   \       0x4A   0x0020             MOVS     R0,R4
+   \       0x4C   0xB280             UXTH     R0,R0
+   \       0x4E   0x280A             CMP      R0,#+10
+   \       0x50   0xDBEF             BLT      ??SpeedFilter_3
+    162          
+    163              sum = sum / SPEEDFILTER_N;                                                  //求均值
+   \       0x52   0x0028             MOVS     R0,R5
+   \       0x54   0x....             LDR      R1,??DataTable5_2  ;; 0x41200000
+   \       0x56   0x....'....        BL       __aeabi_fdiv
+   \       0x5A   0x0001             MOVS     R1,R0
+    164          
+    165              return (UInt16)(sum + 0.5f);                                               //四舍五入
+   \       0x5C   0x20FC             MOVS     R0,#+252
+   \       0x5E   0x0580             LSLS     R0,R0,#+22       ;; #+1056964608
+   \       0x60   0x....'....        BL       __aeabi_fadd
+   \       0x64   0x....'....        BL       __aeabi_f2iz
+   \       0x68   0xB280             UXTH     R0,R0
+   \       0x6A   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+    166          }
+    167          
+    168          
+    169           
+
+   \                                 In section .text, align 2, keep-with-next
+    170          struct OutData Runing(UInt16 NewData)
+    171          {
+   \                     Runing: (+1)
+   \        0x0   0xB5F1             PUSH     {R0,R4-R7,LR}
+   \        0x2   0xB082             SUB      SP,SP,#+8
+    172              struct S_Weight temp_Weight;
+    173              Speed = SpeedFilter(Speed);                                                 //得到速度信号并滤波
+   \        0x4   0x....             LDR      R0,??DataTable5_3
+   \        0x6   0x8800             LDRH     R0,[R0, #+0]
+   \        0x8   0x....'....        BL       SpeedFilter
+   \        0xC   0x....             LDR      R1,??DataTable5_3
+   \        0xE   0x8008             STRH     R0,[R1, #+0]
+    174              if(EmpiricalData.Counter > 0)                                               //有经验值之后才能处理数据
+   \       0x10   0x....             LDR      R0,??DataTable5_4
+   \       0x12   0x8800             LDRH     R0,[R0, #+0]
+   \       0x14   0x2800             CMP      R0,#+0
+   \       0x16   0xD100             BNE      .+4
+   \       0x18   0xE07F             B        ??Runing_0
+    175              {
+    176                  if (Speed > 20)                                                         //速度大于20km/h
+   \       0x1A   0x....             LDR      R0,??DataTable5_3
+   \       0x1C   0x8800             LDRH     R0,[R0, #+0]
+   \       0x1E   0x2815             CMP      R0,#+21
+   \       0x20   0xDB7B             BLT      ??Runing_0
+    177                  {
+    178                     filterData = Filter(NewData);                                        //递推滤波(采集到的AD值)
+   \       0x22   0x4668             MOV      R0,SP
+   \       0x24   0x8900             LDRH     R0,[R0, #+8]
+   \       0x26   0x....'....        BL       Filter
+   \       0x2A   0x....             LDR      R1,??DataTable5_5
+   \       0x2C   0x8008             STRH     R0,[R1, #+0]
+    179                     tempOutData.FilterOutData = filterData;
+   \       0x2E   0x....             LDR      R4,??DataTable5_6
+   \       0x30   0x....             LDR      R0,??DataTable5_5
+   \       0x32   0x8800             LDRH     R0,[R0, #+0]
+   \       0x34   0x8020             STRH     R0,[R4, #+0]
+    180                     if (filterData > EmpiricalData.AverageEmptyLoad + EmpiricalData.AverageWeight * .4f)
+   \       0x36   0x....             LDR      R6,??DataTable5_4
+   \       0x38   0x....             LDR      R0,??DataTable5_5
+   \       0x3A   0x8800             LDRH     R0,[R0, #+0]
+   \       0x3C   0x....'....        BL       __aeabi_ui2f
+   \       0x40   0x0001             MOVS     R1,R0
+   \       0x42   0x000F             MOVS     R7,R1
+   \       0x44   0x88B0             LDRH     R0,[R6, #+4]
+   \       0x46   0x....'....        BL       __aeabi_ui2f
+   \       0x4A   0x0001             MOVS     R1,R0
+   \       0x4C   0x000D             MOVS     R5,R1
+   \       0x4E   0x88F0             LDRH     R0,[R6, #+6]
+   \       0x50   0x....'....        BL       __aeabi_ui2f
+   \       0x54   0x0001             MOVS     R1,R0
+   \       0x56   0x....             LDR      R0,??DataTable5_7  ;; 0x3ecccccd
+   \       0x58   0x....'....        BL       __aeabi_fmul
+   \       0x5C   0x0029             MOVS     R1,R5
+   \       0x5E   0x....'....        BL       __aeabi_fadd
+   \       0x62   0x0039             MOVS     R1,R7
+   \       0x64   0x....'....        BL       __aeabi_cfcmple
+   \       0x68   0xD240             BCS      ??Runing_1
+    181                     {                                                                    //空载值+载重值*0.4
+    182                         FullLoadData_Buf[FullLoadData_Counter++] = filterData;           //采集满载数据到缓冲
+   \       0x6A   0x....             LDR      R1,??DataTable5_8
+   \       0x6C   0x....             LDR      R0,??DataTable5_9
+   \       0x6E   0x....             LDR      R2,??DataTable5_5
+   \       0x70   0x8812             LDRH     R2,[R2, #+0]
+   \       0x72   0x880B             LDRH     R3,[R1, #+0]
+   \       0x74   0x2502             MOVS     R5,#+2
+   \       0x76   0x435D             MULS     R5,R3,R5
+   \       0x78   0x5342             STRH     R2,[R0, R5]
+   \       0x7A   0x880A             LDRH     R2,[R1, #+0]
+   \       0x7C   0x1C52             ADDS     R2,R2,#+1
+   \       0x7E   0x800A             STRH     R2,[R1, #+0]
+    183                         if (FullLoadData_Counter == FULLLOADDATA_BUF_LEN)                //采集满
+   \       0x80   0x880A             LDRH     R2,[R1, #+0]
+   \       0x82   0x2AB4             CMP      R2,#+180
+   \       0x84   0xD124             BNE      ??Runing_2
+    184                         {
+    185                             FullLoadData_Counter = 0;                                    //取中位均值
+   \       0x86   0x2700             MOVS     R7,#+0
+   \       0x88   0x003A             MOVS     R2,R7
+   \       0x8A   0x800A             STRH     R2,[R1, #+0]
+    186                             FullLoad = BubbleSort_Filter(FullLoadData_Buf, FULLLOADDATA_BUF_LEN);
+   \       0x8C   0x....             LDR      R5,??DataTable5_10
+   \       0x8E   0x21B4             MOVS     R1,#+180
+   \       0x90   0x....'....        BL       BubbleSort_Filter
+   \       0x94   0x8028             STRH     R0,[R5, #+0]
+    187                             if(EmptyLoad>0)                                              //空载值必须有数据(空载和满载数据都有才可以写EEPROM)
+   \       0x96   0x....             LDR      R0,??DataTable5_11
+   \       0x98   0x8800             LDRH     R0,[R0, #+0]
+   \       0x9A   0x2800             CMP      R0,#+0
+   \       0x9C   0xD018             BEQ      ??Runing_2
+    188                             {                                                      
+    189                                 temp_Weight.FullLoad = FullLoad;
+   \       0x9E   0x8828             LDRH     R0,[R5, #+0]
+   \       0xA0   0x4669             MOV      R1,SP
+   \       0xA2   0x8008             STRH     R0,[R1, #+0]
+    190                                 temp_Weight.EmptyLoad = EmptyLoad;
+   \       0xA4   0x....             LDR      R0,??DataTable5_11
+   \       0xA6   0x8800             LDRH     R0,[R0, #+0]
+   \       0xA8   0x4669             MOV      R1,SP
+   \       0xAA   0x8048             STRH     R0,[R1, #+2]
+    191                                 temp_Weight.Weight =(UInt16)( FullLoad - EmptyLoad);
+   \       0xAC   0x8828             LDRH     R0,[R5, #+0]
+   \       0xAE   0x....             LDR      R1,??DataTable5_11
+   \       0xB0   0x8809             LDRH     R1,[R1, #+0]
+   \       0xB2   0x1A40             SUBS     R0,R0,R1
+   \       0xB4   0x4669             MOV      R1,SP
+   \       0xB6   0x8088             STRH     R0,[R1, #+4]
+    192                                 UpdateEmpiricalData(temp_Weight);                        //更新经验数据
+   \       0xB8   0x4668             MOV      R0,SP
+   \       0xBA   0xC803             LDM      R0,{R0,R1}
+   \       0xBC   0x....'....        BL       UpdateEmpiricalData
+    193                                 I2C1_WriteNBytes(EEPROM_ADDRESS,WEIGHTPARAADDR,sizeof(EmpiricalData),(u8*)&EmpiricalData); //保存参数
+   \       0xC0   0x0033             MOVS     R3,R6
+   \       0xC2   0x2226             MOVS     R2,#+38
+   \       0xC4   0x218C             MOVS     R1,#+140
+   \       0xC6   0x20A0             MOVS     R0,#+160
+   \       0xC8   0x....'....        BL       I2C1_WriteNBytes
+    194                                 EmptyLoad = 0;
+   \       0xCC   0x....             LDR      R0,??DataTable5_11
+   \       0xCE   0x8007             STRH     R7,[R0, #+0]
+    195                             }
+    196                         }
+    197                         tempOutData.Weight = (UInt16)( filterData - EmpiricalData.AverageEmptyLoad);
+   \                     ??Runing_2: (+1)
+   \       0xD0   0x1CA0             ADDS     R0,R4,#+2
+   \       0xD2   0x....             LDR      R1,??DataTable5_5
+   \       0xD4   0x8809             LDRH     R1,[R1, #+0]
+   \       0xD6   0x88B2             LDRH     R2,[R6, #+4]
+   \       0xD8   0x1A89             SUBS     R1,R1,R2
+   \       0xDA   0x8001             STRH     R1,[R0, #+0]
+    198                         if(tempOutData.Weight>600) 
+   \       0xDC   0x8861             LDRH     R1,[R4, #+2]
+   \       0xDE   0x....             LDR      R2,??DataTable5_12  ;; 0x259
+   \       0xE0   0x4291             CMP      R1,R2
+   \       0xE2   0xDB1A             BLT      ??Runing_0
+    199                         {
+    200                             tempOutData.Weight = 600;                                    //重量值限制在 600以内
+   \       0xE4   0x2196             MOVS     R1,#+150
+   \       0xE6   0x0089             LSLS     R1,R1,#+2        ;; #+600
+   \       0xE8   0x8001             STRH     R1,[R0, #+0]
+   \       0xEA   0xE016             B        ??Runing_0
+    201                         }
+    202                     }
+    203                     else  //(采集到的AD值 <= 空载值+载重值*0.4
+    204                     {
+    205                         EmptyLoadData_Buf[EmptyLoadData_Counter++] = filterData;         //采集空载数据到缓冲
+   \                     ??Runing_1: (+1)
+   \       0xEC   0x....             LDR      R1,??DataTable5_13
+   \       0xEE   0x....             LDR      R0,??DataTable5_14
+   \       0xF0   0x....             LDR      R2,??DataTable5_5
+   \       0xF2   0x8812             LDRH     R2,[R2, #+0]
+   \       0xF4   0x880B             LDRH     R3,[R1, #+0]
+   \       0xF6   0x2502             MOVS     R5,#+2
+   \       0xF8   0x435D             MULS     R5,R3,R5
+   \       0xFA   0x5342             STRH     R2,[R0, R5]
+   \       0xFC   0x880A             LDRH     R2,[R1, #+0]
+   \       0xFE   0x1C52             ADDS     R2,R2,#+1
+   \      0x100   0x800A             STRH     R2,[R1, #+0]
+    206                         if (EmptyLoadData_Counter == EMPTYLOADDATA_BUF_LEN)              //满
+   \      0x102   0x880A             LDRH     R2,[R1, #+0]
+   \      0x104   0x2AB4             CMP      R2,#+180
+   \      0x106   0xD106             BNE      ??Runing_3
+    207                         {
+    208                             EmptyLoadData_Counter = 0;
+   \      0x108   0x2200             MOVS     R2,#+0
+   \      0x10A   0x800A             STRH     R2,[R1, #+0]
+    209                             EmptyLoad = BubbleSort_Filter(EmptyLoadData_Buf, EMPTYLOADDATA_BUF_LEN);
+   \      0x10C   0x21B4             MOVS     R1,#+180
+   \      0x10E   0x....'....        BL       BubbleSort_Filter
+   \      0x112   0x....             LDR      R1,??DataTable5_11
+   \      0x114   0x8008             STRH     R0,[R1, #+0]
+    210                         }                                                                               
+    211                         tempOutData.Weight =1;                                           //输出数据
+   \                     ??Runing_3: (+1)
+   \      0x116   0x2001             MOVS     R0,#+1
+   \      0x118   0x8060             STRH     R0,[R4, #+2]
+    212                     }
+    213                  }
+    214              }
+    215              
+    216              if (EmpiricalData.Counter == 0)                                             //没有学习经验
+   \                     ??Runing_0: (+1)
+   \      0x11A   0x....             LDR      R7,??DataTable5_4
+   \      0x11C   0x8838             LDRH     R0,[R7, #+0]
+   \      0x11E   0x2800             CMP      R0,#+0
+   \      0x120   0xD158             BNE      ??Runing_4
+    217              {
+    218                  if (Speed > 30)                                                         //速度大于30km/h
+   \      0x122   0x....             LDR      R0,??DataTable5_3
+   \      0x124   0x8800             LDRH     R0,[R0, #+0]
+   \      0x126   0x281F             CMP      R0,#+31
+   \      0x128   0xDB51             BLT      ??Runing_5
+    219                  {
+    220                      filterData = Filter(NewData);                                       //递推滤波            
+   \      0x12A   0x....             LDR      R5,??DataTable5_5
+   \      0x12C   0x4668             MOV      R0,SP
+   \      0x12E   0x8900             LDRH     R0,[R0, #+8]
+   \      0x130   0x....'....        BL       Filter
+   \      0x134   0x8028             STRH     R0,[R5, #+0]
+    221                      tempOutData.FilterOutData = filterData;
+   \      0x136   0x8828             LDRH     R0,[R5, #+0]
+   \      0x138   0x....             LDR      R1,??DataTable5_6
+   \      0x13A   0x8008             STRH     R0,[R1, #+0]
+    222                      if (LearnDataCounter < LEARNDATA_BUF_LEN)                           //30km/h 的车速必须保持 100s 以上数据才能学习成功
+   \      0x13C   0x....             LDR      R4,??DataTable5_15
+   \      0x13E   0x8820             LDRH     R0,[R4, #+0]
+   \      0x140   0x2864             CMP      R0,#+100
+   \      0x142   0xDA09             BGE      ??Runing_6
+    223                      {
+    224                          LearnData_Buf[LearnDataCounter++] = filterData;
+   \      0x144   0x8828             LDRH     R0,[R5, #+0]
+   \      0x146   0x....             LDR      R1,??DataTable5_16
+   \      0x148   0x8822             LDRH     R2,[R4, #+0]
+   \      0x14A   0x2302             MOVS     R3,#+2
+   \      0x14C   0x4353             MULS     R3,R2,R3
+   \      0x14E   0x52C8             STRH     R0,[R1, R3]
+   \      0x150   0x8820             LDRH     R0,[R4, #+0]
+   \      0x152   0x1C40             ADDS     R0,R0,#+1
+   \      0x154   0x8020             STRH     R0,[R4, #+0]
+   \      0x156   0xE03D             B        ??Runing_4
+    225                      }
+    226                      else                                                                //当数据数量达到 LEN ,学习数据采集完成
+    227                      {   
+    228                          if (LearnData1==0)                                              //学习成功第一个数据
+   \                     ??Runing_6: (+1)
+   \      0x158   0x....             LDR      R5,??DataTable5_17
+   \      0x15A   0x8828             LDRH     R0,[R5, #+0]
+   \      0x15C   0x2800             CMP      R0,#+0
+   \      0x15E   0xD107             BNE      ??Runing_7
+    229                          {                                                                           
+    230                              LearnData1 = BubbleSort_Filter(LearnData_Buf, LEARNDATA_BUF_LEN); 
+   \      0x160   0x2164             MOVS     R1,#+100
+   \      0x162   0x....             LDR      R0,??DataTable5_16
+   \      0x164   0x....'....        BL       BubbleSort_Filter
+   \      0x168   0x8028             STRH     R0,[R5, #+0]
+    231                              LearnDataCounter = 0;                                       //中值滤波
+   \      0x16A   0x2000             MOVS     R0,#+0
+   \      0x16C   0x8020             STRH     R0,[R4, #+0]
+   \      0x16E   0xE031             B        ??Runing_4
+    232                          }
+    233                          else                                                            //学习成功第二个数据
+    234                          {   
+    235                              LearnData2 = BubbleSort_Filter(LearnData_Buf, LEARNDATA_BUF_LEN); 
+   \                     ??Runing_7: (+1)
+   \      0x170   0x....             LDR      R6,??DataTable5_18
+   \      0x172   0x2164             MOVS     R1,#+100
+   \      0x174   0x....             LDR      R0,??DataTable5_16
+   \      0x176   0x....'....        BL       BubbleSort_Filter
+   \      0x17A   0x8030             STRH     R0,[R6, #+0]
+    236                              temp_Weight.Weight = (UInt16)abs(LearnData1 - LearnData2);  //分离出重量（第一次学习和第二次学习的差值）
+   \      0x17C   0x8828             LDRH     R0,[R5, #+0]
+   \      0x17E   0x8831             LDRH     R1,[R6, #+0]
+   \      0x180   0x1A40             SUBS     R0,R0,R1
+   \      0x182   0x....'....        BL       abs
+   \      0x186   0x4669             MOV      R1,SP
+   \      0x188   0x8088             STRH     R0,[R1, #+4]
+    237                              LearnDataCounter = 0;
+   \      0x18A   0x2000             MOVS     R0,#+0
+   \      0x18C   0x8020             STRH     R0,[R4, #+0]
+    238                              if (temp_Weight.Weight > 200)
+   \      0x18E   0x4668             MOV      R0,SP
+   \      0x190   0x8880             LDRH     R0,[R0, #+4]
+   \      0x192   0x28C9             CMP      R0,#+201
+   \      0x194   0xDB1E             BLT      ??Runing_4
+    239                              {
+    240                                  if (LearnData1 > LearnData2)
+   \      0x196   0x8830             LDRH     R0,[R6, #+0]
+   \      0x198   0x8829             LDRH     R1,[R5, #+0]
+   \      0x19A   0x4288             CMP      R0,R1
+   \      0x19C   0xD206             BCS      ??Runing_8
+    241                                  {
+    242                                      temp_Weight.EmptyLoad = LearnData2;
+   \      0x19E   0x8830             LDRH     R0,[R6, #+0]
+   \      0x1A0   0x4669             MOV      R1,SP
+   \      0x1A2   0x8048             STRH     R0,[R1, #+2]
+    243                                      temp_Weight.FullLoad = LearnData1;
+   \      0x1A4   0x8828             LDRH     R0,[R5, #+0]
+   \      0x1A6   0x4669             MOV      R1,SP
+   \      0x1A8   0x8008             STRH     R0,[R1, #+0]
+   \      0x1AA   0xE005             B        ??Runing_9
+    244                                  }
+    245                                  else
+    246                                  {
+    247                                      temp_Weight.EmptyLoad = LearnData1;
+   \                     ??Runing_8: (+1)
+   \      0x1AC   0x8828             LDRH     R0,[R5, #+0]
+   \      0x1AE   0x4669             MOV      R1,SP
+   \      0x1B0   0x8048             STRH     R0,[R1, #+2]
+    248                                      temp_Weight.FullLoad = LearnData2;
+   \      0x1B2   0x8830             LDRH     R0,[R6, #+0]
+   \      0x1B4   0x4669             MOV      R1,SP
+   \      0x1B6   0x8008             STRH     R0,[R1, #+0]
+    249                                  }
+    250                                  UpdateEmpiricalData(temp_Weight);                       //更新经验数据
+   \                     ??Runing_9: (+1)
+   \      0x1B8   0x4668             MOV      R0,SP
+   \      0x1BA   0xC803             LDM      R0,{R0,R1}
+   \      0x1BC   0x....'....        BL       UpdateEmpiricalData
+    251                                  I2C1_WriteNBytes(EEPROM_ADDRESS,WEIGHTPARAADDR,sizeof(EmpiricalData),(u8*)&EmpiricalData); // 保存参数                       
+   \      0x1C0   0x003B             MOVS     R3,R7
+   \      0x1C2   0x2226             MOVS     R2,#+38
+   \      0x1C4   0x218C             MOVS     R1,#+140
+   \      0x1C6   0x20A0             MOVS     R0,#+160
+   \      0x1C8   0x....'....        BL       I2C1_WriteNBytes
+   \      0x1CC   0xE002             B        ??Runing_4
+    252                              }
+    253                          }
+    254                      }
+    255                  }
+    256                  else
+    257                  {                                                                       //速度低于30，重新开始采集数据                                                                                
+    258                      LearnDataCounter = 0;                                               //重新开始学习
+   \                     ??Runing_5: (+1)
+   \      0x1CE   0x2000             MOVS     R0,#+0
+   \      0x1D0   0x....             LDR      R1,??DataTable5_15
+   \      0x1D2   0x8008             STRH     R0,[R1, #+0]
+    259                  }
+    260              }               
+    261              return tempOutData;
+   \                     ??Runing_4: (+1)
+   \      0x1D4   0x....             LDR      R0,??DataTable5_6
+   \      0x1D6   0x6800             LDR      R0,[R0, #+0]
+   \      0x1D8   0xBDFE             POP      {R1-R7,PC}       ;; return
+    262          }   
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3:
+   \        0x0   0x....'....        DC32     EmpiricalData
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4:
+   \        0x0   0x....'....        DC32     EmptyLoad
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_1:
+   \        0x0   0x....'....        DC32     FullLoad
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_2:
+   \        0x0   0x....'....        DC32     FullLoadData_Counter
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_3:
+   \        0x0   0x....'....        DC32     EmptyLoadData_Counter
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_4:
+   \        0x0   0x....'....        DC32     LearnDataCounter
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_5:
+   \        0x0   0x....'....        DC32     LearnData1
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_6:
+   \        0x0   0x....'....        DC32     LearnData2
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_7:
+   \        0x0   0x....'....        DC32     tempOutData
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_8:
+   \        0x0   0x....'....        DC32     filter_buf
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5:
+   \        0x0   0x41D0'0000        DC32     0x41d00000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_1:
+   \        0x0   0x....'....        DC32     SpeedFilter_buf
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_2:
+   \        0x0   0x4120'0000        DC32     0x41200000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_3:
+   \        0x0   0x....'....        DC32     Speed
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_4:
+   \        0x0   0x....'....        DC32     EmpiricalData
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_5:
+   \        0x0   0x....'....        DC32     filterData
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_6:
+   \        0x0   0x....'....        DC32     tempOutData
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_7:
+   \        0x0   0x3ECC'CCCD        DC32     0x3ecccccd
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_8:
+   \        0x0   0x....'....        DC32     FullLoadData_Counter
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_9:
+   \        0x0   0x....'....        DC32     FullLoadData_Buf
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_10:
+   \        0x0   0x....'....        DC32     FullLoad
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_11:
+   \        0x0   0x....'....        DC32     EmptyLoad
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_12:
+   \        0x0   0x0000'0259        DC32     0x259
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_13:
+   \        0x0   0x....'....        DC32     EmptyLoadData_Counter
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_14:
+   \        0x0   0x....'....        DC32     EmptyLoadData_Buf
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_15:
+   \        0x0   0x....'....        DC32     LearnDataCounter
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_16:
+   \        0x0   0x....'....        DC32     LearnData_Buf
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_17:
+   \        0x0   0x....'....        DC32     LearnData1
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_18:
+   \        0x0   0x....'....        DC32     LearnData2
+    263          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      20   BubbleSort_Filter
+        20 __aeabi_idiv
+      24   Filter
+        24   -> __aeabi_f2iz
+        24   -> __aeabi_fadd
+        24   -> __aeabi_fdiv
+        24   -> __aeabi_ui2f
+       8   Init_xx
+         8   -> I2C1_ReadNBytes
+         8   -> ResetFlashPara
+       8   ResetFlashPara
+         8   -> I2C1_WriteNBytes
+      32   Runing
+        32   -> BubbleSort_Filter
+        32   -> Filter
+        32   -> I2C1_WriteNBytes
+        32   -> SpeedFilter
+        32   -> UpdateEmpiricalData
+        32   -> __aeabi_fadd
+        32   -> __aeabi_fmul
+        32   -> __aeabi_ui2f
+        32   -> abs
+        32 __aeabi_cfcmple
+      24   SpeedFilter
+        24   -> __aeabi_f2iz
+        24   -> __aeabi_fadd
+        24   -> __aeabi_fdiv
+        24   -> __aeabi_ui2f
+      32   UpdateEmpiricalData
+        32   -> __aeabi_f2iz
+        32   -> __aeabi_fadd
+        32   -> __aeabi_fdiv
+        32   -> __aeabi_ui2f
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable3
+       4  ??DataTable4
+       4  ??DataTable4_1
+       4  ??DataTable4_2
+       4  ??DataTable4_3
+       4  ??DataTable4_4
+       4  ??DataTable4_5
+       4  ??DataTable4_6
+       4  ??DataTable4_7
+       4  ??DataTable4_8
+       4  ??DataTable5
+       4  ??DataTable5_1
+       4  ??DataTable5_10
+       4  ??DataTable5_11
+       4  ??DataTable5_12
+       4  ??DataTable5_13
+       4  ??DataTable5_14
+       4  ??DataTable5_15
+       4  ??DataTable5_16
+       4  ??DataTable5_17
+       4  ??DataTable5_18
+       4  ??DataTable5_2
+       4  ??DataTable5_3
+       4  ??DataTable5_4
+       4  ??DataTable5_5
+       4  ??DataTable5_6
+       4  ??DataTable5_7
+       4  ??DataTable5_8
+       4  ??DataTable5_9
+     144  BubbleSort_Filter
+      40  EmpiricalData
+       2  EmptyLoad
+     360  EmptyLoadData_Buf
+       2  EmptyLoadData_Counter
+     160  Filter
+       2  FullLoad
+     360  FullLoadData_Buf
+       2  FullLoadData_Counter
+      40  Init_xx
+       2  LearnData1
+       2  LearnData2
+       2  LearnDataCounter
+     200  LearnData_Buf
+      48  ResetFlashPara
+     474  Runing
+       2  Speed
+     108  SpeedFilter
+      24  SpeedFilter_buf
+     312  UpdateEmpiricalData
+       2  filterData
+      64  filter_buf
+       4  tempOutData
+
+ 
+ 1'070 bytes in section .bss
+ 1'402 bytes in section .text
+ 
+ 1'402 bytes of CODE memory
+ 1'070 bytes of DATA memory
+
+Errors: none
+Warnings: none

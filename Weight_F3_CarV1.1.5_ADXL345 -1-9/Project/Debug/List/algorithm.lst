@@ -1,0 +1,463 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.4.261/W32 for ARM         10/Jan/2021  16:10:13
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode             
+#    Endian            =  little
+#    Source file       =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\APP\algorithm.c
+#    Command line      =
+#        -f C:\Users\macanlin\AppData\Local\Temp\EWCDA9.tmp
+#        ("C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\APP\algorithm.c" -D USE_STDPERIPH_DRIVER -D STM32F072 -lC
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List" -o
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj" --no_cse --no_unroll --no_inline
+#        --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug
+#        --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config
+#        C:\rj\IAR\arm\inc\c\DLib_Config_Normal.h -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\BSP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\CMSIS\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\OS_Cfg\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-CPU\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Ports\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Source\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\APP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -Ol -I
+#        C:\rj\IAR\arm\CMSIS\Core\Include\\ -I
+#        C:\rj\IAR\arm\CMSIS\DSP\Include\\)
+#    Locale            =  C
+#    List file         =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List\algorithm.lst
+#    Object file       =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj\algorithm.o
+#    Runtime model:       
+#      __SystemLibrary =  DLib
+#      __dlib_version  =  6
+#
+###############################################################################
+
+C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345 -1-9\Source\APP\algorithm.c
+      1          //#include "bsp.h"
+      2          #include "algorithm.h"
+      3          
+
+   \                                 In section .text, align 2, keep-with-next
+      4          void SortArrayExtreme(u16 Array[], const u32 ArraySize,
+      5                                const u32 SortHeadSize, const u32 SortTailSize)
+      6          {
+   \                     SortArrayExtreme: (+1)
+   \        0x0   0xB5FA             PUSH     {R1,R3-R7,LR}
+      7              u32 i, j;
+      8              u16 temp;
+      9          
+     10              for (i = 0; i < SortTailSize; i++)
+   \        0x2   0x2100             MOVS     R1,#+0
+   \        0x4   0x000B             MOVS     R3,R1
+   \        0x6   0xE01D             B        ??SortArrayExtreme_0
+     11              {
+     12                  for (j = 0; j < ArraySize - i - 1; j++)
+     13                  {
+     14                      if (Array[j] > Array[j+1])
+   \                     ??SortArrayExtreme_1: (+1)
+   \        0x8   0x2502             MOVS     R5,#+2
+   \        0xA   0x4365             MULS     R5,R4,R5
+   \        0xC   0x1945             ADDS     R5,R0,R5
+   \        0xE   0x886D             LDRH     R5,[R5, #+2]
+   \       0x10   0x2602             MOVS     R6,#+2
+   \       0x12   0x4366             MULS     R6,R4,R6
+   \       0x14   0x5B86             LDRH     R6,[R0, R6]
+   \       0x16   0x42B5             CMP      R5,R6
+   \       0x18   0xD20D             BCS      ??SortArrayExtreme_2
+     15                      {
+     16                          temp = Array[j];
+   \       0x1A   0x2502             MOVS     R5,#+2
+   \       0x1C   0x4365             MULS     R5,R4,R5
+   \       0x1E   0x5B45             LDRH     R5,[R0, R5]
+     17                          Array[j] = Array[j+1];
+   \       0x20   0x2602             MOVS     R6,#+2
+   \       0x22   0x4366             MULS     R6,R4,R6
+   \       0x24   0x1986             ADDS     R6,R0,R6
+   \       0x26   0x8876             LDRH     R6,[R6, #+2]
+   \       0x28   0x2702             MOVS     R7,#+2
+   \       0x2A   0x4367             MULS     R7,R4,R7
+   \       0x2C   0x53C6             STRH     R6,[R0, R7]
+     18                          Array[j+1] = temp;
+   \       0x2E   0x2602             MOVS     R6,#+2
+   \       0x30   0x4366             MULS     R6,R4,R6
+   \       0x32   0x1986             ADDS     R6,R0,R6
+   \       0x34   0x8075             STRH     R5,[R6, #+2]
+     19                      }
+     20                  }
+   \                     ??SortArrayExtreme_2: (+1)
+   \       0x36   0x1C64             ADDS     R4,R4,#+1
+   \                     ??SortArrayExtreme_3: (+1)
+   \       0x38   0x9D00             LDR      R5,[SP, #+0]
+   \       0x3A   0x1AED             SUBS     R5,R5,R3
+   \       0x3C   0x1E6D             SUBS     R5,R5,#+1
+   \       0x3E   0x42AC             CMP      R4,R5
+   \       0x40   0xD3E2             BCC      ??SortArrayExtreme_1
+   \       0x42   0x1C5B             ADDS     R3,R3,#+1
+   \                     ??SortArrayExtreme_0: (+1)
+   \       0x44   0x9C01             LDR      R4,[SP, #+4]
+   \       0x46   0x42A3             CMP      R3,R4
+   \       0x48   0xD201             BCS      ??SortArrayExtreme_4
+   \       0x4A   0x000C             MOVS     R4,R1
+   \       0x4C   0xE7F4             B        ??SortArrayExtreme_3
+     21              }
+     22          
+     23              for (i = 0; i < SortHeadSize; i++)
+   \                     ??SortArrayExtreme_4: (+1)
+   \       0x4E   0xE01D             B        ??SortArrayExtreme_5
+     24              {
+     25                  for (j = ArraySize - SortTailSize - 1 ; j > i; j--)
+     26                  {
+     27                      if (Array[j - 1] > Array[j])
+   \                     ??SortArrayExtreme_6: (+1)
+   \       0x50   0x2402             MOVS     R4,#+2
+   \       0x52   0x435C             MULS     R4,R3,R4
+   \       0x54   0x5B04             LDRH     R4,[R0, R4]
+   \       0x56   0x2502             MOVS     R5,#+2
+   \       0x58   0x435D             MULS     R5,R3,R5
+   \       0x5A   0x1945             ADDS     R5,R0,R5
+   \       0x5C   0x1EAD             SUBS     R5,R5,#+2
+   \       0x5E   0x882D             LDRH     R5,[R5, #+0]
+   \       0x60   0x42AC             CMP      R4,R5
+   \       0x62   0xD20F             BCS      ??SortArrayExtreme_7
+     28                      {
+     29                          temp = Array[j - 1];
+   \       0x64   0x2402             MOVS     R4,#+2
+   \       0x66   0x435C             MULS     R4,R3,R4
+   \       0x68   0x1904             ADDS     R4,R0,R4
+   \       0x6A   0x1EA4             SUBS     R4,R4,#+2
+   \       0x6C   0x8824             LDRH     R4,[R4, #+0]
+     30                          Array[j - 1] = Array[j];
+   \       0x6E   0x2502             MOVS     R5,#+2
+   \       0x70   0x435D             MULS     R5,R3,R5
+   \       0x72   0x5B45             LDRH     R5,[R0, R5]
+   \       0x74   0x2602             MOVS     R6,#+2
+   \       0x76   0x435E             MULS     R6,R3,R6
+   \       0x78   0x1986             ADDS     R6,R0,R6
+   \       0x7A   0x1EB6             SUBS     R6,R6,#+2
+   \       0x7C   0x8035             STRH     R5,[R6, #+0]
+     31                          Array[j] = temp;
+   \       0x7E   0x2502             MOVS     R5,#+2
+   \       0x80   0x435D             MULS     R5,R3,R5
+   \       0x82   0x5344             STRH     R4,[R0, R5]
+     32                      }
+     33                  }
+   \                     ??SortArrayExtreme_7: (+1)
+   \       0x84   0x1E5B             SUBS     R3,R3,#+1
+   \                     ??SortArrayExtreme_8: (+1)
+   \       0x86   0x4299             CMP      R1,R3
+   \       0x88   0xD3E2             BCC      ??SortArrayExtreme_6
+   \       0x8A   0x1C49             ADDS     R1,R1,#+1
+   \                     ??SortArrayExtreme_5: (+1)
+   \       0x8C   0x4291             CMP      R1,R2
+   \       0x8E   0xD204             BCS      ??SortArrayExtreme_9
+   \       0x90   0x9B00             LDR      R3,[SP, #+0]
+   \       0x92   0x9C01             LDR      R4,[SP, #+4]
+   \       0x94   0x1B1B             SUBS     R3,R3,R4
+   \       0x96   0x1E5B             SUBS     R3,R3,#+1
+   \       0x98   0xE7F5             B        ??SortArrayExtreme_8
+     34              }
+     35          }
+   \                     ??SortArrayExtreme_9: (+1)
+   \       0x9A   0xBDF3             POP      {R0,R1,R4-R7,PC}  ;; return
+     36          
+
+   \                                 In section .text, align 2, keep-with-next
+     37          u32 GetAverage(u16 Array[], const u32 ArraySize,
+     38                         const u32 DelHeadSize, const u32 DelTailSize)
+     39          {
+   \                     GetAverage: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+     40              u32 sum = 0;
+   \        0x2   0x2400             MOVS     R4,#+0
+     41          
+     42              if ((DelHeadSize + DelTailSize) >= ArraySize)
+   \        0x4   0x18D5             ADDS     R5,R2,R3
+   \        0x6   0x428D             CMP      R5,R1
+   \        0x8   0xD301             BCC      ??GetAverage_0
+     43              {
+     44                  return 0;
+   \        0xA   0x2000             MOVS     R0,#+0
+   \        0xC   0xE00E             B        ??GetAverage_1
+     45              }
+     46          
+     47              for (long i = DelHeadSize; i < ArraySize - DelTailSize; i++)
+   \                     ??GetAverage_0: (+1)
+   \        0xE   0x0015             MOVS     R5,R2
+   \       0x10   0xE004             B        ??GetAverage_2
+     48              {
+     49                  sum += Array[i];
+   \                     ??GetAverage_3: (+1)
+   \       0x12   0x2602             MOVS     R6,#+2
+   \       0x14   0x436E             MULS     R6,R5,R6
+   \       0x16   0x5B86             LDRH     R6,[R0, R6]
+   \       0x18   0x19A4             ADDS     R4,R4,R6
+     50              }
+   \       0x1A   0x1C6D             ADDS     R5,R5,#+1
+   \                     ??GetAverage_2: (+1)
+   \       0x1C   0x1ACE             SUBS     R6,R1,R3
+   \       0x1E   0x42B5             CMP      R5,R6
+   \       0x20   0xD3F7             BCC      ??GetAverage_3
+     51          
+     52              return(sum / (ArraySize - DelHeadSize - DelTailSize));
+   \       0x22   0x0020             MOVS     R0,R4
+   \       0x24   0x1A89             SUBS     R1,R1,R2
+   \       0x26   0x1AC9             SUBS     R1,R1,R3
+   \       0x28   0x....'....        BL       __aeabi_uidiv
+   \                     ??GetAverage_1: (+1)
+   \       0x2C   0xBD70             POP      {R4-R6,PC}       ;; return
+     53          }
+     54          
+     55          
+
+   \                                 In section .text, align 2, keep-with-next
+     56          u32 GetDelExtremeAndAverage(u16 Array[], const u32 ArraySize,
+     57                                      const u32 SortHeadSize, const u32 SortTailSize)
+     58          {
+   \                     GetDelExtremeAndAverage: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+   \        0x2   0x0007             MOVS     R7,R0
+   \        0x4   0x000E             MOVS     R6,R1
+   \        0x6   0x0015             MOVS     R5,R2
+   \        0x8   0x001C             MOVS     R4,R3
+     59              SortArrayExtreme(Array, ArraySize, SortHeadSize, SortTailSize);
+   \        0xA   0x0023             MOVS     R3,R4
+   \        0xC   0x002A             MOVS     R2,R5
+   \        0xE   0x0031             MOVS     R1,R6
+   \       0x10   0x0038             MOVS     R0,R7
+   \       0x12   0x....'....        BL       SortArrayExtreme
+     60              return(GetAverage(Array, ArraySize, SortHeadSize, SortTailSize));
+   \       0x16   0x0023             MOVS     R3,R4
+   \       0x18   0x002A             MOVS     R2,R5
+   \       0x1A   0x0031             MOVS     R1,R6
+   \       0x1C   0x0038             MOVS     R0,R7
+   \       0x1E   0x....'....        BL       GetAverage
+   \       0x22   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+     61          }
+     62          
+     63          
+
+   \                                 In section .text, align 2, keep-with-next
+     64          u32 HexArrayToHex(u8 *pData)//16进制字节数组转32位无符号数
+     65          {
+     66              u32 Data;
+     67              Data = pData[0];
+   \                     HexArrayToHex: (+1)
+   \        0x0   0x7801             LDRB     R1,[R0, #+0]
+     68              Data <<= 8;
+   \        0x2   0x0209             LSLS     R1,R1,#+8
+     69              Data += pData[1];
+   \        0x4   0x7842             LDRB     R2,[R0, #+1]
+   \        0x6   0x1889             ADDS     R1,R1,R2
+     70              Data <<= 8;
+   \        0x8   0x0209             LSLS     R1,R1,#+8
+     71              Data += pData[2];
+   \        0xA   0x7882             LDRB     R2,[R0, #+2]
+   \        0xC   0x1889             ADDS     R1,R1,R2
+     72              Data <<= 8;
+   \        0xE   0x0209             LSLS     R1,R1,#+8
+     73              Data += pData[3];
+   \       0x10   0x78C0             LDRB     R0,[R0, #+3]
+   \       0x12   0x1808             ADDS     R0,R1,R0
+     74          
+     75              return *(u32*)&Data;
+   \       0x14   0x4770             BX       LR               ;; return
+     76          }
+     77          
+
+   \                                 In section .text, align 2, keep-with-next
+     78          float HexToFloat(u8 *pData)//16进制 转浮点数
+     79          {
+     80              u32 Data;
+     81              Data = pData[0];
+   \                     HexToFloat: (+1)
+   \        0x0   0x7801             LDRB     R1,[R0, #+0]
+     82              Data <<= 8;
+   \        0x2   0x0209             LSLS     R1,R1,#+8
+     83              Data += pData[1];
+   \        0x4   0x7842             LDRB     R2,[R0, #+1]
+   \        0x6   0x1889             ADDS     R1,R1,R2
+     84              Data <<= 8;
+   \        0x8   0x0209             LSLS     R1,R1,#+8
+     85              Data += pData[2];
+   \        0xA   0x7882             LDRB     R2,[R0, #+2]
+   \        0xC   0x1889             ADDS     R1,R1,R2
+     86              Data <<= 8;
+   \        0xE   0x0209             LSLS     R1,R1,#+8
+     87              Data += pData[3];
+   \       0x10   0x78C0             LDRB     R0,[R0, #+3]
+   \       0x12   0x1808             ADDS     R0,R1,R0
+     88          
+     89              return *(float*)&Data;
+   \       0x14   0x4770             BX       LR               ;; return
+     90          }
+     91          
+
+   \                                 In section .text, align 2, keep-with-next
+     92          u32 HexToUlong(u8 *pData)//16进制字节数组转无符号长整形  32位数
+     93          {
+     94              u32 Data;
+     95              Data = pData[0];
+   \                     HexToUlong: (+1)
+   \        0x0   0x7801             LDRB     R1,[R0, #+0]
+     96              Data <<= 8;
+   \        0x2   0x0209             LSLS     R1,R1,#+8
+     97              Data += pData[1];
+   \        0x4   0x7842             LDRB     R2,[R0, #+1]
+   \        0x6   0x1889             ADDS     R1,R1,R2
+     98              Data <<= 8;
+   \        0x8   0x0209             LSLS     R1,R1,#+8
+     99              Data += pData[2];
+   \        0xA   0x7882             LDRB     R2,[R0, #+2]
+   \        0xC   0x1889             ADDS     R1,R1,R2
+    100              Data <<= 8;
+   \        0xE   0x0209             LSLS     R1,R1,#+8
+    101              Data += pData[3];
+   \       0x10   0x78C0             LDRB     R0,[R0, #+3]
+   \       0x12   0x1808             ADDS     R0,R1,R0
+    102          
+    103              return Data;
+   \       0x14   0x4770             BX       LR               ;; return
+    104          }
+    105          
+    106          
+
+   \                                 In section .text, align 2, keep-with-next
+    107          void floatToHexArray(float fSource, u8 *pu8Temp, long num)//浮点数 转 16进制 
+    108          {
+   \                     floatToHexArray: (+1)
+   \        0x0   0xB530             PUSH     {R4,R5,LR}
+    109              u32 u32Source = *(u32 *)&fSource;
+    110              for(long i = 0; i < num; i++)
+   \        0x2   0x2300             MOVS     R3,#+0
+   \        0x4   0xE008             B        ??floatToHexArray_0
+    111              {
+    112                  pu8Temp[i] = (u32Source >> (8 * (3 - i))) & 0xff;
+   \                     ??floatToHexArray_1: (+1)
+   \        0x6   0x2403             MOVS     R4,#+3
+   \        0x8   0x001D             MOVS     R5,R3
+   \        0xA   0x1B64             SUBS     R4,R4,R5
+   \        0xC   0x2508             MOVS     R5,#+8
+   \        0xE   0x436C             MULS     R4,R5,R4
+   \       0x10   0x0005             MOVS     R5,R0
+   \       0x12   0x40E5             LSRS     R5,R5,R4
+   \       0x14   0x54CD             STRB     R5,[R1, R3]
+    113              }
+   \       0x16   0x1C5B             ADDS     R3,R3,#+1
+   \                     ??floatToHexArray_0: (+1)
+   \       0x18   0x4293             CMP      R3,R2
+   \       0x1A   0xDBF4             BLT      ??floatToHexArray_1
+    114          }
+   \       0x1C   0xBD30             POP      {R4,R5,PC}       ;; return
+    115          
+
+   \                                 In section .text, align 2, keep-with-next
+    116          void UshortToArray(u16 uSource, u8 *pu8Temp)// 16位短整形数 转 16进制数组
+    117          {
+   \                     UshortToArray: (+1)
+   \        0x0   0xB081             SUB      SP,SP,#+4
+    118              u16 data = uSource;
+   \        0x2   0x466A             MOV      R2,SP
+   \        0x4   0x8010             STRH     R0,[R2, #+0]
+    119              *pu8Temp = ((u8*)&data)[1];
+   \        0x6   0x4668             MOV      R0,SP
+   \        0x8   0x7840             LDRB     R0,[R0, #+1]
+   \        0xA   0x7008             STRB     R0,[R1, #+0]
+    120              *(pu8Temp + 1) = ((u8*)&data)[0];
+   \        0xC   0x4668             MOV      R0,SP
+   \        0xE   0x7800             LDRB     R0,[R0, #+0]
+   \       0x10   0x7048             STRB     R0,[R1, #+1]
+    121          }
+   \       0x12   0xB001             ADD      SP,SP,#+4
+   \       0x14   0x4770             BX       LR               ;; return
+    122          
+    123          
+
+   \                                 In section .text, align 2, keep-with-next
+    124          u16 ArrayToUshort(u8 *pu8Temp)//16进制数组 转 16位短整形数
+    125          {
+   \                     ArrayToUshort: (+1)
+   \        0x0   0xB081             SUB      SP,SP,#+4
+    126              u16 data = 0;
+   \        0x2   0x2100             MOVS     R1,#+0
+   \        0x4   0x466A             MOV      R2,SP
+   \        0x6   0x8011             STRH     R1,[R2, #+0]
+    127              ((u8*)&data)[0] = *(pu8Temp + 1);
+   \        0x8   0x4669             MOV      R1,SP
+   \        0xA   0x7842             LDRB     R2,[R0, #+1]
+   \        0xC   0x700A             STRB     R2,[R1, #+0]
+    128              ((u8*)&data)[1] = *pu8Temp;
+   \        0xE   0x7800             LDRB     R0,[R0, #+0]
+   \       0x10   0x4669             MOV      R1,SP
+   \       0x12   0x7048             STRB     R0,[R1, #+1]
+    129              return data;
+   \       0x14   0x4668             MOV      R0,SP
+   \       0x16   0x8800             LDRH     R0,[R0, #+0]
+   \       0x18   0xB001             ADD      SP,SP,#+4
+   \       0x1A   0x4770             BX       LR               ;; return
+    130          }
+    131          
+    132          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       4   ArrayToUshort
+      16   GetAverage
+        16 __aeabi_uidiv
+      24   GetDelExtremeAndAverage
+        24   -> GetAverage
+        24   -> SortArrayExtreme
+       0   HexArrayToHex
+       0   HexToFloat
+       0   HexToUlong
+      28   SortArrayExtreme
+       4   UshortToArray
+      12   floatToHexArray
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      28  ArrayToUshort
+      46  GetAverage
+      36  GetDelExtremeAndAverage
+      22  HexArrayToHex
+      22  HexToFloat
+      22  HexToUlong
+     156  SortArrayExtreme
+      22  UshortToArray
+      30  floatToHexArray
+
+ 
+ 384 bytes in section .text
+ 
+ 384 bytes of CODE memory
+
+Errors: none
+Warnings: none

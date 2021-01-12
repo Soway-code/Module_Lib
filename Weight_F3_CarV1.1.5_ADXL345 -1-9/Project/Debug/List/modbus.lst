@@ -1,0 +1,1222 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.4.261/W32 for ARM         10/Jan/2021  16:10:17
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode                        
+#    Endian                       =  little
+#    Source file                  =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\APP\modbus.c
+#    Command line                 =
+#        -f C:\Users\macanlin\AppData\Local\Temp\EWDA9A.tmp
+#        ("C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\APP\modbus.c" -D USE_STDPERIPH_DRIVER -D STM32F072 -lC
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List" -o
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj" --no_cse --no_unroll --no_inline
+#        --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug
+#        --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config
+#        C:\rj\IAR\arm\inc\c\DLib_Config_Normal.h -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\BSP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\CMSIS\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\OS_Cfg\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-CPU\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Ports\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Source\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\APP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -Ol -I
+#        C:\rj\IAR\arm\CMSIS\Core\Include\\ -I
+#        C:\rj\IAR\arm\CMSIS\DSP\Include\\)
+#    Locale                       =  C
+#    List file                    =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List\modbus.lst
+#    Object file                  =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj\modbus.o
+#    Runtime model:                  
+#      __SystemLibrary            =  DLib
+#      __dlib_file_descriptor     =  0
+#      __dlib_full_locale_support =  0
+#      __dlib_version             =  6
+#
+###############################################################################
+
+C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345 -1-9\Source\APP\modbus.c
+      1          #include "bsp.h"
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void __NVIC_SystemReset(void)
+   \                     __NVIC_SystemReset: (+1)
+   \        0x0   0xB500             PUSH     {LR}
+   \        0x2   0xF3BF 0x8F4F      DSB      SY
+   \        0x6   0x....             LDR      R0,??DataTable3  ;; 0x5fa0004
+   \        0x8   0x....             LDR      R1,??DataTable4  ;; 0xe000ed0c
+   \        0xA   0x6008             STR      R0,[R1, #+0]
+   \        0xC   0xF3BF 0x8F4F      DSB      SY
+   \                     ??__NVIC_SystemReset_0: (+1)
+   \       0x10   0xBF00             Nop
+   \       0x12   0xE7FD             B        ??__NVIC_SystemReset_0
+      2          #include "math.h"
+      3          #include "os_cfg_app.h"
+      4          #include "flash_if.h"
+      5          #include <string.h>
+      6          
+      7          #include "weight.h"
+      8          
+      9          #define MAX_CONTINUE_TIME   30  //连续，秒为单位
+     10          #define MAX_FLAG_PAR  20
+
+   \                                 In section .bss, align 4
+     11          static uint16_t g_wFlashFlagBuffer[MAX_FLAG_PAR];
+   \                     g_wFlashFlagBuffer:
+   \        0x0                      DS8 40
+     12          
+
+   \                                 In section .bss, align 4
+     13          u8 RcvDataBuf[64];
+   \                     RcvDataBuf:
+   \        0x0                      DS8 64
+
+   \                                 In section .bss, align 4
+     14          u8 g_cySendBuf[DATAPACKET_LEN];   //存储从机响应消息帧
+   \                     g_cySendBuf:
+   \        0x0                      DS8 256
+
+   \                                 In section .bss, align 1
+     15          u8 SendLen;
+   \                     SendLen:
+   \        0x0                      DS8 1
+
+   \                                 In section .bss, align 1
+     16          u8 g_cyStopStateCnt = 0;
+   \                     g_cyStopStateCnt:
+   \        0x0                      DS8 1
+
+   \                                 In section .bss, align 1
+     17          u8 g_cyRunStateCnt = 0;
+   \                     g_cyRunStateCnt:
+   \        0x0                      DS8 1
+
+   \                                 In section .bss, align 4
+     18          s32 RecvLen = 0;
+   \                     RecvLen:
+   \        0x0                      DS8 4
+     19          
+
+   \                                 In section .bss, align 1
+     20          u8 g_cyCtrlFlag; //控制标准  1：只有速度， 2：有速度，有篷布状态 3：有速度，有篷布状态，有电子围栏
+   \                     g_cyCtrlFlag:
+   \        0x0                      DS8 1
+
+   \                                 In section .bss, align 1
+     21          u8 g_cyCarState; //车状态 0x00表示停车，0x01表示行驶
+   \                     g_cyCarState:
+   \        0x0                      DS8 1
+
+   \                                 In section .bss, align 1
+     22          u8 g_cyPbState;  //篷布状态 0x00表示篷布打开，0x01表示篷布关闭；
+   \                     g_cyPbState:
+   \        0x0                      DS8 1
+
+   \                                 In section .bss, align 1
+     23          u8 g_cyElState;  //电子围栏状态 0x00表示车辆停车场，0x01表示渣土装载区，0x02表示渣土卸载区，0x03表示其他区域
+   \                     g_cyElState:
+   \        0x0                      DS8 1
+     24          
+     25          
+
+   \                                 In section .bss, align 2
+     26          u16 g_wRADValue; //实时采集Ad值
+   \                     g_wRADValue:
+   \        0x0                      DS8 2
+
+   \                                 In section .bss, align 2
+     27          u16 g_wFADValue; //经过滤波Ad值
+   \                     g_wFADValue:
+   \        0x0                      DS8 2
+     28          extern u16 g_wDlyMaxTime;      //最大延时时间 0.1S 单位
+     29          
+
+   \                                 In section .rodata, align 4
+     30          const u8 Dev_Id[DEFAULT_DEV_ID_LEN] = "SW2.0 2016-08-25V02";
+   \                     Dev_Id:
+   \        0x0   0x53 0x57          DC8 "SW2.0 2016-08-25V02"
+
+   \              0x32 0x2E    
+
+   \              0x30 0x20    
+
+   \              0x32 0x30    
+
+   \              0x31 0x36    
+
+   \              0x2D 0x30    
+
+   \              0x38 0x2D    
+
+   \              0x32 0x35    
+
+   \              0x56 0x30    
+
+   \              0x32 0x00
+     31          
+     32          extern u16 Speed;
+     33          
+     34          
+     35          //**************************************************************************************************
+     36          // Name         : MBRTU_SendPacket()
+     37          // CreateDate   : 2013-07-10
+     38          // Author       : chenjin
+     39          // Function     : 发送数据包
+     40          // ParameIn     : 命令(cyCmd), 字符串(*cyStr), 长度(cyLen)
+     41          // ParameOut    : 无
+     42          // Return       : 无
+     43          // commments    :
+     44          // Modification :
+     45          //**************************************************************************************************
+     46          
+
+   \                                 In section .text, align 2, keep-with-next
+     47          void MBRTU_SendPacket(u8 cyCmd, u8 *cyStr, u8 cyLen)                            //应答数据帧格式
+     48          {
+   \                     MBRTU_SendPacket: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+     49          	u8 i;
+     50          	u8 cyTemp;
+     51          	
+     52          	g_cySendBuf[0] = 0x59;
+   \        0x2   0x....             LDR      R3,??DataTable4_1
+   \        0x4   0x2459             MOVS     R4,#+89
+   \        0x6   0x701C             STRB     R4,[R3, #+0]
+     53          	g_cySendBuf[1] = 0x58;
+   \        0x8   0x2458             MOVS     R4,#+88
+   \        0xA   0x705C             STRB     R4,[R3, #+1]
+     54          	g_cySendBuf[2] = 0x00;
+   \        0xC   0x2400             MOVS     R4,#+0
+   \        0xE   0x709C             STRB     R4,[R3, #+2]
+     55          	g_cySendBuf[3] = cyCmd;
+   \       0x10   0x70D8             STRB     R0,[R3, #+3]
+     56          	g_cySendBuf[4] = 0x00;
+   \       0x12   0x711C             STRB     R4,[R3, #+4]
+     57          	g_cySendBuf[5] = 0x00;
+   \       0x14   0x715C             STRB     R4,[R3, #+5]
+     58          	g_cySendBuf[6] = cyLen;
+   \       0x16   0x719A             STRB     R2,[R3, #+6]
+     59          	for (i = 0; i < cyLen; i++)
+   \       0x18   0x0020             MOVS     R0,R4
+   \       0x1A   0xE007             B        ??MBRTU_SendPacket_0
+     60          	{
+     61                      g_cySendBuf[7 + i] = *(cyStr + i);
+   \                     ??MBRTU_SendPacket_1: (+1)
+   \       0x1C   0x0005             MOVS     R5,R0
+   \       0x1E   0xB2ED             UXTB     R5,R5
+   \       0x20   0x5D4D             LDRB     R5,[R1, R5]
+   \       0x22   0x0006             MOVS     R6,R0
+   \       0x24   0xB2F6             UXTB     R6,R6
+   \       0x26   0x199E             ADDS     R6,R3,R6
+   \       0x28   0x71F5             STRB     R5,[R6, #+7]
+     62          	}
+   \       0x2A   0x1C40             ADDS     R0,R0,#+1
+   \                     ??MBRTU_SendPacket_0: (+1)
+   \       0x2C   0x0005             MOVS     R5,R0
+   \       0x2E   0x0016             MOVS     R6,R2
+   \       0x30   0xB2ED             UXTB     R5,R5
+   \       0x32   0xB2F6             UXTB     R6,R6
+   \       0x34   0x42B5             CMP      R5,R6
+   \       0x36   0xD3F1             BCC      ??MBRTU_SendPacket_1
+     63          	
+     64          	cyLen += 7;
+   \       0x38   0x1DD2             ADDS     R2,R2,#+7
+   \       0x3A   0x0011             MOVS     R1,R2
+     65          	cyTemp = 0;
+   \       0x3C   0x0020             MOVS     R0,R4
+     66          	for (i = 0; i < cyLen; i++)
+   \       0x3E   0xE005             B        ??MBRTU_SendPacket_2
+     67          	{
+     68                      cyTemp ^= g_cySendBuf[i];
+   \                     ??MBRTU_SendPacket_3: (+1)
+   \       0x40   0x0002             MOVS     R2,R0
+   \       0x42   0x0020             MOVS     R0,R4
+   \       0x44   0xB2C0             UXTB     R0,R0
+   \       0x46   0x5C18             LDRB     R0,[R3, R0]
+   \       0x48   0x4050             EORS     R0,R0,R2
+     69          	}
+   \       0x4A   0x1C64             ADDS     R4,R4,#+1
+   \                     ??MBRTU_SendPacket_2: (+1)
+   \       0x4C   0x0022             MOVS     R2,R4
+   \       0x4E   0x000D             MOVS     R5,R1
+   \       0x50   0xB2D2             UXTB     R2,R2
+   \       0x52   0xB2ED             UXTB     R5,R5
+   \       0x54   0x42AA             CMP      R2,R5
+   \       0x56   0xD3F3             BCC      ??MBRTU_SendPacket_3
+     70          	g_cySendBuf[cyLen] = cyTemp;
+   \       0x58   0x000A             MOVS     R2,R1
+   \       0x5A   0xB2D2             UXTB     R2,R2
+   \       0x5C   0x5498             STRB     R0,[R3, R2]
+     71          	cyLen++;
+   \       0x5E   0x1C49             ADDS     R1,R1,#+1
+     72          	g_cySendBuf[cyLen] = 0x0D;
+   \       0x60   0x200D             MOVS     R0,#+13
+   \       0x62   0x000A             MOVS     R2,R1
+   \       0x64   0xB2D2             UXTB     R2,R2
+   \       0x66   0x5498             STRB     R0,[R3, R2]
+     73          	cyLen++;
+   \       0x68   0x1C49             ADDS     R1,R1,#+1
+     74          	g_cySendBuf[cyLen] = 0x0A;
+   \       0x6A   0x200A             MOVS     R0,#+10
+   \       0x6C   0x000A             MOVS     R2,R1
+   \       0x6E   0xB2D2             UXTB     R2,R2
+   \       0x70   0x5498             STRB     R0,[R3, R2]
+     75          	cyLen++;
+   \       0x72   0x1C49             ADDS     R1,R1,#+1
+     76          	UART1_SendData(g_cySendBuf, cyLen);
+   \       0x74   0xB2C9             UXTB     R1,R1
+   \       0x76   0x0018             MOVS     R0,R3
+   \       0x78   0x....'....        BL       UART1_SendData
+     77          }
+   \       0x7C   0xBD70             POP      {R4-R6,PC}       ;; return
+     78          
+     79          //**************************************************************************************************
+     80          // Name         : MBRTU_CheckRecvData()
+     81          // CreateDate   : 2013-07-10
+     82          // Author       : chenjin
+     83          // Function     : 检查数据包
+     84          // ParameIn     : 无
+     85          // ParameOut    : 无
+     86          // Return       : 无
+     87          // commments    :
+     88          // Modification :
+     89          //**************************************************************************************************
+     90          
+     91          extern BitAction g_bRevOverTime;
+     92          
+     93          //0x00表示接收成功，0x01表示接收失败，0x02表示数据格式错误，0x03表示校验码错误。
+     94          
+
+   \                                 In section .text, align 2, keep-with-next
+     95          u8 MBRTU_CheckRecvData(void)
+     96          {
+   \                     MBRTU_CheckRecvData: (+1)
+   \        0x0   0xB538             PUSH     {R3-R5,LR}
+     97          	u8 i;
+     98          	u8 cyTemp;
+     99          	
+    100          	if (Bit_SET == g_bRevOverTime)
+   \        0x2   0x....             LDR      R0,??DataTable4_2
+   \        0x4   0x7801             LDRB     R1,[R0, #+0]
+   \        0x6   0x2901             CMP      R1,#+1
+   \        0x8   0xD10C             BNE      ??MBRTU_CheckRecvData_0
+    101          	{
+    102          		g_bRevOverTime = Bit_RESET;
+   \        0xA   0x2100             MOVS     R1,#+0
+   \        0xC   0x7001             STRB     R1,[R0, #+0]
+    103          		RcvDataBuf[0] = RcvDataBuf[2]; 
+   \        0xE   0x....             LDR      R1,??DataTable5
+   \       0x10   0x7888             LDRB     R0,[R1, #+2]
+   \       0x12   0x7008             STRB     R0,[R1, #+0]
+    104          		RcvDataBuf[1] = 0x01; //表示接收失败
+   \       0x14   0x2001             MOVS     R0,#+1
+   \       0x16   0x7048             STRB     R0,[R1, #+1]
+    105          		MBRTU_SendPacket(0xBB, RcvDataBuf, 2);
+   \       0x18   0x2202             MOVS     R2,#+2
+   \       0x1A   0x20BB             MOVS     R0,#+187
+   \       0x1C   0x....'....        BL       MBRTU_SendPacket
+    106          		return (1);
+   \       0x20   0x2001             MOVS     R0,#+1
+   \       0x22   0xE060             B        ??MBRTU_CheckRecvData_1
+    107          	}
+    108          	
+    109          	if (10 > RecvLen)
+   \                     ??MBRTU_CheckRecvData_0: (+1)
+   \       0x24   0x....             LDR      R0,??DataTable4_3
+   \       0x26   0x6801             LDR      R1,[R0, #+0]
+   \       0x28   0x290A             CMP      R1,#+10
+   \       0x2A   0xDA0A             BGE      ??MBRTU_CheckRecvData_2
+    110          	{
+    111          		RcvDataBuf[0] = RcvDataBuf[3]; 
+   \       0x2C   0x....             LDR      R1,??DataTable5
+   \       0x2E   0x78C8             LDRB     R0,[R1, #+3]
+   \       0x30   0x7008             STRB     R0,[R1, #+0]
+    112          		RcvDataBuf[1] = 0x01; //表示接收失败
+   \       0x32   0x2001             MOVS     R0,#+1
+   \       0x34   0x7048             STRB     R0,[R1, #+1]
+    113          		MBRTU_SendPacket(0xBB, RcvDataBuf, 2);
+   \       0x36   0x2202             MOVS     R2,#+2
+   \       0x38   0x20BB             MOVS     R0,#+187
+   \       0x3A   0x....'....        BL       MBRTU_SendPacket
+    114          		return (1);
+   \       0x3E   0x2001             MOVS     R0,#+1
+   \       0x40   0xE051             B        ??MBRTU_CheckRecvData_1
+    115          	}
+    116          		
+    117          	if ( (0x58 != RcvDataBuf[1]) || (0x59 != RcvDataBuf[0]) )
+   \                     ??MBRTU_CheckRecvData_2: (+1)
+   \       0x42   0x....             LDR      R1,??DataTable5
+   \       0x44   0x784A             LDRB     R2,[R1, #+1]
+   \       0x46   0x2A58             CMP      R2,#+88
+   \       0x48   0xD102             BNE      ??MBRTU_CheckRecvData_3
+   \       0x4A   0x780A             LDRB     R2,[R1, #+0]
+   \       0x4C   0x2A59             CMP      R2,#+89
+   \       0x4E   0xD009             BEQ      ??MBRTU_CheckRecvData_4
+    118          	{
+    119          		RcvDataBuf[0] = RcvDataBuf[3]; 
+   \                     ??MBRTU_CheckRecvData_3: (+1)
+   \       0x50   0x78C8             LDRB     R0,[R1, #+3]
+   \       0x52   0x7008             STRB     R0,[R1, #+0]
+    120          		RcvDataBuf[1] = 0x02; //表示数据格式错误
+   \       0x54   0x2002             MOVS     R0,#+2
+   \       0x56   0x7048             STRB     R0,[R1, #+1]
+    121          		MBRTU_SendPacket(0xBB, RcvDataBuf, 2);
+   \       0x58   0x2202             MOVS     R2,#+2
+   \       0x5A   0x20BB             MOVS     R0,#+187
+   \       0x5C   0x....'....        BL       MBRTU_SendPacket
+    122          		return (1);
+   \       0x60   0x2001             MOVS     R0,#+1
+   \       0x62   0xE040             B        ??MBRTU_CheckRecvData_1
+    123          	}
+    124          	
+    125          	if (0x0D != RcvDataBuf[RecvLen - 2] )
+   \                     ??MBRTU_CheckRecvData_4: (+1)
+   \       0x64   0x6802             LDR      R2,[R0, #+0]
+   \       0x66   0x188A             ADDS     R2,R1,R2
+   \       0x68   0x1E92             SUBS     R2,R2,#+2
+   \       0x6A   0x7812             LDRB     R2,[R2, #+0]
+   \       0x6C   0x2A0D             CMP      R2,#+13
+   \       0x6E   0xD009             BEQ      ??MBRTU_CheckRecvData_5
+    126          	{
+    127          		RcvDataBuf[0] = RcvDataBuf[3]; 
+   \       0x70   0x78C8             LDRB     R0,[R1, #+3]
+   \       0x72   0x7008             STRB     R0,[R1, #+0]
+    128          		RcvDataBuf[1] = 0x02; //表示数据格式错误
+   \       0x74   0x2002             MOVS     R0,#+2
+   \       0x76   0x7048             STRB     R0,[R1, #+1]
+    129          		MBRTU_SendPacket(0xBB, RcvDataBuf, 2);
+   \       0x78   0x2202             MOVS     R2,#+2
+   \       0x7A   0x20BB             MOVS     R0,#+187
+   \       0x7C   0x....'....        BL       MBRTU_SendPacket
+    130          		return (1);
+   \       0x80   0x2001             MOVS     R0,#+1
+   \       0x82   0xE030             B        ??MBRTU_CheckRecvData_1
+    131          	}
+    132          	
+    133          	if (0x0A != RcvDataBuf[RecvLen - 1] )
+   \                     ??MBRTU_CheckRecvData_5: (+1)
+   \       0x84   0x6802             LDR      R2,[R0, #+0]
+   \       0x86   0x188A             ADDS     R2,R1,R2
+   \       0x88   0x1E52             SUBS     R2,R2,#+1
+   \       0x8A   0x7812             LDRB     R2,[R2, #+0]
+   \       0x8C   0x2A0A             CMP      R2,#+10
+   \       0x8E   0xD009             BEQ      ??MBRTU_CheckRecvData_6
+    134          	{
+    135          		RcvDataBuf[0] = RcvDataBuf[3]; 
+   \       0x90   0x78C8             LDRB     R0,[R1, #+3]
+   \       0x92   0x7008             STRB     R0,[R1, #+0]
+    136          		RcvDataBuf[1] = 0x02; //表示数据格式错误
+   \       0x94   0x2002             MOVS     R0,#+2
+   \       0x96   0x7048             STRB     R0,[R1, #+1]
+    137          		MBRTU_SendPacket(0xBB, RcvDataBuf, 2);
+   \       0x98   0x2202             MOVS     R2,#+2
+   \       0x9A   0x20BB             MOVS     R0,#+187
+   \       0x9C   0x....'....        BL       MBRTU_SendPacket
+    138          		return (1);
+   \       0xA0   0x2001             MOVS     R0,#+1
+   \       0xA2   0xE020             B        ??MBRTU_CheckRecvData_1
+    139          	}
+    140          	
+    141          	cyTemp = 0;
+   \                     ??MBRTU_CheckRecvData_6: (+1)
+   \       0xA4   0x2300             MOVS     R3,#+0
+   \       0xA6   0x001A             MOVS     R2,R3
+    142          	for (i = 0; i < (RecvLen - 3); i++)
+   \       0xA8   0xE005             B        ??MBRTU_CheckRecvData_7
+    143          	{
+    144          		cyTemp ^= RcvDataBuf[i];
+   \                     ??MBRTU_CheckRecvData_8: (+1)
+   \       0xAA   0x0014             MOVS     R4,R2
+   \       0xAC   0x001A             MOVS     R2,R3
+   \       0xAE   0xB2D2             UXTB     R2,R2
+   \       0xB0   0x5C8A             LDRB     R2,[R1, R2]
+   \       0xB2   0x4062             EORS     R2,R2,R4
+    145          	}
+   \       0xB4   0x1C5B             ADDS     R3,R3,#+1
+   \                     ??MBRTU_CheckRecvData_7: (+1)
+   \       0xB6   0x001C             MOVS     R4,R3
+   \       0xB8   0xB2E4             UXTB     R4,R4
+   \       0xBA   0x6805             LDR      R5,[R0, #+0]
+   \       0xBC   0x1EED             SUBS     R5,R5,#+3
+   \       0xBE   0x42AC             CMP      R4,R5
+   \       0xC0   0xDBF3             BLT      ??MBRTU_CheckRecvData_8
+    146          	
+    147          	if (cyTemp != RcvDataBuf[RecvLen - 3] )
+   \       0xC2   0x6800             LDR      R0,[R0, #+0]
+   \       0xC4   0x1808             ADDS     R0,R1,R0
+   \       0xC6   0x1EC0             SUBS     R0,R0,#+3
+   \       0xC8   0x7800             LDRB     R0,[R0, #+0]
+   \       0xCA   0xB2D2             UXTB     R2,R2
+   \       0xCC   0x4282             CMP      R2,R0
+   \       0xCE   0xD009             BEQ      ??MBRTU_CheckRecvData_9
+    148          	{		
+    149          		RcvDataBuf[0] = RcvDataBuf[3]; 
+   \       0xD0   0x78C8             LDRB     R0,[R1, #+3]
+   \       0xD2   0x7008             STRB     R0,[R1, #+0]
+    150          		RcvDataBuf[1] = 0x03; //表示校验码错误
+   \       0xD4   0x2003             MOVS     R0,#+3
+   \       0xD6   0x7048             STRB     R0,[R1, #+1]
+    151          		MBRTU_SendPacket(0xBB, RcvDataBuf, 2);
+   \       0xD8   0x2202             MOVS     R2,#+2
+   \       0xDA   0x20BB             MOVS     R0,#+187
+   \       0xDC   0x....'....        BL       MBRTU_SendPacket
+    152          		return (1);
+   \       0xE0   0x2001             MOVS     R0,#+1
+   \       0xE2   0xE000             B        ??MBRTU_CheckRecvData_1
+    153          	}
+    154          	
+    155          	return (0);
+   \                     ??MBRTU_CheckRecvData_9: (+1)
+   \       0xE4   0x2000             MOVS     R0,#+0
+   \                     ??MBRTU_CheckRecvData_1: (+1)
+   \       0xE6   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+    156          }
+    157          
+    158          //**************************************************************************************************
+    159          // Name         : MBRTU_Function()
+    160          // CreateDate   : 2013-07-10
+    161          // Author       : chenjin
+    162          // Function     : 解析命令
+    163          // ParameIn     : 无
+    164          // ParameOut    : 无
+    165          // Return       : 无
+    166          // commments    :
+    167          // Modification :
+    168          //**************************************************************************************************
+    169          
+    170          extern TEST_PARA g_tpTestPar;
+    171          extern u8 u8SendNum;
+    172          extern void WriteDefaultParam(void);
+    173          //执行结果：0x00表示指令执行成功，0x01表示指令执行失败，0x02表示数据格式错误，0x03表示校验码错误。
+    174          
+    175          
+
+   \                                 In section .bss, align 4
+    176          struct OutData myOutData;
+   \                     myOutData:
+   \        0x0                      DS8 4
+    177          extern struct Empirical_Data EmpiricalData;
+    178          
+
+   \                                 In section .text, align 2, keep-with-next
+    179          void MBRTU_Function(void)
+    180          {
+   \                     MBRTU_Function: (+1)
+   \        0x0   0xB5FE             PUSH     {R1-R7,LR}
+    181          
+    182              u16 wTemp;
+    183              uint32_t dwAddr;
+    184              CPU_SR_ALLOC();
+   \        0x2   0x2500             MOVS     R5,#+0
+   \        0x4   0x0028             MOVS     R0,R5
+    185              RecvLen = UART1_RecvData(RcvDataBuf, sizeof(RcvDataBuf) / sizeof(RcvDataBuf[0]));
+   \        0x6   0x....             LDR      R6,??DataTable4_3
+   \        0x8   0x....             LDR      R4,??DataTable5
+   \        0xA   0x2140             MOVS     R1,#+64
+   \        0xC   0x0020             MOVS     R0,R4
+   \        0xE   0x....'....        BL       UART1_RecvData
+   \       0x12   0x6030             STR      R0,[R6, #+0]
+    186              if (RecvLen <= 0)
+   \       0x14   0x6830             LDR      R0,[R6, #+0]
+   \       0x16   0x2801             CMP      R0,#+1
+   \       0x18   0xDA00             BGE      .+4
+   \       0x1A   0xE099             B        ??MBRTU_Function_0
+    187              {
+    188                  return;
+    189              }
+    190              if (0 != MBRTU_CheckRecvData())
+   \                     ??MBRTU_Function_1: (+1)
+   \       0x1C   0x....'....        BL       MBRTU_CheckRecvData
+   \       0x20   0x2800             CMP      R0,#+0
+   \       0x22   0xD000             BEQ      .+4
+   \       0x24   0xE094             B        ??MBRTU_Function_0
+    191              {
+    192              	return;
+    193              }
+    194              ProductPara.bFlashWEn = FLASH_WR_ENABLE;
+   \                     ??MBRTU_Function_2: (+1)
+   \       0x26   0x2701             MOVS     R7,#+1
+   \       0x28   0x0038             MOVS     R0,R7
+   \       0x2A   0x....             LDR      R1,??DataTable5_1
+   \       0x2C   0x70C8             STRB     R0,[R1, #+3]
+    195              
+    196              switch (RcvDataBuf[3])
+   \       0x2E   0x78E0             LDRB     R0,[R4, #+3]
+   \       0x30   0x2800             CMP      R0,#+0
+   \       0x32   0xD006             BEQ      ??MBRTU_Function_3
+   \       0x34   0x2803             CMP      R0,#+3
+   \       0x36   0xD053             BEQ      ??MBRTU_Function_4
+   \       0x38   0x2835             CMP      R0,#+53
+   \       0x3A   0xD027             BEQ      ??MBRTU_Function_5
+   \       0x3C   0x28FF             CMP      R0,#+255
+   \       0x3E   0xD05B             BEQ      ??MBRTU_Function_6
+   \       0x40   0xE084             B        ??MBRTU_Function_7
+    197              {
+    198              case 0x00:
+    199                  Speed = RcvDataBuf[7];
+   \                     ??MBRTU_Function_3: (+1)
+   \       0x42   0x79E0             LDRB     R0,[R4, #+7]
+   \       0x44   0x....             LDR      R1,??DataTable5_2
+   \       0x46   0x8008             STRH     R0,[R1, #+0]
+    200                  myOutData=Runing( g_wRADValue ); // 数据处理
+   \       0x48   0x....             LDR      R6,??DataTable5_3
+   \       0x4A   0x8830             LDRH     R0,[R6, #+0]
+   \       0x4C   0x....'....        BL       Runing
+   \       0x50   0x....             LDR      R1,??DataTable5_4
+   \       0x52   0x6008             STR      R0,[R1, #+0]
+    201                  RcvDataBuf[0] = 0x00;
+   \       0x54   0x0028             MOVS     R0,R5
+   \       0x56   0x7020             STRB     R0,[R4, #+0]
+    202                  // 输出重量
+    203                  wTemp = myOutData.Weight;//(u16)RunVar.LoadADValue;
+   \       0x58   0x8848             LDRH     R0,[R1, #+2]
+    204                  RcvDataBuf[1] = (u8)(wTemp >> 8);
+   \       0x5A   0x0002             MOVS     R2,R0
+   \       0x5C   0xB292             UXTH     R2,R2
+   \       0x5E   0x0A12             LSRS     R2,R2,#+8
+   \       0x60   0x7062             STRB     R2,[R4, #+1]
+    205                  RcvDataBuf[2] = (u8)(wTemp & 0x00FF);
+   \       0x62   0x70A0             STRB     R0,[R4, #+2]
+    206                  
+    207                  // 原始数据
+    208                  wTemp = g_wRADValue;
+   \       0x64   0x8830             LDRH     R0,[R6, #+0]
+    209                  RcvDataBuf[3] = (u8)(wTemp >> 8);
+   \       0x66   0x0002             MOVS     R2,R0
+   \       0x68   0xB292             UXTH     R2,R2
+   \       0x6A   0x0A12             LSRS     R2,R2,#+8
+   \       0x6C   0x70E2             STRB     R2,[R4, #+3]
+    210                  RcvDataBuf[4] = (u8)(wTemp & 0x00FF);
+   \       0x6E   0x7120             STRB     R0,[R4, #+4]
+    211                  
+    212                  //滤波值
+    213                  wTemp = myOutData.FilterOutData;
+   \       0x70   0x8808             LDRH     R0,[R1, #+0]
+    214                  RcvDataBuf[5] = (u8)(wTemp >> 8);
+   \       0x72   0x0001             MOVS     R1,R0
+   \       0x74   0xB289             UXTH     R1,R1
+   \       0x76   0x0A09             LSRS     R1,R1,#+8
+   \       0x78   0x7161             STRB     R1,[R4, #+5]
+    215                  RcvDataBuf[6] = (u8)(wTemp & 0x00FF);
+   \       0x7A   0x71A0             STRB     R0,[R4, #+6]
+    216                  RcvDataBuf[7] = 0xa5;
+   \       0x7C   0x20A5             MOVS     R0,#+165
+   \       0x7E   0x71E0             STRB     R0,[R4, #+7]
+    217                  MBRTU_SendPacket(0xB0, RcvDataBuf, 8);
+   \       0x80   0x2208             MOVS     R2,#+8
+   \       0x82   0x0021             MOVS     R1,R4
+   \       0x84   0x20B0             MOVS     R0,#+176
+   \       0x86   0x....'....        BL       MBRTU_SendPacket
+    218                  break;   
+   \       0x8A   0xE05F             B        ??MBRTU_Function_8
+    219                                                  
+    220              case 0x35: // 模拟模式           
+    221                
+    222                   // 接收从上位机传过来的值   
+    223          
+    224                  Speed = RcvDataBuf[7];
+   \                     ??MBRTU_Function_5: (+1)
+   \       0x8C   0x79E0             LDRB     R0,[R4, #+7]
+   \       0x8E   0x....             LDR      R1,??DataTable5_2
+   \       0x90   0x8008             STRH     R0,[R1, #+0]
+    225                  
+    226                  ((u8*)&wTemp)[0] =RcvDataBuf[8]; 
+   \       0x92   0x7A20             LDRB     R0,[R4, #+8]
+   \       0x94   0x4669             MOV      R1,SP
+   \       0x96   0x7008             STRB     R0,[R1, #+0]
+    227                  ((u8*)&wTemp)[1] =RcvDataBuf[9]; 
+   \       0x98   0x7A60             LDRB     R0,[R4, #+9]
+   \       0x9A   0x4669             MOV      R1,SP
+   \       0x9C   0x7048             STRB     R0,[R1, #+1]
+    228          
+    229                  myOutData=Runing( wTemp ); // 数据处理
+   \       0x9E   0x4668             MOV      R0,SP
+   \       0xA0   0x8800             LDRH     R0,[R0, #+0]
+   \       0xA2   0x....'....        BL       Runing
+   \       0xA6   0x....             LDR      R1,??DataTable5_4
+   \       0xA8   0x6008             STR      R0,[R1, #+0]
+    230                  
+    231                  RcvDataBuf[0] = 0x00;
+   \       0xAA   0x0028             MOVS     R0,R5
+   \       0xAC   0x7020             STRB     R0,[R4, #+0]
+    232                  // 输出重量
+    233                  wTemp = myOutData.Weight;
+   \       0xAE   0x8848             LDRH     R0,[R1, #+2]
+    234                  RcvDataBuf[1] = (u8)(wTemp >> 8);
+   \       0xB0   0x0002             MOVS     R2,R0
+   \       0xB2   0xB292             UXTH     R2,R2
+   \       0xB4   0x0A12             LSRS     R2,R2,#+8
+   \       0xB6   0x7062             STRB     R2,[R4, #+1]
+    235                  RcvDataBuf[2] = (u8)(wTemp & 0x00FF);
+   \       0xB8   0x70A0             STRB     R0,[R4, #+2]
+    236                  
+    237                  // 输出原始数据
+    238                  
+    239                  RcvDataBuf[3] = RcvDataBuf[8];
+   \       0xBA   0x7A20             LDRB     R0,[R4, #+8]
+   \       0xBC   0x70E0             STRB     R0,[R4, #+3]
+    240                  RcvDataBuf[4] = RcvDataBuf[9];
+   \       0xBE   0x7A60             LDRB     R0,[R4, #+9]
+   \       0xC0   0x7120             STRB     R0,[R4, #+4]
+    241                  
+    242                  // 输出滤波值
+    243                  wTemp =  myOutData.FilterOutData;
+   \       0xC2   0x8808             LDRH     R0,[R1, #+0]
+    244                  RcvDataBuf[5] = (u8)(wTemp >> 8);
+   \       0xC4   0x0001             MOVS     R1,R0
+   \       0xC6   0xB289             UXTH     R1,R1
+   \       0xC8   0x0A09             LSRS     R1,R1,#+8
+   \       0xCA   0x7161             STRB     R1,[R4, #+5]
+    245                  RcvDataBuf[6] = (u8)(wTemp & 0x00FF);
+   \       0xCC   0x71A0             STRB     R0,[R4, #+6]
+    246                  RcvDataBuf[7] = (u8)EmpiricalData.Counter;
+   \       0xCE   0x....             LDR      R0,??DataTable5_5
+   \       0xD0   0x8800             LDRH     R0,[R0, #+0]
+   \       0xD2   0x71E0             STRB     R0,[R4, #+7]
+    247                  MBRTU_SendPacket(0xB0, RcvDataBuf, 8);     
+   \       0xD4   0x2208             MOVS     R2,#+8
+   \       0xD6   0x0021             MOVS     R1,R4
+   \       0xD8   0x20B0             MOVS     R0,#+176
+   \       0xDA   0x....'....        BL       MBRTU_SendPacket
+    248                  break;
+   \       0xDE   0xE035             B        ??MBRTU_Function_8
+    249          
+    250          						
+    251              case 0x03:             // 返回版本号        
+    252                  memcpy(RcvDataBuf, (u8 *)&Dev_Id[0], DEFAULT_DEV_ID_LEN);
+   \                     ??MBRTU_Function_4: (+1)
+   \       0xE0   0x2214             MOVS     R2,#+20
+   \       0xE2   0x....             LDR      R1,??DataTable5_6
+   \       0xE4   0x0026             MOVS     R6,R4
+   \       0xE6   0x0030             MOVS     R0,R6
+   \       0xE8   0x....'....        BL       __aeabi_memcpy
+    253                  MBRTU_SendPacket(0xB3, RcvDataBuf, DEFAULT_DEV_ID_LEN);  
+   \       0xEC   0x2214             MOVS     R2,#+20
+   \       0xEE   0x0021             MOVS     R1,R4
+   \       0xF0   0x20B3             MOVS     R0,#+179
+   \       0xF2   0x....'....        BL       MBRTU_SendPacket
+    254                  break;
+   \       0xF6   0xE029             B        ??MBRTU_Function_8
+    255          						
+    256          
+    257          						      	
+    258              case 0xFF:            
+    259                  if (0x01 ==RcvDataBuf[7])
+   \                     ??MBRTU_Function_6: (+1)
+   \       0xF8   0x79E0             LDRB     R0,[R4, #+7]
+   \       0xFA   0x2801             CMP      R0,#+1
+   \       0xFC   0xD125             BNE      ??MBRTU_Function_9
+    260                  {
+    261                      // 程序更新后，以前的经验数据清空
+    262                      ResetFlashPara(); // 复位flash 参数
+   \       0xFE   0x....'....        BL       ResetFlashPara
+    263                      CPU_CRITICAL_ENTER();
+   \      0x102   0x....'....        BL       CPU_SR_Save
+   \      0x106   0x9000             STR      R0,[SP, #+0]
+    264                      FLASH_If_Init();
+   \      0x108   0x....'....        BL       FLASH_If_Init
+    265                      FLASH_ErasePage(APP_UPDATE_FLAG_ADDRESS);
+   \      0x10C   0x....             LDR      R6,??DataTable5_7  ;; 0x8003800
+   \      0x10E   0x0030             MOVS     R0,R6
+   \      0x110   0x....'....        BL       FLASH_ErasePage
+    266                      g_wFlashFlagBuffer[0] = 0x1234;
+   \      0x114   0x....             LDR      R1,??DataTable5_8
+   \      0x116   0x....             LDR      R0,??DataTable5_9  ;; 0x1234
+   \      0x118   0x8008             STRH     R0,[R1, #+0]
+    267                      g_wFlashFlagBuffer[1] = 0x8765;
+   \      0x11A   0x....             LDR      R0,??DataTable5_10  ;; 0x8765
+   \      0x11C   0x8048             STRH     R0,[R1, #+2]
+    268                      dwAddr = APP_UPDATE_FLAG_ADDRESS;
+   \      0x11E   0x9601             STR      R6,[SP, #+4]
+    269                      FLASH_If_Write(&dwAddr, g_wFlashFlagBuffer, MAX_FLAG_PAR);
+   \      0x120   0x2214             MOVS     R2,#+20
+   \      0x122   0xA801             ADD      R0,SP,#+4
+   \      0x124   0x....'....        BL       FLASH_If_Write
+    270                      CPU_CRITICAL_EXIT();
+   \      0x128   0x9800             LDR      R0,[SP, #+0]
+   \      0x12A   0x....'....        BL       CPU_SR_Restore
+    271                      RcvDataBuf[0] = 0x01;
+   \      0x12E   0x7027             STRB     R7,[R4, #+0]
+    272                      RcvDataBuf[1] = 0x00; //表示指令执行成功
+   \      0x130   0x0028             MOVS     R0,R5
+   \      0x132   0x7060             STRB     R0,[R4, #+1]
+    273                      MBRTU_SendPacket(0xBF, RcvDataBuf, 2); 
+   \      0x134   0x2202             MOVS     R2,#+2
+   \      0x136   0x0021             MOVS     R1,R4
+   \      0x138   0x20BF             MOVS     R0,#+191
+   \      0x13A   0x....'....        BL       MBRTU_SendPacket
+    274                      while(0 != u8SendNum);
+   \                     ??MBRTU_Function_10: (+1)
+   \      0x13E   0x....             LDR      R0,??DataTable5_11
+   \      0x140   0x7800             LDRB     R0,[R0, #+0]
+   \      0x142   0x2800             CMP      R0,#+0
+   \      0x144   0xD1FB             BNE      ??MBRTU_Function_10
+    275                      NVIC_SystemReset();							
+   \      0x146   0x....'....        BL       __NVIC_SystemReset
+    276                  }
+    277                  break;
+   \                     ??MBRTU_Function_9: (+1)
+   \      0x14A   0xE7FF             B        ??MBRTU_Function_8
+    278                
+    279                  default:
+    280                      break;
+    281          			          	
+    282             }  
+    283             ProductPara.bFlashWEn = FLASH_WR_DISABLE;
+   \                     ??MBRTU_Function_7: (+1)
+   \                     ??MBRTU_Function_8: (+1)
+   \      0x14C   0x....             LDR      R0,??DataTable5_1
+   \      0x14E   0x70C5             STRB     R5,[R0, #+3]
+    284          }
+   \                     ??MBRTU_Function_0: (+1)
+   \      0x150   0xBDF7             POP      {R0-R2,R4-R7,PC}  ;; return
+    285          
+    286          //**************************************************************************************************
+    287          // Name         : AutoUpLoadFrame()
+    288          // CreateDate   : 2013-07-10
+    289          // Author       : chenjin
+    290          // Function     : 自动上传
+    291          // ParameIn     : 无
+    292          // ParameOut    : 无
+    293          // Return       : 无
+    294          // commments    :
+    295          // Modification :
+    296          //**************************************************************************************************
+    297          
+
+   \                                 In section .text, align 2, keep-with-next
+    298          void AutoUpLoadFrame(void)
+    299          {
+   \                     AutoUpLoadFrame: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+    300          	u16 wTemp;
+    301          	
+    302          	RcvDataBuf[0] = 0x00;
+   \        0x2   0x....             LDR      R4,??DataTable5
+   \        0x4   0x2000             MOVS     R0,#+0
+   \        0x6   0x7020             STRB     R0,[R4, #+0]
+    303                  wTemp = (u16)RunVar.LoadADValue;
+   \        0x8   0x....             LDR      R0,??DataTable5_12
+   \        0xA   0x6800             LDR      R0,[R0, #+0]
+   \        0xC   0x....'....        BL       __aeabi_f2iz
+    304          	RcvDataBuf[1] = (u8)(wTemp >> 8);
+   \       0x10   0x0001             MOVS     R1,R0
+   \       0x12   0xB289             UXTH     R1,R1
+   \       0x14   0x0A09             LSRS     R1,R1,#+8
+   \       0x16   0x7061             STRB     R1,[R4, #+1]
+    305          	RcvDataBuf[2] = (u8)(wTemp & 0x00FF);
+   \       0x18   0x70A0             STRB     R0,[R4, #+2]
+    306          	MBRTU_SendPacket(0xB0, RcvDataBuf, 3);
+   \       0x1A   0x2203             MOVS     R2,#+3
+   \       0x1C   0x0021             MOVS     R1,R4
+   \       0x1E   0x20B0             MOVS     R0,#+176
+   \       0x20   0x....'....        BL       MBRTU_SendPacket
+    307          }
+   \       0x24   0xBD10             POP      {R4,PC}          ;; return
+    308          
+    309          
+    310          
+    311          //**************************************************************************************************
+    312          // 名称         : AutoUpLoadTimeTransform(u8 CodeValue)
+    313          // 创建日期     : 2016-09-09
+    314          // 作者         : 梅梦醒
+    315          // 功能         : 将自动上传时间编码转换成时间
+    316          // 输入参数     : CodeValue                    编码值
+    317          // 输出参数     : 无
+    318          // 返回结果     : 转换后的秒数
+    319          // 注意和说明   : 01-被动；02-10S（缺省值）；03-20S；04-30S
+    320          // 修改内容     : 
+    321          //**************************************************************************************************    
+
+   \                                 In section .text, align 2, keep-with-next
+    322          u8 AutoUpLoadTimeTransform(u8 CodeValue)
+    323          {
+   \                     AutoUpLoadTimeTransform: (+1)
+   \        0x0   0xB500             PUSH     {LR}
+    324              u8 code = 0;
+   \        0x2   0x2200             MOVS     R2,#+0
+   \        0x4   0x0011             MOVS     R1,R2
+    325              code = CodeValue;
+    326              switch(code)
+   \        0x6   0x0001             MOVS     R1,R0
+   \        0x8   0xB2C9             UXTB     R1,R1
+   \        0xA   0x2901             CMP      R1,#+1
+   \        0xC   0xD006             BEQ      ??AutoUpLoadTimeTransform_0
+   \        0xE   0xD312             BCC      ??AutoUpLoadTimeTransform_1
+   \       0x10   0x2903             CMP      R1,#+3
+   \       0x12   0xD008             BEQ      ??AutoUpLoadTimeTransform_2
+   \       0x14   0xD304             BCC      ??AutoUpLoadTimeTransform_3
+   \       0x16   0x2904             CMP      R1,#+4
+   \       0x18   0xD009             BEQ      ??AutoUpLoadTimeTransform_4
+   \       0x1A   0xE00C             B        ??AutoUpLoadTimeTransform_1
+    327              {
+    328              case 1: 
+    329                  code = code - 1;                                                        //编码为01，返回值为0时关闭主动上传
+   \                     ??AutoUpLoadTimeTransform_0: (+1)
+   \       0x1C   0x1E40             SUBS     R0,R0,#+1
+    330                  break;
+   \       0x1E   0xE00B             B        ??AutoUpLoadTimeTransform_5
+    331                                                                            
+    332              case 2:                                                             
+    333                  code = code * 5;                                                        //编码为02，返回值为10时10s自动上传
+   \                     ??AutoUpLoadTimeTransform_3: (+1)
+   \       0x20   0x2105             MOVS     R1,#+5
+   \       0x22   0x4348             MULS     R0,R1,R0
+    334                  break;
+   \       0x24   0xE008             B        ??AutoUpLoadTimeTransform_5
+    335                  
+    336              case 3: 
+    337                  code = (code + 1) * 5;                                                  //编码为03，返回值为20时20s自动上传                                              
+   \                     ??AutoUpLoadTimeTransform_2: (+1)
+   \       0x26   0x1C40             ADDS     R0,R0,#+1
+   \       0x28   0x2105             MOVS     R1,#+5
+   \       0x2A   0x4348             MULS     R0,R1,R0
+    338                  break;
+   \       0x2C   0xE004             B        ??AutoUpLoadTimeTransform_5
+    339                  
+    340              case 4:                                                                    //编码为04，返回值为30时30s自动上传
+    341                  code = (code + 2) * 5; 
+   \                     ??AutoUpLoadTimeTransform_4: (+1)
+   \       0x2E   0x1C80             ADDS     R0,R0,#+2
+   \       0x30   0x2105             MOVS     R1,#+5
+   \       0x32   0x4348             MULS     R0,R1,R0
+    342                  break;  
+   \       0x34   0xE000             B        ??AutoUpLoadTimeTransform_5
+    343                  
+    344              default:                                                                    //输入其他值无反应
+    345                  code = 0;
+   \                     ??AutoUpLoadTimeTransform_1: (+1)
+   \       0x36   0x0010             MOVS     R0,R2
+    346              }
+    347              return code;
+   \                     ??AutoUpLoadTimeTransform_5: (+1)
+   \       0x38   0xB2C0             UXTB     R0,R0
+   \       0x3A   0xBD00             POP      {PC}             ;; return
+    348          }
+    349          
+    350          
+    351          
+    352          //**************************************************************************************************
+    353          // Name         : APP_MB_Task()
+    354          // CreateDate   : 2013-07-10
+    355          // Author       : chenjin
+    356          // Function     : MODBUS任务
+    357          // ParameIn     : 无
+    358          // ParameOut    : 无
+    359          // Return       : 无
+    360          // commments    :
+    361          // Modification :
+    362          //**************************************************************************************************
+    363          
+    364          #define UART_SLEEP_TIME 6  
+    365          
+
+   \                                 In section .text, align 2, keep-with-next
+    366          void  APP_MB_Task(void *p_arg)
+    367          {
+   \                     APP_MB_Task: (+1)
+   \        0x0   0xB57C             PUSH     {R2-R6,LR}
+    368              OS_ERR      os_err;
+    369              u32 UartRunCnt = 0;
+   \        0x2   0x2500             MOVS     R5,#+0
+   \        0x4   0x002C             MOVS     R4,R5
+    370             // u32 UartRunCntPre = 0;
+    371          
+    372              UART1_Init(&UartComm);
+   \        0x6   0x....             LDR      R0,??DataTable5_13
+   \        0x8   0x....'....        BL       UART1_Init
+    373              FLASH_If_Read(APP_UPDATE_FLAG_ADDRESS, g_wFlashFlagBuffer, MAX_FLAG_PAR);       
+   \        0xC   0x2214             MOVS     R2,#+20
+   \        0xE   0x....             LDR      R1,??DataTable5_8
+   \       0x10   0x....             LDR      R0,??DataTable5_7  ;; 0x8003800
+   \       0x12   0x....'....        BL       FLASH_If_Read
+   \       0x16   0xE001             B        ??APP_MB_Task_0
+    374              
+    375          //    RunVar.uartInitTime = OSTimeGet(&os_err);
+    376            
+    377              while (1)
+    378              {                      
+    379                 	OSTaskSemPend((OS_TICK)UART_WAIT_TIME,                                  //等待1s
+    380                                (OS_OPT)OS_OPT_PEND_BLOCKING,
+    381                                (CPU_TS *)0,
+    382                                (OS_ERR *)&os_err);
+    383          
+    384          #if IWDG_EN > 0
+    385                  IWDG_ReloadCounter();
+    386          #endif
+    387                  /*if((OSTimeGet(&os_err) - RunVar.uartInitTime) < (UART_SLEEP_TIME * OS_CFG_TICK_RATE_HZ))
+    388                  {
+    389                      continue;
+    390                  } */ 
+    391             
+    392                  if (os_err == OS_ERR_NONE)
+    393                  {
+    394                      /*if(MB_RTU_MODE == ProductPara.cyMbtWorkType)
+    395                      {
+    396                          MBRTU_Function();  
+    397                      }
+    398                      else*/
+    399                      //{
+    400                          MBASC_Function();
+   \                     ??APP_MB_Task_1: (+1)
+   \       0x18   0x....'....        BL       MBASC_Function
+    401                      //}
+    402                  }
+   \                     ??APP_MB_Task_0: (+1)
+   \       0x1C   0x466B             MOV      R3,SP
+   \       0x1E   0x2200             MOVS     R2,#+0
+   \       0x20   0x2100             MOVS     R1,#+0
+   \       0x22   0x200A             MOVS     R0,#+10
+   \       0x24   0x....'....        BL       OSTaskSemPend
+   \       0x28   0x4668             MOV      R0,SP
+   \       0x2A   0x8800             LDRH     R0,[R0, #+0]
+   \       0x2C   0x2800             CMP      R0,#+0
+   \       0x2E   0xD0F3             BEQ      ??APP_MB_Task_1
+    403                  else if (os_err == OS_ERR_TIMEOUT)                                     //串口数据超时（未接收到数据）
+   \       0x30   0x4668             MOV      R0,SP
+   \       0x32   0x8800             LDRH     R0,[R0, #+0]
+   \       0x34   0x....             LDR      R1,??DataTable5_14  ;; 0x72d9
+   \       0x36   0x4288             CMP      R0,R1
+   \       0x38   0xD1F0             BNE      ??APP_MB_Task_0
+    404                  {
+    405                      UartRunCnt++;                                                       //1s加一次
+   \       0x3A   0x1C64             ADDS     R4,R4,#+1
+    406                      if (0 != AutoUpLoadTimeTransform(ProductPara.cyAutoUpLoadTime))
+   \       0x3C   0x....             LDR      R6,??DataTable5_1
+   \       0x3E   0x7830             LDRB     R0,[R6, #+0]
+   \       0x40   0x....'....        BL       AutoUpLoadTimeTransform
+   \       0x44   0x2800             CMP      R0,#+0
+   \       0x46   0xD00B             BEQ      ??APP_MB_Task_2
+    407                      {
+    408                          if(UartRunCnt >= AutoUpLoadTimeTransform(ProductPara.cyAutoUpLoadTime))
+   \       0x48   0x7830             LDRB     R0,[R6, #+0]
+   \       0x4A   0x....'....        BL       AutoUpLoadTimeTransform
+   \       0x4E   0x4284             CMP      R4,R0
+   \       0x50   0xD3E4             BCC      ??APP_MB_Task_0
+    409                          {   
+    410                              UartRunCnt = 0;
+   \       0x52   0x002C             MOVS     R4,R5
+    411                              if(MB_RTU_MODE ==  ProductPara.cyMbtWorkType)         //0-RTU模式
+   \       0x54   0x78B0             LDRB     R0,[R6, #+2]
+   \       0x56   0x2800             CMP      R0,#+0
+   \       0x58   0xD0E0             BEQ      ??APP_MB_Task_0
+    412                              {
+    413                                  //AutoUpLoadFrame();
+    414                              }
+    415                              else
+    416                              {
+    417                                  MBASC_AutoUpLoadFrame();
+   \       0x5A   0x....'....        BL       MBASC_AutoUpLoadFrame
+   \       0x5E   0xE7DD             B        ??APP_MB_Task_0
+    418                              }
+    419                          }
+    420                      }
+    421                      else
+    422                      {
+    423                          UartRunCnt = 0;
+   \                     ??APP_MB_Task_2: (+1)
+   \       0x60   0x002C             MOVS     R4,R5
+   \       0x62   0xE7DB             B        ??APP_MB_Task_0
+    424                      }
+    425                  }
+    426              }
+    427          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3:
+   \        0x0   0x05FA'0004        DC32     0x5fa0004
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4:
+   \        0x0   0xE000'ED0C        DC32     0xe000ed0c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_1:
+   \        0x0   0x....'....        DC32     g_cySendBuf
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_2:
+   \        0x0   0x....'....        DC32     g_bRevOverTime
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_3:
+   \        0x0   0x....'....        DC32     RecvLen
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5:
+   \        0x0   0x....'....        DC32     RcvDataBuf
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_1:
+   \        0x0   0x....'....        DC32     ProductPara
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_2:
+   \        0x0   0x....'....        DC32     Speed
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_3:
+   \        0x0   0x....'....        DC32     g_wRADValue
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_4:
+   \        0x0   0x....'....        DC32     myOutData
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_5:
+   \        0x0   0x....'....        DC32     EmpiricalData
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_6:
+   \        0x0   0x....'....        DC32     Dev_Id
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_7:
+   \        0x0   0x0800'3800        DC32     0x8003800
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_8:
+   \        0x0   0x....'....        DC32     g_wFlashFlagBuffer
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_9:
+   \        0x0   0x0000'1234        DC32     0x1234
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_10:
+   \        0x0   0x0000'8765        DC32     0x8765
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_11:
+   \        0x0   0x....'....        DC32     u8SendNum
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_12:
+   \        0x0   0x....'....        DC32     RunVar
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_13:
+   \        0x0   0x....'....        DC32     UartComm
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_14:
+   \        0x0   0x0000'72D9        DC32     0x72d9
+    428          
+    429          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      24   APP_MB_Task
+        24   -> AutoUpLoadTimeTransform
+        24   -> FLASH_If_Read
+        24   -> MBASC_AutoUpLoadFrame
+        24   -> MBASC_Function
+        24   -> OSTaskSemPend
+        24   -> UART1_Init
+       8   AutoUpLoadFrame
+         8   -> MBRTU_SendPacket
+         8   -> __aeabi_f2iz
+       4   AutoUpLoadTimeTransform
+      16   MBRTU_CheckRecvData
+        16   -> MBRTU_SendPacket
+      32   MBRTU_Function
+        32   -> CPU_SR_Restore
+        32   -> CPU_SR_Save
+        32   -> FLASH_ErasePage
+        32   -> FLASH_If_Init
+        32   -> FLASH_If_Write
+        32   -> MBRTU_CheckRecvData
+        32   -> MBRTU_SendPacket
+        32   -> ResetFlashPara
+        32   -> Runing
+        32   -> UART1_RecvData
+        32   -> __NVIC_SystemReset
+        32   -> __aeabi_memcpy
+      16   MBRTU_SendPacket
+        16   -> UART1_SendData
+       4   __NVIC_SystemReset
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable3
+       4  ??DataTable4
+       4  ??DataTable4_1
+       4  ??DataTable4_2
+       4  ??DataTable4_3
+       4  ??DataTable5
+       4  ??DataTable5_1
+       4  ??DataTable5_10
+       4  ??DataTable5_11
+       4  ??DataTable5_12
+       4  ??DataTable5_13
+       4  ??DataTable5_14
+       4  ??DataTable5_2
+       4  ??DataTable5_3
+       4  ??DataTable5_4
+       4  ??DataTable5_5
+       4  ??DataTable5_6
+       4  ??DataTable5_7
+       4  ??DataTable5_8
+       4  ??DataTable5_9
+     100  APP_MB_Task
+      38  AutoUpLoadFrame
+      60  AutoUpLoadTimeTransform
+      20  Dev_Id
+     232  MBRTU_CheckRecvData
+     338  MBRTU_Function
+     126  MBRTU_SendPacket
+      64  RcvDataBuf
+       4  RecvLen
+       1  SendLen
+      20  __NVIC_SystemReset
+       1  g_cyCarState
+       1  g_cyCtrlFlag
+       1  g_cyElState
+       1  g_cyPbState
+       1  g_cyRunStateCnt
+     256  g_cySendBuf
+       1  g_cyStopStateCnt
+       2  g_wFADValue
+      40  g_wFlashFlagBuffer
+       2  g_wRADValue
+       4  myOutData
+
+ 
+ 379 bytes in section .bss
+  20 bytes in section .rodata
+ 994 bytes in section .text
+ 
+ 994 bytes of CODE  memory
+  20 bytes of CONST memory
+ 379 bytes of DATA  memory
+
+Errors: none
+Warnings: none

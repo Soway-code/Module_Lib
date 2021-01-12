@@ -1,0 +1,1228 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.4.261/W32 for ARM         10/Jan/2021  16:10:28
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode                        
+#    Endian                       =  little
+#    Source file                  =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\BSP\usart.c
+#    Command line                 =
+#        -f C:\Users\macanlin\AppData\Local\Temp\EW5C2.tmp
+#        ("C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\BSP\usart.c" -D USE_STDPERIPH_DRIVER -D STM32F072 -lC
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List" -o
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj" --no_cse --no_unroll --no_inline
+#        --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug
+#        --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config
+#        C:\rj\IAR\arm\inc\c\DLib_Config_Normal.h -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\BSP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\CMSIS\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\OS_Cfg\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-CPU\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Ports\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Source\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\APP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -Ol -I
+#        C:\rj\IAR\arm\CMSIS\Core\Include\\ -I
+#        C:\rj\IAR\arm\CMSIS\DSP\Include\\)
+#    Locale                       =  C
+#    List file                    =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List\usart.lst
+#    Object file                  =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj\usart.o
+#    Runtime model:                  
+#      __SystemLibrary            =  DLib
+#      __dlib_file_descriptor     =  0
+#      __dlib_full_locale_support =  0
+#      __dlib_version             =  6
+#      __iar_require _Printf      =  unknown
+#
+###############################################################################
+
+C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345 -1-9\Source\BSP\usart.c
+      1          #include "bsp.h"
+      2          
+      3          void TIM7_IRQHandler(void);
+      4          void Timer7_Init(u8 u8BaudRate);
+      5          
+
+   \                                 In section .bss, align 4
+      6          u8 UART1_RXBuff[MAX_USART1_DATA_LEN];     //接收缓冲,最大USART_REC_LEN = 255个字节.
+   \                     UART1_RXBuff:
+   \        0x0                      DS8 256
+
+   \                                 In section .bss, align 1
+      7          u8 UART1_RXBuffLen = 0;
+   \                     UART1_RXBuffLen:
+   \        0x0                      DS8 1
+      8          //u8 g_cyMaxLen = 0;
+      9          
+
+   \                                 In section .bss, align 4
+     10          u8 UART1_TXBUFF[MAX_USART1_DATA_LEN];
+   \                     UART1_TXBUFF:
+   \        0x0                      DS8 256
+     11          
+     12          
+
+   \                                 In section .bss, align 1
+     13          u8 u8SendIndex = 0;
+   \                     u8SendIndex:
+   \        0x0                      DS8 1
+
+   \                                 In section .bss, align 1
+     14          u8 u8SendNum = 0;
+   \                     u8SendNum:
+   \        0x0                      DS8 1
+
+   \                                 In section .bss, align 1
+     15          BitAction g_bRevOverTime = Bit_RESET;
+   \                     g_bRevOverTime:
+   \        0x0                      DS8 1
+     16          extern OS_TCB  AppTaskMBTCB;
+     17          
+
+   \                                 In section .bss, align 1
+     18          BitAction UartRecvNewData = Bit_RESET;
+   \                     UartRecvNewData:
+   \        0x0                      DS8 1
+
+   \                                 In section .bss, align 1
+     19          BitAction UartRecvFrameOK = Bit_RESET;
+   \                     UartRecvFrameOK:
+   \        0x0                      DS8 1
+     20          
+     21          
+     22          //初始化IO 串口1
+     23          //bound:波特率
+
+   \                                 In section .text, align 2, keep-with-next
+     24          void UART1_Init(const UartCommTypeDef *pUartStructure)
+     25          {
+   \                     UART1_Init: (+1)
+   \        0x0   0xB5F1             PUSH     {R0,R4-R7,LR}
+   \        0x2   0xB088             SUB      SP,SP,#+32
+     26              //GPIO端口设置
+     27              GPIO_InitTypeDef GPIO_InitStructure;
+     28              USART_InitTypeDef USART_InitStructure;
+     29          
+     30              UartRecvNewData = Bit_RESET;
+   \        0x4   0x2400             MOVS     R4,#+0
+   \        0x6   0x0020             MOVS     R0,R4
+   \        0x8   0x....             LDR      R1,??DataTable1
+   \        0xA   0x7008             STRB     R0,[R1, #+0]
+     31              UartRecvFrameOK = Bit_RESET;
+   \        0xC   0x0020             MOVS     R0,R4
+   \        0xE   0x....             LDR      R1,??DataTable1_1
+   \       0x10   0x7008             STRB     R0,[R1, #+0]
+     32          
+     33              UART1_RXBuffLen = 0;
+   \       0x12   0x0020             MOVS     R0,R4
+   \       0x14   0x....             LDR      R1,??DataTable1_2
+   \       0x16   0x7008             STRB     R0,[R1, #+0]
+     34          
+     35              u8SendIndex = 0;
+   \       0x18   0x0020             MOVS     R0,R4
+   \       0x1A   0x....             LDR      R1,??DataTable1_3
+   \       0x1C   0x7008             STRB     R0,[R1, #+0]
+     36              u8SendNum = 0;
+   \       0x1E   0x0020             MOVS     R0,R4
+   \       0x20   0x....             LDR      R1,??DataTable1_4
+   \       0x22   0x7008             STRB     R0,[R1, #+0]
+     37          
+     38              //USART_ITConfig( USART1, USART_IT_TXE, DISABLE );
+     39              USART_ITConfig(USART1, USART_IT_TC, DISABLE);    //关发送完成中断
+   \       0x24   0x2200             MOVS     R2,#+0
+   \       0x26   0x....             LDR      R1,??DataTable1_5  ;; 0x60106
+   \       0x28   0x....             LDR      R0,??DataTable1_6  ;; 0x40013800
+   \       0x2A   0x....'....        BL       USART_ITConfig
+     40              USART_ITConfig(USART1, USART_IT_RXNE, DISABLE);  //关接受非空中断
+   \       0x2E   0x2200             MOVS     R2,#+0
+   \       0x30   0x....             LDR      R1,??DataTable1_7  ;; 0x50105
+   \       0x32   0x....             LDR      R0,??DataTable1_6  ;; 0x40013800
+   \       0x34   0x....'....        BL       USART_ITConfig
+     41              USART_Cmd(USART1, DISABLE);                      //禁止串口
+   \       0x38   0x2100             MOVS     R1,#+0
+   \       0x3A   0x....             LDR      R0,??DataTable1_6  ;; 0x40013800
+   \       0x3C   0x....'....        BL       USART_Cmd
+     42          
+     43              NVIC_UARTConfiguration();                         //串口优先级
+   \       0x40   0x....'....        BL       NVIC_UARTConfiguration
+     44          
+     45              RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE); //GPIO时钟使能
+   \       0x44   0x2101             MOVS     R1,#+1
+   \       0x46   0x2080             MOVS     R0,#+128
+   \       0x48   0x0280             LSLS     R0,R0,#+10       ;; #+131072
+   \       0x4A   0x....'....        BL       RCC_AHBPeriphClockCmd
+     46          
+     47              RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);  //串口时钟使能
+   \       0x4E   0x2101             MOVS     R1,#+1
+   \       0x50   0x2080             MOVS     R0,#+128
+   \       0x52   0x01C0             LSLS     R0,R0,#+7        ;; #+16384
+   \       0x54   0x....'....        BL       RCC_APB2PeriphClockCmd
+     48          
+     49              USART_DeInit(USART1);    //复位串口1
+   \       0x58   0x....             LDR      R0,??DataTable1_6  ;; 0x40013800
+   \       0x5A   0x....'....        BL       USART_DeInit
+     50          
+     51              GPIO_PinAFConfig(GPIOA, GPIO_PinSource9, GPIO_AF_1);  //PA9
+   \       0x5E   0x2201             MOVS     R2,#+1
+   \       0x60   0x2109             MOVS     R1,#+9
+   \       0x62   0x2090             MOVS     R0,#+144
+   \       0x64   0x05C0             LSLS     R0,R0,#+23       ;; #+1207959552
+   \       0x66   0x....'....        BL       GPIO_PinAFConfig
+     52              GPIO_PinAFConfig(GPIOA, GPIO_PinSource10, GPIO_AF_1); //PA10
+   \       0x6A   0x2201             MOVS     R2,#+1
+   \       0x6C   0x210A             MOVS     R1,#+10
+   \       0x6E   0x2090             MOVS     R0,#+144
+   \       0x70   0x05C0             LSLS     R0,R0,#+23       ;; #+1207959552
+   \       0x72   0x....'....        BL       GPIO_PinAFConfig
+     53          
+     54              //USART1_TX   PA.9
+     55              GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_9 | GPIO_Pin_10;
+   \       0x76   0x20C0             MOVS     R0,#+192
+   \       0x78   0x00C0             LSLS     R0,R0,#+3        ;; #+1536
+   \       0x7A   0x9006             STR      R0,[SP, #+24]
+     56              GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+   \       0x7C   0x2703             MOVS     R7,#+3
+   \       0x7E   0xAD06             ADD      R5,SP,#+24
+   \       0x80   0x716F             STRB     R7,[R5, #+5]
+     57              GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+   \       0x82   0x2002             MOVS     R0,#+2
+   \       0x84   0x7128             STRB     R0,[R5, #+4]
+     58              GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+   \       0x86   0x0020             MOVS     R0,R4
+   \       0x88   0x71A8             STRB     R0,[R5, #+6]
+     59              GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+   \       0x8A   0x2601             MOVS     R6,#+1
+   \       0x8C   0x0030             MOVS     R0,R6
+   \       0x8E   0x71E8             STRB     R0,[R5, #+7]
+     60              GPIO_Init(GPIOA, &GPIO_InitStructure);
+   \       0x90   0xA906             ADD      R1,SP,#+24
+   \       0x92   0x2090             MOVS     R0,#+144
+   \       0x94   0x05C0             LSLS     R0,R0,#+23       ;; #+1207959552
+   \       0x96   0x....'....        BL       GPIO_Init
+     61          
+     62              GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_8;
+   \       0x9A   0x2080             MOVS     R0,#+128
+   \       0x9C   0x0040             LSLS     R0,R0,#+1        ;; #+256
+   \       0x9E   0x9006             STR      R0,[SP, #+24]
+     63              GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+   \       0xA0   0x716F             STRB     R7,[R5, #+5]
+     64              GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+   \       0xA2   0x0030             MOVS     R0,R6
+   \       0xA4   0x7128             STRB     R0,[R5, #+4]
+     65              GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+   \       0xA6   0x0020             MOVS     R0,R4
+   \       0xA8   0x71A8             STRB     R0,[R5, #+6]
+     66              GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+   \       0xAA   0x71EE             STRB     R6,[R5, #+7]
+     67              GPIO_Init(GPIOA, &GPIO_InitStructure);
+   \       0xAC   0xA906             ADD      R1,SP,#+24
+   \       0xAE   0x2090             MOVS     R0,#+144
+   \       0xB0   0x05C0             LSLS     R0,R0,#+23       ;; #+1207959552
+   \       0xB2   0x....'....        BL       GPIO_Init
+     68          
+     69              //USART 初始化设置
+     70          
+     71              switch (pUartStructure->BaudRate)
+   \       0xB6   0x9808             LDR      R0,[SP, #+32]
+   \       0xB8   0x7840             LDRB     R0,[R0, #+1]
+   \       0xBA   0x2801             CMP      R0,#+1
+   \       0xBC   0xD00A             BEQ      ??UART1_Init_0
+   \       0xBE   0xD325             BCC      ??UART1_Init_1
+   \       0xC0   0x2803             CMP      R0,#+3
+   \       0xC2   0xD00F             BEQ      ??UART1_Init_2
+   \       0xC4   0xD30A             BCC      ??UART1_Init_3
+   \       0xC6   0x2805             CMP      R0,#+5
+   \       0xC8   0xD014             BEQ      ??UART1_Init_4
+   \       0xCA   0xD30F             BCC      ??UART1_Init_5
+   \       0xCC   0x2807             CMP      R0,#+7
+   \       0xCE   0xD019             BEQ      ??UART1_Init_6
+   \       0xD0   0xD314             BCC      ??UART1_Init_7
+   \       0xD2   0xE01B             B        ??UART1_Init_1
+     72              {
+     73              case 1:
+     74                  USART_InitStructure.USART_BaudRate = 2400;
+   \                     ??UART1_Init_0: (+1)
+   \       0xD4   0x2096             MOVS     R0,#+150
+   \       0xD6   0x0100             LSLS     R0,R0,#+4        ;; #+2400
+   \       0xD8   0x9000             STR      R0,[SP, #+0]
+     75                  break;
+   \       0xDA   0xE017             B        ??UART1_Init_8
+     76                  
+     77              case 2:
+     78                  USART_InitStructure.USART_BaudRate = 4800;
+   \                     ??UART1_Init_3: (+1)
+   \       0xDC   0x2096             MOVS     R0,#+150
+   \       0xDE   0x0140             LSLS     R0,R0,#+5        ;; #+4800
+   \       0xE0   0x9000             STR      R0,[SP, #+0]
+     79                  break;
+   \       0xE2   0xE013             B        ??UART1_Init_8
+     80          		
+     81              case 3:                                           //默认为9600
+     82                  USART_InitStructure.USART_BaudRate = 9600;
+   \                     ??UART1_Init_2: (+1)
+   \       0xE4   0x2096             MOVS     R0,#+150
+   \       0xE6   0x0180             LSLS     R0,R0,#+6        ;; #+9600
+   \       0xE8   0x9000             STR      R0,[SP, #+0]
+     83                  break;
+   \       0xEA   0xE00F             B        ??UART1_Init_8
+     84          
+     85              case 4:
+     86                  USART_InitStructure.USART_BaudRate = 19200;
+   \                     ??UART1_Init_5: (+1)
+   \       0xEC   0x2096             MOVS     R0,#+150
+   \       0xEE   0x01C0             LSLS     R0,R0,#+7        ;; #+19200
+   \       0xF0   0x9000             STR      R0,[SP, #+0]
+     87                  break;
+   \       0xF2   0xE00B             B        ??UART1_Init_8
+     88          
+     89              case 5:
+     90                  USART_InitStructure.USART_BaudRate = 38400;
+   \                     ??UART1_Init_4: (+1)
+   \       0xF4   0x2096             MOVS     R0,#+150
+   \       0xF6   0x0200             LSLS     R0,R0,#+8        ;; #+38400
+   \       0xF8   0x9000             STR      R0,[SP, #+0]
+     91                  break;
+   \       0xFA   0xE007             B        ??UART1_Init_8
+     92          
+     93              case 6:
+     94                  USART_InitStructure.USART_BaudRate = 57600;
+   \                     ??UART1_Init_7: (+1)
+   \       0xFC   0x20E1             MOVS     R0,#+225
+   \       0xFE   0x0200             LSLS     R0,R0,#+8        ;; #+57600
+   \      0x100   0x9000             STR      R0,[SP, #+0]
+     95                  break;
+   \      0x102   0xE003             B        ??UART1_Init_8
+     96          
+     97              case 7:
+     98                  USART_InitStructure.USART_BaudRate = 115200;
+   \                     ??UART1_Init_6: (+1)
+   \      0x104   0x20E1             MOVS     R0,#+225
+   \      0x106   0x0240             LSLS     R0,R0,#+9        ;; #+115200
+   \      0x108   0x9000             STR      R0,[SP, #+0]
+     99                  break;
+   \      0x10A   0xE7FF             B        ??UART1_Init_8
+    100                
+    101              default:
+    102                  break;
+    103          
+    104              }
+    105          
+    106              USART_InitStructure.USART_StopBits = USART_StopBits_1; // 1个停止位  默认
+   \                     ??UART1_Init_1: (+1)
+   \                     ??UART1_Init_8: (+1)
+   \      0x10C   0x9402             STR      R4,[SP, #+8]
+    107           	
+    108              switch (pUartStructure->Parity)
+   \      0x10E   0x9808             LDR      R0,[SP, #+32]
+   \      0x110   0x7900             LDRB     R0,[R0, #+4]
+   \      0x112   0x2801             CMP      R0,#+1
+   \      0x114   0xD004             BEQ      ??UART1_Init_9
+   \      0x116   0xD314             BCC      ??UART1_Init_10
+   \      0x118   0x2803             CMP      R0,#+3
+   \      0x11A   0xD00F             BEQ      ??UART1_Init_11
+   \      0x11C   0xD307             BCC      ??UART1_Init_12
+   \      0x11E   0xE010             B        ??UART1_Init_10
+    109              {
+    110              case 1:
+    111                  USART_InitStructure.USART_Parity = USART_Parity_Odd;//奇校验位
+   \                     ??UART1_Init_9: (+1)
+   \      0x120   0x20C0             MOVS     R0,#+192
+   \      0x122   0x00C0             LSLS     R0,R0,#+3        ;; #+1536
+   \      0x124   0x9003             STR      R0,[SP, #+12]
+    112                  USART_InitStructure.USART_WordLength = USART_WordLength_9b;//字长为9位数据格式
+   \      0x126   0x2080             MOVS     R0,#+128
+   \      0x128   0x0140             LSLS     R0,R0,#+5        ;; #+4096
+   \      0x12A   0x9001             STR      R0,[SP, #+4]
+    113                  break;
+   \      0x12C   0xE009             B        ??UART1_Init_13
+    114              case 2:
+    115                  USART_InitStructure.USART_Parity = USART_Parity_Even;//偶校验位
+   \                     ??UART1_Init_12: (+1)
+   \      0x12E   0x2080             MOVS     R0,#+128
+   \      0x130   0x00C0             LSLS     R0,R0,#+3        ;; #+1024
+   \      0x132   0x9003             STR      R0,[SP, #+12]
+    116                  USART_InitStructure.USART_WordLength = USART_WordLength_9b;//字长为9位数据格式
+   \      0x134   0x2080             MOVS     R0,#+128
+   \      0x136   0x0140             LSLS     R0,R0,#+5        ;; #+4096
+   \      0x138   0x9001             STR      R0,[SP, #+4]
+    117                  break;
+   \      0x13A   0xE002             B        ??UART1_Init_13
+    118              case 3:
+    119                  USART_InitStructure.USART_Parity = USART_Parity_No;//无奇偶校验位
+   \                     ??UART1_Init_11: (+1)
+   \      0x13C   0x9403             STR      R4,[SP, #+12]
+    120                  USART_InitStructure.USART_WordLength = USART_WordLength_8b;//字长为8位数据格式
+   \      0x13E   0x9401             STR      R4,[SP, #+4]
+    121                  break;        
+   \      0x140   0xE7FF             B        ??UART1_Init_13
+    122                  
+    123              default:
+    124                  break;
+    125              }
+    126          
+    127              USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;//无硬件数据流控制
+   \                     ??UART1_Init_10: (+1)
+   \                     ??UART1_Init_13: (+1)
+   \      0x142   0x9405             STR      R4,[SP, #+20]
+    128          
+    129              USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;	//收发模式
+   \      0x144   0x200C             MOVS     R0,#+12
+   \      0x146   0x9004             STR      R0,[SP, #+16]
+    130          
+    131              USART_Init(USART1, &USART_InitStructure);   //初始化串口
+   \      0x148   0x....             LDR      R4,??DataTable1_6  ;; 0x40013800
+   \      0x14A   0x4669             MOV      R1,SP
+   \      0x14C   0x0020             MOVS     R0,R4
+   \      0x14E   0x....'....        BL       USART_Init
+    132              //USART_ClearFlag(USART1, USART_FLAG_TC);
+    133              //USART_ClearFlag(USART1, USART_ISR_TXE);
+    134          
+    135              TX_OFF;                                              //禁止发送
+   \      0x152   0x2180             MOVS     R1,#+128
+   \      0x154   0x0049             LSLS     R1,R1,#+1        ;; #+256
+   \      0x156   0x2090             MOVS     R0,#+144
+   \      0x158   0x05C0             LSLS     R0,R0,#+23       ;; #+1207959552
+   \      0x15A   0x....'....        BL       GPIO_ResetBits
+    136          
+    137              BSP_IntVectSet(BSP_INT_ID_USART1, UART1_IRQService);///////////////////分配串口中斷向量
+   \      0x15E   0x....             LDR      R1,??DataTable4
+   \      0x160   0x201B             MOVS     R0,#+27
+   \      0x162   0x....'....        BL       BSP_IntVectSet
+    138          
+    139              USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);  //开启接收中断
+   \      0x166   0x2201             MOVS     R2,#+1
+   \      0x168   0x....             LDR      R1,??DataTable1_7  ;; 0x50105
+   \      0x16A   0x0020             MOVS     R0,R4
+   \      0x16C   0x....'....        BL       USART_ITConfig
+    140          
+    141              USART_Cmd(USART1, ENABLE);                    //使能串口
+   \      0x170   0x2101             MOVS     R1,#+1
+   \      0x172   0x0020             MOVS     R0,R4
+   \      0x174   0x....'....        BL       USART_Cmd
+    142          
+    143              if(MB_RTU_MODE == ProductPara.cyMbtWorkType)  //RTU模式才使用定時器中斷
+   \      0x178   0x....             LDR      R0,??DataTable6
+   \      0x17A   0x7880             LDRB     R0,[R0, #+2]
+   \      0x17C   0x2800             CMP      R0,#+0
+   \      0x17E   0xD103             BNE      ??UART1_Init_14
+    144              {
+    145                  Timer7_Init(pUartStructure->BaudRate);
+   \      0x180   0x9808             LDR      R0,[SP, #+32]
+   \      0x182   0x7840             LDRB     R0,[R0, #+1]
+   \      0x184   0x....'....        BL       Timer7_Init
+    146              }
+    147          }
+   \                     ??UART1_Init_14: (+1)
+   \      0x188   0xB009             ADD      SP,SP,#+36
+   \      0x18A   0xBDF0             POP      {R4-R7,PC}       ;; return
+    148          
+
+   \                                 In section .text, align 2, keep-with-next
+    149          void UART1_IRQService(void)                	//串口1中断服务程序
+    150          {
+   \                     UART1_IRQService: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+    151              u8 UartReadTemp;
+    152              OSIntEnter();
+   \        0x2   0x....'....        BL       OSIntEnter
+    153              if (RESET != USART_GetITStatus(USART1, USART_IT_TC))//响应发送完成中断
+   \        0x6   0x....             LDR      R4,??DataTable1_6  ;; 0x40013800
+   \        0x8   0x....             LDR      R6,??DataTable1_5  ;; 0x60106
+   \        0xA   0x0031             MOVS     R1,R6
+   \        0xC   0x0020             MOVS     R0,R4
+   \        0xE   0x....'....        BL       USART_GetITStatus
+   \       0x12   0x2800             CMP      R0,#+0
+   \       0x14   0xD021             BEQ      ??UART1_IRQService_0
+    154              {
+    155                  USART_ClearITPendingBit(USART1, USART_IT_TC);
+   \       0x16   0x0031             MOVS     R1,R6
+   \       0x18   0x0020             MOVS     R0,R4
+   \       0x1A   0x....'....        BL       USART_ClearITPendingBit
+    156          
+    157                  if (u8SendIndex >= u8SendNum)//已发送完
+   \       0x1E   0x....             LDR      R0,??DataTable1_4
+   \       0x20   0x....             LDR      R5,??DataTable1_3
+   \       0x22   0x7829             LDRB     R1,[R5, #+0]
+   \       0x24   0x7802             LDRB     R2,[R0, #+0]
+   \       0x26   0x4291             CMP      R1,R2
+   \       0x28   0xD30D             BCC      ??UART1_IRQService_1
+    158                  {
+    159                      u8SendNum = 0;
+   \       0x2A   0x2100             MOVS     R1,#+0
+   \       0x2C   0x7001             STRB     R1,[R0, #+0]
+    160                      USART_ITConfig(USART1, USART_IT_TC, DISABLE);  //清发送完成中断
+   \       0x2E   0x2200             MOVS     R2,#+0
+   \       0x30   0x0031             MOVS     R1,R6
+   \       0x32   0x0020             MOVS     R0,R4
+   \       0x34   0x....'....        BL       USART_ITConfig
+    161                      TX_OFF;                                        //禁止发送  开启接收
+   \       0x38   0x2180             MOVS     R1,#+128
+   \       0x3A   0x0049             LSLS     R1,R1,#+1        ;; #+256
+   \       0x3C   0x2090             MOVS     R0,#+144
+   \       0x3E   0x05C0             LSLS     R0,R0,#+23       ;; #+1207959552
+   \       0x40   0x....'....        BL       GPIO_ResetBits
+   \       0x44   0xE009             B        ??UART1_IRQService_0
+    162                  }
+    163                  else                    //未发送完
+    164                  {
+    165                      USART_SendData(USART1, UART1_TXBUFF[u8SendIndex]);
+   \                     ??UART1_IRQService_1: (+1)
+   \       0x46   0x....             LDR      R0,??DataTable6_1
+   \       0x48   0x7829             LDRB     R1,[R5, #+0]
+   \       0x4A   0x5C41             LDRB     R1,[R0, R1]
+   \       0x4C   0xB289             UXTH     R1,R1
+   \       0x4E   0x0020             MOVS     R0,R4
+   \       0x50   0x....'....        BL       USART_SendData
+    166                      u8SendIndex++;
+   \       0x54   0x7828             LDRB     R0,[R5, #+0]
+   \       0x56   0x1C40             ADDS     R0,R0,#+1
+   \       0x58   0x7028             STRB     R0,[R5, #+0]
+    167                  }
+    168              }
+    169          
+    170              //===============UART Recv===============//
+    171              if (RESET != USART_GetITStatus(USART1, USART_IT_RXNE))  //响应接收缓冲不为空中断
+   \                     ??UART1_IRQService_0: (+1)
+   \       0x5A   0x....             LDR      R1,??DataTable1_7  ;; 0x50105
+   \       0x5C   0x0020             MOVS     R0,R4
+   \       0x5E   0x....'....        BL       USART_GetITStatus
+   \       0x62   0x2800             CMP      R0,#+0
+   \       0x64   0xD037             BEQ      ??UART1_IRQService_2
+    172              {
+    173                  UartReadTemp = USART_ReceiveData(USART1);
+   \       0x66   0x0020             MOVS     R0,R4
+   \       0x68   0x....'....        BL       USART_ReceiveData
+    174                
+    175          	if(MB_RTU_MODE == ProductPara.cyMbtWorkType)
+   \       0x6C   0x....             LDR      R1,??DataTable6
+   \       0x6E   0x7889             LDRB     R1,[R1, #+2]
+   \       0x70   0x2900             CMP      R1,#+0
+   \       0x72   0xD12D             BNE      ??UART1_IRQService_3
+    176                  {
+    177                      if (Bit_SET == UartRecvFrameOK)
+   \       0x74   0x....             LDR      R1,??DataTable1_1
+   \       0x76   0x780A             LDRB     R2,[R1, #+0]
+   \       0x78   0x2A01             CMP      R2,#+1
+   \       0x7A   0xD102             BNE      ??UART1_IRQService_4
+    178                      {
+    179                          UART1_RXBuffLen = 0;
+   \       0x7C   0x2200             MOVS     R2,#+0
+   \       0x7E   0x....             LDR      R3,??DataTable1_2
+   \       0x80   0x701A             STRB     R2,[R3, #+0]
+    180                      }
+    181          
+    182                      if (UART1_RXBuffLen < (sizeof(UART1_RXBuff) / sizeof(UART1_RXBuff[0])))
+   \                     ??UART1_IRQService_4: (+1)
+   \       0x82   0x....             LDR      R2,??DataTable1_2
+   \       0x84   0x7813             LDRB     R3,[R2, #+0]
+   \       0x86   0x2BFF             CMP      R3,#+255
+   \       0x88   0xD005             BEQ      ??UART1_IRQService_5
+    183                      {
+    184                          UART1_RXBuff[UART1_RXBuffLen] = UartReadTemp;
+   \       0x8A   0x....             LDR      R3,??DataTable6_2
+   \       0x8C   0x7815             LDRB     R5,[R2, #+0]
+   \       0x8E   0x5558             STRB     R0,[R3, R5]
+    185                          UART1_RXBuffLen++;
+   \       0x90   0x7810             LDRB     R0,[R2, #+0]
+   \       0x92   0x1C40             ADDS     R0,R0,#+1
+   \       0x94   0x7010             STRB     R0,[R2, #+0]
+    186                      }
+    187          
+    188                      UartRecvFrameOK = Bit_RESET;
+   \                     ??UART1_IRQService_5: (+1)
+   \       0x96   0x2000             MOVS     R0,#+0
+   \       0x98   0x7008             STRB     R0,[R1, #+0]
+    189          
+    190                      UartRecvNewData = Bit_SET;
+   \       0x9A   0x2001             MOVS     R0,#+1
+   \       0x9C   0x....             LDR      R1,??DataTable1
+   \       0x9E   0x7008             STRB     R0,[R1, #+0]
+    191          
+    192                      TIM_ITConfig(TIM7, TIM_IT_Update, DISABLE);
+   \       0xA0   0x....             LDR      R5,??DataTable6_3  ;; 0x40001400
+   \       0xA2   0x2200             MOVS     R2,#+0
+   \       0xA4   0x2101             MOVS     R1,#+1
+   \       0xA6   0x0028             MOVS     R0,R5
+   \       0xA8   0x....'....        BL       TIM_ITConfig
+    193                      TIM_Cmd(TIM7, DISABLE);
+   \       0xAC   0x2100             MOVS     R1,#+0
+   \       0xAE   0x0028             MOVS     R0,R5
+   \       0xB0   0x....'....        BL       TIM_Cmd
+    194                      TIM_SetCounter(TIM7, 0);
+   \       0xB4   0x2100             MOVS     R1,#+0
+   \       0xB6   0x0028             MOVS     R0,R5
+   \       0xB8   0x....'....        BL       TIM_SetCounter
+    195                      TIM_Cmd(TIM7, ENABLE);
+   \       0xBC   0x2101             MOVS     R1,#+1
+   \       0xBE   0x0028             MOVS     R0,R5
+   \       0xC0   0x....'....        BL       TIM_Cmd
+    196                      TIM_ITConfig(TIM7, TIM_IT_Update, ENABLE);
+   \       0xC4   0x2201             MOVS     R2,#+1
+   \       0xC6   0x2101             MOVS     R1,#+1
+   \       0xC8   0x0028             MOVS     R0,R5
+   \       0xCA   0x....'....        BL       TIM_ITConfig
+   \       0xCE   0xE002             B        ??UART1_IRQService_2
+    197                  }
+    198                  else 
+    199                  {
+    200                      MODBUS_ASCII_HandlRevData(UartReadTemp);
+   \                     ??UART1_IRQService_3: (+1)
+   \       0xD0   0xB2C0             UXTB     R0,R0
+   \       0xD2   0x....'....        BL       MODBUS_ASCII_HandlRevData
+    201                  }
+    202              }
+    203          
+    204              if (RESET != USART_GetFlagStatus(USART1, USART_IT_ORE))//响应数据溢出中断，
+   \                     ??UART1_IRQService_2: (+1)
+   \       0xD6   0x....             LDR      R5,??DataTable6_4  ;; 0x30300
+   \       0xD8   0x0029             MOVS     R1,R5
+   \       0xDA   0x0020             MOVS     R0,R4
+   \       0xDC   0x....'....        BL       USART_GetFlagStatus
+   \       0xE0   0x2800             CMP      R0,#+0
+   \       0xE2   0xD003             BEQ      ??UART1_IRQService_6
+    205              {
+    206                  USART_ClearITPendingBit(USART1, USART_IT_ORE);//清中断
+   \       0xE4   0x0029             MOVS     R1,R5
+   \       0xE6   0x0020             MOVS     R0,R4
+   \       0xE8   0x....'....        BL       USART_ClearITPendingBit
+    207              }
+    208              OSIntExit(); 
+   \                     ??UART1_IRQService_6: (+1)
+   \       0xEC   0x....'....        BL       OSIntExit
+    209          }
+   \       0xF0   0xBD70             POP      {R4-R6,PC}       ;; return
+    210          
+    211          
+
+   \                                 In section .text, align 2, keep-with-next
+    212          void TIM7_IRQHandler(void)
+    213          {
+   \                     TIM7_IRQHandler: (+1)
+   \        0x0   0xB51C             PUSH     {R2-R4,LR}
+    214              OS_ERR  os_err;
+    215              OSIntEnter();
+   \        0x2   0x....'....        BL       OSIntEnter
+    216              if (TIM_GetITStatus(TIM7, TIM_IT_Update) != RESET)  //产生定时中断
+   \        0x6   0x....             LDR      R4,??DataTable6_3  ;; 0x40001400
+   \        0x8   0x2101             MOVS     R1,#+1
+   \        0xA   0x0020             MOVS     R0,R4
+   \        0xC   0x....'....        BL       TIM_GetITStatus
+   \       0x10   0x2800             CMP      R0,#+0
+   \       0x12   0xD024             BEQ      ??TIM7_IRQHandler_0
+    217              {
+    218                  TIM_ClearITPendingBit(TIM7, TIM_IT_Update);//清中断
+   \       0x14   0x2101             MOVS     R1,#+1
+   \       0x16   0x0020             MOVS     R0,R4
+   \       0x18   0x....'....        BL       TIM_ClearITPendingBit
+    219                  
+    220                  if (Bit_SET == UartRecvNewData)
+   \       0x1C   0x....             LDR      R0,??DataTable6_5
+   \       0x1E   0x7801             LDRB     R1,[R0, #+0]
+   \       0x20   0x2901             CMP      R1,#+1
+   \       0x22   0xD113             BNE      ??TIM7_IRQHandler_1
+    221                  {
+    222                      UartRecvNewData = Bit_RESET;
+   \       0x24   0x2100             MOVS     R1,#+0
+   \       0x26   0x7001             STRB     R1,[R0, #+0]
+    223                      UartRecvFrameOK = Bit_SET;
+   \       0x28   0x2001             MOVS     R0,#+1
+   \       0x2A   0x....             LDR      R1,??DataTable6_6
+   \       0x2C   0x7008             STRB     R0,[R1, #+0]
+    224          
+    225                      TIM_ITConfig(TIM7, TIM_IT_Update, DISABLE);
+   \       0x2E   0x2200             MOVS     R2,#+0
+   \       0x30   0x2101             MOVS     R1,#+1
+   \       0x32   0x0020             MOVS     R0,R4
+   \       0x34   0x....'....        BL       TIM_ITConfig
+    226                      TIM_Cmd(TIM7, DISABLE);
+   \       0x38   0x2100             MOVS     R1,#+0
+   \       0x3A   0x0020             MOVS     R0,R4
+   \       0x3C   0x....'....        BL       TIM_Cmd
+    227          
+    228                      OSTaskSemPost((OS_TCB *)&AppTaskMBTCB, (OS_OPT) OS_OPT_POST_NONE,
+    229                                    (OS_ERR *)&os_err);
+   \       0x40   0x466A             MOV      R2,SP
+   \       0x42   0x2100             MOVS     R1,#+0
+   \       0x44   0x....             LDR      R0,??DataTable6_7
+   \       0x46   0x....'....        BL       OSTaskSemPost
+   \       0x4A   0xE008             B        ??TIM7_IRQHandler_0
+    230                  }
+    231                  else
+    232                  {
+    233                      TIM_ITConfig(TIM7, TIM_IT_Update, DISABLE);
+   \                     ??TIM7_IRQHandler_1: (+1)
+   \       0x4C   0x2200             MOVS     R2,#+0
+   \       0x4E   0x2101             MOVS     R1,#+1
+   \       0x50   0x0020             MOVS     R0,R4
+   \       0x52   0x....'....        BL       TIM_ITConfig
+    234                      TIM_Cmd(TIM7, DISABLE);
+   \       0x56   0x2100             MOVS     R1,#+0
+   \       0x58   0x0020             MOVS     R0,R4
+   \       0x5A   0x....'....        BL       TIM_Cmd
+    235                  }
+    236              }
+    237              OSIntExit();    
+   \                     ??TIM7_IRQHandler_0: (+1)
+   \       0x5E   0x....'....        BL       OSIntExit
+    238          }
+   \       0x62   0xBD13             POP      {R0,R1,R4,PC}    ;; return
+    239          
+
+   \                                 In section .text, align 2, keep-with-next
+    240          void Timer7_Init(u8 u8BaudRate)
+    241          {
+   \                     Timer7_Init: (+1)
+   \        0x0   0xB5FE             PUSH     {R1-R7,LR}
+   \        0x2   0x0005             MOVS     R5,R0
+    242              TIM_TimeBaseInitTypeDef  TIM_TimeBaseInitStruct;
+    243          
+    244              //使能定时器的时钟
+    245              RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM7, ENABLE);
+   \        0x4   0x2101             MOVS     R1,#+1
+   \        0x6   0x2020             MOVS     R0,#+32
+   \        0x8   0x....'....        BL       RCC_APB1PeriphClockCmd
+    246          
+    247              //复位TIM2定时器，使之进入初始状态
+    248              TIM_DeInit(TIM7);
+   \        0xC   0x....             LDR      R4,??DataTable6_3  ;; 0x40001400
+   \        0xE   0x0020             MOVS     R0,R4
+   \       0x10   0x....'....        BL       TIM_DeInit
+    249          
+    250              //先关闭定时器中断，接收到一个字符再打开
+    251              TIM_Cmd(TIM7, DISABLE);
+   \       0x14   0x2100             MOVS     R1,#+0
+   \       0x16   0x0020             MOVS     R0,R4
+   \       0x18   0x....'....        BL       TIM_Cmd
+    252          
+    253              NVIC_Timer7Configuration();
+   \       0x1C   0x....'....        BL       NVIC_Timer7Configuration
+    254          
+    255              //定时器工作模式，用于滤出高频干扰
+    256              TIM_TimeBaseInitStruct.TIM_ClockDivision = TIM_CKD_DIV1;
+   \       0x20   0x2700             MOVS     R7,#+0
+   \       0x22   0x466E             MOV      R6,SP
+   \       0x24   0x0038             MOVS     R0,R7
+   \       0x26   0x8130             STRH     R0,[R6, #+8]
+    257              //定时器计数模式  向上/向下/中心对称计数
+    258              TIM_TimeBaseInitStruct.TIM_CounterMode = TIM_CounterMode_Up;
+   \       0x28   0x0038             MOVS     R0,R7
+   \       0x2A   0x8070             STRH     R0,[R6, #+2]
+    259              //定时器周期
+    260          
+    261              if (u8BaudRate > 2)
+   \       0x2C   0x0028             MOVS     R0,R5
+   \       0x2E   0xB2C0             UXTB     R0,R0
+   \       0x30   0x2803             CMP      R0,#+3
+   \       0x32   0xDB02             BLT      ??Timer7_Init_0
+    262              {
+    263                  TIM_TimeBaseInitStruct.TIM_Period = 1749;
+   \       0x34   0x....             LDR      R0,??DataTable6_8  ;; 0x6d5
+   \       0x36   0x9001             STR      R0,[SP, #+4]
+   \       0x38   0xE006             B        ??Timer7_Init_1
+    264              }
+    265              else
+    266              {
+    267                  TIM_TimeBaseInitStruct.TIM_Period = 6999 / (u8BaudRate + 1);
+   \                     ??Timer7_Init_0: (+1)
+   \       0x3A   0x....             LDR      R0,??DataTable6_9  ;; 0x1b57
+   \       0x3C   0xB2ED             UXTB     R5,R5
+   \       0x3E   0x1C6D             ADDS     R5,R5,#+1
+   \       0x40   0x0029             MOVS     R1,R5
+   \       0x42   0x....'....        BL       __aeabi_idiv
+   \       0x46   0x9001             STR      R0,[SP, #+4]
+    268              }
+    269          
+    270              //定时器预分频因子
+    271              //定时时间 T=(TIM_Prescaler+1)*(TIM_Period+1)/TIMxCLK
+    272              TIM_TimeBaseInitStruct.TIM_Prescaler = 0;//47;
+   \                     ??Timer7_Init_1: (+1)
+   \       0x48   0x8037             STRH     R7,[R6, #+0]
+    273          
+    274              //初始化TIM2定时器
+    275              TIM_TimeBaseInit(TIM7, &TIM_TimeBaseInitStruct);
+   \       0x4A   0x4669             MOV      R1,SP
+   \       0x4C   0x0020             MOVS     R0,R4
+   \       0x4E   0x....'....        BL       TIM_TimeBaseInit
+    276          
+    277              //初始化后挂起位立即有效，所以清除一下，否则一打开中断，马上进入中断
+    278              TIM_ClearITPendingBit(TIM7, TIM_IT_Update);
+   \       0x52   0x2101             MOVS     R1,#+1
+   \       0x54   0x0020             MOVS     R0,R4
+   \       0x56   0x....'....        BL       TIM_ClearITPendingBit
+    279          
+    280              BSP_IntVectSet(BSP_INT_ID_TIM7, TIM7_IRQHandler);//分配定時器中断向量
+   \       0x5A   0x....             LDR      R1,??DataTable6_10
+   \       0x5C   0x2012             MOVS     R0,#+18
+   \       0x5E   0x....'....        BL       BSP_IntVectSet
+    281          
+    282              //使能更新中断
+    283              TIM_ITConfig(TIM7, TIM_IT_Update, DISABLE);
+   \       0x62   0x2200             MOVS     R2,#+0
+   \       0x64   0x2101             MOVS     R1,#+1
+   \       0x66   0x0020             MOVS     R0,R4
+   \       0x68   0x....'....        BL       TIM_ITConfig
+    284          
+    285              TIM_Cmd(TIM7, DISABLE);//关闭定时器中断
+   \       0x6C   0x2100             MOVS     R1,#+0
+   \       0x6E   0x0020             MOVS     R0,R4
+   \       0x70   0x....'....        BL       TIM_Cmd
+    286          
+    287              TIM_SetCounter(TIM7, 0);
+   \       0x74   0x2100             MOVS     R1,#+0
+   \       0x76   0x0020             MOVS     R0,R4
+   \       0x78   0x....'....        BL       TIM_SetCounter
+    288          
+    289          }
+   \       0x7C   0xBDF7             POP      {R0-R2,R4-R7,PC}  ;; return
+    290          
+
+   \                                 In section .text, align 2, keep-with-next
+    291          u32 UART1_SendData(u8* UART1_SendBuff, u32 Len)
+    292          {
+   \                     UART1_SendData: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+   \        0x2   0x000C             MOVS     R4,R1
+    293              u32 i = 0;
+   \        0x4   0x2200             MOVS     R2,#+0
+   \        0x6   0x0011             MOVS     R1,R2
+    294          
+    295              if ((0 == Len) || (((u8*)0) == UART1_SendBuff))
+   \        0x8   0x2C00             CMP      R4,#+0
+   \        0xA   0xD001             BEQ      ??UART1_SendData_0
+   \        0xC   0x2800             CMP      R0,#+0
+   \        0xE   0xD101             BNE      ??UART1_SendData_1
+    296                  return 0;
+   \                     ??UART1_SendData_0: (+1)
+   \       0x10   0x2000             MOVS     R0,#+0
+   \       0x12   0xE027             B        ??UART1_SendData_2
+    297          
+    298              if (u8SendNum != 0)
+   \                     ??UART1_SendData_1: (+1)
+   \       0x14   0x....             LDR      R5,??DataTable6_11
+   \       0x16   0x7829             LDRB     R1,[R5, #+0]
+   \       0x18   0x2900             CMP      R1,#+0
+   \       0x1A   0xD001             BEQ      ??UART1_SendData_3
+    299              {
+    300                  return 0;
+   \       0x1C   0x2000             MOVS     R0,#+0
+   \       0x1E   0xE021             B        ??UART1_SendData_2
+    301              }
+    302          
+    303              if (Len > (sizeof(UART1_TXBUFF) / sizeof(UART1_TXBUFF[0])))
+   \                     ??UART1_SendData_3: (+1)
+   \       0x20   0x2180             MOVS     R1,#+128
+   \       0x22   0x0049             LSLS     R1,R1,#+1        ;; #+256
+   \       0x24   0x428C             CMP      R4,R1
+   \       0x26   0xD300             BCC      ??UART1_SendData_4
+    304              {
+    305                  Len = (sizeof(UART1_TXBUFF) / sizeof(UART1_TXBUFF[0]));
+   \       0x28   0x24FF             MOVS     R4,#+255
+    306              }
+    307          
+    308              for (i = 0; i < Len; i++)
+   \                     ??UART1_SendData_4: (+1)
+   \       0x2A   0xE003             B        ??UART1_SendData_5
+    309              {
+    310                  UART1_TXBUFF[i] = UART1_SendBuff[i];
+   \                     ??UART1_SendData_6: (+1)
+   \       0x2C   0x5C83             LDRB     R3,[R0, R2]
+   \       0x2E   0x....             LDR      R6,??DataTable6_1
+   \       0x30   0x54B3             STRB     R3,[R6, R2]
+    311              }
+   \       0x32   0x1C52             ADDS     R2,R2,#+1
+   \                     ??UART1_SendData_5: (+1)
+   \       0x34   0x42A2             CMP      R2,R4
+   \       0x36   0xD3F9             BCC      ??UART1_SendData_6
+    312          
+    313              TX_ON;                                                   //开启发送
+   \       0x38   0x2090             MOVS     R0,#+144
+   \       0x3A   0x05C0             LSLS     R0,R0,#+23       ;; #+1207959552
+   \       0x3C   0x....'....        BL       GPIO_SetBits
+    314          
+    315              USART_SendData(USART1, UART1_TXBUFF[0]);
+   \       0x40   0x....             LDR      R6,??DataTable6_12  ;; 0x40013800
+   \       0x42   0x....             LDR      R0,??DataTable6_1
+   \       0x44   0x7801             LDRB     R1,[R0, #+0]
+   \       0x46   0xB289             UXTH     R1,R1
+   \       0x48   0x0030             MOVS     R0,R6
+   \       0x4A   0x....'....        BL       USART_SendData
+    316          
+    317              u8SendIndex = 1;
+   \       0x4E   0x2001             MOVS     R0,#+1
+   \       0x50   0x....             LDR      R1,??DataTable6_13
+   \       0x52   0x7008             STRB     R0,[R1, #+0]
+    318              u8SendNum = Len;
+   \       0x54   0x0020             MOVS     R0,R4
+   \       0x56   0x7028             STRB     R0,[R5, #+0]
+    319              USART_ITConfig(USART1, USART_IT_TC, ENABLE);            //开启发送完成中断
+   \       0x58   0x2201             MOVS     R2,#+1
+   \       0x5A   0x....             LDR      R1,??DataTable6_14  ;; 0x60106
+   \       0x5C   0x0030             MOVS     R0,R6
+   \       0x5E   0x....'....        BL       USART_ITConfig
+    320          
+    321              return(Len);
+   \       0x62   0x0020             MOVS     R0,R4
+   \                     ??UART1_SendData_2: (+1)
+   \       0x64   0xBD70             POP      {R4-R6,PC}       ;; return
+    322          }
+    323          
+
+   \                                 In section .text, align 2, keep-with-next
+    324          s32 UART1_RecvData(u8* UART1_RecvBuff, u32 Len)
+    325          {
+   \                     UART1_RecvData: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+    326              u32 i = 0;
+   \        0x2   0x2300             MOVS     R3,#+0
+   \        0x4   0x001A             MOVS     R2,R3
+    327          
+    328              if ((0 == Len) || (((u8*)NULL) == UART1_RecvBuff))
+   \        0x6   0x2900             CMP      R1,#+0
+   \        0x8   0xD002             BEQ      ??UART1_RecvData_0
+   \        0xA   0x0002             MOVS     R2,R0
+   \        0xC   0x2A00             CMP      R2,#+0
+   \        0xE   0xD101             BNE      ??UART1_RecvData_1
+    329              {
+    330                  return 0;
+   \                     ??UART1_RecvData_0: (+1)
+   \       0x10   0x2000             MOVS     R0,#+0
+   \       0x12   0xE01B             B        ??UART1_RecvData_2
+    331              }
+    332          
+    333              if ((Bit_RESET == UartRecvFrameOK) || (0 == UART1_RXBuffLen))
+   \                     ??UART1_RecvData_1: (+1)
+   \       0x14   0x....             LDR      R4,??DataTable6_6
+   \       0x16   0x7820             LDRB     R0,[R4, #+0]
+   \       0x18   0x2800             CMP      R0,#+0
+   \       0x1A   0xD003             BEQ      ??UART1_RecvData_3
+   \       0x1C   0x....             LDR      R5,??DataTable6_15
+   \       0x1E   0x7828             LDRB     R0,[R5, #+0]
+   \       0x20   0x2800             CMP      R0,#+0
+   \       0x22   0xD101             BNE      ??UART1_RecvData_4
+    334              {
+    335                  return 0;
+   \                     ??UART1_RecvData_3: (+1)
+   \       0x24   0x2000             MOVS     R0,#+0
+   \       0x26   0xE011             B        ??UART1_RecvData_2
+    336              }
+    337          
+    338              if (Len < UART1_RXBuffLen)
+   \                     ??UART1_RecvData_4: (+1)
+   \       0x28   0x7828             LDRB     R0,[R5, #+0]
+   \       0x2A   0x4281             CMP      R1,R0
+   \       0x2C   0xD202             BCS      ??UART1_RecvData_5
+    339              {
+    340                  return -1;
+   \       0x2E   0x2000             MOVS     R0,#+0
+   \       0x30   0x43C0             MVNS     R0,R0            ;; #-1
+   \       0x32   0xE00B             B        ??UART1_RecvData_2
+    341              }
+    342          
+    343              Len = UART1_RXBuffLen;
+   \                     ??UART1_RecvData_5: (+1)
+   \       0x34   0x7828             LDRB     R0,[R5, #+0]
+    344          
+    345              for (i = 0; i < Len; i++)
+   \       0x36   0x0019             MOVS     R1,R3
+   \       0x38   0xE003             B        ??UART1_RecvData_6
+    346              {
+    347                  UART1_RecvBuff[i] = UART1_RXBuff[i];
+   \                     ??UART1_RecvData_7: (+1)
+   \       0x3A   0x....             LDR      R6,??DataTable6_2
+   \       0x3C   0x5C76             LDRB     R6,[R6, R1]
+   \       0x3E   0x5456             STRB     R6,[R2, R1]
+    348              }
+   \       0x40   0x1C49             ADDS     R1,R1,#+1
+   \                     ??UART1_RecvData_6: (+1)
+   \       0x42   0x4281             CMP      R1,R0
+   \       0x44   0xD3F9             BCC      ??UART1_RecvData_7
+    349          
+    350              UartRecvFrameOK = Bit_RESET;
+   \       0x46   0x0019             MOVS     R1,R3
+   \       0x48   0x7021             STRB     R1,[R4, #+0]
+    351          
+    352              UART1_RXBuffLen = 0;
+   \       0x4A   0x702B             STRB     R3,[R5, #+0]
+    353              //g_cyMaxLen = 0;
+    354          
+    355              return Len;
+   \                     ??UART1_RecvData_2: (+1)
+   \       0x4C   0xBD70             POP      {R4-R6,PC}       ;; return
+    356          }
+    357          
+    358          
+    359          
+
+   \                                 In section .text, align 2, keep-with-next
+    360          void uprintf(const char *fmt,...)		                                //用usart_printf打印串口的数据，用于调试
+    361          {
+   \                     uprintf: (+1)
+   \        0x0   0xB40E             PUSH     {R1-R3}
+   \        0x2   0xB500             PUSH     {LR}
+   \        0x4   0xB090             SUB      SP,SP,#+64
+   \        0x6   0x0001             MOVS     R1,R0
+    362              u32 StringLen;
+    363              va_list marker;
+    364              char buff[64];
+    365              va_start(marker, fmt);
+   \        0x8   0xAA11             ADD      R2,SP,#+68
+    366              vsprintf(buff, fmt, marker);
+   \        0xA   0x4668             MOV      R0,SP
+   \        0xC   0x....'....        BL       vsprintf
+    367              va_end(marker);
+    368              StringLen = strlen(buff);
+   \       0x10   0x4668             MOV      R0,SP
+   \       0x12   0x....'....        BL       strlen
+   \       0x16   0x0001             MOVS     R1,R0
+    369              UART1_SendData((uint8_t*)buff, StringLen);
+   \       0x18   0x4668             MOV      R0,SP
+   \       0x1A   0x....'....        BL       UART1_SendData
+    370              while(0 != u8SendNum);
+   \                     ??uprintf_0: (+1)
+   \       0x1E   0x....             LDR      R0,??DataTable6_11
+   \       0x20   0x7800             LDRB     R0,[R0, #+0]
+   \       0x22   0x2800             CMP      R0,#+0
+   \       0x24   0xD1FB             BNE      ??uprintf_0
+    371          }
+   \       0x26   0x9810             LDR      R0,[SP, #+64]
+   \       0x28   0xB014             ADD      SP,SP,#+80
+   \       0x2A   0x4700             BX       R0               ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1:
+   \        0x0   0x....'....        DC32     UartRecvNewData
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_1:
+   \        0x0   0x....'....        DC32     UartRecvFrameOK
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_2:
+   \        0x0   0x....'....        DC32     UART1_RXBuffLen
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_3:
+   \        0x0   0x....'....        DC32     u8SendIndex
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_4:
+   \        0x0   0x....'....        DC32     u8SendNum
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_5:
+   \        0x0   0x0006'0106        DC32     0x60106
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_6:
+   \        0x0   0x4001'3800        DC32     0x40013800
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_7:
+   \        0x0   0x0005'0105        DC32     0x50105
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4:
+   \        0x0   0x....'....        DC32     UART1_IRQService
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6:
+   \        0x0   0x....'....        DC32     ProductPara
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_1:
+   \        0x0   0x....'....        DC32     UART1_TXBUFF
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_2:
+   \        0x0   0x....'....        DC32     UART1_RXBuff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_3:
+   \        0x0   0x4000'1400        DC32     0x40001400
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_4:
+   \        0x0   0x0003'0300        DC32     0x30300
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_5:
+   \        0x0   0x....'....        DC32     UartRecvNewData
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_6:
+   \        0x0   0x....'....        DC32     UartRecvFrameOK
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_7:
+   \        0x0   0x....'....        DC32     AppTaskMBTCB
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_8:
+   \        0x0   0x0000'06D5        DC32     0x6d5
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_9:
+   \        0x0   0x0000'1B57        DC32     0x1b57
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_10:
+   \        0x0   0x....'....        DC32     TIM7_IRQHandler
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_11:
+   \        0x0   0x....'....        DC32     u8SendNum
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_12:
+   \        0x0   0x4001'3800        DC32     0x40013800
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_13:
+   \        0x0   0x....'....        DC32     u8SendIndex
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_14:
+   \        0x0   0x0006'0106        DC32     0x60106
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_15:
+   \        0x0   0x....'....        DC32     UART1_RXBuffLen
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      16   TIM7_IRQHandler
+        16   -> OSIntEnter
+        16   -> OSIntExit
+        16   -> OSTaskSemPost
+        16   -> TIM_ClearITPendingBit
+        16   -> TIM_Cmd
+        16   -> TIM_GetITStatus
+        16   -> TIM_ITConfig
+      32   Timer7_Init
+        32   -> BSP_IntVectSet
+        32   -> NVIC_Timer7Configuration
+        32   -> RCC_APB1PeriphClockCmd
+        32   -> TIM_ClearITPendingBit
+        32   -> TIM_Cmd
+        32   -> TIM_DeInit
+        32   -> TIM_ITConfig
+        32   -> TIM_SetCounter
+        32   -> TIM_TimeBaseInit
+        32 __aeabi_idiv
+      16   UART1_IRQService
+        16   -> GPIO_ResetBits
+        16   -> MODBUS_ASCII_HandlRevData
+        16   -> OSIntEnter
+        16   -> OSIntExit
+        16   -> TIM_Cmd
+        16   -> TIM_ITConfig
+        16   -> TIM_SetCounter
+        16   -> USART_ClearITPendingBit
+        16   -> USART_GetFlagStatus
+        16   -> USART_GetITStatus
+        16   -> USART_ITConfig
+        16   -> USART_ReceiveData
+        16   -> USART_SendData
+      56   UART1_Init
+        56   -> BSP_IntVectSet
+        56   -> GPIO_Init
+        56   -> GPIO_PinAFConfig
+        56   -> GPIO_ResetBits
+        56   -> NVIC_UARTConfiguration
+        56   -> RCC_AHBPeriphClockCmd
+        56   -> RCC_APB2PeriphClockCmd
+        56   -> Timer7_Init
+        56   -> USART_Cmd
+        56   -> USART_DeInit
+        56   -> USART_ITConfig
+        56   -> USART_Init
+      16   UART1_RecvData
+      16   UART1_SendData
+        16   -> GPIO_SetBits
+        16   -> USART_ITConfig
+        16   -> USART_SendData
+      80   uprintf
+        80   -> UART1_SendData
+        80   -> strlen
+        80   -> vsprintf
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable1
+       4  ??DataTable1_1
+       4  ??DataTable1_2
+       4  ??DataTable1_3
+       4  ??DataTable1_4
+       4  ??DataTable1_5
+       4  ??DataTable1_6
+       4  ??DataTable1_7
+       4  ??DataTable4
+       4  ??DataTable6
+       4  ??DataTable6_1
+       4  ??DataTable6_10
+       4  ??DataTable6_11
+       4  ??DataTable6_12
+       4  ??DataTable6_13
+       4  ??DataTable6_14
+       4  ??DataTable6_15
+       4  ??DataTable6_2
+       4  ??DataTable6_3
+       4  ??DataTable6_4
+       4  ??DataTable6_5
+       4  ??DataTable6_6
+       4  ??DataTable6_7
+       4  ??DataTable6_8
+       4  ??DataTable6_9
+     100  TIM7_IRQHandler
+     126  Timer7_Init
+     242  UART1_IRQService
+     396  UART1_Init
+     256  UART1_RXBuff
+       1  UART1_RXBuffLen
+      78  UART1_RecvData
+     102  UART1_SendData
+     256  UART1_TXBUFF
+       1  UartRecvFrameOK
+       1  UartRecvNewData
+       1  g_bRevOverTime
+       1  u8SendIndex
+       1  u8SendNum
+      44  uprintf
+
+ 
+   518 bytes in section .bss
+ 1'188 bytes in section .text
+ 
+ 1'188 bytes of CODE memory
+   518 bytes of DATA memory
+
+Errors: none
+Warnings: none

@@ -1,0 +1,60 @@
+版本名称：Transmitter20161025.sw
+1.修改HCLK时钟为8MHZ，则Systick定时器时钟为1MHZ。以前HCLK时钟是1MHZ，则Systick定时器时钟为1MHZ/8，导致滴答时钟不准确
+
+版本名称：Transmitter20161026.sw
+1.修改HCLK时钟为4MHZ，则Systick定时器时钟为500KHZ。以前HCLK时钟是1MHZ，则Systick定时器时钟为1MHZ/8，导致滴答时钟不准确
+2.如果将HCLK时钟修改为8MHZ，则IIC不能正常读写，因为IIC时序的延时被修改了。为了Systick准确和IIC能正常读写，HCLK=4MHZ比较合适，此时Systick比较准确(误差不大)
+
+版本名称：Transmitter20161031.sw
+1.修改时钟可能会出现读写EEPROM异常，此版本注释掉AD值滤波，因为滤波后的AD值根本没有用到
+
+版本：Transmitter20161107.sw
+1.由于系统时钟设置为8M,PCLK=1M  导致串口最大波特率可设置为19200bps，屏蔽38400 57600 115200
+2.Weight处理中写EEPROM时串口数据出现异常，原因是写EEPROM代码中使用CPU_CRITICAL_ENTER();和CPU_CRITICAL_EXIT();来关中断，导致串口不能正常中断。此方法关开中断时间过长，可以改为OS_CRITICAL_ENTER();和OS_CRITICAL_EXIT();来进行中断延时发布，而OS_CFG_ISR_POST_DEFERRED_EN要设置为1
+
+
+版本：Weight_CarV1.1.9.sw
+时间：20181009
+修改人：MMX
+内容：
+1.按照F3最新协议修改
+2.滤波等级：1-1s    2-180s   3-270s
+
+
+版本：Weight_CarV1.1.11.sw
+时间：20181009
+修改人：MMX
+内容：
+1.默认滤波等级2（平滑）
+
+版本：Weight_CarV1.1.12.sw
+时间：20181009
+修改人：MMX
+内容：
+1.默认滤波等级1（实时）
+
+版本：Weight_CarV1.1.13.sw
+时间：20181213
+修改人：MMX
+内容：
+1.之前的程序无法修改波特率，此版本可以修改波特率
+
+
+Software modification record
+
+1.修改modbus_asc.c  10功能码 非法数据地址（MB_EX_ILLEGAL_DATA_ADDRESS）的判断条件 20190628 
+2. 修改了AT24cxxx.c 读取设备参数（Rd_Dev_Param函数）中的标定参数初奴化部分。  20190705
+	for(i = RunVar.TotalPacks; i < 5; i++)   //20190705 未标定的数组默认为0xFFFFFFFF 防止初始化为0
+        	{
+         	 	 for(j = 0; j < 10; j++)
+            		{
+             	 		AD_Buff[i][j] = 0xFFFFFFFF;                   //AD值
+             	   		Weight_Buff[i][j] = 0xFFFFFFFF;                 //重量值
+           		 }
+       	 }
+3.修改Get_Unit_Weight函数，将返回类型和调用参数类型改为32位。 20190712
+   修改后可以正常读取标定数据和实时读取载重值。
+
+4. 04功能码查询信息时，收到命令后，延时50ms再回传数据。20190904
+        程序为：Weight_CarV1.1.15.sw
+

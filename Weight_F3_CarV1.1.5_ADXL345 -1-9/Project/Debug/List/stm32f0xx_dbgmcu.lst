@@ -1,0 +1,399 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.4.261/W32 for ARM         10/Jan/2021  16:10:24
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode             
+#    Endian            =  little
+#    Source file       =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\FWLib\src\stm32f0xx_dbgmcu.c
+#    Command line      =
+#        -f C:\Users\macanlin\AppData\Local\Temp\EWF769.tmp
+#        ("C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\FWLib\src\stm32f0xx_dbgmcu.c" -D USE_STDPERIPH_DRIVER -D
+#        STM32F072 -lC
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List" -o
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj" --no_cse --no_unroll --no_inline
+#        --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug
+#        --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config
+#        C:\rj\IAR\arm\inc\c\DLib_Config_Normal.h -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\BSP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\CMSIS\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\OS_Cfg\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-CPU\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Ports\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Source\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\APP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -Ol -I
+#        C:\rj\IAR\arm\CMSIS\Core\Include\\ -I
+#        C:\rj\IAR\arm\CMSIS\DSP\Include\\)
+#    Locale            =  C
+#    List file         =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List\stm32f0xx_dbgmcu.lst
+#    Object file       =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj\stm32f0xx_dbgmcu.o
+#    Runtime model:       
+#      __SystemLibrary =  DLib
+#      __dlib_version  =  6
+#
+###############################################################################
+
+C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345 -1-9\Source\FWLib\src\stm32f0xx_dbgmcu.c
+      1          /**
+      2            ******************************************************************************
+      3            * @file    stm32f0xx_dbgmcu.c
+      4            * @author  MCD Application Team
+      5            * @version V1.3.0
+      6            * @date    16-January-2014
+      7            * @brief   This file provides firmware functions to manage the following 
+      8            *          functionalities of the Debug MCU (DBGMCU) peripheral:
+      9            *           + Device and Revision ID management
+     10            *           + Peripherals Configuration
+     11            *  @verbatim
+     12            *  @endverbatim
+     13            *
+     14            ******************************************************************************
+     15            * @attention
+     16            *
+     17            * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
+     18            *
+     19            * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
+     20            * You may not use this file except in compliance with the License.
+     21            * You may obtain a copy of the License at:
+     22            *
+     23            *        http://www.st.com/software_license_agreement_liberty_v2
+     24            *
+     25            * Unless required by applicable law or agreed to in writing, software 
+     26            * distributed under the License is distributed on an "AS IS" BASIS, 
+     27            * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     28            * See the License for the specific language governing permissions and
+     29            * limitations under the License.
+     30            *
+     31            ******************************************************************************
+     32            */
+     33          
+     34          /* Includes ------------------------------------------------------------------*/
+     35          #include "stm32f0xx_dbgmcu.h"
+     36          
+     37          /** @addtogroup STM32F0xx_StdPeriph_Driver
+     38            * @{
+     39            */
+     40          
+     41          /** @defgroup DBGMCU 
+     42            * @brief DBGMCU driver modules
+     43            * @{
+     44            */
+     45          
+     46          /* Private typedef -----------------------------------------------------------*/
+     47          /* Private define ------------------------------------------------------------*/
+     48          #define IDCODE_DEVID_MASK    ((uint32_t)0x00000FFF)
+     49          
+     50          /* Private macro -------------------------------------------------------------*/
+     51          /* Private variables ---------------------------------------------------------*/
+     52          /* Private function prototypes -----------------------------------------------*/
+     53          /* Private functions ---------------------------------------------------------*/
+     54          
+     55          /** @defgroup DBGMCU_Private_Functions 
+     56            * @{
+     57            */
+     58            
+     59          
+     60          /** @defgroup DBGMCU_Group1 Device and Revision ID management functions
+     61           *  @brief   Device and Revision ID management functions
+     62           *
+     63          @verbatim
+     64            ==============================================================================
+     65                      ##### Device and Revision ID management functions #####
+     66            ==============================================================================
+     67          
+     68          @endverbatim
+     69            * @{
+     70            */
+     71          
+     72          /**
+     73            * @brief  Returns the device revision identifier.
+     74            * @param  None
+     75            * @retval Device revision identifier
+     76            */
+
+   \                                 In section .text, align 2, keep-with-next
+     77          uint32_t DBGMCU_GetREVID(void)
+     78          {
+     79             return(DBGMCU->IDCODE >> 16);
+   \                     DBGMCU_GetREVID: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable4  ;; 0x40015800
+   \        0x2   0x6800             LDR      R0,[R0, #+0]
+   \        0x4   0x0C00             LSRS     R0,R0,#+16
+   \        0x6   0x4770             BX       LR               ;; return
+     80          }
+     81          
+     82          /**
+     83            * @brief  Returns the device identifier.
+     84            * @param  None
+     85            * @retval Device identifier
+     86            */
+
+   \                                 In section .text, align 2, keep-with-next
+     87          uint32_t DBGMCU_GetDEVID(void)
+     88          {
+     89             return(DBGMCU->IDCODE & IDCODE_DEVID_MASK);
+   \                     DBGMCU_GetDEVID: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable4  ;; 0x40015800
+   \        0x2   0x6800             LDR      R0,[R0, #+0]
+   \        0x4   0x0500             LSLS     R0,R0,#+20       ;; ZeroExtS R0,R0,#+20,#+20
+   \        0x6   0x0D00             LSRS     R0,R0,#+20
+   \        0x8   0x4770             BX       LR               ;; return
+     90          }
+     91          
+     92          /**
+     93            * @}
+     94            */
+     95            
+     96          /** @defgroup DBGMCU_Group2 Peripherals Configuration functions
+     97           *  @brief   Peripherals Configuration
+     98           *
+     99          @verbatim
+    100            ==============================================================================
+    101                         ##### Peripherals Configuration functions #####
+    102            ==============================================================================
+    103          
+    104          @endverbatim
+    105            * @{
+    106            */
+    107          
+    108          /**
+    109            * @brief  Configures low power mode behavior when the MCU is in Debug mode.
+    110            * @param  DBGMCU_Periph: specifies the low power mode.
+    111            *          This parameter can be any combination of the following values:
+    112            *             @arg DBGMCU_STOP: Keep debugger connection during STOP mode
+    113            *             @arg DBGMCU_STANDBY: Keep debugger connection during STANDBY mode
+    114            * @param  NewState: new state of the specified low power mode in Debug mode.
+    115            *          This parameter can be: ENABLE or DISABLE.
+    116            * @retval None
+    117            */
+
+   \                                 In section .text, align 2, keep-with-next
+    118          void DBGMCU_Config(uint32_t DBGMCU_Periph, FunctionalState NewState)
+    119          {
+   \                     DBGMCU_Config: (+1)
+   \        0x0   0xB500             PUSH     {LR}
+    120            /* Check the parameters */
+    121            assert_param(IS_DBGMCU_PERIPH(DBGMCU_Periph));
+    122            assert_param(IS_FUNCTIONAL_STATE(NewState));
+    123          
+    124            if (NewState != DISABLE)
+   \        0x2   0xB2C9             UXTB     R1,R1
+   \        0x4   0x2900             CMP      R1,#+0
+   \        0x6   0xD004             BEQ      ??DBGMCU_Config_0
+    125            {
+    126              DBGMCU->CR |= DBGMCU_Periph;
+   \        0x8   0x....             LDR      R1,??DataTable4_1  ;; 0x40015804
+   \        0xA   0x680A             LDR      R2,[R1, #+0]
+   \        0xC   0x4310             ORRS     R0,R0,R2
+   \        0xE   0x6008             STR      R0,[R1, #+0]
+   \       0x10   0xE003             B        ??DBGMCU_Config_1
+    127            }
+    128            else
+    129            {
+    130              DBGMCU->CR &= ~DBGMCU_Periph;
+   \                     ??DBGMCU_Config_0: (+1)
+   \       0x12   0x....             LDR      R1,??DataTable4_1  ;; 0x40015804
+   \       0x14   0x680A             LDR      R2,[R1, #+0]
+   \       0x16   0x4382             BICS     R2,R2,R0
+   \       0x18   0x600A             STR      R2,[R1, #+0]
+    131            }
+    132          }
+   \                     ??DBGMCU_Config_1: (+1)
+   \       0x1A   0xBD00             POP      {PC}             ;; return
+    133          
+    134          
+    135          /**
+    136            * @brief  Configures APB1 peripheral behavior when the MCU is in Debug mode.
+    137            * @param  DBGMCU_Periph: specifies the APB1 peripheral.
+    138            *          This parameter can be any combination of the following values:
+    139            *             @arg DBGMCU_TIM2_STOP: TIM2 counter stopped when Core is halted, 
+    140            *                  not applicable for STM32F030 devices   
+    141            *             @arg DBGMCU_TIM3_STOP: TIM3 counter stopped when Core is halted
+    142            *             @arg DBGMCU_TIM6_STOP: TIM6 counter stopped when Core is halted
+    143            *             @arg DBGMCU_TIM7_STOP: TIM7 counter stopped when Core is halted, 
+    144            *                  applicable only for STM32F072 devices               
+    145            *             @arg DBGMCU_TIM14_STOP: TIM14 counter stopped when Core is halted
+    146            *             @arg DBGMCU_RTC_STOP: RTC Calendar and Wakeup counter stopped 
+    147            *                                   when Core is halted.
+    148            *             @arg DBGMCU_WWDG_STOP: Debug WWDG stopped when Core is halted
+    149            *             @arg DBGMCU_IWDG_STOP: Debug IWDG stopped when Core is halted
+    150            *             @arg DBGMCU_I2C1_SMBUS_TIMEOUT: I2C1 SMBUS timeout mode stopped 
+    151            *                                             when Core is halted
+    152            *             @arg DBGMCU_CAN1_STOP: Debug CAN1 stopped when Core is halted, 
+    153            *                  applicable only for STM32F042 and STM32F072 devices               
+    154            * @param  NewState: new state of the specified APB1 peripheral in Debug mode.
+    155            *          This parameter can be: ENABLE or DISABLE.
+    156            * @retval None
+    157            */
+
+   \                                 In section .text, align 2, keep-with-next
+    158          void DBGMCU_APB1PeriphConfig(uint32_t DBGMCU_Periph, FunctionalState NewState)
+    159          {
+   \                     DBGMCU_APB1PeriphConfig: (+1)
+   \        0x0   0xB500             PUSH     {LR}
+    160            /* Check the parameters */
+    161            assert_param(IS_DBGMCU_APB1PERIPH(DBGMCU_Periph));
+    162            assert_param(IS_FUNCTIONAL_STATE(NewState));
+    163          
+    164            if (NewState != DISABLE)
+   \        0x2   0xB2C9             UXTB     R1,R1
+   \        0x4   0x2900             CMP      R1,#+0
+   \        0x6   0xD004             BEQ      ??DBGMCU_APB1PeriphConfig_0
+    165            {
+    166              DBGMCU->APB1FZ |= DBGMCU_Periph;
+   \        0x8   0x....             LDR      R1,??DataTable4_2  ;; 0x40015808
+   \        0xA   0x680A             LDR      R2,[R1, #+0]
+   \        0xC   0x4310             ORRS     R0,R0,R2
+   \        0xE   0x6008             STR      R0,[R1, #+0]
+   \       0x10   0xE003             B        ??DBGMCU_APB1PeriphConfig_1
+    167            }
+    168            else
+    169            {
+    170              DBGMCU->APB1FZ &= ~DBGMCU_Periph;
+   \                     ??DBGMCU_APB1PeriphConfig_0: (+1)
+   \       0x12   0x....             LDR      R1,??DataTable4_2  ;; 0x40015808
+   \       0x14   0x680A             LDR      R2,[R1, #+0]
+   \       0x16   0x4382             BICS     R2,R2,R0
+   \       0x18   0x600A             STR      R2,[R1, #+0]
+    171            }
+    172          }
+   \                     ??DBGMCU_APB1PeriphConfig_1: (+1)
+   \       0x1A   0xBD00             POP      {PC}             ;; return
+    173          
+    174          /**
+    175            * @brief  Configures APB2 peripheral behavior when the MCU is in Debug mode.
+    176            * @param  DBGMCU_Periph: specifies the APB2 peripheral.
+    177            *          This parameter can be any combination of the following values:
+    178            *             @arg DBGMCU_TIM1_STOP: TIM1 counter stopped when Core is halted
+    179            *             @arg DBGMCU_TIM15_STOP: TIM15 counter stopped when Core is halted
+    180            *             @arg DBGMCU_TIM16_STOP: TIM16 counter stopped when Core is halted
+    181            *             @arg DBGMCU_TIM17_STOP: TIM17 counter stopped when Core is halted
+    182            * @param  NewState: new state of the specified APB2 peripheral in Debug mode.
+    183            *          This parameter can be: ENABLE or DISABLE.
+    184            * @retval None
+    185            */
+
+   \                                 In section .text, align 2, keep-with-next
+    186          void DBGMCU_APB2PeriphConfig(uint32_t DBGMCU_Periph, FunctionalState NewState)
+    187          {
+   \                     DBGMCU_APB2PeriphConfig: (+1)
+   \        0x0   0xB500             PUSH     {LR}
+    188            /* Check the parameters */
+    189            assert_param(IS_DBGMCU_APB2PERIPH(DBGMCU_Periph));
+    190            assert_param(IS_FUNCTIONAL_STATE(NewState));
+    191          
+    192            if (NewState != DISABLE)
+   \        0x2   0xB2C9             UXTB     R1,R1
+   \        0x4   0x2900             CMP      R1,#+0
+   \        0x6   0xD004             BEQ      ??DBGMCU_APB2PeriphConfig_0
+    193            {
+    194              DBGMCU->APB2FZ |= DBGMCU_Periph;
+   \        0x8   0x....             LDR      R1,??DataTable4_3  ;; 0x4001580c
+   \        0xA   0x680A             LDR      R2,[R1, #+0]
+   \        0xC   0x4310             ORRS     R0,R0,R2
+   \        0xE   0x6008             STR      R0,[R1, #+0]
+   \       0x10   0xE003             B        ??DBGMCU_APB2PeriphConfig_1
+    195            }
+    196            else
+    197            {
+    198              DBGMCU->APB2FZ &= ~DBGMCU_Periph;
+   \                     ??DBGMCU_APB2PeriphConfig_0: (+1)
+   \       0x12   0x....             LDR      R1,??DataTable4_3  ;; 0x4001580c
+   \       0x14   0x680A             LDR      R2,[R1, #+0]
+   \       0x16   0x4382             BICS     R2,R2,R0
+   \       0x18   0x600A             STR      R2,[R1, #+0]
+    199            }
+    200          }
+   \                     ??DBGMCU_APB2PeriphConfig_1: (+1)
+   \       0x1A   0xBD00             POP      {PC}             ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4:
+   \        0x0   0x4001'5800        DC32     0x40015800
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_1:
+   \        0x0   0x4001'5804        DC32     0x40015804
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_2:
+   \        0x0   0x4001'5808        DC32     0x40015808
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_3:
+   \        0x0   0x4001'580C        DC32     0x4001580c
+    201          
+    202          /**
+    203            * @}
+    204            */
+    205            
+    206          /**
+    207            * @}
+    208            */
+    209          
+    210          /**
+    211            * @}
+    212            */
+    213          
+    214          /**
+    215            * @}
+    216            */
+    217          
+    218          /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       4   DBGMCU_APB1PeriphConfig
+       4   DBGMCU_APB2PeriphConfig
+       4   DBGMCU_Config
+       0   DBGMCU_GetDEVID
+       0   DBGMCU_GetREVID
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable4
+       4  ??DataTable4_1
+       4  ??DataTable4_2
+       4  ??DataTable4_3
+      28  DBGMCU_APB1PeriphConfig
+      28  DBGMCU_APB2PeriphConfig
+      28  DBGMCU_Config
+      10  DBGMCU_GetDEVID
+       8  DBGMCU_GetREVID
+
+ 
+ 118 bytes in section .text
+ 
+ 118 bytes of CODE memory
+
+Errors: none
+Warnings: none

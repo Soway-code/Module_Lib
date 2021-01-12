@@ -1,0 +1,13 @@
+---- EmpiricalData.Counter Matches (13 in 2 files) ----
+Modbus.c (app):        RcvDataBuf[7] = (u8)EmpiricalData.Counter;
+Weight.c (app):    EmpiricalData.Counter =0;                                                   //保存参数到EEPROM        
+Weight.c (app):    if((EmpiricalData.Counter >6)||(EmpiricalData.Counter ==0))
+Weight.c (app):    EmpiricalData.Counter++;                                                    //经验值加一
+Weight.c (app):    if (EmpiricalData.Counter >= EMPIRICAL_BUF_LEN)
+Weight.c (app):        EmpiricalData.Counter = EMPIRICAL_BUF_LEN;
+Weight.c (app):    for (i = 0; i < EmpiricalData.Counter; i++)                                 //求和
+Weight.c (app):    EmpiricalData.AverageEmptyLoad = (UInt16)(Sum_EmptyLoad / EmpiricalData.Counter + 0.5f);
+Weight.c (app):    EmpiricalData.AverageFullLoad = (UInt16)(Sum_FullLoad / EmpiricalData.Counter + 0.5f);
+Weight.c (app):    EmpiricalData.AverageWeight = (UInt16)(Sum_Weight / EmpiricalData.Counter + 0.5f);
+Weight.c (app):    if(EmpiricalData.Counter > 0)                                               //有经验值之后才能处理数据
+Weight.c (app):    if (EmpiricalData.Counter == 0)                                             //没有学习经验

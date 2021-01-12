@@ -1,0 +1,2405 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.4.261/W32 for ARM         10/Jan/2021  16:10:20
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode             
+#    Endian            =  little
+#    Source file       =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\System\uCOS-III\Source\os_flag.c
+#    Command line      =
+#        -f C:\Users\macanlin\AppData\Local\Temp\EWE581.tmp
+#        ("C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\System\uCOS-III\Source\os_flag.c" -D USE_STDPERIPH_DRIVER
+#        -D STM32F072 -lC
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List" -o
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj" --no_cse --no_unroll --no_inline
+#        --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug
+#        --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config
+#        C:\rj\IAR\arm\inc\c\DLib_Config_Normal.h -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\BSP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\CMSIS\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\OS_Cfg\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-CPU\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Ports\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Source\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\APP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -Ol -I
+#        C:\rj\IAR\arm\CMSIS\Core\Include\\ -I
+#        C:\rj\IAR\arm\CMSIS\DSP\Include\\)
+#    Locale            =  C
+#    List file         =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List\os_flag.lst
+#    Object file       =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj\os_flag.o
+#    Runtime model:       
+#      __SystemLibrary =  DLib
+#
+###############################################################################
+
+C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345 -1-9\Source\System\uCOS-III\Source\os_flag.c
+      1          /*
+      2          ************************************************************************************************************************
+      3          *                                                      uC/OS-III
+      4          *                                                 The Real-Time Kernel
+      5          *
+      6          *                                  (c) Copyright 2009-2012; Micrium, Inc.; Weston, FL
+      7          *                           All rights reserved.  Protected by international copyright laws.
+      8          *
+      9          *                                                EVENT FLAG MANAGEMENT
+     10          *
+     11          * File    : OS_FLAG.C
+     12          * By      : JJL
+     13          * Version : V3.03.01
+     14          *
+     15          * LICENSING TERMS:
+     16          * ---------------
+     17          *           uC/OS-III is provided in source form for FREE short-term evaluation, for educational use or 
+     18          *           for peaceful research.  If you plan or intend to use uC/OS-III in a commercial application/
+     19          *           product then, you need to contact Micrium to properly license uC/OS-III for its use in your 
+     20          *           application/product.   We provide ALL the source code for your convenience and to help you 
+     21          *           experience uC/OS-III.  The fact that the source is provided does NOT mean that you can use 
+     22          *           it commercially without paying a licensing fee.
+     23          *
+     24          *           Knowledge of the source code may NOT be used to develop a similar product.
+     25          *
+     26          *           Please help us continue to provide the embedded community with the finest software available.
+     27          *           Your honesty is greatly appreciated.
+     28          *
+     29          *           You can contact us at www.micrium.com, or by phone at +1 (954) 217-2036.
+     30          ************************************************************************************************************************
+     31          */
+     32          
+     33          #define  MICRIUM_SOURCE
+     34          #include <os.h>
+     35          
+     36          #ifdef VSC_INCLUDE_SOURCE_FILE_NAMES
+     37          const  CPU_CHAR  *os_flag__c = "$Id: $";
+     38          #endif
+     39          
+     40          
+     41          #if OS_CFG_FLAG_EN > 0u
+     42          
+     43          /*$PAGE*/
+     44          /*
+     45          ************************************************************************************************************************
+     46          *                                                 CREATE AN EVENT FLAG
+     47          *
+     48          * Description: This function is called to create an event flag group.
+     49          *
+     50          * Arguments  : p_grp          is a pointer to the event flag group to create
+     51          *
+     52          *              p_name         is the name of the event flag group
+     53          *
+     54          *              flags          contains the initial value to store in the event flag group (typically 0).
+     55          *
+     56          *              p_err          is a pointer to an error code which will be returned to your application:
+     57          *
+     58          *                                 OS_ERR_NONE                    if the call was successful.
+     59          *                                 OS_ERR_CREATE_ISR              if you attempted to create an Event Flag from an ISR.
+     60          *                                 OS_ERR_ILLEGAL_CREATE_RUN_TIME if you are trying to create the Event Flag after you
+     61          *                                                                   called OSSafetyCriticalStart().
+     62          *                                 OS_ERR_NAME                    if 'p_name' is a NULL pointer
+     63          *                                 OS_ERR_OBJ_CREATED             if the event flag group has already been created
+     64          *                                 OS_ERR_OBJ_PTR_NULL            if 'p_grp' is a NULL pointer
+     65          *
+     66          * Returns    : none
+     67          ************************************************************************************************************************
+     68          */
+     69          
+
+   \                                 In section .text, align 2, keep-with-next
+     70          void  OSFlagCreate (OS_FLAG_GRP  *p_grp,
+     71                              CPU_CHAR     *p_name,
+     72                              OS_FLAGS      flags,
+     73                              OS_ERR       *p_err)
+     74          {
+   \                     OSFlagCreate: (+1)
+   \        0x0   0xB5FE             PUSH     {R1-R7,LR}
+   \        0x2   0x001F             MOVS     R7,R3
+     75              CPU_SR_ALLOC();
+   \        0x4   0x2400             MOVS     R4,#+0
+   \        0x6   0x0023             MOVS     R3,R4
+     76          
+     77          
+     78          
+     79          #ifdef OS_SAFETY_CRITICAL
+     80              if (p_err == (OS_ERR *)0) {
+     81                  OS_SAFETY_CRITICAL_EXCEPTION();
+     82                  return;
+     83              }
+     84          #endif
+     85          
+     86          #ifdef OS_SAFETY_CRITICAL_IEC61508
+     87              if (OSSafetyCriticalStartFlag == DEF_TRUE) {
+     88                 *p_err = OS_ERR_ILLEGAL_CREATE_RUN_TIME;
+     89                  return;
+     90              }
+     91          #endif
+     92          
+     93          #if OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u
+     94              if (OSIntNestingCtr > (OS_NESTING_CTR)0) {              /* See if called from ISR ...                             */
+   \        0x8   0x....             LDR      R3,??DataTable0
+   \        0xA   0x781B             LDRB     R3,[R3, #+0]
+   \        0xC   0x2B00             CMP      R3,#+0
+   \        0xE   0xD002             BEQ      ??OSFlagCreate_0
+     95                 *p_err = OS_ERR_CREATE_ISR;                          /* ... can't CREATE from an ISR                           */
+   \       0x10   0x....             LDR      R0,??DataTable0_1  ;; 0x2ee1
+   \       0x12   0x8038             STRH     R0,[R7, #+0]
+     96                  return;
+   \       0x14   0xE029             B        ??OSFlagCreate_1
+     97              }
+   \                     ??OSFlagCreate_0: (+1)
+   \       0x16   0x0005             MOVS     R5,R0
+     98          #endif
+     99          
+    100          #if OS_CFG_ARG_CHK_EN > 0u
+    101              if (p_grp == (OS_FLAG_GRP *)0) {                        /* Validate 'p_grp'                                       */
+   \       0x18   0x2D00             CMP      R5,#+0
+   \       0x1A   0xD102             BNE      ??OSFlagCreate_2
+    102                 *p_err = OS_ERR_OBJ_PTR_NULL;
+   \       0x1C   0x....             LDR      R0,??DataTable0_2  ;; 0x5dc3
+   \       0x1E   0x8038             STRH     R0,[R7, #+0]
+    103                  return;
+   \       0x20   0xE023             B        ??OSFlagCreate_1
+    104              }
+   \                     ??OSFlagCreate_2: (+1)
+   \       0x22   0x9200             STR      R2,[SP, #+0]
+   \       0x24   0x9101             STR      R1,[SP, #+4]
+    105          #endif
+    106          
+    107              OS_CRITICAL_ENTER();
+   \       0x26   0x....'....        BL       CPU_SR_Save
+   \       0x2A   0x....             LDR      R6,??DataTable0_3
+   \       0x2C   0x7831             LDRB     R1,[R6, #+0]
+   \       0x2E   0x1C49             ADDS     R1,R1,#+1
+   \       0x30   0x7031             STRB     R1,[R6, #+0]
+   \       0x32   0x....'....        BL       CPU_SR_Restore
+    108              p_grp->Type    = OS_OBJ_TYPE_FLAG;                      /* Set to event flag group type                           */
+   \       0x36   0x....             LDR      R0,??DataTable0_4  ;; 0x47414c46
+   \       0x38   0x6028             STR      R0,[R5, #+0]
+    109              p_grp->NamePtr = p_name;
+   \       0x3A   0x9801             LDR      R0,[SP, #+4]
+   \       0x3C   0x6068             STR      R0,[R5, #+4]
+    110              p_grp->Flags   = flags;                                 /* Set to desired initial value                           */
+   \       0x3E   0x9800             LDR      R0,[SP, #+0]
+   \       0x40   0x6228             STR      R0,[R5, #+32]
+    111              p_grp->TS      = (CPU_TS)0;
+   \       0x42   0x626C             STR      R4,[R5, #+36]
+    112              OS_PendListInit(&p_grp->PendList);
+   \       0x44   0x0028             MOVS     R0,R5
+   \       0x46   0x3008             ADDS     R0,R0,#+8
+   \       0x48   0x....'....        BL       OS_PendListInit
+    113          
+    114          #if OS_CFG_DBG_EN > 0u
+    115              OS_FlagDbgListAdd(p_grp);
+   \       0x4C   0x0028             MOVS     R0,R5
+   \       0x4E   0x....'....        BL       OS_FlagDbgListAdd
+    116          #endif
+    117              OSFlagQty++;
+   \       0x52   0x....             LDR      R0,??DataTable0_5
+   \       0x54   0x8801             LDRH     R1,[R0, #+0]
+   \       0x56   0x1C49             ADDS     R1,R1,#+1
+   \       0x58   0x8001             STRH     R1,[R0, #+0]
+    118          
+    119              OS_CRITICAL_EXIT_NO_SCHED();
+   \       0x5A   0x....'....        BL       CPU_SR_Save
+   \       0x5E   0x7831             LDRB     R1,[R6, #+0]
+   \       0x60   0x1E49             SUBS     R1,R1,#+1
+   \       0x62   0x7031             STRB     R1,[R6, #+0]
+   \       0x64   0x....'....        BL       CPU_SR_Restore
+    120             *p_err = OS_ERR_NONE;
+   \       0x68   0x803C             STRH     R4,[R7, #+0]
+    121          }
+   \                     ??OSFlagCreate_1: (+1)
+   \       0x6A   0xBDF7             POP      {R0-R2,R4-R7,PC}  ;; return
+    122          
+    123          /*$PAGE*/
+    124          /*
+    125          ************************************************************************************************************************
+    126          *                                             DELETE AN EVENT FLAG GROUP
+    127          *
+    128          * Description: This function deletes an event flag group and readies all tasks pending on the event flag group.
+    129          *
+    130          * Arguments  : p_grp     is a pointer to the desired event flag group.
+    131          *
+    132          *              opt       determines delete options as follows:
+    133          *
+    134          *                            OS_OPT_DEL_NO_PEND           Deletes the event flag group ONLY if no task pending
+    135          *                            OS_OPT_DEL_ALWAYS            Deletes the event flag group even if tasks are waiting.
+    136          *                                                         In this case, all the tasks pending will be readied.
+    137          *
+    138          *              p_err     is a pointer to an error code that can contain one of the following values:
+    139          *
+    140          *                            OS_ERR_NONE                  The call was successful and the event flag group was deleted
+    141          *                            OS_ERR_DEL_ISR               If you attempted to delete the event flag group from an ISR
+    142          *                            OS_ERR_OBJ_PTR_NULL          If 'p_grp' is a NULL pointer.
+    143          *                            OS_ERR_OBJ_TYPE              If you didn't pass a pointer to an event flag group
+    144          *                            OS_ERR_OPT_INVALID           An invalid option was specified
+    145          *                            OS_ERR_TASK_WAITING          One or more tasks were waiting on the event flag group.
+    146          *
+    147          * Returns    : == 0          if no tasks were waiting on the event flag group, or upon error.
+    148          *              >  0          if one or more tasks waiting on the event flag group are now readied and informed.
+    149          *
+    150          * Note(s)    : 1) This function must be used with care.  Tasks that would normally expect the presence of the event flag
+    151          *                 group MUST check the return code of OSFlagPost and OSFlagPend().
+    152          ************************************************************************************************************************
+    153          */
+    154          
+    155          #if OS_CFG_FLAG_DEL_EN > 0u
+    156          OS_OBJ_QTY  OSFlagDel (OS_FLAG_GRP  *p_grp,
+    157                                 OS_OPT        opt,
+    158                                 OS_ERR       *p_err)
+    159          {
+    160              OS_OBJ_QTY        cnt;
+    161              OS_OBJ_QTY        nbr_tasks;
+    162              OS_PEND_DATA     *p_pend_data;
+    163              OS_PEND_LIST     *p_pend_list;
+    164              OS_TCB           *p_tcb;
+    165              CPU_TS            ts;
+    166              CPU_SR_ALLOC();
+    167          
+    168          
+    169          
+    170          #ifdef OS_SAFETY_CRITICAL
+    171              if (p_err == (OS_ERR *)0) {
+    172                  OS_SAFETY_CRITICAL_EXCEPTION();
+    173                  return ((OS_OBJ_QTY)0);
+    174              }
+    175          #endif
+    176          
+    177          #if OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u
+    178              if (OSIntNestingCtr > (OS_NESTING_CTR)0) {              /* See if called from ISR ...                             */
+    179                 *p_err = OS_ERR_DEL_ISR;                             /* ... can't DELETE from an ISR                           */
+    180                  return ((OS_OBJ_QTY)0);
+    181              }
+    182          #endif
+    183          
+    184          #if OS_CFG_ARG_CHK_EN > 0u
+    185              if (p_grp == (OS_FLAG_GRP *)0) {                        /* Validate 'p_grp'                                       */
+    186                 *p_err  = OS_ERR_OBJ_PTR_NULL;
+    187                  return ((OS_OBJ_QTY)0);
+    188              }
+    189              switch (opt) {                                          /* Validate 'opt'                                         */
+    190                  case OS_OPT_DEL_NO_PEND:
+    191                  case OS_OPT_DEL_ALWAYS:
+    192                       break;
+    193          
+    194                  default:
+    195                      *p_err = OS_ERR_OPT_INVALID;
+    196                       return ((OS_OBJ_QTY)0);
+    197              }
+    198          #endif
+    199          
+    200          #if OS_CFG_OBJ_TYPE_CHK_EN > 0u
+    201              if (p_grp->Type != OS_OBJ_TYPE_FLAG) {                  /* Validate event group object                            */
+    202                 *p_err = OS_ERR_OBJ_TYPE;
+    203                  return ((OS_OBJ_QTY)0);
+    204              }
+    205          #endif
+    206              OS_CRITICAL_ENTER();
+    207              p_pend_list = &p_grp->PendList;
+    208              cnt         = p_pend_list->NbrEntries;
+    209              nbr_tasks   = cnt;
+    210              switch (opt) {
+    211                  case OS_OPT_DEL_NO_PEND:                            /* Delete group if no task waiting                        */
+    212                       if (nbr_tasks == (OS_OBJ_QTY)0) {
+    213          #if OS_CFG_DBG_EN > 0u
+    214                           OS_FlagDbgListRemove(p_grp);
+    215          #endif
+    216                           OSFlagQty--;
+    217                           OS_FlagClr(p_grp);
+    218          
+    219                           OS_CRITICAL_EXIT();
+    220                          *p_err = OS_ERR_NONE;
+    221                       } else {
+    222                           OS_CRITICAL_EXIT();
+    223                          *p_err = OS_ERR_TASK_WAITING;
+    224                       }
+    225                       break;
+    226          
+    227                  case OS_OPT_DEL_ALWAYS:                             /* Always delete the event flag group                     */
+    228                       ts = OS_TS_GET();                              /* Get local time stamp so all tasks get the same time    */
+    229                       while (cnt > 0u) {                             /* Remove all tasks from the pend list                    */
+    230                           p_pend_data = p_pend_list->HeadPtr;
+    231                           p_tcb       = p_pend_data->TCBPtr;
+    232                           OS_PendObjDel((OS_PEND_OBJ *)((void *)p_grp),
+    233                                         p_tcb,
+    234                                         ts);
+    235                           cnt--;
+    236                       }
+    237          #if OS_CFG_DBG_EN > 0u
+    238                       OS_FlagDbgListRemove(p_grp);
+    239          #endif
+    240                       OSFlagQty--;
+    241                       OS_FlagClr(p_grp);
+    242                       OS_CRITICAL_EXIT_NO_SCHED();
+    243                       OSSched();                                     /* Find highest priority task ready to run                */
+    244                      *p_err = OS_ERR_NONE;
+    245                       break;
+    246          
+    247                  default:
+    248                       OS_CRITICAL_EXIT();
+    249                      *p_err = OS_ERR_OPT_INVALID;
+    250                       break;
+    251              }
+    252              return (nbr_tasks);
+    253          }
+    254          #endif
+    255          
+    256          /*
+    257          ************************************************************************************************************************
+    258          *                                             WAIT ON AN EVENT FLAG GROUP
+    259          *
+    260          * Description: This function is called to wait for a combination of bits to be set in an event flag group.  Your
+    261          *              application can wait for ANY bit to be set or ALL bits to be set.
+    262          *
+    263          * Arguments  : p_grp         is a pointer to the desired event flag group.
+    264          *
+    265          *              flags         Is a bit pattern indicating which bit(s) (i.e. flags) you wish to wait for.
+    266          *                            The bits you want are specified by setting the corresponding bits in 'flags'.
+    267          *                            e.g. if your application wants to wait for bits 0 and 1 then 'flags' would contain 0x03.
+    268          *
+    269          *              timeout       is an optional timeout (in clock ticks) that your task will wait for the
+    270          *                            desired bit combination.  If you specify 0, however, your task will wait
+    271          *                            forever at the specified event flag group or, until a message arrives.
+    272          *
+    273          *              opt           specifies whether you want ALL bits to be set or ANY of the bits to be set.
+    274          *                            You can specify the 'ONE' of the following arguments:
+    275          *
+    276          *                                OS_OPT_PEND_FLAG_CLR_ALL   You will wait for ALL bits in 'flags' to be clear (0)
+    277          *                                OS_OPT_PEND_FLAG_CLR_ANY   You will wait for ANY bit  in 'flags' to be clear (0)
+    278          *                                OS_OPT_PEND_FLAG_SET_ALL   You will wait for ALL bits in 'flags' to be set   (1)
+    279          *                                OS_OPT_PEND_FLAG_SET_ANY   You will wait for ANY bit  in 'flags' to be set   (1)
+    280          *
+    281          *                            You can 'ADD' OS_OPT_PEND_FLAG_CONSUME if you want the event flag to be 'consumed' by
+    282          *                                      the call.  Example, to wait for any flag in a group AND then clear
+    283          *                                      the flags that are present, set 'wait_opt' to:
+    284          *
+    285          *                                      OS_OPT_PEND_FLAG_SET_ANY + OS_OPT_PEND_FLAG_CONSUME
+    286          *
+    287          *                            You can also 'ADD' the type of pend with 'ONE' of the two option:
+    288          *
+    289          *                                OS_OPT_PEND_NON_BLOCKING   Task will NOT block if flags are not available
+    290          *                                OS_OPT_PEND_BLOCKING       Task will     block if flags are not available
+    291          *
+    292          *              p_ts          is a pointer to a variable that will receive the timestamp of when the event flag group was
+    293          *                            posted, aborted or the event flag group deleted.  If you pass a NULL pointer (i.e. (CPU_TS *)0)
+    294          *                            then you will not get the timestamp.  In other words, passing a NULL pointer is valid and
+    295          *                            indicates that you don't need the timestamp.
+    296          *
+    297          *              p_err         is a pointer to an error code and can be:
+    298          *
+    299          *                                OS_ERR_NONE                The desired bits have been set within the specified 'timeout'
+    300          *                                OS_ERR_OBJ_PTR_NULL        If 'p_grp' is a NULL pointer.
+    301          *                                OS_ERR_OBJ_TYPE            You are not pointing to an event flag group
+    302          *                                OS_ERR_OPT_INVALID         You didn't specify a proper 'opt' argument.
+    303          *                                OS_ERR_PEND_ABORT          The wait on the flag was aborted.
+    304          *                                OS_ERR_PEND_ISR            If you tried to PEND from an ISR
+    305          *                                OS_ERR_PEND_WOULD_BLOCK    If you specified non-blocking but the flags were not
+    306          *                                                           available.
+    307          *                                OS_ERR_SCHED_LOCKED        If you called this function when the scheduler is locked
+    308          *                                OS_ERR_TIMEOUT             The bit(s) have not been set in the specified 'timeout'.
+    309          *
+    310          * Returns    : The flags in the event flag group that made the task ready or, 0 if a timeout or an error
+    311          *              occurred.
+    312          ************************************************************************************************************************
+    313          */
+    314          
+
+   \                                 In section .text, align 2, keep-with-next
+    315          OS_FLAGS  OSFlagPend (OS_FLAG_GRP  *p_grp,
+    316                                OS_FLAGS      flags,
+    317                                OS_TICK       timeout,
+    318                                OS_OPT        opt,
+    319                                CPU_TS       *p_ts,
+    320                                OS_ERR       *p_err)
+    321          {
+   \                     OSFlagPend: (+1)
+   \        0x0   0xB5F6             PUSH     {R1,R2,R4-R7,LR}
+   \        0x2   0xB08B             SUB      SP,SP,#+44
+   \        0x4   0x9C13             LDR      R4,[SP, #+76]
+    322              CPU_BOOLEAN   consume;
+    323              OS_FLAGS      flags_rdy;
+    324              OS_OPT        mode;
+    325              OS_PEND_DATA  pend_data;
+    326              CPU_SR_ALLOC();
+   \        0x6   0x2500             MOVS     R5,#+0
+   \        0x8   0x0029             MOVS     R1,R5
+    327          
+    328          
+    329          
+    330          #ifdef OS_SAFETY_CRITICAL
+    331              if (p_err == (OS_ERR *)0) {
+    332                  OS_SAFETY_CRITICAL_EXCEPTION();
+    333                  return ((OS_FLAGS)0);
+    334              }
+    335          #endif
+    336          
+    337          #if OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u
+    338              if (OSIntNestingCtr > (OS_NESTING_CTR)0) {              /* See if called from ISR ...                             */
+   \        0xA   0x....             LDR      R1,??DataTable1
+   \        0xC   0x7809             LDRB     R1,[R1, #+0]
+   \        0xE   0x2900             CMP      R1,#+0
+   \       0x10   0xD003             BEQ      ??OSFlagPend_0
+    339                 *p_err = OS_ERR_PEND_ISR;                            /* ... can't PEND from an ISR                             */
+   \       0x12   0x....             LDR      R0,??DataTable1_1  ;; 0x61ae
+   \       0x14   0x8020             STRH     R0,[R4, #+0]
+    340                  return ((OS_FLAGS)0);
+   \       0x16   0x2000             MOVS     R0,#+0
+   \       0x18   0xE150             B        ??OSFlagPend_1
+    341              }
+   \                     ??OSFlagPend_0: (+1)
+   \       0x1A   0x0007             MOVS     R7,R0
+    342          #endif
+    343          
+    344          #if OS_CFG_ARG_CHK_EN > 0u
+    345              if (p_grp == (OS_FLAG_GRP *)0) {                        /* Validate 'p_grp'                                       */
+   \       0x1C   0x2F00             CMP      R7,#+0
+   \       0x1E   0xD103             BNE      ??OSFlagPend_2
+    346                 *p_err = OS_ERR_OBJ_PTR_NULL;
+   \       0x20   0x....             LDR      R0,??DataTable1_2  ;; 0x5dc3
+   \       0x22   0x8020             STRH     R0,[R4, #+0]
+    347                  return ((OS_FLAGS)0);
+   \       0x24   0x2000             MOVS     R0,#+0
+   \       0x26   0xE149             B        ??OSFlagPend_1
+    348              }
+   \                     ??OSFlagPend_2: (+1)
+   \       0x28   0x4668             MOV      R0,SP
+   \       0x2A   0x8083             STRH     R3,[R0, #+4]
+    349              switch (opt) {                                          /* Validate 'opt'                                         */
+   \       0x2C   0x4668             MOV      R0,SP
+   \       0x2E   0x8880             LDRH     R0,[R0, #+4]
+   \       0x30   0x1E40             SUBS     R0,R0,#+1
+   \       0x32   0x2801             CMP      R0,#+1
+   \       0x34   0xD919             BLS      ??OSFlagPend_3
+   \       0x36   0x1EC0             SUBS     R0,R0,#+3
+   \       0x38   0xD017             BEQ      ??OSFlagPend_3
+   \       0x3A   0x1F00             SUBS     R0,R0,#+4
+   \       0x3C   0xD015             BEQ      ??OSFlagPend_3
+   \       0x3E   0x38F9             SUBS     R0,R0,#+249
+   \       0x40   0x2801             CMP      R0,#+1
+   \       0x42   0xD912             BLS      ??OSFlagPend_3
+   \       0x44   0x1EC0             SUBS     R0,R0,#+3
+   \       0x46   0xD010             BEQ      ??OSFlagPend_3
+   \       0x48   0x1F00             SUBS     R0,R0,#+4
+   \       0x4A   0xD00E             BEQ      ??OSFlagPend_3
+   \       0x4C   0x....             LDR      R1,??DataTable2  ;; 0x7ef9
+   \       0x4E   0x1A40             SUBS     R0,R0,R1
+   \       0x50   0x2801             CMP      R0,#+1
+   \       0x52   0xD90A             BLS      ??OSFlagPend_3
+   \       0x54   0x1EC0             SUBS     R0,R0,#+3
+   \       0x56   0xD008             BEQ      ??OSFlagPend_3
+   \       0x58   0x1F00             SUBS     R0,R0,#+4
+   \       0x5A   0xD006             BEQ      ??OSFlagPend_3
+   \       0x5C   0x38F9             SUBS     R0,R0,#+249
+   \       0x5E   0x2801             CMP      R0,#+1
+   \       0x60   0xD903             BLS      ??OSFlagPend_3
+   \       0x62   0x1EC0             SUBS     R0,R0,#+3
+   \       0x64   0xD001             BEQ      ??OSFlagPend_3
+   \       0x66   0x1F00             SUBS     R0,R0,#+4
+   \       0x68   0xD109             BNE      ??OSFlagPend_4
+    350                  case OS_OPT_PEND_FLAG_CLR_ALL:
+    351                  case OS_OPT_PEND_FLAG_CLR_ANY:
+    352                  case OS_OPT_PEND_FLAG_SET_ALL:
+    353                  case OS_OPT_PEND_FLAG_SET_ANY:
+    354                  case OS_OPT_PEND_FLAG_CLR_ALL | OS_OPT_PEND_FLAG_CONSUME:
+    355                  case OS_OPT_PEND_FLAG_CLR_ANY | OS_OPT_PEND_FLAG_CONSUME:
+    356                  case OS_OPT_PEND_FLAG_SET_ALL | OS_OPT_PEND_FLAG_CONSUME:
+    357                  case OS_OPT_PEND_FLAG_SET_ANY | OS_OPT_PEND_FLAG_CONSUME:
+    358                  case OS_OPT_PEND_FLAG_CLR_ALL | OS_OPT_PEND_NON_BLOCKING:
+    359                  case OS_OPT_PEND_FLAG_CLR_ANY | OS_OPT_PEND_NON_BLOCKING:
+    360                  case OS_OPT_PEND_FLAG_SET_ALL | OS_OPT_PEND_NON_BLOCKING:
+    361                  case OS_OPT_PEND_FLAG_SET_ANY | OS_OPT_PEND_NON_BLOCKING:
+    362                  case OS_OPT_PEND_FLAG_CLR_ALL | OS_OPT_PEND_FLAG_CONSUME | OS_OPT_PEND_NON_BLOCKING:
+    363                  case OS_OPT_PEND_FLAG_CLR_ANY | OS_OPT_PEND_FLAG_CONSUME | OS_OPT_PEND_NON_BLOCKING:
+    364                  case OS_OPT_PEND_FLAG_SET_ALL | OS_OPT_PEND_FLAG_CONSUME | OS_OPT_PEND_NON_BLOCKING:
+    365                  case OS_OPT_PEND_FLAG_SET_ANY | OS_OPT_PEND_FLAG_CONSUME | OS_OPT_PEND_NON_BLOCKING:
+    366                       break;
+    367          
+    368                  default:
+    369                      *p_err = OS_ERR_OPT_INVALID;
+    370                       return ((OS_OBJ_QTY)0);
+    371              }
+    372          #endif
+    373          
+    374          #if OS_CFG_OBJ_TYPE_CHK_EN > 0u
+    375              if (p_grp->Type != OS_OBJ_TYPE_FLAG) {                  /* Validate that we are pointing at an event flag         */
+   \                     ??OSFlagPend_3: (+1)
+   \       0x6A   0x6838             LDR      R0,[R7, #+0]
+   \       0x6C   0x....             LDR      R1,??DataTable2_1  ;; 0x47414c46
+   \       0x6E   0x4288             CMP      R0,R1
+   \       0x70   0xD109             BNE      ??OSFlagPend_5
+    376                 *p_err = OS_ERR_OBJ_TYPE;
+    377                  return ((OS_FLAGS)0);
+    378              }
+    379          #endif
+    380          
+    381              if ((opt & OS_OPT_PEND_FLAG_CONSUME) != (OS_OPT)0) {    /* See if we need to consume the flags                    */
+   \       0x72   0x4668             MOV      R0,SP
+   \       0x74   0x8880             LDRH     R0,[R0, #+4]
+   \       0x76   0x05C0             LSLS     R0,R0,#+23
+   \       0x78   0xD509             BPL      ??OSFlagPend_6
+    382                  consume = DEF_TRUE;
+   \       0x7A   0x2601             MOVS     R6,#+1
+   \       0x7C   0xE008             B        ??OSFlagPend_7
+    383              } else {
+   \                     ??OSFlagPend_4: (+1)
+   \       0x7E   0x....             LDR      R0,??DataTable3  ;; 0x5e25
+   \       0x80   0x8020             STRH     R0,[R4, #+0]
+   \       0x82   0x2000             MOVS     R0,#+0
+   \       0x84   0xE11A             B        ??OSFlagPend_1
+   \                     ??OSFlagPend_5: (+1)
+   \       0x86   0x....             LDR      R0,??DataTable2_2  ;; 0x5dc4
+   \       0x88   0x8020             STRH     R0,[R4, #+0]
+   \       0x8A   0x2000             MOVS     R0,#+0
+   \       0x8C   0xE116             B        ??OSFlagPend_1
+    384                  consume = DEF_FALSE;
+   \                     ??OSFlagPend_6: (+1)
+   \       0x8E   0x002E             MOVS     R6,R5
+    385              }
+    386          
+    387              if (p_ts != (CPU_TS *)0) {
+   \                     ??OSFlagPend_7: (+1)
+   \       0x90   0x9812             LDR      R0,[SP, #+72]
+   \       0x92   0x2800             CMP      R0,#+0
+   \       0x94   0xD001             BEQ      ??OSFlagPend_8
+    388                 *p_ts = (CPU_TS)0;                                   /* Initialize the returned timestamp                      */
+   \       0x96   0x9812             LDR      R0,[SP, #+72]
+   \       0x98   0x6005             STR      R5,[R0, #+0]
+    389              }
+    390          
+    391              mode = opt & OS_OPT_PEND_FLAG_MASK;
+   \                     ??OSFlagPend_8: (+1)
+   \       0x9A   0x4668             MOV      R0,SP
+   \       0x9C   0x8880             LDRH     R0,[R0, #+4]
+   \       0x9E   0x0700             LSLS     R0,R0,#+28       ;; ZeroExtS R0,R0,#+28,#+28
+   \       0xA0   0x0F00             LSRS     R0,R0,#+28
+   \       0xA2   0x4669             MOV      R1,SP
+   \       0xA4   0x8108             STRH     R0,[R1, #+8]
+    392              CPU_CRITICAL_ENTER();
+   \       0xA6   0x....'....        BL       CPU_SR_Save
+    393              switch (mode) {
+   \       0xAA   0x4669             MOV      R1,SP
+   \       0xAC   0x8909             LDRH     R1,[R1, #+8]
+   \       0xAE   0x2904             CMP      R1,#+4
+   \       0xB0   0xD002             BEQ      ??OSFlagPend_9
+   \       0xB2   0x2908             CMP      R1,#+8
+   \       0xB4   0xD068             BEQ      ??OSFlagPend_10
+   \       0xB6   0xE0B3             B        ??OSFlagPend_11
+    394                  case OS_OPT_PEND_FLAG_SET_ALL:                      /* See if all required flags are set                      */
+    395                       flags_rdy = (OS_FLAGS)(p_grp->Flags & flags);  /* Extract only the bits we want                          */
+   \                     ??OSFlagPend_9: (+1)
+   \       0xB8   0x6A39             LDR      R1,[R7, #+32]
+   \       0xBA   0x9A0B             LDR      R2,[SP, #+44]
+   \       0xBC   0x400A             ANDS     R2,R2,R1
+   \       0xBE   0x9200             STR      R2,[SP, #+0]
+    396                       if (flags_rdy == flags) {                      /* Must match ALL the bits that we want                   */
+   \       0xC0   0x9900             LDR      R1,[SP, #+0]
+   \       0xC2   0x9A0B             LDR      R2,[SP, #+44]
+   \       0xC4   0x4291             CMP      R1,R2
+   \       0xC6   0xD116             BNE      ??OSFlagPend_12
+    397                           if (consume == DEF_TRUE) {                 /* See if we need to consume the flags                    */
+   \       0xC8   0xB2F6             UXTB     R6,R6
+   \       0xCA   0x2E01             CMP      R6,#+1
+   \       0xCC   0xD103             BNE      ??OSFlagPend_13
+    398                               p_grp->Flags &= ~flags_rdy;            /* Clear ONLY the flags that we wanted                    */
+   \       0xCE   0x6A39             LDR      R1,[R7, #+32]
+   \       0xD0   0x9A00             LDR      R2,[SP, #+0]
+   \       0xD2   0x4391             BICS     R1,R1,R2
+   \       0xD4   0x6239             STR      R1,[R7, #+32]
+    399                           }
+    400                           OSTCBCurPtr->FlagsRdy = flags_rdy;         /* Save flags that were ready                             */
+   \                     ??OSFlagPend_13: (+1)
+   \       0xD6   0x9900             LDR      R1,[SP, #+0]
+   \       0xD8   0x....             LDR      R2,??DataTable6
+   \       0xDA   0x6812             LDR      R2,[R2, #+0]
+   \       0xDC   0x2384             MOVS     R3,#+132
+   \       0xDE   0x50D1             STR      R1,[R2, R3]
+    401                           if (p_ts != (CPU_TS *)0) {
+   \       0xE0   0x9912             LDR      R1,[SP, #+72]
+   \       0xE2   0x2900             CMP      R1,#+0
+   \       0xE4   0xD002             BEQ      ??OSFlagPend_14
+    402                              *p_ts  = p_grp->TS;
+   \       0xE6   0x6A79             LDR      R1,[R7, #+36]
+   \       0xE8   0x9A12             LDR      R2,[SP, #+72]
+   \       0xEA   0x6011             STR      R1,[R2, #+0]
+    403                           }
+    404                           CPU_CRITICAL_EXIT();                       /* Yes, condition met, return to caller                   */
+   \                     ??OSFlagPend_14: (+1)
+   \       0xEC   0x....'....        BL       CPU_SR_Restore
+    405                          *p_err = OS_ERR_NONE;
+   \       0xF0   0x8025             STRH     R5,[R4, #+0]
+    406                           return (flags_rdy);
+   \       0xF2   0x9800             LDR      R0,[SP, #+0]
+   \       0xF4   0xE0E2             B        ??OSFlagPend_1
+    407                       } else {                                       /* Block task until events occur or timeout               */
+    408                           if ((opt & OS_OPT_PEND_NON_BLOCKING) != (OS_OPT)0) {
+   \                     ??OSFlagPend_12: (+1)
+   \       0xF6   0x4669             MOV      R1,SP
+   \       0xF8   0x8889             LDRH     R1,[R1, #+4]
+   \       0xFA   0x0409             LSLS     R1,R1,#+16
+   \       0xFC   0xD505             BPL      ??OSFlagPend_15
+    409                               CPU_CRITICAL_EXIT();
+   \       0xFE   0x....'....        BL       CPU_SR_Restore
+    410                              *p_err = OS_ERR_PEND_WOULD_BLOCK;       /* Specified non-blocking so task would block             */
+   \      0x102   0x....             LDR      R0,??DataTable5  ;; 0x61b0
+   \      0x104   0x8020             STRH     R0,[R4, #+0]
+    411                               return ((OS_FLAGS)0);
+   \      0x106   0x2000             MOVS     R0,#+0
+   \      0x108   0xE0D8             B        ??OSFlagPend_1
+    412                           } else {                                   /* Specified blocking so check is scheduler is locked     */
+    413                               if (OSSchedLockNestingCtr > (OS_NESTING_CTR)0) { /* See if called with scheduler locked ...      */
+   \                     ??OSFlagPend_15: (+1)
+   \      0x10A   0x....             LDR      R1,??DataTable6_1
+   \      0x10C   0x7809             LDRB     R1,[R1, #+0]
+   \      0x10E   0x2900             CMP      R1,#+0
+   \      0x110   0xD005             BEQ      ??OSFlagPend_16
+    414                                   CPU_CRITICAL_EXIT();
+   \      0x112   0x....'....        BL       CPU_SR_Restore
+    415                                  *p_err = OS_ERR_SCHED_LOCKED;                 /* ... can't PEND when locked                   */
+   \      0x116   0x....             LDR      R0,??DataTable6_2  ;; 0x6d63
+   \      0x118   0x8020             STRH     R0,[R4, #+0]
+    416                                   return ((OS_FLAGS)0);
+   \      0x11A   0x2000             MOVS     R0,#+0
+   \      0x11C   0xE0CE             B        ??OSFlagPend_1
+    417                               }
+    418                           }
+    419                                                                      /* Lock the scheduler/re-enable interrupts                */
+    420                           OS_CRITICAL_ENTER_CPU_EXIT();              
+   \                     ??OSFlagPend_16: (+1)
+   \      0x11E   0x....             LDR      R1,??DataTable6_1
+   \      0x120   0x7809             LDRB     R1,[R1, #+0]
+   \      0x122   0x1C49             ADDS     R1,R1,#+1
+   \      0x124   0x....             LDR      R2,??DataTable6_1
+   \      0x126   0x7011             STRB     R1,[R2, #+0]
+   \      0x128   0x....'....        BL       CPU_SR_Restore
+    421                           OS_FlagBlock(&pend_data,
+    422                                        p_grp,
+    423                                        flags,
+    424                                        opt,
+    425                                        timeout);
+   \      0x12C   0x980C             LDR      R0,[SP, #+48]
+   \      0x12E   0x9000             STR      R0,[SP, #+0]
+   \      0x130   0x4668             MOV      R0,SP
+   \      0x132   0x8883             LDRH     R3,[R0, #+4]
+   \      0x134   0x9A0B             LDR      R2,[SP, #+44]
+   \      0x136   0x0039             MOVS     R1,R7
+   \      0x138   0xA803             ADD      R0,SP,#+12
+   \      0x13A   0x....'....        BL       OS_FlagBlock
+    426                           OS_CRITICAL_EXIT_NO_SCHED();
+   \      0x13E   0x....'....        BL       CPU_SR_Save
+   \      0x142   0x....             LDR      R1,??DataTable6_1
+   \      0x144   0x7809             LDRB     R1,[R1, #+0]
+   \      0x146   0x1E49             SUBS     R1,R1,#+1
+   \      0x148   0x....             LDR      R2,??DataTable6_1
+   \      0x14A   0x7011             STRB     R1,[R2, #+0]
+   \      0x14C   0x....'....        BL       CPU_SR_Restore
+    427                       }
+    428                       break;
+    429          
+    430                  case OS_OPT_PEND_FLAG_SET_ANY:
+    431                       flags_rdy = (OS_FLAGS)(p_grp->Flags & flags);  /* Extract only the bits we want                          */
+    432                       if (flags_rdy != (OS_FLAGS)0) {                /* See if any flag set                                    */
+    433                           if (consume == DEF_TRUE) {                 /* See if we need to consume the flags                    */
+    434                               p_grp->Flags &= ~flags_rdy;            /* Clear ONLY the flags that we got                       */
+    435                           }
+    436                           OSTCBCurPtr->FlagsRdy = flags_rdy;         /* Save flags that were ready                             */
+    437                           if (p_ts != (CPU_TS *)0) {
+    438                              *p_ts  = p_grp->TS;
+    439                           }
+    440                           CPU_CRITICAL_EXIT();                       /* Yes, condition met, return to caller                   */
+    441                          *p_err = OS_ERR_NONE;
+    442                           return (flags_rdy);
+    443                       } else {                                       /* Block task until events occur or timeout               */
+    444                           if ((opt & OS_OPT_PEND_NON_BLOCKING) != (OS_OPT)0) {
+    445                               CPU_CRITICAL_EXIT();
+    446                              *p_err = OS_ERR_PEND_WOULD_BLOCK;       /* Specified non-blocking so task would block             */
+    447                               return ((OS_FLAGS)0);
+    448                           } else {                                   /* Specified blocking so check is scheduler is locked     */
+    449                               if (OSSchedLockNestingCtr > (OS_NESTING_CTR)0) { /* See if called with scheduler locked ...      */
+    450                                   CPU_CRITICAL_EXIT();
+    451                                  *p_err = OS_ERR_SCHED_LOCKED;                 /* ... can't PEND when locked                   */
+    452                                   return ((OS_FLAGS)0);
+    453                               }
+    454                           }
+    455                                                                      /* Lock the scheduler/re-enable interrupts                */
+    456                           OS_CRITICAL_ENTER_CPU_EXIT();              
+    457                           OS_FlagBlock(&pend_data,
+    458                                        p_grp,
+    459                                        flags,
+    460                                        opt,
+    461                                        timeout);
+    462                           OS_CRITICAL_EXIT_NO_SCHED();
+    463                       }
+    464                       break;
+    465          
+    466          #if OS_CFG_FLAG_MODE_CLR_EN > 0u
+    467                  case OS_OPT_PEND_FLAG_CLR_ALL:                      /* See if all required flags are cleared                  */
+    468                       flags_rdy = (OS_FLAGS)(~p_grp->Flags & flags); /* Extract only the bits we want                          */
+    469                       if (flags_rdy == flags) {                      /* Must match ALL the bits that we want                   */
+    470                           if (consume == DEF_TRUE) {                 /* See if we need to consume the flags                    */
+    471                               p_grp->Flags |= flags_rdy;             /* Set ONLY the flags that we wanted                      */
+    472                           }
+    473                           OSTCBCurPtr->FlagsRdy = flags_rdy;         /* Save flags that were ready                             */
+    474                           if (p_ts != (CPU_TS *)0) {
+    475                              *p_ts  = p_grp->TS;
+    476                           }
+    477                           CPU_CRITICAL_EXIT();                       /* Yes, condition met, return to caller                   */
+    478                          *p_err = OS_ERR_NONE;
+    479                           return (flags_rdy);
+    480                       } else {                                       /* Block task until events occur or timeout               */
+    481                           if ((opt & OS_OPT_PEND_NON_BLOCKING) != (OS_OPT)0) {
+    482                               CPU_CRITICAL_EXIT();
+    483                              *p_err = OS_ERR_PEND_WOULD_BLOCK;       /* Specified non-blocking so task would block             */
+    484                               return ((OS_FLAGS)0);
+    485                           } else {                                   /* Specified blocking so check is scheduler is locked     */
+    486                               if (OSSchedLockNestingCtr > (OS_NESTING_CTR)0) { /* See if called with scheduler locked ...      */
+    487                                   CPU_CRITICAL_EXIT();
+    488                                  *p_err = OS_ERR_SCHED_LOCKED;                 /* ... can't PEND when locked                   */
+    489                                   return ((OS_FLAGS)0);
+    490                               }
+    491                           }
+    492                                                                      
+    493                           OS_CRITICAL_ENTER_CPU_EXIT();              /* Lock the scheduler/re-enable interrupts                */
+    494                           OS_FlagBlock(&pend_data,
+    495                                        p_grp,
+    496                                        flags,
+    497                                        opt,
+    498                                        timeout);
+    499                           OS_CRITICAL_EXIT_NO_SCHED();
+    500                       }
+    501                       break;
+    502          
+    503                  case OS_OPT_PEND_FLAG_CLR_ANY:
+    504                       flags_rdy = (OS_FLAGS)(~p_grp->Flags & flags); /* Extract only the bits we want                          */
+    505                       if (flags_rdy != (OS_FLAGS)0) {                /* See if any flag cleared                                */
+    506                           if (consume == DEF_TRUE) {                 /* See if we need to consume the flags                    */
+    507                               p_grp->Flags |= flags_rdy;             /* Set ONLY the flags that we got                         */
+    508                           }
+    509                           OSTCBCurPtr->FlagsRdy = flags_rdy;         /* Save flags that were ready                             */
+    510                           if (p_ts != (CPU_TS *)0) {
+    511                              *p_ts  = p_grp->TS;
+    512                           }
+    513                           CPU_CRITICAL_EXIT();                       /* Yes, condition met, return to caller                   */
+    514                          *p_err = OS_ERR_NONE;
+    515                           return (flags_rdy);
+    516                       } else {                                       /* Block task until events occur or timeout               */
+    517                           if ((opt & OS_OPT_PEND_NON_BLOCKING) != (OS_OPT)0) {
+    518                               CPU_CRITICAL_EXIT();
+    519                              *p_err = OS_ERR_PEND_WOULD_BLOCK;       /* Specified non-blocking so task would block             */
+    520                               return ((OS_FLAGS)0);
+    521                           } else {                                   /* Specified blocking so check is scheduler is locked     */
+    522                               if (OSSchedLockNestingCtr > (OS_NESTING_CTR)0) { /* See if called with scheduler locked ...      */
+    523                                   CPU_CRITICAL_EXIT();
+    524                                  *p_err = OS_ERR_SCHED_LOCKED;                 /* ... can't PEND when locked                   */
+    525                                   return ((OS_FLAGS)0);
+    526                               }
+    527                           }
+    528                                                                      
+    529                           OS_CRITICAL_ENTER_CPU_EXIT();              /* Lock the scheduler/re-enable interrupts                */
+    530                           OS_FlagBlock(&pend_data,              
+    531                                        p_grp,
+    532                                        flags,
+    533                                        opt,
+    534                                        timeout);
+    535                           OS_CRITICAL_EXIT_NO_SCHED();
+    536                       }
+    537                       break;
+    538          #endif
+    539          
+    540                  default:
+    541                       CPU_CRITICAL_EXIT();
+    542                      *p_err = OS_ERR_OPT_INVALID;
+    543                       return ((OS_FLAGS)0);
+    544              }
+    545          
+    546              OSSched();                                              /* Find next HPT ready to run                             */
+   \                     ??OSFlagPend_17: (+1)
+   \      0x150   0x....'....        BL       OSSched
+    547          
+    548              CPU_CRITICAL_ENTER();
+   \      0x154   0x....'....        BL       CPU_SR_Save
+   \      0x158   0x9001             STR      R0,[SP, #+4]
+    549              switch (OSTCBCurPtr->PendStatus) {
+   \      0x15A   0x....             LDR      R0,??DataTable6
+   \      0x15C   0x6800             LDR      R0,[R0, #+0]
+   \      0x15E   0x2135             MOVS     R1,#+53
+   \      0x160   0x5C40             LDRB     R0,[R0, R1]
+   \      0x162   0x2800             CMP      R0,#+0
+   \      0x164   0xD005             BEQ      ??OSFlagPend_18
+   \      0x166   0x2802             CMP      R0,#+2
+   \      0x168   0xD079             BEQ      ??OSFlagPend_19
+   \      0x16A   0xD35F             BCC      ??OSFlagPend_20
+   \      0x16C   0x2803             CMP      R0,#+3
+   \      0x16E   0xD06B             BEQ      ??OSFlagPend_21
+   \      0x170   0xE083             B        ??OSFlagPend_22
+    550                  case OS_STATUS_PEND_OK:                             /* We got the vent flags                                  */
+    551                       if (p_ts != (CPU_TS *)0) {
+   \                     ??OSFlagPend_18: (+1)
+   \      0x172   0x9812             LDR      R0,[SP, #+72]
+   \      0x174   0x2800             CMP      R0,#+0
+   \      0x176   0xD004             BEQ      ??OSFlagPend_23
+    552                          *p_ts  = OSTCBCurPtr->TS;
+   \      0x178   0x....             LDR      R0,??DataTable6
+   \      0x17A   0x6800             LDR      R0,[R0, #+0]
+   \      0x17C   0x6C00             LDR      R0,[R0, #+64]
+   \      0x17E   0x9912             LDR      R1,[SP, #+72]
+   \      0x180   0x6008             STR      R0,[R1, #+0]
+    553                       }
+    554                      *p_err = OS_ERR_NONE;
+   \                     ??OSFlagPend_23: (+1)
+   \      0x182   0x0028             MOVS     R0,R5
+   \      0x184   0x8020             STRH     R0,[R4, #+0]
+    555                       break;
+   \      0x186   0xE07D             B        ??OSFlagPend_24
+   \                     ??OSFlagPend_10: (+1)
+   \      0x188   0x6A39             LDR      R1,[R7, #+32]
+   \      0x18A   0x9A0B             LDR      R2,[SP, #+44]
+   \      0x18C   0x400A             ANDS     R2,R2,R1
+   \      0x18E   0x9200             STR      R2,[SP, #+0]
+   \      0x190   0x9900             LDR      R1,[SP, #+0]
+   \      0x192   0x2900             CMP      R1,#+0
+   \      0x194   0xD016             BEQ      ??OSFlagPend_25
+   \      0x196   0xB2F6             UXTB     R6,R6
+   \      0x198   0x2E01             CMP      R6,#+1
+   \      0x19A   0xD103             BNE      ??OSFlagPend_26
+   \      0x19C   0x6A39             LDR      R1,[R7, #+32]
+   \      0x19E   0x9A00             LDR      R2,[SP, #+0]
+   \      0x1A0   0x4391             BICS     R1,R1,R2
+   \      0x1A2   0x6239             STR      R1,[R7, #+32]
+   \                     ??OSFlagPend_26: (+1)
+   \      0x1A4   0x9900             LDR      R1,[SP, #+0]
+   \      0x1A6   0x....             LDR      R2,??DataTable6
+   \      0x1A8   0x6812             LDR      R2,[R2, #+0]
+   \      0x1AA   0x2384             MOVS     R3,#+132
+   \      0x1AC   0x50D1             STR      R1,[R2, R3]
+   \      0x1AE   0x9912             LDR      R1,[SP, #+72]
+   \      0x1B0   0x2900             CMP      R1,#+0
+   \      0x1B2   0xD002             BEQ      ??OSFlagPend_27
+   \      0x1B4   0x6A79             LDR      R1,[R7, #+36]
+   \      0x1B6   0x9A12             LDR      R2,[SP, #+72]
+   \      0x1B8   0x6011             STR      R1,[R2, #+0]
+   \                     ??OSFlagPend_27: (+1)
+   \      0x1BA   0x....'....        BL       CPU_SR_Restore
+   \      0x1BE   0x8025             STRH     R5,[R4, #+0]
+   \      0x1C0   0x9800             LDR      R0,[SP, #+0]
+   \      0x1C2   0xE07B             B        ??OSFlagPend_1
+   \                     ??OSFlagPend_25: (+1)
+   \      0x1C4   0x4669             MOV      R1,SP
+   \      0x1C6   0x8889             LDRH     R1,[R1, #+4]
+   \      0x1C8   0x0409             LSLS     R1,R1,#+16
+   \      0x1CA   0xD505             BPL      ??OSFlagPend_28
+   \      0x1CC   0x....'....        BL       CPU_SR_Restore
+   \      0x1D0   0x....             LDR      R0,??DataTable5  ;; 0x61b0
+   \      0x1D2   0x8020             STRH     R0,[R4, #+0]
+   \      0x1D4   0x2000             MOVS     R0,#+0
+   \      0x1D6   0xE071             B        ??OSFlagPend_1
+   \                     ??OSFlagPend_28: (+1)
+   \      0x1D8   0x....             LDR      R1,??DataTable6_1
+   \      0x1DA   0x7809             LDRB     R1,[R1, #+0]
+   \      0x1DC   0x2900             CMP      R1,#+0
+   \      0x1DE   0xD005             BEQ      ??OSFlagPend_29
+   \      0x1E0   0x....'....        BL       CPU_SR_Restore
+   \      0x1E4   0x....             LDR      R0,??DataTable6_2  ;; 0x6d63
+   \      0x1E6   0x8020             STRH     R0,[R4, #+0]
+   \      0x1E8   0x2000             MOVS     R0,#+0
+   \      0x1EA   0xE067             B        ??OSFlagPend_1
+   \                     ??OSFlagPend_29: (+1)
+   \      0x1EC   0x....             LDR      R1,??DataTable6_1
+   \      0x1EE   0x7809             LDRB     R1,[R1, #+0]
+   \      0x1F0   0x1C49             ADDS     R1,R1,#+1
+   \      0x1F2   0x....             LDR      R2,??DataTable6_1
+   \      0x1F4   0x7011             STRB     R1,[R2, #+0]
+   \      0x1F6   0x....'....        BL       CPU_SR_Restore
+   \      0x1FA   0x980C             LDR      R0,[SP, #+48]
+   \      0x1FC   0x9000             STR      R0,[SP, #+0]
+   \      0x1FE   0x4668             MOV      R0,SP
+   \      0x200   0x8883             LDRH     R3,[R0, #+4]
+   \      0x202   0x9A0B             LDR      R2,[SP, #+44]
+   \      0x204   0x0039             MOVS     R1,R7
+   \      0x206   0xA803             ADD      R0,SP,#+12
+   \      0x208   0x....'....        BL       OS_FlagBlock
+   \      0x20C   0x....'....        BL       CPU_SR_Save
+   \      0x210   0x....             LDR      R1,??DataTable6_1
+   \      0x212   0x7809             LDRB     R1,[R1, #+0]
+   \      0x214   0x1E49             SUBS     R1,R1,#+1
+   \      0x216   0x....             LDR      R2,??DataTable6_1
+   \      0x218   0x7011             STRB     R1,[R2, #+0]
+   \      0x21A   0x....'....        BL       CPU_SR_Restore
+   \      0x21E   0xE797             B        ??OSFlagPend_17
+   \                     ??OSFlagPend_11: (+1)
+   \      0x220   0x....'....        BL       CPU_SR_Restore
+   \      0x224   0x....             LDR      R0,??DataTable3  ;; 0x5e25
+   \      0x226   0x8020             STRH     R0,[R4, #+0]
+   \      0x228   0x2000             MOVS     R0,#+0
+   \      0x22A   0xE047             B        ??OSFlagPend_1
+    556          
+    557                  case OS_STATUS_PEND_ABORT:                          /* Indicate that we aborted                               */
+    558                       if (p_ts != (CPU_TS *)0) {
+   \                     ??OSFlagPend_20: (+1)
+   \      0x22C   0x9812             LDR      R0,[SP, #+72]
+   \      0x22E   0x2800             CMP      R0,#+0
+   \      0x230   0xD004             BEQ      ??OSFlagPend_30
+    559                          *p_ts  = OSTCBCurPtr->TS;
+   \      0x232   0x....             LDR      R0,??DataTable6
+   \      0x234   0x6800             LDR      R0,[R0, #+0]
+   \      0x236   0x6C00             LDR      R0,[R0, #+64]
+   \      0x238   0x9912             LDR      R1,[SP, #+72]
+   \      0x23A   0x6008             STR      R0,[R1, #+0]
+    560                       }
+    561                       CPU_CRITICAL_EXIT();
+   \                     ??OSFlagPend_30: (+1)
+   \      0x23C   0x9801             LDR      R0,[SP, #+4]
+   \      0x23E   0x....'....        BL       CPU_SR_Restore
+    562                      *p_err = OS_ERR_PEND_ABORT;
+   \      0x242   0x....             LDR      R0,??DataTable8  ;; 0x61a9
+   \      0x244   0x8020             STRH     R0,[R4, #+0]
+    563                       break;
+   \      0x246   0xE01D             B        ??OSFlagPend_24
+    564          
+    565                  case OS_STATUS_PEND_TIMEOUT:                        /* Indicate that we didn't get semaphore within timeout   */
+    566                       if (p_ts != (CPU_TS *)0) {
+   \                     ??OSFlagPend_21: (+1)
+   \      0x248   0x9812             LDR      R0,[SP, #+72]
+   \      0x24A   0x2800             CMP      R0,#+0
+   \      0x24C   0xD001             BEQ      ??OSFlagPend_31
+    567                          *p_ts  = (CPU_TS  )0;
+   \      0x24E   0x9812             LDR      R0,[SP, #+72]
+   \      0x250   0x6005             STR      R5,[R0, #+0]
+    568                       }
+    569                       CPU_CRITICAL_EXIT();
+   \                     ??OSFlagPend_31: (+1)
+   \      0x252   0x9801             LDR      R0,[SP, #+4]
+   \      0x254   0x....'....        BL       CPU_SR_Restore
+    570                      *p_err = OS_ERR_TIMEOUT;
+   \      0x258   0x....             LDR      R0,??DataTable8_1  ;; 0x72d9
+   \      0x25A   0x8020             STRH     R0,[R4, #+0]
+    571                       break;
+   \      0x25C   0xE012             B        ??OSFlagPend_24
+    572          
+    573                  case OS_STATUS_PEND_DEL:                            /* Indicate that object pended on has been deleted        */
+    574                       if (p_ts != (CPU_TS *)0) {
+   \                     ??OSFlagPend_19: (+1)
+   \      0x25E   0x9812             LDR      R0,[SP, #+72]
+   \      0x260   0x2800             CMP      R0,#+0
+   \      0x262   0xD004             BEQ      ??OSFlagPend_32
+    575                          *p_ts  = OSTCBCurPtr->TS;
+   \      0x264   0x....             LDR      R0,??DataTable6
+   \      0x266   0x6800             LDR      R0,[R0, #+0]
+   \      0x268   0x6C00             LDR      R0,[R0, #+64]
+   \      0x26A   0x9912             LDR      R1,[SP, #+72]
+   \      0x26C   0x6008             STR      R0,[R1, #+0]
+    576                       }
+    577                       CPU_CRITICAL_EXIT();
+   \                     ??OSFlagPend_32: (+1)
+   \      0x26E   0x9801             LDR      R0,[SP, #+4]
+   \      0x270   0x....'....        BL       CPU_SR_Restore
+    578                      *p_err = OS_ERR_OBJ_DEL;
+   \      0x274   0x....             LDR      R0,??DataTable8_2  ;; 0x5dc2
+   \      0x276   0x8020             STRH     R0,[R4, #+0]
+    579                       break;
+   \      0x278   0xE004             B        ??OSFlagPend_24
+    580          
+    581                  default:
+    582                       CPU_CRITICAL_EXIT();
+   \                     ??OSFlagPend_22: (+1)
+   \      0x27A   0x9801             LDR      R0,[SP, #+4]
+   \      0x27C   0x....'....        BL       CPU_SR_Restore
+    583                      *p_err = OS_ERR_STATUS_INVALID;
+   \      0x280   0x....             LDR      R0,??DataTable8_3  ;; 0x6e2e
+   \      0x282   0x8020             STRH     R0,[R4, #+0]
+    584                       break;
+    585              }
+    586              if (*p_err != OS_ERR_NONE) {
+   \                     ??OSFlagPend_24: (+1)
+   \      0x284   0x8820             LDRH     R0,[R4, #+0]
+   \      0x286   0x2800             CMP      R0,#+0
+   \      0x288   0xD001             BEQ      ??OSFlagPend_33
+    587                  return ((OS_FLAGS)0);
+   \      0x28A   0x2000             MOVS     R0,#+0
+   \      0x28C   0xE016             B        ??OSFlagPend_1
+    588              }
+    589          
+    590              flags_rdy = OSTCBCurPtr->FlagsRdy;
+   \                     ??OSFlagPend_33: (+1)
+   \      0x28E   0x....             LDR      R0,??DataTable6
+   \      0x290   0x6800             LDR      R0,[R0, #+0]
+   \      0x292   0x2184             MOVS     R1,#+132
+   \      0x294   0x5840             LDR      R0,[R0, R1]
+   \      0x296   0x9000             STR      R0,[SP, #+0]
+    591              if (consume == DEF_TRUE) {                              /* See if we need to consume the flags                    */
+   \      0x298   0xB2F6             UXTB     R6,R6
+   \      0x29A   0x2E01             CMP      R6,#+1
+   \      0x29C   0xD109             BNE      ??OSFlagPend_34
+    592                  switch (mode) {
+   \      0x29E   0x4668             MOV      R0,SP
+   \      0x2A0   0x8900             LDRH     R0,[R0, #+8]
+   \      0x2A2   0x2804             CMP      R0,#+4
+   \      0x2A4   0xD001             BEQ      ??OSFlagPend_35
+   \      0x2A6   0x2808             CMP      R0,#+8
+   \      0x2A8   0xD10A             BNE      ??OSFlagPend_36
+    593                      case OS_OPT_PEND_FLAG_SET_ALL:
+    594                      case OS_OPT_PEND_FLAG_SET_ANY:                  /* Clear ONLY the flags we got                            */
+    595                           p_grp->Flags &= ~flags_rdy;
+   \                     ??OSFlagPend_35: (+1)
+   \      0x2AA   0x6A38             LDR      R0,[R7, #+32]
+   \      0x2AC   0x9900             LDR      R1,[SP, #+0]
+   \      0x2AE   0x4388             BICS     R0,R0,R1
+   \      0x2B0   0x6238             STR      R0,[R7, #+32]
+    596                           break;
+    597          
+    598          #if OS_CFG_FLAG_MODE_CLR_EN > 0u
+    599                      case OS_OPT_PEND_FLAG_CLR_ALL:
+    600                      case OS_OPT_PEND_FLAG_CLR_ANY:                  /* Set   ONLY the flags we got                            */
+    601                           p_grp->Flags |=  flags_rdy;
+    602                           break;
+    603          #endif
+    604                      default:
+    605                           CPU_CRITICAL_EXIT();
+    606                          *p_err = OS_ERR_OPT_INVALID;
+    607                           return ((OS_FLAGS)0);
+    608                  }
+    609              }
+    610              CPU_CRITICAL_EXIT();
+   \                     ??OSFlagPend_34: (+1)
+   \      0x2B2   0x9801             LDR      R0,[SP, #+4]
+   \      0x2B4   0x....'....        BL       CPU_SR_Restore
+    611             *p_err = OS_ERR_NONE;                                    /* Event(s) must have occurred                            */
+   \      0x2B8   0x8025             STRH     R5,[R4, #+0]
+    612              return (flags_rdy);
+   \      0x2BA   0x9800             LDR      R0,[SP, #+0]
+   \                     ??OSFlagPend_1: (+1)
+   \      0x2BC   0xB00D             ADD      SP,SP,#+52
+   \      0x2BE   0xBDF0             POP      {R4-R7,PC}       ;; return
+   \                     ??OSFlagPend_36: (+1)
+   \      0x2C0   0x9801             LDR      R0,[SP, #+4]
+   \      0x2C2   0x....'....        BL       CPU_SR_Restore
+   \      0x2C6   0x....             LDR      R0,??DataTable3  ;; 0x5e25
+   \      0x2C8   0x8020             STRH     R0,[R4, #+0]
+   \      0x2CA   0x2000             MOVS     R0,#+0
+   \      0x2CC   0xE7F6             B        ??OSFlagPend_1
+    613          }
+    614          
+    615          /*$PAGE*/
+    616          /*
+    617          ************************************************************************************************************************
+    618          *                                          ABORT WAITING ON AN EVENT FLAG GROUP
+    619          *
+    620          * Description: This function aborts & readies any tasks currently waiting on an event flag group.  This function should
+    621          *              be used to fault-abort the wait on the event flag group, rather than to normally post to the event flag
+    622          *              group OSFlagPost().
+    623          *
+    624          * Arguments  : p_grp     is a pointer to the event flag group
+    625          *
+    626          *              opt       determines the type of ABORT performed:
+    627          *
+    628          *                            OS_OPT_PEND_ABORT_1          ABORT wait for a single task (HPT) waiting on the event flag
+    629          *                            OS_OPT_PEND_ABORT_ALL        ABORT wait for ALL tasks that are  waiting on the event flag
+    630          *                            OS_OPT_POST_NO_SCHED         Do not call the scheduler
+    631          *
+    632          *              p_err     is a pointer to a variable that will contain an error code returned by this function.
+    633          *
+    634          *                            OS_ERR_NONE                  At least one task waiting on the event flag group and was
+    635          *                                                         readied and informed of the aborted wait; check return value
+    636          *                                                         for the number of tasks whose wait on the event flag group
+    637          *                                                         was aborted.
+    638          *                            OS_ERR_OBJ_PTR_NULL          If 'p_grp' is a NULL pointer.
+    639          *                            OS_ERR_OBJ_TYPE              If 'p_grp' is not pointing at an event flag group
+    640          *                            OS_ERR_OPT_INVALID           If you specified an invalid option
+    641          *                            OS_ERR_PEND_ABORT_ISR        If you called this function from an ISR
+    642          *                            OS_ERR_PEND_ABORT_NONE       No task were pending
+    643          *
+    644          * Returns    : == 0          if no tasks were waiting on the event flag group, or upon error.
+    645          *              >  0          if one or more tasks waiting on the event flag group are now readied and informed.
+    646          ************************************************************************************************************************
+    647          */
+    648          
+    649          #if OS_CFG_FLAG_PEND_ABORT_EN > 0u
+    650          OS_OBJ_QTY  OSFlagPendAbort (OS_FLAG_GRP  *p_grp,
+    651                                       OS_OPT        opt,
+    652                                       OS_ERR       *p_err)
+    653          {
+    654              OS_PEND_LIST  *p_pend_list;
+    655              OS_TCB        *p_tcb;
+    656              CPU_TS         ts;
+    657              OS_OBJ_QTY     nbr_tasks;
+    658              CPU_SR_ALLOC();
+    659          
+    660          
+    661          
+    662          #ifdef OS_SAFETY_CRITICAL
+    663              if (p_err == (OS_ERR *)0) {
+    664                  OS_SAFETY_CRITICAL_EXCEPTION();
+    665                  return ((OS_OBJ_QTY)0u);
+    666              }
+    667          #endif
+    668          
+    669          #if OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u
+    670              if (OSIntNestingCtr > (OS_NESTING_CTR)0u) {             /* Not allowed to Pend Abort from an ISR                  */
+    671                 *p_err = OS_ERR_PEND_ABORT_ISR;
+    672                  return ((OS_OBJ_QTY)0u);
+    673              }
+    674          #endif
+    675          
+    676          #if OS_CFG_ARG_CHK_EN > 0u
+    677              if (p_grp == (OS_FLAG_GRP *)0) {                        /* Validate 'p_grp'                                       */
+    678                 *p_err  =  OS_ERR_OBJ_PTR_NULL;
+    679                  return ((OS_OBJ_QTY)0u);
+    680              }
+    681              switch (opt) {                                          /* Validate 'opt'                                         */
+    682                  case OS_OPT_PEND_ABORT_1:
+    683                  case OS_OPT_PEND_ABORT_ALL:
+    684                  case OS_OPT_PEND_ABORT_1   | OS_OPT_POST_NO_SCHED:
+    685                  case OS_OPT_PEND_ABORT_ALL | OS_OPT_POST_NO_SCHED:
+    686                       break;
+    687          
+    688                  default:
+    689                      *p_err = OS_ERR_OPT_INVALID;
+    690                       return ((OS_OBJ_QTY)0u);
+    691              }
+    692          #endif
+    693          
+    694          #if OS_CFG_OBJ_TYPE_CHK_EN > 0u
+    695              if (p_grp->Type != OS_OBJ_TYPE_FLAG) {                  /* Make sure event flag group was created                 */
+    696                 *p_err = OS_ERR_OBJ_TYPE;
+    697                  return ((OS_OBJ_QTY)0u);
+    698              }
+    699          #endif
+    700          
+    701              CPU_CRITICAL_ENTER();
+    702              p_pend_list = &p_grp->PendList;
+    703              if (p_pend_list->NbrEntries == (OS_OBJ_QTY)0u) {        /* Any task waiting on flag group?                        */
+    704                  CPU_CRITICAL_EXIT();                                /* No                                                     */
+    705                 *p_err = OS_ERR_PEND_ABORT_NONE;
+    706                  return ((OS_OBJ_QTY)0u);
+    707              }
+    708          
+    709              OS_CRITICAL_ENTER_CPU_EXIT();
+    710              nbr_tasks = 0u;
+    711              ts        = OS_TS_GET();                                /* Get local time stamp so all tasks get the same time    */
+    712              while (p_pend_list->NbrEntries > (OS_OBJ_QTY)0u) {
+    713                  p_tcb = p_pend_list->HeadPtr->TCBPtr;
+    714                  OS_PendAbort((OS_PEND_OBJ *)((void *)p_grp),
+    715                               p_tcb,
+    716                               ts);
+    717                  nbr_tasks++;
+    718                  if (opt != OS_OPT_PEND_ABORT_ALL) {                 /* Pend abort all tasks waiting?                          */
+    719                      break;                                          /* No                                                     */
+    720                  }
+    721              }
+    722              OS_CRITICAL_EXIT_NO_SCHED();
+    723          
+    724              if ((opt & OS_OPT_POST_NO_SCHED) == (OS_OPT)0u) {
+    725                  OSSched();                                          /* Run the scheduler                                      */
+    726              }
+    727          
+    728             *p_err = OS_ERR_NONE;
+    729              return (nbr_tasks);
+    730          }
+    731          #endif
+    732          
+    733          /*$PAGE*/
+    734          /*
+    735          ************************************************************************************************************************
+    736          *                                       GET FLAGS WHO CAUSED TASK TO BECOME READY
+    737          *
+    738          * Description: This function is called to obtain the flags that caused the task to become ready to run.
+    739          *              In other words, this function allows you to tell "Who done it!".
+    740          *
+    741          * Arguments  : p_err     is a pointer to an error code
+    742          *
+    743          *                            OS_ERR_NONE       if the call was successful
+    744          *                            OS_ERR_PEND_ISR   if called from an ISR
+    745          *
+    746          * Returns    : The flags that caused the task to be ready.
+    747          ************************************************************************************************************************
+    748          */
+    749          
+
+   \                                 In section .text, align 2, keep-with-next
+    750          OS_FLAGS  OSFlagPendGetFlagsRdy (OS_ERR  *p_err)
+    751          {
+   \                     OSFlagPendGetFlagsRdy: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+   \        0x2   0x0004             MOVS     R4,R0
+    752              OS_FLAGS   flags;
+    753              CPU_SR_ALLOC();
+   \        0x4   0x2500             MOVS     R5,#+0
+   \        0x6   0x0028             MOVS     R0,R5
+    754          
+    755          
+    756          
+    757          #ifdef OS_SAFETY_CRITICAL
+    758              if (p_err == (OS_ERR *)0) {
+    759                  OS_SAFETY_CRITICAL_EXCEPTION();
+    760                  return ((OS_FLAGS)0);
+    761              }
+    762          #endif
+    763          
+    764          #if OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u
+    765              if (OSIntNestingCtr > (OS_NESTING_CTR)0) {              /* See if called from ISR ...                             */
+   \        0x8   0x....             LDR      R0,??DataTable9
+   \        0xA   0x7800             LDRB     R0,[R0, #+0]
+   \        0xC   0x2800             CMP      R0,#+0
+   \        0xE   0xD003             BEQ      ??OSFlagPendGetFlagsRdy_0
+    766                 *p_err = OS_ERR_PEND_ISR;                            /* ... can't get from an ISR                              */
+   \       0x10   0x....             LDR      R0,??DataTable9_1  ;; 0x61ae
+   \       0x12   0x8020             STRH     R0,[R4, #+0]
+    767                  return ((OS_FLAGS)0);
+   \       0x14   0x2000             MOVS     R0,#+0
+   \       0x16   0xE009             B        ??OSFlagPendGetFlagsRdy_1
+    768              }
+    769          #endif
+    770          
+    771              CPU_CRITICAL_ENTER();
+   \                     ??OSFlagPendGetFlagsRdy_0: (+1)
+   \       0x18   0x....'....        BL       CPU_SR_Save
+    772              flags = OSTCBCurPtr->FlagsRdy;
+   \       0x1C   0x....             LDR      R1,??DataTable6
+   \       0x1E   0x6809             LDR      R1,[R1, #+0]
+   \       0x20   0x2284             MOVS     R2,#+132
+   \       0x22   0x588E             LDR      R6,[R1, R2]
+    773              CPU_CRITICAL_EXIT();
+   \       0x24   0x....'....        BL       CPU_SR_Restore
+    774             *p_err = OS_ERR_NONE;
+   \       0x28   0x8025             STRH     R5,[R4, #+0]
+    775              return (flags);
+   \       0x2A   0x0030             MOVS     R0,R6
+   \                     ??OSFlagPendGetFlagsRdy_1: (+1)
+   \       0x2C   0xBD70             POP      {R4-R6,PC}       ;; return
+    776          }
+    777          
+    778          /*$PAGE*/
+    779          /*
+    780          ************************************************************************************************************************
+    781          *                                                POST EVENT FLAG BIT(S)
+    782          *
+    783          * Description: This function is called to set or clear some bits in an event flag group.  The bits to set or clear are
+    784          *              specified by a 'bit mask'.
+    785          *
+    786          * Arguments  : p_grp         is a pointer to the desired event flag group.
+    787          *
+    788          *              flags         If 'opt' (see below) is OS_OPT_POST_FLAG_SET, each bit that is set in 'flags' will
+    789          *                            set the corresponding bit in the event flag group.  e.g. to set bits 0, 4
+    790          *                            and 5 you would set 'flags' to:
+    791          *
+    792          *                                0x31     (note, bit 0 is least significant bit)
+    793          *
+    794          *                            If 'opt' (see below) is OS_OPT_POST_FLAG_CLR, each bit that is set in 'flags' will
+    795          *                            CLEAR the corresponding bit in the event flag group.  e.g. to clear bits 0,
+    796          *                            4 and 5 you would specify 'flags' as:
+    797          *
+    798          *                                0x31     (note, bit 0 is least significant bit)
+    799          *
+    800          *              opt           indicates whether the flags will be:
+    801          *
+    802          *                                OS_OPT_POST_FLAG_SET       set
+    803          *                                OS_OPT_POST_FLAG_CLR       cleared
+    804          *
+    805          *                            you can also 'add' OS_OPT_POST_NO_SCHED to prevent the scheduler from being called.
+    806          *
+    807          *              p_err         is a pointer to an error code and can be:
+    808          *
+    809          *                                OS_ERR_NONE                The call was successful
+    810          *                                OS_ERR_OBJ_PTR_NULL        You passed a NULL pointer
+    811          *                                OS_ERR_OBJ_TYPE            You are not pointing to an event flag group
+    812          *                                OS_ERR_OPT_INVALID         You specified an invalid option
+    813          *
+    814          * Returns    : the new value of the event flags bits that are still set.
+    815          *
+    816          * Note(s)    : 1) The execution time of this function depends on the number of tasks waiting on the event flag group.
+    817          ************************************************************************************************************************
+    818          */
+    819          
+
+   \                                 In section .text, align 2, keep-with-next
+    820          OS_FLAGS  OSFlagPost (OS_FLAG_GRP  *p_grp,
+    821                                OS_FLAGS      flags,
+    822                                OS_OPT        opt,
+    823                                OS_ERR       *p_err)
+    824          {
+   \                     OSFlagPost: (+1)
+   \        0x0   0xB57F             PUSH     {R0-R6,LR}
+    825              OS_FLAGS  flags_cur;
+    826              CPU_TS    ts;
+    827          
+    828          
+    829          
+    830          #ifdef OS_SAFETY_CRITICAL
+    831              if (p_err == (OS_ERR *)0) {
+    832                  OS_SAFETY_CRITICAL_EXCEPTION();
+    833                  return ((OS_FLAGS)0);
+    834              }
+    835          #endif
+    836          
+    837          #if OS_CFG_ARG_CHK_EN > 0u
+    838              if (p_grp == (OS_FLAG_GRP *)0) {                        /* Validate 'p_grp'                                       */
+   \        0x2   0x2800             CMP      R0,#+0
+   \        0x4   0xD103             BNE      ??OSFlagPost_0
+    839                 *p_err  = OS_ERR_OBJ_PTR_NULL;
+   \        0x6   0x....             LDR      R0,??DataTable9_2  ;; 0x5dc3
+   \        0x8   0x8018             STRH     R0,[R3, #+0]
+    840                  return ((OS_FLAGS)0);
+   \        0xA   0x2000             MOVS     R0,#+0
+   \        0xC   0xE02C             B        ??OSFlagPost_1
+    841              }
+    842              switch (opt) {                                          /* Validate 'opt'                                         */
+   \                     ??OSFlagPost_0: (+1)
+   \        0xE   0x0014             MOVS     R4,R2
+   \       0x10   0xB2A4             UXTH     R4,R4
+   \       0x12   0x2C00             CMP      R4,#+0
+   \       0x14   0x2C01             CMP      R4,#+1
+   \       0x16   0xD904             BLS      ??OSFlagPost_2
+   \       0x18   0x2580             MOVS     R5,#+128
+   \       0x1A   0x022D             LSLS     R5,R5,#+8        ;; #+32768
+   \       0x1C   0x1B64             SUBS     R4,R4,R5
+   \       0x1E   0x2C01             CMP      R4,#+1
+   \       0x20   0xD815             BHI      ??OSFlagPost_3
+    843                  case OS_OPT_POST_FLAG_SET:
+    844                  case OS_OPT_POST_FLAG_CLR:
+    845                  case OS_OPT_POST_FLAG_SET | OS_OPT_POST_NO_SCHED:
+    846                  case OS_OPT_POST_FLAG_CLR | OS_OPT_POST_NO_SCHED:
+    847                       break;
+    848          
+    849                  default:
+    850                      *p_err = OS_ERR_OPT_INVALID;
+    851                       return ((OS_FLAGS)0);
+    852              }
+    853          #endif
+    854          
+    855          #if OS_CFG_OBJ_TYPE_CHK_EN > 0u
+    856              if (p_grp->Type != OS_OBJ_TYPE_FLAG) {                  /* Make sure we are pointing to an event flag grp         */
+   \                     ??OSFlagPost_2: (+1)
+   \       0x22   0x....             LDR      R4,??DataTable9_3  ;; 0x47414c46
+   \       0x24   0x6805             LDR      R5,[R0, #+0]
+   \       0x26   0x42A5             CMP      R5,R4
+   \       0x28   0xD115             BNE      ??OSFlagPost_4
+    857                 *p_err = OS_ERR_OBJ_TYPE;
+    858                  return ((OS_FLAGS)0);
+    859              }
+    860          #endif
+    861          
+    862              ts = OS_TS_GET();                                       /* Get timestamp                                          */
+   \       0x2A   0x2500             MOVS     R5,#+0
+    863          #if OS_CFG_ISR_POST_DEFERRED_EN > 0u
+    864              if (OSIntNestingCtr > (OS_NESTING_CTR)0) {              /* See if called from an ISR                              */
+   \       0x2C   0x....             LDR      R6,??DataTable9
+   \       0x2E   0x7836             LDRB     R6,[R6, #+0]
+   \       0x30   0x2E00             CMP      R6,#+0
+   \       0x32   0xD014             BEQ      ??OSFlagPost_5
+    865                  OS_IntQPost((OS_OBJ_TYPE)OS_OBJ_TYPE_FLAG,          /* Post to ISR queue                                      */
+    866                              (void      *)p_grp,
+    867                              (void      *)0,
+    868                              (OS_MSG_SIZE)0,
+    869                              (OS_FLAGS   )flags,
+    870                              (OS_OPT     )opt,
+    871                              (CPU_TS     )ts,
+    872                              (OS_ERR    *)p_err);
+   \       0x34   0x9303             STR      R3,[SP, #+12]
+   \       0x36   0x9502             STR      R5,[SP, #+8]
+   \       0x38   0xB292             UXTH     R2,R2
+   \       0x3A   0x9201             STR      R2,[SP, #+4]
+   \       0x3C   0x9100             STR      R1,[SP, #+0]
+   \       0x3E   0x2300             MOVS     R3,#+0
+   \       0x40   0x2200             MOVS     R2,#+0
+   \       0x42   0x0001             MOVS     R1,R0
+   \       0x44   0x0020             MOVS     R0,R4
+   \       0x46   0x....'....        BL       OS_IntQPost
+    873                  return ((OS_FLAGS)0);
+   \       0x4A   0x2000             MOVS     R0,#+0
+   \       0x4C   0xE00C             B        ??OSFlagPost_1
+    874              }
+   \                     ??OSFlagPost_3: (+1)
+   \       0x4E   0x....             LDR      R0,??DataTable3  ;; 0x5e25
+   \       0x50   0x8018             STRH     R0,[R3, #+0]
+   \       0x52   0x2000             MOVS     R0,#+0
+   \       0x54   0xE008             B        ??OSFlagPost_1
+   \                     ??OSFlagPost_4: (+1)
+   \       0x56   0x....             LDR      R0,??DataTable9_4  ;; 0x5dc4
+   \       0x58   0x8018             STRH     R0,[R3, #+0]
+   \       0x5A   0x2000             MOVS     R0,#+0
+   \       0x5C   0xE004             B        ??OSFlagPost_1
+    875          #endif
+    876          
+    877              flags_cur = OS_FlagPost(p_grp,
+    878                                      flags,
+    879                                      opt,
+    880                                      ts,
+    881                                      p_err);
+   \                     ??OSFlagPost_5: (+1)
+   \       0x5E   0x9300             STR      R3,[SP, #+0]
+   \       0x60   0x002B             MOVS     R3,R5
+   \       0x62   0xB292             UXTH     R2,R2
+   \       0x64   0x....'....        BL       OS_FlagPost
+    882          
+    883              return (flags_cur);
+   \                     ??OSFlagPost_1: (+1)
+   \       0x68   0xB004             ADD      SP,SP,#+16
+   \       0x6A   0xBD70             POP      {R4-R6,PC}       ;; return
+    884          }
+    885          
+    886          /*$PAGE*/
+    887          /*
+    888          ************************************************************************************************************************
+    889          *                         SUSPEND TASK UNTIL EVENT FLAG(s) RECEIVED OR TIMEOUT OCCURS
+    890          *
+    891          * Description: This function is internal to uC/OS-III and is used to put a task to sleep until the desired
+    892          *              event flag bit(s) are set.
+    893          *
+    894          * Arguments  : p_pend_data    is a pointer to an object used to link the task being blocked to the list of task(s)
+    895          *              -----------    pending on the desired event flag group.
+    896          *
+    897          *              p_grp         is a pointer to the desired event flag group.
+    898          *              -----
+    899          *
+    900          *              flags         Is a bit pattern indicating which bit(s) (i.e. flags) you wish to check.
+    901          *                            The bits you want are specified by setting the corresponding bits in
+    902          *                            'flags'.  e.g. if your application wants to wait for bits 0 and 1 then
+    903          *                            'flags' would contain 0x03.
+    904          *
+    905          *              opt           specifies whether you want ALL bits to be set/cleared or ANY of the bits
+    906          *                            to be set/cleared.
+    907          *                            You can specify the following argument:
+    908          *
+    909          *                                OS_OPT_PEND_FLAG_CLR_ALL   You will check ALL bits in 'mask' to be clear (0)
+    910          *                                OS_OPT_PEND_FLAG_CLR_ANY   You will check ANY bit  in 'mask' to be clear (0)
+    911          *                                OS_OPT_PEND_FLAG_SET_ALL   You will check ALL bits in 'mask' to be set   (1)
+    912          *                                OS_OPT_PEND_FLAG_SET_ANY   You will check ANY bit  in 'mask' to be set   (1)
+    913          *
+    914          *              timeout       is the desired amount of time that the task will wait for the event flag
+    915          *                            bit(s) to be set.
+    916          *
+    917          * Returns    : none
+    918          *
+    919          * Note(s)    : This function is INTERNAL to uC/OS-III and your application should not call it.
+    920          ************************************************************************************************************************
+    921          */
+    922          
+
+   \                                 In section .text, align 2, keep-with-next
+    923          void  OS_FlagBlock (OS_PEND_DATA  *p_pend_data,
+    924                              OS_FLAG_GRP   *p_grp,
+    925                              OS_FLAGS       flags,
+    926                              OS_OPT         opt,
+    927                              OS_TICK        timeout)
+    928          {
+   \                     OS_FlagBlock: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+   \        0x2   0x9C06             LDR      R4,[SP, #+24]
+    929              OSTCBCurPtr->FlagsPend = flags;                         /* Save the flags that we need to wait for                */
+   \        0x4   0x....             LDR      R5,??DataTable6
+   \        0x6   0x682E             LDR      R6,[R5, #+0]
+   \        0x8   0x2780             MOVS     R7,#+128
+   \        0xA   0x51F2             STR      R2,[R6, R7]
+    930              OSTCBCurPtr->FlagsOpt  = opt;                           /* Save the type of wait we are doing                     */
+   \        0xC   0x682A             LDR      R2,[R5, #+0]
+   \        0xE   0x2688             MOVS     R6,#+136
+   \       0x10   0x5393             STRH     R3,[R2, R6]
+    931              OSTCBCurPtr->FlagsRdy  = (OS_FLAGS)0;
+   \       0x12   0x2200             MOVS     R2,#+0
+   \       0x14   0x682B             LDR      R3,[R5, #+0]
+   \       0x16   0x2584             MOVS     R5,#+132
+   \       0x18   0x515A             STR      R2,[R3, R5]
+    932          
+    933              OS_Pend(p_pend_data,
+    934                      (OS_PEND_OBJ *)((void *)p_grp),
+    935                       OS_TASK_PEND_ON_FLAG,
+    936                       timeout);
+   \       0x1A   0x0023             MOVS     R3,R4
+   \       0x1C   0x2201             MOVS     R2,#+1
+   \       0x1E   0x....'....        BL       OS_Pend
+    937          }
+   \       0x22   0xBDF1             POP      {R0,R4-R7,PC}    ;; return
+    938          
+    939          /*$PAGE*/
+    940          /*
+    941          ************************************************************************************************************************
+    942          *                                      CLEAR THE CONTENTS OF AN EVENT FLAG GROUP
+    943          *
+    944          * Description: This function is called by OSFlagDel() to clear the contents of an event flag group
+    945          *
+    946          
+    947          * Argument(s): p_grp     is a pointer to the event flag group to clear
+    948          *              -----
+    949          *
+    950          * Returns    : none
+    951          *
+    952          * Note(s)    : This function is INTERNAL to uC/OS-III and your application should not call it.
+    953          ************************************************************************************************************************
+    954          */
+    955          
+
+   \                                 In section .text, align 2, keep-with-next
+    956          void  OS_FlagClr (OS_FLAG_GRP  *p_grp)
+    957          {
+   \                     OS_FlagClr: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+    958              OS_PEND_LIST  *p_pend_list;
+    959          
+    960          
+    961          
+    962              p_grp->Type             = OS_OBJ_TYPE_NONE;
+   \        0x2   0x....             LDR      R1,??DataTable9_5  ;; 0x454e4f4e
+   \        0x4   0x6001             STR      R1,[R0, #+0]
+    963              p_grp->NamePtr          = (CPU_CHAR *)((void *)"?FLAG");    /* Unknown name                                       */
+   \        0x6   0x....             LDR      R1,??DataTable9_6
+   \        0x8   0x6041             STR      R1,[R0, #+4]
+    964              p_grp->Flags            = (OS_FLAGS )0;
+   \        0xA   0x2100             MOVS     R1,#+0
+   \        0xC   0x6201             STR      R1,[R0, #+32]
+    965              p_pend_list             = &p_grp->PendList;
+   \        0xE   0x3008             ADDS     R0,R0,#+8
+    966              OS_PendListInit(p_pend_list);
+   \       0x10   0x....'....        BL       OS_PendListInit
+    967          }
+   \       0x14   0xBD01             POP      {R0,PC}          ;; return
+    968          
+    969          /*$PAGE*/
+    970          /*
+    971          ************************************************************************************************************************
+    972          *                                          INITIALIZE THE EVENT FLAG MODULE
+    973          *
+    974          * Description: This function is called by uC/OS-III to initialize the event flag module.  Your application MUST NOT call
+    975          *              this function.  In other words, this function is internal to uC/OS-III.
+    976          *
+    977          * Arguments  : p_err     is a pointer to an error code that can contain one of the following values:
+    978          *
+    979          *                            OS_ERR_NONE   The call was successful.
+    980          *
+    981          * Returns    : none
+    982          *
+    983          * Note(s)    : This function is INTERNAL to uC/OS-III and your application should not call it.
+    984          ************************************************************************************************************************
+    985          */
+    986          
+
+   \                                 In section .text, align 2, keep-with-next
+    987          void  OS_FlagInit (OS_ERR  *p_err)
+    988          {
+    989          #ifdef OS_SAFETY_CRITICAL
+    990              if (p_err == (OS_ERR *)0) {
+    991                  OS_SAFETY_CRITICAL_EXCEPTION();
+    992                  return;
+    993              }
+    994          #endif
+    995          
+    996          #if OS_CFG_DBG_EN > 0u
+    997              OSFlagDbgListPtr = (OS_FLAG_GRP *)0;
+   \                     OS_FlagInit: (+1)
+   \        0x0   0x2100             MOVS     R1,#+0
+   \        0x2   0x....             LDR      R2,??DataTable9_7
+   \        0x4   0x6011             STR      R1,[R2, #+0]
+    998          #endif
+    999          
+   1000              OSFlagQty        = (OS_OBJ_QTY   )0;
+   \        0x6   0x2100             MOVS     R1,#+0
+   \        0x8   0x....             LDR      R2,??DataTable9_8
+   \        0xA   0x8011             STRH     R1,[R2, #+0]
+   1001             *p_err            = OS_ERR_NONE;
+   \        0xC   0x8001             STRH     R1,[R0, #+0]
+   1002          }
+   \        0xE   0x4770             BX       LR               ;; return
+   1003          
+   1004          /*$PAGE*/
+   1005          /*
+   1006          ************************************************************************************************************************
+   1007          *                                    ADD/REMOVE EVENT FLAG GROUP TO/FROM DEBUG LIST
+   1008          *
+   1009          * Description: These functions are called by uC/OS-III to add or remove an event flag group from the event flag debug
+   1010          *              list.
+   1011          *
+   1012          * Arguments  : p_grp     is a pointer to the event flag group to add/remove
+   1013          *
+   1014          * Returns    : none
+   1015          *
+   1016          * Note(s)    : These functions are INTERNAL to uC/OS-III and your application should not call it.
+   1017          ************************************************************************************************************************
+   1018          */
+   1019          
+   1020          #if OS_CFG_DBG_EN > 0u
+
+   \                                 In section .text, align 2, keep-with-next
+   1021          void  OS_FlagDbgListAdd (OS_FLAG_GRP  *p_grp)
+   1022          {
+   \                     OS_FlagDbgListAdd: (+1)
+   \        0x0   0xB500             PUSH     {LR}
+   1023              p_grp->DbgNamePtr                = (CPU_CHAR    *)((void *)" ");
+   \        0x2   0x....             ADR      R1,??DataTable9_9  ;; " "
+   \        0x4   0x61C1             STR      R1,[R0, #+28]
+   1024              p_grp->DbgPrevPtr                = (OS_FLAG_GRP *)0;
+   \        0x6   0x2100             MOVS     R1,#+0
+   \        0x8   0x6141             STR      R1,[R0, #+20]
+   1025              if (OSFlagDbgListPtr == (OS_FLAG_GRP *)0) {
+   \        0xA   0x....             LDR      R2,??DataTable9_7
+   \        0xC   0x6813             LDR      R3,[R2, #+0]
+   \        0xE   0x2B00             CMP      R3,#+0
+   \       0x10   0xD101             BNE      ??OS_FlagDbgListAdd_0
+   1026                  p_grp->DbgNextPtr            = (OS_FLAG_GRP *)0;
+   \       0x12   0x6181             STR      R1,[R0, #+24]
+   \       0x14   0xE003             B        ??OS_FlagDbgListAdd_1
+   1027              } else {
+   1028                  p_grp->DbgNextPtr            =  OSFlagDbgListPtr;
+   \                     ??OS_FlagDbgListAdd_0: (+1)
+   \       0x16   0x6811             LDR      R1,[R2, #+0]
+   \       0x18   0x6181             STR      R1,[R0, #+24]
+   1029                  OSFlagDbgListPtr->DbgPrevPtr =  p_grp;
+   \       0x1A   0x6811             LDR      R1,[R2, #+0]
+   \       0x1C   0x6148             STR      R0,[R1, #+20]
+   1030              }
+   1031              OSFlagDbgListPtr                 =  p_grp;
+   \                     ??OS_FlagDbgListAdd_1: (+1)
+   \       0x1E   0x6010             STR      R0,[R2, #+0]
+   1032          }
+   \       0x20   0xBD00             POP      {PC}             ;; return
+   1033          
+   1034          
+   1035          
+
+   \                                 In section .text, align 2, keep-with-next
+   1036          void  OS_FlagDbgListRemove (OS_FLAG_GRP  *p_grp)
+   1037          {
+   \                     OS_FlagDbgListRemove: (+1)
+   \        0x0   0xB500             PUSH     {LR}
+   1038              OS_FLAG_GRP  *p_grp_next;
+   1039              OS_FLAG_GRP  *p_grp_prev;
+   1040          
+   1041          
+   1042              p_grp_prev = p_grp->DbgPrevPtr;
+   \        0x2   0x6942             LDR      R2,[R0, #+20]
+   1043              p_grp_next = p_grp->DbgNextPtr;
+   \        0x4   0x6981             LDR      R1,[R0, #+24]
+   1044          
+   1045              if (p_grp_prev == (OS_FLAG_GRP *)0) {
+   \        0x6   0x2A00             CMP      R2,#+0
+   \        0x8   0xD108             BNE      ??OS_FlagDbgListRemove_0
+   1046                  OSFlagDbgListPtr = p_grp_next;
+   \        0xA   0x....             LDR      R2,??DataTable9_7
+   \        0xC   0x6011             STR      R1,[R2, #+0]
+   1047                  if (p_grp_next != (OS_FLAG_GRP *)0) {
+   \        0xE   0x2900             CMP      R1,#+0
+   \       0x10   0xD001             BEQ      ??OS_FlagDbgListRemove_1
+   1048                      p_grp_next->DbgPrevPtr = (OS_FLAG_GRP *)0;
+   \       0x12   0x2200             MOVS     R2,#+0
+   \       0x14   0x614A             STR      R2,[R1, #+20]
+   1049                  }
+   1050                  p_grp->DbgNextPtr = (OS_FLAG_GRP *)0;
+   \                     ??OS_FlagDbgListRemove_1: (+1)
+   \       0x16   0x2100             MOVS     R1,#+0
+   \       0x18   0x6181             STR      R1,[R0, #+24]
+   \       0x1A   0xE00A             B        ??OS_FlagDbgListRemove_2
+   1051          
+   1052              } else if (p_grp_next == (OS_FLAG_GRP *)0) {
+   \                     ??OS_FlagDbgListRemove_0: (+1)
+   \       0x1C   0x2900             CMP      R1,#+0
+   \       0x1E   0xD103             BNE      ??OS_FlagDbgListRemove_3
+   1053                  p_grp_prev->DbgNextPtr = (OS_FLAG_GRP *)0;
+   \       0x20   0x2100             MOVS     R1,#+0
+   \       0x22   0x6191             STR      R1,[R2, #+24]
+   1054                  p_grp->DbgPrevPtr      = (OS_FLAG_GRP *)0;
+   \       0x24   0x6141             STR      R1,[R0, #+20]
+   \       0x26   0xE004             B        ??OS_FlagDbgListRemove_2
+   1055          
+   1056              } else {
+   1057                  p_grp_prev->DbgNextPtr =  p_grp_next;
+   \                     ??OS_FlagDbgListRemove_3: (+1)
+   \       0x28   0x6191             STR      R1,[R2, #+24]
+   1058                  p_grp_next->DbgPrevPtr =  p_grp_prev;
+   \       0x2A   0x614A             STR      R2,[R1, #+20]
+   1059                  p_grp->DbgNextPtr      = (OS_FLAG_GRP *)0;
+   \       0x2C   0x2100             MOVS     R1,#+0
+   \       0x2E   0x6181             STR      R1,[R0, #+24]
+   1060                  p_grp->DbgPrevPtr      = (OS_FLAG_GRP *)0;
+   \       0x30   0x6141             STR      R1,[R0, #+20]
+   1061              }
+   1062          }
+   \                     ??OS_FlagDbgListRemove_2: (+1)
+   \       0x32   0xBD00             POP      {PC}             ;; return
+   1063          #endif
+   1064          
+   1065          /*$PAGE*/
+   1066          /*
+   1067          ************************************************************************************************************************
+   1068          *                                                POST EVENT FLAG BIT(S)
+   1069          *
+   1070          * Description: This function is called to set or clear some bits in an event flag group.  The bits to set or clear are
+   1071          *              specified by a 'bit mask'.
+   1072          *
+   1073          * Arguments  : p_grp         is a pointer to the desired event flag group.
+   1074          *
+   1075          *              flags         If 'opt' (see below) is OS_OPT_POST_FLAG_SET, each bit that is set in 'flags' will
+   1076          *                            set the corresponding bit in the event flag group.  e.g. to set bits 0, 4
+   1077          *                            and 5 you would set 'flags' to:
+   1078          *
+   1079          *                                0x31     (note, bit 0 is least significant bit)
+   1080          *
+   1081          *                            If 'opt' (see below) is OS_OPT_POST_FLAG_CLR, each bit that is set in 'flags' will
+   1082          *                            CLEAR the corresponding bit in the event flag group.  e.g. to clear bits 0,
+   1083          *                            4 and 5 you would specify 'flags' as:
+   1084          *
+   1085          *                                0x31     (note, bit 0 is least significant bit)
+   1086          *
+   1087          *              opt           indicates whether the flags will be:
+   1088          *
+   1089          *                                OS_OPT_POST_FLAG_SET       set
+   1090          *                                OS_OPT_POST_FLAG_CLR       cleared
+   1091          *
+   1092          *                            you can also 'add' OS_OPT_POST_NO_SCHED to prevent the scheduler from being called.
+   1093          *
+   1094          *              ts            is the timestamp of the post
+   1095          *
+   1096          *              p_err         is a pointer to an error code and can be:
+   1097          *
+   1098          *                                OS_ERR_NONE                The call was successful
+   1099          *                                OS_ERR_OBJ_PTR_NULL        You passed a NULL pointer
+   1100          *                                OS_ERR_OBJ_TYPE            You are not pointing to an event flag group
+   1101          *                                OS_ERR_OPT_INVALID         You specified an invalid option
+   1102          *
+   1103          * Returns    : the new value of the event flags bits that are still set.
+   1104          *
+   1105          * Note(s)    : 1) The execution time of this function depends on the number of tasks waiting on the event flag group.
+   1106          ************************************************************************************************************************
+   1107          */
+   1108          
+
+   \                                 In section .text, align 2, keep-with-next
+   1109          OS_FLAGS  OS_FlagPost (OS_FLAG_GRP  *p_grp,
+   1110                                 OS_FLAGS      flags,
+   1111                                 OS_OPT        opt,
+   1112                                 CPU_TS        ts,
+   1113                                 OS_ERR       *p_err)
+   1114          {
+   \                     OS_FlagPost: (+1)
+   \        0x0   0xB5FE             PUSH     {R1-R7,LR}
+   \        0x2   0x0004             MOVS     R4,R0
+   \        0x4   0x000F             MOVS     R7,R1
+   \        0x6   0x0016             MOVS     R6,R2
+   1115              OS_FLAGS        flags_cur;
+   1116              OS_FLAGS        flags_rdy;
+   1117              OS_OPT          mode;
+   1118              OS_PEND_DATA   *p_pend_data;
+   1119              OS_PEND_DATA   *p_pend_data_next;
+   1120              OS_PEND_LIST   *p_pend_list;
+   1121              OS_TCB         *p_tcb;
+   1122              CPU_SR_ALLOC();
+   \        0x8   0x2500             MOVS     R5,#+0
+   \        0xA   0x0028             MOVS     R0,R5
+   1123          
+   1124          
+   1125          
+   1126              CPU_CRITICAL_ENTER();
+   \        0xC   0x....'....        BL       CPU_SR_Save
+   1127              switch (opt) {
+   \       0x10   0x0031             MOVS     R1,R6
+   \       0x12   0xB289             UXTH     R1,R1
+   \       0x14   0x2900             CMP      R1,#+0
+   \       0x16   0xD007             BEQ      ??OS_FlagPost_0
+   \       0x18   0x1E49             SUBS     R1,R1,#+1
+   \       0x1A   0xD017             BEQ      ??OS_FlagPost_1
+   \       0x1C   0x....             LDR      R2,??DataTable9_10  ;; 0x7fff
+   \       0x1E   0x1A89             SUBS     R1,R1,R2
+   \       0x20   0xD002             BEQ      ??OS_FlagPost_0
+   \       0x22   0x1E49             SUBS     R1,R1,#+1
+   \       0x24   0xD012             BEQ      ??OS_FlagPost_1
+   \       0x26   0xE015             B        ??OS_FlagPost_2
+   1128                  case OS_OPT_POST_FLAG_SET:
+   1129                  case OS_OPT_POST_FLAG_SET | OS_OPT_POST_NO_SCHED:
+   1130                       p_grp->Flags |=  flags;                            /* Set   the flags specified in the group             */
+   \                     ??OS_FlagPost_0: (+1)
+   \       0x28   0x6A21             LDR      R1,[R4, #+32]
+   \       0x2A   0x430F             ORRS     R7,R7,R1
+   \       0x2C   0x6227             STR      R7,[R4, #+32]
+   1131                       break;
+   1132          
+   1133                  case OS_OPT_POST_FLAG_CLR:
+   1134                  case OS_OPT_POST_FLAG_CLR | OS_OPT_POST_NO_SCHED:
+   1135                       p_grp->Flags &= ~flags;                            /* Clear the flags specified in the group             */
+   1136                       break;
+   1137          
+   1138                  default:
+   1139                       CPU_CRITICAL_EXIT();                               /* INVALID option                                     */
+   1140                      *p_err = OS_ERR_OPT_INVALID;
+   1141                       return ((OS_FLAGS)0);
+   1142              }
+   1143              p_grp->TS   = ts;
+   \                     ??OS_FlagPost_3: (+1)
+   \       0x2E   0x9902             LDR      R1,[SP, #+8]
+   \       0x30   0x6261             STR      R1,[R4, #+36]
+   1144              p_pend_list = &p_grp->PendList;
+   \       0x32   0x0021             MOVS     R1,R4
+   \       0x34   0x3108             ADDS     R1,R1,#+8
+   \       0x36   0x9100             STR      R1,[SP, #+0]
+   1145              if (p_pend_list->NbrEntries == 0u) {                        /* Any task waiting on event flag group?              */
+   \       0x38   0x9900             LDR      R1,[SP, #+0]
+   \       0x3A   0x8909             LDRH     R1,[R1, #+8]
+   \       0x3C   0x2900             CMP      R1,#+0
+   \       0x3E   0xD110             BNE      ??OS_FlagPost_4
+   1146                  CPU_CRITICAL_EXIT();                                    /* No                                                 */
+   \       0x40   0x....'....        BL       CPU_SR_Restore
+   1147                 *p_err = OS_ERR_NONE;
+   \       0x44   0x9808             LDR      R0,[SP, #+32]
+   \       0x46   0x8005             STRH     R5,[R0, #+0]
+   1148                  return (p_grp->Flags);
+   \       0x48   0x6A20             LDR      R0,[R4, #+32]
+   \       0x4A   0xE06B             B        ??OS_FlagPost_5
+   1149              }
+   \                     ??OS_FlagPost_1: (+1)
+   \       0x4C   0x6A21             LDR      R1,[R4, #+32]
+   \       0x4E   0x43B9             BICS     R1,R1,R7
+   \       0x50   0x6221             STR      R1,[R4, #+32]
+   \       0x52   0xE7EC             B        ??OS_FlagPost_3
+   \                     ??OS_FlagPost_2: (+1)
+   \       0x54   0x....'....        BL       CPU_SR_Restore
+   \       0x58   0x....             LDR      R0,??DataTable9_11  ;; 0x5e25
+   \       0x5A   0x9908             LDR      R1,[SP, #+32]
+   \       0x5C   0x8008             STRH     R0,[R1, #+0]
+   \       0x5E   0x2000             MOVS     R0,#+0
+   \       0x60   0xE060             B        ??OS_FlagPost_5
+   1150          
+   1151              OS_CRITICAL_ENTER_CPU_EXIT();
+   \                     ??OS_FlagPost_4: (+1)
+   \       0x62   0x....             LDR      R7,??DataTable9_12
+   \       0x64   0x7839             LDRB     R1,[R7, #+0]
+   \       0x66   0x1C49             ADDS     R1,R1,#+1
+   \       0x68   0x7039             STRB     R1,[R7, #+0]
+   \       0x6A   0x....'....        BL       CPU_SR_Restore
+   1152              p_pend_data = p_pend_list->HeadPtr;
+   \       0x6E   0x9800             LDR      R0,[SP, #+0]
+   \       0x70   0x6801             LDR      R1,[R0, #+0]
+   1153              p_tcb       = p_pend_data->TCBPtr;
+   \       0x72   0x6888             LDR      R0,[R1, #+8]
+   \       0x74   0xE000             B        ??OS_FlagPost_6
+   1154              while (p_tcb != (OS_TCB *)0) {                              /* Go through all tasks waiting on event flag(s)      */
+   1155                  p_pend_data_next = p_pend_data->NextPtr;
+   1156                  mode             = p_tcb->FlagsOpt & OS_OPT_PEND_FLAG_MASK;
+   1157                  switch (mode) {
+   1158                      case OS_OPT_PEND_FLAG_SET_ALL:                      /* See if all req. flags are set for current node     */
+   1159                           flags_rdy = (OS_FLAGS)(p_grp->Flags & p_tcb->FlagsPend);
+   1160                           if (flags_rdy == p_tcb->FlagsPend) {
+   1161                               OS_FlagTaskRdy(p_tcb,                      /* Make task RTR, event(s) Rx'd                       */
+   1162                                              flags_rdy,
+   1163                                              ts);
+   1164                           }
+   1165                           break;
+   1166          
+   1167                      case OS_OPT_PEND_FLAG_SET_ANY:                      /* See if any flag set                                */
+   1168                           flags_rdy = (OS_FLAGS)(p_grp->Flags & p_tcb->FlagsPend);
+   1169                           if (flags_rdy != (OS_FLAGS)0) {
+   1170                               OS_FlagTaskRdy(p_tcb,                      /* Make task RTR, event(s) Rx'd                       */
+   1171                                              flags_rdy,
+   1172                                              ts);
+   1173                           }
+   1174                           break;
+   1175          
+   1176          #if OS_CFG_FLAG_MODE_CLR_EN > 0u
+   1177                      case OS_OPT_PEND_FLAG_CLR_ALL:                      /* See if all req. flags are set for current node     */
+   1178                           flags_rdy = (OS_FLAGS)(~p_grp->Flags & p_tcb->FlagsPend);
+   1179                           if (flags_rdy == p_tcb->FlagsPend) {
+   1180                               OS_FlagTaskRdy(p_tcb,                      /* Make task RTR, event(s) Rx'd                       */
+   1181                                              flags_rdy,
+   1182                                              ts);
+   1183                           }
+   1184                           break;
+   1185          
+   1186                      case OS_OPT_PEND_FLAG_CLR_ANY:                      /* See if any flag set                                */
+   1187                           flags_rdy = (OS_FLAGS)(~p_grp->Flags & p_tcb->FlagsPend);
+   1188                           if (flags_rdy != (OS_FLAGS)0) {
+   1189                               OS_FlagTaskRdy(p_tcb,                      /* Make task RTR, event(s) Rx'd                       */
+   1190                                              flags_rdy,
+   1191                                              ts);
+   1192                           }
+   1193                           break;
+   1194          #endif
+   1195                      default:
+   1196                           OS_CRITICAL_EXIT();
+   1197                          *p_err = OS_ERR_FLAG_PEND_OPT;
+   1198                           return ((OS_FLAGS)0);
+   1199                  }
+   1200                  p_pend_data = p_pend_data_next;                         /* Point to next task waiting for event flag(s)       */
+   1201                  if (p_pend_data != (OS_PEND_DATA *)0) {
+   1202                      p_tcb = p_pend_data->TCBPtr;
+   \                     ??OS_FlagPost_7: (+1)
+   \       0x76   0x6888             LDR      R0,[R1, #+8]
+   1203                  } else {
+   \                     ??OS_FlagPost_6: (+1)
+   \       0x78   0x2800             CMP      R0,#+0
+   \       0x7A   0xD040             BEQ      ??OS_FlagPost_8
+   \       0x7C   0x6849             LDR      R1,[R1, #+4]
+   \       0x7E   0x9100             STR      R1,[SP, #+0]
+   \       0x80   0x2188             MOVS     R1,#+136
+   \       0x82   0x5C41             LDRB     R1,[R0, R1]
+   \       0x84   0x0709             LSLS     R1,R1,#+28       ;; ZeroExtS R1,R1,#+28,#+28
+   \       0x86   0x0F09             LSRS     R1,R1,#+28
+   \       0x88   0xB289             UXTH     R1,R1
+   \       0x8A   0x2904             CMP      R1,#+4
+   \       0x8C   0xD002             BEQ      ??OS_FlagPost_9
+   \       0x8E   0x2908             CMP      R1,#+8
+   \       0x90   0xD010             BEQ      ??OS_FlagPost_10
+   \       0x92   0xE019             B        ??OS_FlagPost_11
+   \                     ??OS_FlagPost_9: (+1)
+   \       0x94   0x6A22             LDR      R2,[R4, #+32]
+   \       0x96   0x2180             MOVS     R1,#+128
+   \       0x98   0x5841             LDR      R1,[R0, R1]
+   \       0x9A   0x4011             ANDS     R1,R1,R2
+   \       0x9C   0x2280             MOVS     R2,#+128
+   \       0x9E   0x5882             LDR      R2,[R0, R2]
+   \       0xA0   0x4291             CMP      R1,R2
+   \       0xA2   0xD102             BNE      ??OS_FlagPost_12
+   \       0xA4   0x9A02             LDR      R2,[SP, #+8]
+   \       0xA6   0x....'....        BL       OS_FlagTaskRdy
+   \                     ??OS_FlagPost_12: (+1)
+   \                     ??OS_FlagPost_13: (+1)
+   \       0xAA   0x9900             LDR      R1,[SP, #+0]
+   \       0xAC   0x2900             CMP      R1,#+0
+   \       0xAE   0xD1E2             BNE      ??OS_FlagPost_7
+   1204                      p_tcb = (OS_TCB *)0;
+   \       0xB0   0x0028             MOVS     R0,R5
+   \       0xB2   0xE7E1             B        ??OS_FlagPost_6
+   1205                  }
+   \                     ??OS_FlagPost_10: (+1)
+   \       0xB4   0x6A22             LDR      R2,[R4, #+32]
+   \       0xB6   0x2180             MOVS     R1,#+128
+   \       0xB8   0x5841             LDR      R1,[R0, R1]
+   \       0xBA   0x4011             ANDS     R1,R1,R2
+   \       0xBC   0x2900             CMP      R1,#+0
+   \       0xBE   0xD002             BEQ      ??OS_FlagPost_14
+   \       0xC0   0x9A02             LDR      R2,[SP, #+8]
+   \       0xC2   0x....'....        BL       OS_FlagTaskRdy
+   \                     ??OS_FlagPost_14: (+1)
+   \       0xC6   0xE7F0             B        ??OS_FlagPost_13
+   \                     ??OS_FlagPost_11: (+1)
+   \       0xC8   0x....'....        BL       CPU_SR_Save
+   \       0xCC   0x7839             LDRB     R1,[R7, #+0]
+   \       0xCE   0x1E49             SUBS     R1,R1,#+1
+   \       0xD0   0x7039             STRB     R1,[R7, #+0]
+   \       0xD2   0x7839             LDRB     R1,[R7, #+0]
+   \       0xD4   0x2900             CMP      R1,#+0
+   \       0xD6   0xD10B             BNE      ??OS_FlagPost_15
+   \       0xD8   0x....             LDR      R1,??DataTable9_13
+   \       0xDA   0x8809             LDRH     R1,[R1, #+0]
+   \       0xDC   0x2900             CMP      R1,#+0
+   \       0xDE   0xD004             BEQ      ??OS_FlagPost_16
+   \       0xE0   0x....'....        BL       CPU_SR_Restore
+   \       0xE4   0x....'....        BL       OS_Sched0
+   \       0xE8   0xE004             B        ??OS_FlagPost_17
+   \                     ??OS_FlagPost_16: (+1)
+   \       0xEA   0x....'....        BL       CPU_SR_Restore
+   \       0xEE   0xE001             B        ??OS_FlagPost_17
+   \                     ??OS_FlagPost_15: (+1)
+   \       0xF0   0x....'....        BL       CPU_SR_Restore
+   \                     ??OS_FlagPost_17: (+1)
+   \       0xF4   0x....             LDR      R0,??DataTable9_14  ;; 0x3aff
+   \       0xF6   0x9908             LDR      R1,[SP, #+32]
+   \       0xF8   0x8008             STRH     R0,[R1, #+0]
+   \       0xFA   0x2000             MOVS     R0,#+0
+   \       0xFC   0xE012             B        ??OS_FlagPost_5
+   1206              }
+   1207              OS_CRITICAL_EXIT_NO_SCHED();
+   \                     ??OS_FlagPost_8: (+1)
+   \       0xFE   0x....'....        BL       CPU_SR_Save
+   \      0x102   0x7839             LDRB     R1,[R7, #+0]
+   \      0x104   0x1E49             SUBS     R1,R1,#+1
+   \      0x106   0x7039             STRB     R1,[R7, #+0]
+   \      0x108   0x....'....        BL       CPU_SR_Restore
+   1208          
+   1209              if ((opt & OS_OPT_POST_NO_SCHED) == (OS_OPT)0) {
+   \      0x10C   0x0430             LSLS     R0,R6,#+16
+   \      0x10E   0xD401             BMI      ??OS_FlagPost_18
+   1210                  OSSched();
+   \      0x110   0x....'....        BL       OSSched
+   1211              }
+   1212          
+   1213              CPU_CRITICAL_ENTER();
+   \                     ??OS_FlagPost_18: (+1)
+   \      0x114   0x....'....        BL       CPU_SR_Save
+   1214              flags_cur = p_grp->Flags;
+   \      0x118   0x6A24             LDR      R4,[R4, #+32]
+   1215              CPU_CRITICAL_EXIT();
+   \      0x11A   0x....'....        BL       CPU_SR_Restore
+   1216             *p_err     = OS_ERR_NONE;
+   \      0x11E   0x9808             LDR      R0,[SP, #+32]
+   \      0x120   0x8005             STRH     R5,[R0, #+0]
+   1217              return (flags_cur);
+   \      0x122   0x0020             MOVS     R0,R4
+   \                     ??OS_FlagPost_5: (+1)
+   \      0x124   0xBDFE             POP      {R1-R7,PC}       ;; return
+   1218          }
+   1219          
+   1220          /*$PAGE*/
+   1221          /*
+   1222          ************************************************************************************************************************
+   1223          *                                        MAKE TASK READY-TO-RUN, EVENT(s) OCCURRED
+   1224          *
+   1225          * Description: This function is internal to uC/OS-III and is used to make a task ready-to-run because the desired event
+   1226          *              flag bits have been set.
+   1227          *
+   1228          * Arguments  : p_tcb         is a pointer to the OS_TCB of the task to remove
+   1229          *              -----
+   1230          *
+   1231          *              flags_rdy     contains the bit pattern of the event flags that cause the task to become ready-to-run.
+   1232          *
+   1233          *              ts            is a timestamp associated with the post
+   1234          *
+   1235          * Returns    : none
+   1236          *
+   1237          * Note(s)    : This function is INTERNAL to uC/OS-III and your application should not call it.
+   1238          ************************************************************************************************************************
+   1239          */
+   1240          
+
+   \                                 In section .text, align 2, keep-with-next
+   1241          void   OS_FlagTaskRdy (OS_TCB    *p_tcb,
+   1242                                 OS_FLAGS   flags_rdy,
+   1243                                 CPU_TS     ts)
+   1244          {
+   \                     OS_FlagTaskRdy: (+1)
+   \        0x0   0xB538             PUSH     {R3-R5,LR}
+   \        0x2   0x0004             MOVS     R4,R0
+   1245              p_tcb->FlagsRdy   = flags_rdy;
+   \        0x4   0x2084             MOVS     R0,#+132
+   \        0x6   0x5021             STR      R1,[R4, R0]
+   1246              p_tcb->PendStatus = OS_STATUS_PEND_OK;                  /* Clear pend status                                      */
+   \        0x8   0x2500             MOVS     R5,#+0
+   \        0xA   0x2035             MOVS     R0,#+53
+   \        0xC   0x5425             STRB     R5,[R4, R0]
+   1247              p_tcb->PendOn     = OS_TASK_PEND_ON_NOTHING;            /* Indicate no longer pending                             */
+   \        0xE   0x2034             MOVS     R0,#+52
+   \       0x10   0x5425             STRB     R5,[R4, R0]
+   1248              p_tcb->TS         = ts;
+   \       0x12   0x6422             STR      R2,[R4, #+64]
+   1249              switch (p_tcb->TaskState) {
+   \       0x14   0x2036             MOVS     R0,#+54
+   \       0x16   0x5C20             LDRB     R0,[R4, R0]
+   \       0x18   0x2800             CMP      R0,#+0
+   \       0x1A   0x2801             CMP      R0,#+1
+   \       0x1C   0xD909             BLS      ??OS_FlagTaskRdy_0
+   \       0x1E   0x1E80             SUBS     R0,R0,#+2
+   \       0x20   0x2801             CMP      R0,#+1
+   \       0x22   0xD907             BLS      ??OS_FlagTaskRdy_1
+   \       0x24   0x1E80             SUBS     R0,R0,#+2
+   \       0x26   0x2801             CMP      R0,#+1
+   \       0x28   0xD903             BLS      ??OS_FlagTaskRdy_0
+   \       0x2A   0x1E80             SUBS     R0,R0,#+2
+   \       0x2C   0x2801             CMP      R0,#+1
+   \       0x2E   0xD907             BLS      ??OS_FlagTaskRdy_2
+   \       0x30   0xE00A             B        ??OS_FlagTaskRdy_3
+   1250                  case OS_TASK_STATE_RDY:
+   1251                  case OS_TASK_STATE_DLY:
+   1252                  case OS_TASK_STATE_DLY_SUSPENDED:
+   1253                  case OS_TASK_STATE_SUSPENDED:
+   1254                       break;
+   \                     ??OS_FlagTaskRdy_0: (+1)
+   \       0x32   0xE009             B        ??OS_FlagTaskRdy_4
+   1255          
+   1256                  case OS_TASK_STATE_PEND:
+   1257                  case OS_TASK_STATE_PEND_TIMEOUT:
+   1258                       OS_TaskRdy(p_tcb);
+   \                     ??OS_FlagTaskRdy_1: (+1)
+   \       0x34   0x0020             MOVS     R0,R4
+   \       0x36   0x....'....        BL       OS_TaskRdy
+   1259                       p_tcb->TaskState = OS_TASK_STATE_RDY;
+   \       0x3A   0x2036             MOVS     R0,#+54
+   \       0x3C   0x5425             STRB     R5,[R4, R0]
+   1260                       break;
+   \       0x3E   0xE003             B        ??OS_FlagTaskRdy_4
+   1261          
+   1262                  case OS_TASK_STATE_PEND_SUSPENDED:
+   1263                  case OS_TASK_STATE_PEND_TIMEOUT_SUSPENDED:
+   1264                       p_tcb->TaskState = OS_TASK_STATE_SUSPENDED;
+   \                     ??OS_FlagTaskRdy_2: (+1)
+   \       0x40   0x2004             MOVS     R0,#+4
+   \       0x42   0x2136             MOVS     R1,#+54
+   \       0x44   0x5460             STRB     R0,[R4, R1]
+   1265                       break;
+   \       0x46   0xE7FF             B        ??OS_FlagTaskRdy_4
+   1266          
+   1267                  default:
+   1268                       break;
+   1269              }
+   1270              OS_PendListRemove(p_tcb);
+   \                     ??OS_FlagTaskRdy_3: (+1)
+   \                     ??OS_FlagTaskRdy_4: (+1)
+   \       0x48   0x0020             MOVS     R0,R4
+   \       0x4A   0x....'....        BL       OS_PendListRemove
+   1271          }
+   \       0x4E   0xBD31             POP      {R0,R4,R5,PC}    ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0:
+   \        0x0   0x....'....        DC32     OSIntNestingCtr
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0_1:
+   \        0x0   0x0000'2EE1        DC32     0x2ee1
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0_2:
+   \        0x0   0x0000'5DC3        DC32     0x5dc3
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0_3:
+   \        0x0   0x....'....        DC32     OSSchedLockNestingCtr
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0_4:
+   \        0x0   0x4741'4C46        DC32     0x47414c46
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0_5:
+   \        0x0   0x....'....        DC32     OSFlagQty
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1:
+   \        0x0   0x....'....        DC32     OSIntNestingCtr
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_1:
+   \        0x0   0x0000'61AE        DC32     0x61ae
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_2:
+   \        0x0   0x0000'5DC3        DC32     0x5dc3
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2:
+   \        0x0   0x0000'7EF9        DC32     0x7ef9
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_1:
+   \        0x0   0x4741'4C46        DC32     0x47414c46
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_2:
+   \        0x0   0x0000'5DC4        DC32     0x5dc4
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3:
+   \        0x0   0x0000'5E25        DC32     0x5e25
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5:
+   \        0x0   0x0000'61B0        DC32     0x61b0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6:
+   \        0x0   0x....'....        DC32     OSTCBCurPtr
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_1:
+   \        0x0   0x....'....        DC32     OSSchedLockNestingCtr
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_2:
+   \        0x0   0x0000'6D63        DC32     0x6d63
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8:
+   \        0x0   0x0000'61A9        DC32     0x61a9
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_1:
+   \        0x0   0x0000'72D9        DC32     0x72d9
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_2:
+   \        0x0   0x0000'5DC2        DC32     0x5dc2
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_3:
+   \        0x0   0x0000'6E2E        DC32     0x6e2e
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9:
+   \        0x0   0x....'....        DC32     OSIntNestingCtr
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_1:
+   \        0x0   0x0000'61AE        DC32     0x61ae
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_2:
+   \        0x0   0x0000'5DC3        DC32     0x5dc3
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_3:
+   \        0x0   0x4741'4C46        DC32     0x47414c46
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_4:
+   \        0x0   0x0000'5DC4        DC32     0x5dc4
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_5:
+   \        0x0   0x454E'4F4E        DC32     0x454e4f4e
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_6:
+   \        0x0   0x....'....        DC32     ?_0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_7:
+   \        0x0   0x....'....        DC32     OSFlagDbgListPtr
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_8:
+   \        0x0   0x....'....        DC32     OSFlagQty
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_9:
+   \        0x0   0x20 0x00          DC8      " ",0x0,0x0
+
+   \              0x00 0x00
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_10:
+   \        0x0   0x0000'7FFF        DC32     0x7fff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_11:
+   \        0x0   0x0000'5E25        DC32     0x5e25
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_12:
+   \        0x0   0x....'....        DC32     OSSchedLockNestingCtr
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_13:
+   \        0x0   0x....'....        DC32     OSIntQNbrEntries
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_14:
+   \        0x0   0x0000'3AFF        DC32     0x3aff
+
+   \                                 In section .rodata, align 4
+   \                     ?_0:
+   \        0x0   0x3F 0x46          DC8 "?FLAG"
+
+   \              0x4C 0x41    
+
+   \              0x47 0x00
+   \        0x6                      DS8 2
+
+   \                                 In section .rodata, align 2
+   \        0x0   0x20 0x00          DC8 " "
+   1272          #endif
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      32   OSFlagCreate
+        32   -> CPU_SR_Restore
+        32   -> CPU_SR_Save
+        32   -> OS_FlagDbgListAdd
+        32   -> OS_PendListInit
+      72   OSFlagPend
+        72   -> CPU_SR_Restore
+        72   -> CPU_SR_Save
+        72   -> OSSched
+        72   -> OS_FlagBlock
+      16   OSFlagPendGetFlagsRdy
+        16   -> CPU_SR_Restore
+        16   -> CPU_SR_Save
+      32   OSFlagPost
+        32   -> OS_FlagPost
+        32   -> OS_IntQPost
+      24   OS_FlagBlock
+        24   -> OS_Pend
+       8   OS_FlagClr
+         8   -> OS_PendListInit
+       4   OS_FlagDbgListAdd
+       4   OS_FlagDbgListRemove
+       0   OS_FlagInit
+      32   OS_FlagPost
+        32   -> CPU_SR_Restore
+        32   -> CPU_SR_Save
+        32   -> OSSched
+        32   -> OS_FlagTaskRdy
+        32   -> OS_Sched0
+      16   OS_FlagTaskRdy
+        16   -> OS_PendListRemove
+        16   -> OS_TaskRdy
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable0
+       4  ??DataTable0_1
+       4  ??DataTable0_2
+       4  ??DataTable0_3
+       4  ??DataTable0_4
+       4  ??DataTable0_5
+       4  ??DataTable1
+       4  ??DataTable1_1
+       4  ??DataTable1_2
+       4  ??DataTable2
+       4  ??DataTable2_1
+       4  ??DataTable2_2
+       4  ??DataTable3
+       4  ??DataTable5
+       4  ??DataTable6
+       4  ??DataTable6_1
+       4  ??DataTable6_2
+       4  ??DataTable8
+       4  ??DataTable8_1
+       4  ??DataTable8_2
+       4  ??DataTable8_3
+       4  ??DataTable9
+       4  ??DataTable9_1
+       4  ??DataTable9_10
+       4  ??DataTable9_11
+       4  ??DataTable9_12
+       4  ??DataTable9_13
+       4  ??DataTable9_14
+       4  ??DataTable9_2
+       4  ??DataTable9_3
+       4  ??DataTable9_4
+       4  ??DataTable9_5
+       4  ??DataTable9_6
+       4  ??DataTable9_7
+       4  ??DataTable9_8
+       4  ??DataTable9_9
+       8  ?_0
+       2  ?_1
+     108  OSFlagCreate
+     718  OSFlagPend
+      46  OSFlagPendGetFlagsRdy
+     108  OSFlagPost
+      36  OS_FlagBlock
+      22  OS_FlagClr
+      34  OS_FlagDbgListAdd
+      52  OS_FlagDbgListRemove
+      16  OS_FlagInit
+     294  OS_FlagPost
+      80  OS_FlagTaskRdy
+
+ 
+    10 bytes in section .rodata
+ 1'658 bytes in section .text
+ 
+ 1'658 bytes of CODE  memory
+    10 bytes of CONST memory
+
+Errors: none
+Warnings: none

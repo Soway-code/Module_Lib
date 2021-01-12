@@ -1,0 +1,12 @@
+.\object\flash.o: flash\flash.c
+.\object\flash.o: flash\flash.h
+.\object\flash.o: .\Libraries\CMSIS\stm32f10x.h
+.\object\flash.o: .\Libraries\CMSIS\core_cm3.h
+.\object\flash.o: C:\rj\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\object\flash.o: .\Libraries\CMSIS\system_stm32f10x.h
+.\object\flash.o: .\User\stm32f10x_conf.h
+.\object\flash.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h
+.\object\flash.o: .\Libraries\CMSIS\stm32f10x.h
+.\object\flash.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
+.\object\flash.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
+.\object\flash.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_flash.h
