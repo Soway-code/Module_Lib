@@ -1,0 +1,12 @@
+.\object\board.o: rt-thread-3.1.3\bsp\board.c
+.\object\board.o: C:\rj\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\object\board.o: .\rt-thread-3.1.3\include\rthw.h
+.\object\board.o: .\rt-thread-3.1.3\include\rtthread.h
+.\object\board.o: .\User\rtconfig.h
+.\object\board.o: .\rt-thread-3.1.3\bsp\stm32f103-blink\RTE\_stm32f103-led\RTE_Components.h
+.\object\board.o: .\rt-thread-3.1.3\include\rtdebug.h
+.\object\board.o: .\rt-thread-3.1.3\include\rtdef.h
+.\object\board.o: C:\rj\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\object\board.o: .\rt-thread-3.1.3\include\rtservice.h
+.\object\board.o: .\rt-thread-3.1.3\include\rtm.h
+.\object\board.o: .\rt-thread-3.1.3\include\rtthread.h

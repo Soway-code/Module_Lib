@@ -1,0 +1,35 @@
+stm32f0xx_iwdg.pbi: \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Source\FWLib\src\stm32f0xx_iwdg.c \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\FWLib\inc\stm32f0xx_iwdg.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\BSP\inc\stm32f0xx.h \
+  C:\rj\IAR\arm\CMSIS\Core\Include\core_cm0.h \
+  C:\rj\IAR\arm\inc\c\stdint.h C:\rj\IAR\arm\inc\c\ycheck.h \
+  C:\rj\IAR\arm\inc\c\yvals.h C:\rj\IAR\arm\inc\c\DLib_Defaults.h \
+  C:\rj\IAR\arm\inc\c\DLib_Config_Normal.h \
+  C:\rj\IAR\arm\inc\c\DLib_Product.h \
+  C:\rj\IAR\arm\CMSIS\Core\Include/cmsis_version.h \
+  C:\rj\IAR\arm\CMSIS\Core\Include/cmsis_compiler.h \
+  C:\rj\IAR\arm\CMSIS\Core\Include\cmsis_iccarm.h \
+  C:\rj\IAR\arm\inc\c\iccarm_builtin.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\BSP\inc/system_stm32f0xx.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\BSP\inc/stm32f0xx_conf.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\FWLib\inc\stm32f0xx_adc.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\FWLib\inc\stm32f0xx_cec.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\FWLib\inc\stm32f0xx_crc.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\FWLib\inc\stm32f0xx_comp.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\FWLib\inc\stm32f0xx_dac.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\FWLib\inc\stm32f0xx_dbgmcu.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\FWLib\inc\stm32f0xx_dma.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\FWLib\inc\stm32f0xx_exti.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\FWLib\inc\stm32f0xx_flash.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\FWLib\inc\stm32f0xx_gpio.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\FWLib\inc\stm32f0xx_syscfg.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\FWLib\inc\stm32f0xx_i2c.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\FWLib\inc\stm32f0xx_pwr.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\FWLib\inc\stm32f0xx_rcc.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\FWLib\inc\stm32f0xx_rtc.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\FWLib\inc\stm32f0xx_spi.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\FWLib\inc\stm32f0xx_tim.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\FWLib\inc\stm32f0xx_usart.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\FWLib\inc\stm32f0xx_wwdg.h \
+  C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345\ -1-9\Project\..\Source\FWLib\inc\stm32f0xx_misc.h

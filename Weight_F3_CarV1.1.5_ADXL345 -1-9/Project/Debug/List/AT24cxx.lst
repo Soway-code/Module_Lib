@@ -1,0 +1,1480 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.4.261/W32 for ARM         10/Jan/2021  16:10:14
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode                        
+#    Endian                       =  little
+#    Source file                  =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\BSP\AT24cxx.c
+#    Command line                 =
+#        -f C:\Users\macanlin\AppData\Local\Temp\EWCDCB.tmp
+#        ("C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\BSP\AT24cxx.c" -D USE_STDPERIPH_DRIVER -D STM32F072 -lC
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List" -o
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj" --no_cse --no_unroll --no_inline
+#        --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug
+#        --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config
+#        C:\rj\IAR\arm\inc\c\DLib_Config_Normal.h -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\BSP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\CMSIS\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\OS_Cfg\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-CPU\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Ports\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Source\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\APP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -Ol -I
+#        C:\rj\IAR\arm\CMSIS\Core\Include\\ -I
+#        C:\rj\IAR\arm\CMSIS\DSP\Include\\)
+#    Locale                       =  C
+#    List file                    =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List\AT24cxx.lst
+#    Object file                  =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj\AT24cxx.o
+#    Runtime model:                  
+#      __SystemLibrary            =  DLib
+#      __dlib_file_descriptor     =  0
+#      __dlib_full_locale_support =  0
+#      __dlib_version             =  6
+#
+###############################################################################
+
+C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345 -1-9\Source\BSP\AT24cxx.c
+      1          #include "BSP.h"
+      2          
+
+   \                                 In section .rodata, align 4
+      3          u8 const SoftwareVer[] = "SV1.1_T";
+   \                     SoftwareVer:
+   \        0x0   0x53 0x56          DC8 "SV1.1_T"
+
+   \              0x31 0x2E    
+
+   \              0x31 0x5F    
+
+   \              0x54 0x00
+
+   \                                 In section .rodata, align 4
+      4          u8 const User_Default_Param[PRO_DEFAULT_LEN] =
+   \                     User_Default_Param:
+   \        0x0   0x01 0x71          DC8 1, 113, 3, 3, 1, 1, 1, 1, 100, 255, 255, 255, 255, 255, 255, 255
+
+   \              0x03 0x03    
+
+   \              0x01 0x01    
+
+   \              0x01 0x01    
+
+   \              0x64 0xFF    
+
+   \              0xFF 0xFF    
+
+   \              0xFF 0xFF    
+
+   \              0xFF 0xFF
+   \       0x10   0xFF 0xFF          DC8 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255
+
+   \              0xFF 0xFF    
+
+   \              0xFF 0xFF    
+
+   \              0xFF 0xFF    
+
+   \              0xFF 0xFF    
+
+   \              0xFF 0xFF    
+
+   \              0xFF
+   \       0x1D   0xFF 0xFF          DC8 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255
+
+   \              0xFF 0xFF    
+
+   \              0xFF 0xFF    
+
+   \              0xFF 0xFF    
+
+   \              0xFF 0xFF    
+
+   \              0xFF 0xFF    
+
+   \              0xFF
+   \       0x2A   0xFF 0xFF          DC8 255, 255, 255, 255, 255, 255, 255, 63, 128, 0, 0, 0, 0, 0, 0, 6, 64
+
+   \              0xFF 0xFF    
+
+   \              0xFF 0xFF    
+
+   \              0xFF 0x3F    
+
+   \              0x80 0x00    
+
+   \              0x00 0x00    
+
+   \              0x00 0x00    
+
+   \              0x00 0x06    
+
+   \              0x40
+   \       0x3B   0x00 0x00          DC8 0, 0, 2, 188, 4, 176, 0, 0, 0, 100, 0, 50, 2, 88, 0, 100, 4, 76, 11
+
+   \              0x02 0xBC    
+
+   \              0x04 0xB0    
+
+   \              0x00 0x00    
+
+   \              0x00 0x64    
+
+   \              0x00 0x32    
+
+   \              0x02 0x58    
+
+   \              0x00 0x64    
+
+   \              0x04 0x4C    
+
+   \              0x0B
+   \       0x4E   0xB8 0x00          DC8 184, 0, 0, 0, 1, 0, 200, 0, 5, 0, 150, 0, 5, 0, 50, 0, 5, 0, 100, 0
+
+   \              0x00 0x00    
+
+   \              0x01 0x00    
+
+   \              0xC8 0x00    
+
+   \              0x05 0x00    
+
+   \              0x96 0x00    
+
+   \              0x05 0x00    
+
+   \              0x32 0x00    
+
+   \              0x05 0x00    
+
+   \              0x64 0x00
+   \       0x62   0x05 0x00          DC8 5, 0
+      5          {
+      6              0x01,								        //参数初始化标志位
+      7              0x71,								        //设备地址
+      8              0x03,								        //波特率
+      9              0x03,								        //奇偶校验
+     10              0x01,                                                                       //补偿使能
+     11              0x01,								        //滤波系数
+     12              0x01,								        //自动发送周期
+     13              0x01,			                                                //工作模式
+     14              0x64,				                                        //铲与铲间隔时间 100->10s
+     15              
+     16              0xFF,0xFF,0xFF,0xFF,                                                        //空载值10组数据缓存 20 bytes
+     17              0xFF,0xFF,0xFF,0xFF,
+     18              0xFF,0xFF,0xFF,0xFF,
+     19              0xFF,0xFF,0xFF,0xFF,
+     20              0xFF,0xFF,0xFF,0xFF,
+     21              
+     22              0xFF,0xFF,0xFF,0xFF,                                                        //满载值10组数据缓存 20 bytes
+     23              0xFF,0xFF,0xFF,0xFF,
+     24              0xFF,0xFF,0xFF,0xFF,
+     25              0xFF,0xFF,0xFF,0xFF,
+     26              0xFF,0xFF,0xFF,0xFF,
+     27              
+     28              0x3F,0x80,0x00,0x00,                                                        //用户输出系数K    默认为1.0
+     29              0x00,0x00,0x00,0x00,                                                        //用户输出系数B                                                        
+     30              
+     31              0x06, 0x40,                                                                 //额定载重值 2 bytes  1600
+     32              0x00,                              	                                        //记录铲数 1 byte
+     33              0x00,                              	                                        //工作状态 1 byte  LOAD_EMPTY_STATE
+     34              0x02, 0xBC,               			                                //超载系数 4 bytes  0.7 -> 700 放大100倍
+     35              0x04, 0xB0,             			                                //方差值 4 bytes  1.2  -> 1200 放大100倍
+     36              0x00, 0x00,                                                                 //最小高度值 2 bytes  0 
+     37              0x00, 0x64,                                                                 //最小AD值 2 bytes    100
+     38              0x00, 0x32,                                                                 //中间高度值 2 bytes  50
+     39              0x02, 0x58,                                                                 //中间AD值 2 bytes    600
+     40              0x00, 0x64,                                                                 //最大高度值 2 bytes  100
+     41              0x04, 0x4C,                                                                 //最大AD值 2 bytes    1100
+     42              0x0B, 0xB8,                                                                 //最大延时 2 bytes   3000 单位 0.1S
+     43              
+     44              0x00, 0x00,                                                                 //整车重量/载荷重量
+     45              0x00, 0x01,                                                                 //载重测量方案
+     46              0x00, 0xC8,                                                                 //超载阀值            200
+     47              0x00, 0x05,                                                                 //超载阀值偏差
+     48              0x00, 0x96,                                                                 //重载阀值            150
+     49              0x00, 0x05,                                                                 //重载阀值偏差
+     50              0x00, 0x32,                                                                 //空载阀值             50
+     51              0x00, 0x05,                                                                 //空载阀值偏差
+     52              0x00, 0x64,                                                                 //轻载阀值             100
+     53              0x00, 0x05,                                                                 //轻载阀值偏差    
+     54              0x00,
+     55          };
+     56          
+
+   \                                 In section .bss, align 4
+     57          u8 Cur_Param[PRO_DEFAULT_LEN] = {0};
+   \                     Cur_Param:
+   \        0x0                      DS8 100
+     58          
+
+   \                                 In section .bss, align 4
+     59          ProductParaTypeDef ProductPara;
+   \                     ProductPara:
+   \        0x0                      DS8 8
+
+   \                                 In section .bss, align 4
+     60          RunVarTypeDef RunVar;
+   \                     RunVar:
+   \        0x0                      DS8 48
+
+   \                                 In section .bss, align 4
+     61          UartCommTypeDef UartComm;
+   \                     UartComm:
+   \        0x0                      DS8 8
+
+   \                                 In section .bss, align 4
+     62          UserParamTypeDef UserParam;
+   \                     UserParam:
+   \        0x0                      DS8 16
+     63          
+     64          extern u32 AD_Buff[5][10];                                                             //AD值缓存
+     65          extern u32 Weight_Buff[5][10];                                                         //载重值缓存
+
+   \                                 In section .bss, align 4
+     66          u8 A_W_Buff[80];
+   \                     A_W_Buff:
+   \        0x0                      DS8 80
+     67          
+     68          extern u16 g_wDlyMaxTime;                                                      //最大延时时间 0.1S 单位
+
+   \                                 In section .bss, align 4
+     69          TEST_PARA g_tpTestPar;
+   \                     g_tpTestPar:
+   \        0x0                      DS8 12
+     70          
+
+   \                                 In section .text, align 2, keep-with-next
+     71          void EEProm_Init(void)
+     72          {
+   \                     EEProm_Init: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+     73              IIC_Init();
+   \        0x2   0x....'....        BL       IIC_Init
+     74          }
+   \        0x6   0xBD01             POP      {R0,PC}          ;; return
+     75          
+
+   \                                 In section .text, align 2, keep-with-next
+     76          void Check_User_Backup(void)
+     77          {
+   \                     Check_User_Backup: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+     78              u32 i = 0, errno = 0;
+   \        0x2   0x2000             MOVS     R0,#+0
+   \        0x4   0x2000             MOVS     R0,#+0
+     79              u8 bak1 = 0, bak2 = 0;
+   \        0x6   0x2000             MOVS     R0,#+0
+   \        0x8   0x2000             MOVS     R0,#+0
+     80              
+     81              for (i = 0; i < PRO_DEFAULT_LEN; i++)
+   \        0xA   0x2400             MOVS     R4,#+0
+   \        0xC   0xE012             B        ??Check_User_Backup_0
+     82              {
+     83                  errno = 0;
+     84                  
+     85                  bak1 = I2C1_ReadByte(EEPROM_ADDRESS, i + USER_DEFAULT_PARA_BAK1);
+     86                  bak2 = I2C1_ReadByte(EEPROM_ADDRESS, i + USER_DEFAULT_PARA_BAK2);
+     87                  if (Cur_Param[i] != bak1)//基址值与bak1值不同
+     88                      errno |= 0x01;
+     89          
+     90                  if (Cur_Param[i] != bak2)//基址值与bak2值不同
+     91                      errno |= 0x02;
+     92          
+     93                  if (bak1 != bak2)//bak1与bak2值不同
+     94                      errno |= 0x04;
+     95          
+     96                  if(0x00 == errno)//都相同，继续
+     97                      continue;
+     98          
+     99                  switch (errno)//errno不可能取01 02 04，矛盾
+    100                  {
+    101                  case 0x03:////基址值与bak1,bak2值都不同 但bak1,bak2同
+    102                      Cur_Param[i] = bak1;
+    103                      I2C1_WriteByte(EEPROM_ADDRESS, RUN_ADDR_BASE, Cur_Param[i]);
+    104                      break;
+    105                  case 0x05://基址值与bak2值同，bak1不同于另两者
+    106                      I2C1_WriteByte(EEPROM_ADDRESS, USER_DEFAULT_PARA_BAK1 + i, Cur_Param[i]);
+    107                      break;
+    108                  case 0x06://基址值与bak1值不同   bak2不同于另两者
+    109                      I2C1_WriteByte(EEPROM_ADDRESS, USER_DEFAULT_PARA_BAK2 + i, Cur_Param[i]);
+    110                      break;
+    111                  case 0x07://三者都不同。都写入默认值
+    112                      Cur_Param[i] = User_Default_Param[i];
+   \                     ??Check_User_Backup_1: (+1)
+   \        0xE   0x....             LDR      R0,??DataTable2
+   \       0x10   0x5D00             LDRB     R0,[R0, R4]
+   \       0x12   0x5508             STRB     R0,[R1, R4]
+    113                      I2C1_WNBytesMul3T(EEPROM_ADDRESS, RUN_ADDR_BASE + i, 1, &Cur_Param[i]);
+   \       0x14   0x190B             ADDS     R3,R1,R4
+   \       0x16   0x2201             MOVS     R2,#+1
+   \       0x18   0x0021             MOVS     R1,R4
+   \       0x1A   0xB289             UXTH     R1,R1
+   \       0x1C   0x20A0             MOVS     R0,#+160
+   \       0x1E   0x....'....        BL       I2C1_WNBytesMul3T
+    114                      break;
+   \       0x22   0xE006             B        ??Check_User_Backup_2
+   \                     ??Check_User_Backup_3: (+1)
+   \       0x24   0x5D0A             LDRB     R2,[R1, R4]
+   \       0x26   0x0020             MOVS     R0,R4
+   \       0x28   0x19C1             ADDS     R1,R0,R7
+   \       0x2A   0xB289             UXTH     R1,R1
+   \       0x2C   0x20A0             MOVS     R0,#+160
+   \       0x2E   0x....'....        BL       I2C1_WriteByte
+   \                     ??Check_User_Backup_2: (+1)
+   \       0x32   0x1C64             ADDS     R4,R4,#+1
+   \                     ??Check_User_Backup_0: (+1)
+   \       0x34   0x2C64             CMP      R4,#+100
+   \       0x36   0xD246             BCS      ??Check_User_Backup_4
+   \       0x38   0x2500             MOVS     R5,#+0
+   \       0x3A   0x0020             MOVS     R0,R4
+   \       0x3C   0x2180             MOVS     R1,#+128
+   \       0x3E   0x0049             LSLS     R1,R1,#+1        ;; #+256
+   \       0x40   0x1841             ADDS     R1,R0,R1
+   \       0x42   0xB289             UXTH     R1,R1
+   \       0x44   0x20A0             MOVS     R0,#+160
+   \       0x46   0x....'....        BL       I2C1_ReadByte
+   \       0x4A   0x0006             MOVS     R6,R0
+   \       0x4C   0x2780             MOVS     R7,#+128
+   \       0x4E   0x00BF             LSLS     R7,R7,#+2        ;; #+512
+   \       0x50   0x0020             MOVS     R0,R4
+   \       0x52   0x19C1             ADDS     R1,R0,R7
+   \       0x54   0xB289             UXTH     R1,R1
+   \       0x56   0x20A0             MOVS     R0,#+160
+   \       0x58   0x....'....        BL       I2C1_ReadByte
+   \       0x5C   0x....             LDR      R1,??DataTable2_1
+   \       0x5E   0x5D0A             LDRB     R2,[R1, R4]
+   \       0x60   0x0033             MOVS     R3,R6
+   \       0x62   0xB2DB             UXTB     R3,R3
+   \       0x64   0x429A             CMP      R2,R3
+   \       0x66   0xD002             BEQ      ??Check_User_Backup_5
+   \       0x68   0x002A             MOVS     R2,R5
+   \       0x6A   0x2501             MOVS     R5,#+1
+   \       0x6C   0x4315             ORRS     R5,R5,R2
+   \                     ??Check_User_Backup_5: (+1)
+   \       0x6E   0x5D0A             LDRB     R2,[R1, R4]
+   \       0x70   0x0003             MOVS     R3,R0
+   \       0x72   0xB2DB             UXTB     R3,R3
+   \       0x74   0x429A             CMP      R2,R3
+   \       0x76   0xD002             BEQ      ??Check_User_Backup_6
+   \       0x78   0x002A             MOVS     R2,R5
+   \       0x7A   0x2502             MOVS     R5,#+2
+   \       0x7C   0x4315             ORRS     R5,R5,R2
+   \                     ??Check_User_Backup_6: (+1)
+   \       0x7E   0x0032             MOVS     R2,R6
+   \       0x80   0xB2D2             UXTB     R2,R2
+   \       0x82   0xB2C0             UXTB     R0,R0
+   \       0x84   0x4282             CMP      R2,R0
+   \       0x86   0xD002             BEQ      ??Check_User_Backup_7
+   \       0x88   0x0028             MOVS     R0,R5
+   \       0x8A   0x2504             MOVS     R5,#+4
+   \       0x8C   0x4305             ORRS     R5,R5,R0
+   \                     ??Check_User_Backup_7: (+1)
+   \       0x8E   0x2D00             CMP      R5,#+0
+   \       0x90   0xD0CF             BEQ      ??Check_User_Backup_2
+   \                     ??Check_User_Backup_8: (+1)
+   \       0x92   0x2D03             CMP      R5,#+3
+   \       0x94   0xD006             BEQ      ??Check_User_Backup_9
+   \       0x96   0x2D05             CMP      R5,#+5
+   \       0x98   0xD00B             BEQ      ??Check_User_Backup_10
+   \       0x9A   0x2D06             CMP      R5,#+6
+   \       0x9C   0xD0C2             BEQ      ??Check_User_Backup_3
+   \       0x9E   0x2D07             CMP      R5,#+7
+   \       0xA0   0xD0B5             BEQ      ??Check_User_Backup_1
+   \       0xA2   0xE7C6             B        ??Check_User_Backup_2
+   \                     ??Check_User_Backup_9: (+1)
+   \       0xA4   0x550E             STRB     R6,[R1, R4]
+   \       0xA6   0x5D0A             LDRB     R2,[R1, R4]
+   \       0xA8   0x2100             MOVS     R1,#+0
+   \       0xAA   0x20A0             MOVS     R0,#+160
+   \       0xAC   0x....'....        BL       I2C1_WriteByte
+   \       0xB0   0xE7BF             B        ??Check_User_Backup_2
+   \                     ??Check_User_Backup_10: (+1)
+   \       0xB2   0x5D0A             LDRB     R2,[R1, R4]
+   \       0xB4   0x0020             MOVS     R0,R4
+   \       0xB6   0x2180             MOVS     R1,#+128
+   \       0xB8   0x0049             LSLS     R1,R1,#+1        ;; #+256
+   \       0xBA   0x1841             ADDS     R1,R0,R1
+   \       0xBC   0xB289             UXTH     R1,R1
+   \       0xBE   0x20A0             MOVS     R0,#+160
+   \       0xC0   0x....'....        BL       I2C1_WriteByte
+   \       0xC4   0xE7B5             B        ??Check_User_Backup_2
+    115                  }
+    116              }    
+    117          }
+   \                     ??Check_User_Backup_4: (+1)
+   \       0xC6   0xBDF1             POP      {R0,R4-R7,PC}    ;; return
+    118          
+    119          
+    120          /*******************************************************************************
+    121          名称         : void Check_Software_Ver(void)
+    122          创建日期     : 2017-02-21
+    123          作者         : 梅梦醒
+    124          功能         : 检查软件最新版本号和EEPROM中写入的版本号是否一致，不一致写入最新的版本号
+    125          输入参数     : 无
+    126          输出参数     : 无
+    127          返回结果     : 无
+    128          注意和说明   : 
+    129          修改内容     : 
+    130          ********************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+    131          void Check_Software_Ver(void)
+    132          {
+   \                     Check_Software_Ver: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+   \        0x2   0xB088             SUB      SP,SP,#+32
+    133              u8 OldVerLen = 0, NewVerLen = 0, SVerBuff[30], i;
+   \        0x4   0x2500             MOVS     R5,#+0
+   \        0x6   0x0028             MOVS     R0,R5
+   \        0x8   0x0028             MOVS     R0,R5
+    134              NewVerLen = sizeof(SoftwareVer) - 1;                                       //最新的版本数组的长度(sizeof得到的长度包括'\0',要去掉)
+   \        0xA   0x2607             MOVS     R6,#+7
+    135              OldVerLen = I2C1_ReadByte(EEPROM_ADDRESS, SFVERSION);                       //从EEPROM中读取的版本数组的长度
+   \        0xC   0x27D0             MOVS     R7,#+208
+   \        0xE   0x00BF             LSLS     R7,R7,#+2        ;; #+832
+   \       0x10   0x0039             MOVS     R1,R7
+   \       0x12   0x20A0             MOVS     R0,#+160
+   \       0x14   0x....'....        BL       I2C1_ReadByte
+   \       0x18   0x0004             MOVS     R4,R0
+    136              if((0 == OldVerLen) || (0x14 < OldVerLen) || (OldVerLen != NewVerLen))      //如果以前没写过或字节数超过30个或与最新版本长度不相等，就写入版本信息
+   \       0x1A   0x0020             MOVS     R0,R4
+   \       0x1C   0xB2C0             UXTB     R0,R0
+   \       0x1E   0x2800             CMP      R0,#+0
+   \       0x20   0xD009             BEQ      ??Check_Software_Ver_0
+   \       0x22   0x0020             MOVS     R0,R4
+   \       0x24   0xB2C0             UXTB     R0,R0
+   \       0x26   0x2815             CMP      R0,#+21
+   \       0x28   0xDA05             BGE      ??Check_Software_Ver_0
+   \       0x2A   0x0020             MOVS     R0,R4
+   \       0x2C   0x0031             MOVS     R1,R6
+   \       0x2E   0xB2C0             UXTB     R0,R0
+   \       0x30   0xB2C9             UXTB     R1,R1
+   \       0x32   0x4288             CMP      R0,R1
+   \       0x34   0xD011             BEQ      ??Check_Software_Ver_1
+    137              {
+    138                  ProductPara.bFlashWEn = FLASH_WR_ENABLE;                                
+   \                     ??Check_Software_Ver_0: (+1)
+   \       0x36   0x2001             MOVS     R0,#+1
+   \       0x38   0x....             LDR      R1,??DataTable2_2
+   \       0x3A   0x70C8             STRB     R0,[R1, #+3]
+    139                  I2C1_WriteByte(EEPROM_ADDRESS, SFVERSION, NewVerLen);                   
+   \       0x3C   0x0032             MOVS     R2,R6
+   \       0x3E   0xB2D2             UXTB     R2,R2
+   \       0x40   0x0039             MOVS     R1,R7
+   \       0x42   0x20A0             MOVS     R0,#+160
+   \       0x44   0x....'....        BL       I2C1_WriteByte
+    140                  I2C1_WriteNBytes(EEPROM_ADDRESS, SFVERSION + 1, NewVerLen, SoftwareVer);
+   \       0x48   0x....             LDR      R3,??DataTable2_3
+   \       0x4A   0xB2F6             UXTB     R6,R6
+   \       0x4C   0x0032             MOVS     R2,R6
+   \       0x4E   0xB292             UXTH     R2,R2
+   \       0x50   0x....             LDR      R1,??DataTable2_4  ;; 0x341
+   \       0x52   0x20A0             MOVS     R0,#+160
+   \       0x54   0x....'....        BL       I2C1_WriteNBytes
+   \       0x58   0xE02D             B        ??Check_Software_Ver_2
+    141              }
+    142              else
+    143              {
+    144                  for (i = 0; i < OldVerLen; i ++)                                           //读取EEPROM中存放的软件版本
+   \                     ??Check_Software_Ver_1: (+1)
+   \       0x5A   0xE00C             B        ??Check_Software_Ver_3
+    145                  {                             
+    146                      SVerBuff[i] = I2C1_ReadByte(EEPROM_ADDRESS, SFVERSION + 1 + i);         //SFVERSION地址存放的是：版本长度（1字节）+版本号
+   \                     ??Check_Software_Ver_4: (+1)
+   \       0x5C   0x0028             MOVS     R0,R5
+   \       0x5E   0xB2C0             UXTB     R0,R0
+   \       0x60   0x....             LDR      R1,??DataTable2_4  ;; 0x341
+   \       0x62   0x1841             ADDS     R1,R0,R1
+   \       0x64   0xB289             UXTH     R1,R1
+   \       0x66   0x20A0             MOVS     R0,#+160
+   \       0x68   0x....'....        BL       I2C1_ReadByte
+   \       0x6C   0x4669             MOV      R1,SP
+   \       0x6E   0x002A             MOVS     R2,R5
+   \       0x70   0xB2D2             UXTB     R2,R2
+   \       0x72   0x5488             STRB     R0,[R1, R2]
+    147                  }
+   \       0x74   0x1C6D             ADDS     R5,R5,#+1
+   \                     ??Check_Software_Ver_3: (+1)
+   \       0x76   0x0028             MOVS     R0,R5
+   \       0x78   0x0021             MOVS     R1,R4
+   \       0x7A   0xB2C0             UXTB     R0,R0
+   \       0x7C   0xB2C9             UXTB     R1,R1
+   \       0x7E   0x4288             CMP      R0,R1
+   \       0x80   0xD3EC             BCC      ??Check_Software_Ver_4
+    148                  if(memcmp(SVerBuff, SoftwareVer, NewVerLen))
+   \       0x82   0x....             LDR      R4,??DataTable2_3
+   \       0x84   0x0032             MOVS     R2,R6
+   \       0x86   0xB2D2             UXTB     R2,R2
+   \       0x88   0x0021             MOVS     R1,R4
+   \       0x8A   0x4668             MOV      R0,SP
+   \       0x8C   0x....'....        BL       memcmp
+   \       0x90   0x2800             CMP      R0,#+0
+   \       0x92   0xD010             BEQ      ??Check_Software_Ver_2
+    149                  {
+    150                      ProductPara.bFlashWEn = FLASH_WR_ENABLE;                                //必须使能写EEPROM
+   \       0x94   0x2001             MOVS     R0,#+1
+   \       0x96   0x....             LDR      R1,??DataTable2_2
+   \       0x98   0x70C8             STRB     R0,[R1, #+3]
+    151                      I2C1_WriteByte(EEPROM_ADDRESS, SFVERSION, NewVerLen);                   //把版本号的长度写入EEPROM
+   \       0x9A   0x0032             MOVS     R2,R6
+   \       0x9C   0xB2D2             UXTB     R2,R2
+   \       0x9E   0x0039             MOVS     R1,R7
+   \       0xA0   0x20A0             MOVS     R0,#+160
+   \       0xA2   0x....'....        BL       I2C1_WriteByte
+    152                      I2C1_WriteNBytes(EEPROM_ADDRESS, SFVERSION + 1, NewVerLen, SoftwareVer);//把版本号写入EEPROM
+   \       0xA6   0x0023             MOVS     R3,R4
+   \       0xA8   0xB2F6             UXTB     R6,R6
+   \       0xAA   0x0032             MOVS     R2,R6
+   \       0xAC   0xB292             UXTH     R2,R2
+   \       0xAE   0x....             LDR      R1,??DataTable2_4  ;; 0x341
+   \       0xB0   0x20A0             MOVS     R0,#+160
+   \       0xB2   0x....'....        BL       I2C1_WriteNBytes
+    153                  }
+    154              }
+    155          }
+   \                     ??Check_Software_Ver_2: (+1)
+   \       0xB6   0xB009             ADD      SP,SP,#+36
+   \       0xB8   0xBDF0             POP      {R4-R7,PC}       ;; return
+    156          
+    157          
+
+   \                                 In section .text, align 4, keep-with-next
+    158          void Rd_Dev_Param(void)//读取设备参数  上电初始化。
+    159          {
+   \                     Rd_Dev_Param: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+   \        0x2   0xB084             SUB      SP,SP,#+16
+    160              u8 cyBuf[4];
+    161              u8 i, j;
+    162              u16 wTemp;
+    163          
+    164              I2C1_ReadNBytes(EEPROM_ADDRESS,  USER_DEFAULT_PARA_BAK1 - 5, 4, cyBuf);  //读取4个检测字节。
+   \        0x4   0xAB03             ADD      R3,SP,#+12
+   \        0x6   0x2204             MOVS     R2,#+4
+   \        0x8   0x21FB             MOVS     R1,#+251
+   \        0xA   0x20A0             MOVS     R0,#+160
+   \        0xC   0x....'....        BL       I2C1_ReadNBytes
+    165              
+    166              if((User_Default_Param[0] != I2C1_ReadByte(EEPROM_ADDRESS, RUN_ADDR_BASE)) ||	//若EEPROM无数据，写入出厂值
+    167                 (0x11 != cyBuf[0]) || (0x34 != cyBuf[1]) || (0x56 != cyBuf[2]) || (0x7B != cyBuf[3]) )
+   \       0x10   0x2100             MOVS     R1,#+0
+   \       0x12   0x20A0             MOVS     R0,#+160
+   \       0x14   0x....'....        BL       I2C1_ReadByte
+   \       0x18   0x4BBF             LDR      R3,??Rd_Dev_Param_0
+   \       0x1A   0x7819             LDRB     R1,[R3, #+0]
+   \       0x1C   0xB2C0             UXTB     R0,R0
+   \       0x1E   0x4281             CMP      R1,R0
+   \       0x20   0xD10C             BNE      ??Rd_Dev_Param_2
+   \       0x22   0xA803             ADD      R0,SP,#+12
+   \       0x24   0x7801             LDRB     R1,[R0, #+0]
+   \       0x26   0x2911             CMP      R1,#+17
+   \       0x28   0xD108             BNE      ??Rd_Dev_Param_2
+   \       0x2A   0x7841             LDRB     R1,[R0, #+1]
+   \       0x2C   0x2934             CMP      R1,#+52
+   \       0x2E   0xD105             BNE      ??Rd_Dev_Param_2
+   \       0x30   0x7881             LDRB     R1,[R0, #+2]
+   \       0x32   0x2956             CMP      R1,#+86
+   \       0x34   0xD102             BNE      ??Rd_Dev_Param_2
+   \       0x36   0x78C0             LDRB     R0,[R0, #+3]
+   \       0x38   0x287B             CMP      R0,#+123
+   \       0x3A   0xD023             BEQ      ??Rd_Dev_Param_3
+    168              {
+    169              	ProductPara.bFlashWEn = FLASH_WR_ENABLE;
+   \                     ??Rd_Dev_Param_2: (+1)
+   \       0x3C   0x4FB7             LDR      R7,??Rd_Dev_Param_0+0x4
+   \       0x3E   0x2001             MOVS     R0,#+1
+   \       0x40   0x7038             STRB     R0,[R7, #+0]
+    170                  I2C1_WNBytesMul3T(EEPROM_ADDRESS, RUN_ADDR_BASE, PRO_DEFAULT_LEN, User_Default_Param);//将默认参数写入基地址，和两个备份地址
+   \       0x42   0x2264             MOVS     R2,#+100
+   \       0x44   0x2100             MOVS     R1,#+0
+   \       0x46   0x20A0             MOVS     R0,#+160
+   \       0x48   0x....'....        BL       I2C1_WNBytesMul3T
+    171                  cyBuf[0] = 0x11;
+   \       0x4C   0xAD03             ADD      R5,SP,#+12
+   \       0x4E   0x2011             MOVS     R0,#+17
+   \       0x50   0x7028             STRB     R0,[R5, #+0]
+    172                  cyBuf[1] = 0x34;
+   \       0x52   0x2034             MOVS     R0,#+52
+   \       0x54   0x7068             STRB     R0,[R5, #+1]
+    173                  cyBuf[2] = 0x56;
+   \       0x56   0x2056             MOVS     R0,#+86
+   \       0x58   0x70A8             STRB     R0,[R5, #+2]
+    174                  cyBuf[3] = 0x7B;
+   \       0x5A   0x207B             MOVS     R0,#+123
+   \       0x5C   0x70E8             STRB     R0,[R5, #+3]
+    175                  for (i = 0; i < 4; i++)
+   \       0x5E   0x2600             MOVS     R6,#+0
+   \       0x60   0x0034             MOVS     R4,R6
+   \       0x62   0xE00A             B        ??Rd_Dev_Param_4
+    176                  {
+    177                      I2C1_WriteByte(EEPROM_ADDRESS, USER_DEFAULT_PARA_BAK1 - 5 + i, cyBuf[i]);
+   \                     ??Rd_Dev_Param_5: (+1)
+   \       0x64   0x0020             MOVS     R0,R4
+   \       0x66   0xB2C0             UXTB     R0,R0
+   \       0x68   0x5C2A             LDRB     R2,[R5, R0]
+   \       0x6A   0x0021             MOVS     R1,R4
+   \       0x6C   0xB2C9             UXTB     R1,R1
+   \       0x6E   0x31FB             ADDS     R1,R1,#+251
+   \       0x70   0xB289             UXTH     R1,R1
+   \       0x72   0x20A0             MOVS     R0,#+160
+   \       0x74   0x....'....        BL       I2C1_WriteByte
+    178                  }
+   \       0x78   0x1C64             ADDS     R4,R4,#+1
+   \                     ??Rd_Dev_Param_4: (+1)
+   \       0x7A   0x0020             MOVS     R0,R4
+   \       0x7C   0xB2C0             UXTB     R0,R0
+   \       0x7E   0x2804             CMP      R0,#+4
+   \       0x80   0xDBF0             BLT      ??Rd_Dev_Param_5
+    179                  ProductPara.bFlashWEn = FLASH_WR_DISABLE;
+   \       0x82   0x703E             STRB     R6,[R7, #+0]
+    180              }
+    181              
+    182              I2C1_ReadNBytes(EEPROM_ADDRESS, RUN_ADDR_BASE, PRO_DEFAULT_LEN, Cur_Param);//将基地址中数据读取到Cur_Param中。
+   \                     ??Rd_Dev_Param_3: (+1)
+   \       0x84   0x4CA6             LDR      R4,??Rd_Dev_Param_0+0x8
+   \       0x86   0x0023             MOVS     R3,R4
+   \       0x88   0x2264             MOVS     R2,#+100
+   \       0x8A   0x2100             MOVS     R1,#+0
+   \       0x8C   0x20A0             MOVS     R0,#+160
+   \       0x8E   0x....'....        BL       I2C1_ReadNBytes
+    183          
+    184              Check_User_Backup();//检查基址和备份地址中数据是否一致。
+   \       0x92   0x....'....        BL       Check_User_Backup
+    185              Check_Software_Ver();//检查软件版本。
+   \       0x96   0x....'....        BL       Check_Software_Ver
+    186              
+    187              UartComm.SlaveAddr = Cur_Param[SLAVE_ADDR];
+   \       0x9A   0x48A2             LDR      R0,??Rd_Dev_Param_0+0xC
+   \       0x9C   0x7861             LDRB     R1,[R4, #+1]
+   \       0x9E   0x7001             STRB     R1,[R0, #+0]
+    188              UartComm.BaudRate = Cur_Param[BAUDRATE];
+   \       0xA0   0x78A1             LDRB     R1,[R4, #+2]
+   \       0xA2   0x7041             STRB     R1,[R0, #+1]
+    189              UartComm.Parity = Cur_Param[PARITY];
+   \       0xA4   0x78E1             LDRB     R1,[R4, #+3]
+   \       0xA6   0x7101             STRB     R1,[R0, #+4]
+    190              
+    191              ProductPara.cyAutoUpLoadTime = Cur_Param[AUTO_UPLOAD_TIME];
+   \       0xA8   0x489F             LDR      R0,??Rd_Dev_Param_0+0x10
+   \       0xAA   0x79A1             LDRB     R1,[R4, #+6]
+   \       0xAC   0x7001             STRB     R1,[R0, #+0]
+    192              ProductPara.cyFilterLevel = Cur_Param[FILTER_LEVEL];
+   \       0xAE   0x7961             LDRB     R1,[R4, #+5]
+   \       0xB0   0x7041             STRB     R1,[R0, #+1]
+    193              RunVar.AdcMaxCnt = ProductPara.cyFilterLevel * 90;
+   \       0xB2   0x4F9E             LDR      R7,??Rd_Dev_Param_0+0x14
+   \       0xB4   0x7841             LDRB     R1,[R0, #+1]
+   \       0xB6   0x225A             MOVS     R2,#+90
+   \       0xB8   0x434A             MULS     R2,R1,R2
+   \       0xBA   0x853A             STRH     R2,[R7, #+40]
+    194              ProductPara.cyMbtWorkType = Cur_Param[MBT_WORK_TYPE];
+   \       0xBC   0x79E1             LDRB     R1,[R4, #+7]
+   \       0xBE   0x7081             STRB     R1,[R0, #+2]
+    195              ProductPara.OffsetEn = Cur_Param[OFFSET_ENABLE];        
+   \       0xC0   0x7921             LDRB     R1,[R4, #+4]
+   \       0xC2   0x7101             STRB     R1,[R0, #+4]
+    196              g_cyShovelDTime = Cur_Param[LOAD_SHOVE_DTIME];
+   \       0xC4   0x7A20             LDRB     R0,[R4, #+8]
+   \       0xC6   0x499A             LDR      R1,??Rd_Dev_Param_0+0x18
+   \       0xC8   0x7008             STRB     R0,[R1, #+0]
+    197              
+    198              UserParam.UserFlowK = HexToFloat(&Cur_Param[USER_FLOW_K]);
+   \       0xCA   0x4D9A             LDR      R5,??Rd_Dev_Param_0+0x1C
+   \       0xCC   0x0020             MOVS     R0,R4
+   \       0xCE   0x3031             ADDS     R0,R0,#+49
+   \       0xD0   0x....'....        BL       HexToFloat
+   \       0xD4   0x6028             STR      R0,[R5, #+0]
+    199              UserParam.UserFlowB = HexToFloat(&Cur_Param[USER_FLOW_B]);
+   \       0xD6   0x0020             MOVS     R0,R4
+   \       0xD8   0x3035             ADDS     R0,R0,#+53
+   \       0xDA   0x....'....        BL       HexToFloat
+   \       0xDE   0x6068             STR      R0,[R5, #+4]
+    200              
+    201              RunVar.VehicleWeight = ArrayToUshort(&Cur_Param[VEHICLE_WEIGHT]);
+   \       0xE0   0x0020             MOVS     R0,R4
+   \       0xE2   0x304F             ADDS     R0,R0,#+79
+   \       0xE4   0x....'....        BL       ArrayToUshort
+   \       0xE8   0x82B8             STRH     R0,[R7, #+20]
+    202              RunVar.LoadMeasureScheme = ArrayToUshort(&Cur_Param[LOAD_MEASURE_SCHEME]);
+   \       0xEA   0x0020             MOVS     R0,R4
+   \       0xEC   0x3051             ADDS     R0,R0,#+81
+   \       0xEE   0x....'....        BL       ArrayToUshort
+   \       0xF2   0x82F8             STRH     R0,[R7, #+22]
+    203              RunVar.OverloadLimit = ArrayToUshort(&Cur_Param[OVERLOAD_LIMIT]);
+   \       0xF4   0x0020             MOVS     R0,R4
+   \       0xF6   0x3053             ADDS     R0,R0,#+83
+   \       0xF8   0x....'....        BL       ArrayToUshort
+   \       0xFC   0x8338             STRH     R0,[R7, #+24]
+    204              RunVar.OverloadLimitDevation = ArrayToUshort(&Cur_Param[OVERLOAD_LIMIT_DEVIATION]);
+   \       0xFE   0x0020             MOVS     R0,R4
+   \      0x100   0x3055             ADDS     R0,R0,#+85
+   \      0x102   0x....'....        BL       ArrayToUshort
+   \      0x106   0x8378             STRH     R0,[R7, #+26]
+    205              RunVar.LoadLimit = ArrayToUshort(&Cur_Param[LOAD_LIMIT]);
+   \      0x108   0x0020             MOVS     R0,R4
+   \      0x10A   0x3057             ADDS     R0,R0,#+87
+   \      0x10C   0x....'....        BL       ArrayToUshort
+   \      0x110   0x83B8             STRH     R0,[R7, #+28]
+    206              RunVar.LoadLimitDevation = ArrayToUshort(&Cur_Param[LOAD_LIMIT_DEVIATION]);
+   \      0x112   0x0020             MOVS     R0,R4
+   \      0x114   0x3059             ADDS     R0,R0,#+89
+   \      0x116   0x....'....        BL       ArrayToUshort
+   \      0x11A   0x83F8             STRH     R0,[R7, #+30]
+    207              RunVar.EmptyLimit = ArrayToUshort(&Cur_Param[EMPTYLOAD_LIMIT]);
+   \      0x11C   0x0020             MOVS     R0,R4
+   \      0x11E   0x305B             ADDS     R0,R0,#+91
+   \      0x120   0x....'....        BL       ArrayToUshort
+   \      0x124   0x8438             STRH     R0,[R7, #+32]
+    208              RunVar.EmptyLimitDevation = ArrayToUshort(&Cur_Param[EMPTYLOAD_LIMIT_DEVIATION]);
+   \      0x126   0x0020             MOVS     R0,R4
+   \      0x128   0x305D             ADDS     R0,R0,#+93
+   \      0x12A   0x....'....        BL       ArrayToUshort
+   \      0x12E   0x8478             STRH     R0,[R7, #+34]
+    209              RunVar.Weight_Unit = Cur_Param[WEIGHT_UNIT];
+   \      0x130   0x2063             MOVS     R0,#+99
+   \      0x132   0x5C20             LDRB     R0,[R4, R0]
+   \      0x134   0x212C             MOVS     R1,#+44
+   \      0x136   0x5478             STRB     R0,[R7, R1]
+    210              RunVar.LightLimit = ArrayToUshort(&Cur_Param[LIGHTLOAD_LIMIT]);
+   \      0x138   0x0020             MOVS     R0,R4
+   \      0x13A   0x305F             ADDS     R0,R0,#+95
+   \      0x13C   0x....'....        BL       ArrayToUshort
+   \      0x140   0x84B8             STRH     R0,[R7, #+36]
+    211              RunVar.LightLimitDevation = ArrayToUshort(&Cur_Param[LIGHTLOAD_LIMIT_DEVIATION]);
+   \      0x142   0x0020             MOVS     R0,R4
+   \      0x144   0x3061             ADDS     R0,R0,#+97
+   \      0x146   0x....'....        BL       ArrayToUshort
+   \      0x14A   0x84F8             STRH     R0,[R7, #+38]
+    212              
+    213              I2C1_ReadNBytes(EEPROM_ADDRESS, AD_WEIGHT_PACKS, 1, &((u8*)&RunVar.TotalPacks)[1]);         //获得标定数组的总包数
+   \      0x14C   0x003B             MOVS     R3,R7
+   \      0x14E   0x332B             ADDS     R3,R3,#+43
+   \      0x150   0x2201             MOVS     R2,#+1
+   \      0x152   0x49DC             LDR      R1,??Rd_Dev_Param_1  ;; 0x43e
+   \      0x154   0x20A0             MOVS     R0,#+160
+   \      0x156   0x....'....        BL       I2C1_ReadNBytes
+    214              I2C1_ReadNBytes(EEPROM_ADDRESS, AD_WEIGHT_PACKS + 1, 1, &((u8*)&RunVar.TotalPacks)[0]);
+   \      0x15A   0x003B             MOVS     R3,R7
+   \      0x15C   0x332A             ADDS     R3,R3,#+42
+   \      0x15E   0x2201             MOVS     R2,#+1
+   \      0x160   0x....             LDR      R1,??DataTable3  ;; 0x43f
+   \      0x162   0x20A0             MOVS     R0,#+160
+   \      0x164   0x....'....        BL       I2C1_ReadNBytes
+    215              if((RunVar.TotalPacks == 0) || (RunVar.TotalPacks > 5))
+   \      0x168   0x8D78             LDRH     R0,[R7, #+42]
+   \      0x16A   0x2800             CMP      R0,#+0
+   \      0x16C   0xD002             BEQ      ??Rd_Dev_Param_6
+   \      0x16E   0x8D78             LDRH     R0,[R7, #+42]
+   \      0x170   0x2806             CMP      R0,#+6
+   \      0x172   0xDB26             BLT      ??Rd_Dev_Param_7
+    216              {
+    217                  for(i = 0; i < 5; i++)
+   \                     ??Rd_Dev_Param_6: (+1)
+   \      0x174   0x2000             MOVS     R0,#+0
+   \      0x176   0x0001             MOVS     R1,R0
+   \      0x178   0xE01D             B        ??Rd_Dev_Param_8
+    218                  {
+    219                      for(j = 0; j < 10; j++)
+    220                      {
+    221                          AD_Buff[i][j] = 0xFFFFFFFF;
+   \                     ??Rd_Dev_Param_9: (+1)
+   \      0x17A   0x2300             MOVS     R3,#+0
+   \      0x17C   0x43DB             MVNS     R3,R3            ;; #-1
+   \      0x17E   0x....             LDR      R5,??DataTable3_1
+   \      0x180   0x000E             MOVS     R6,R1
+   \      0x182   0xB2F6             UXTB     R6,R6
+   \      0x184   0x2728             MOVS     R7,#+40
+   \      0x186   0x437E             MULS     R6,R7,R6
+   \      0x188   0x19AD             ADDS     R5,R5,R6
+   \      0x18A   0x0017             MOVS     R7,R2
+   \      0x18C   0xB2FF             UXTB     R7,R7
+   \      0x18E   0x2604             MOVS     R6,#+4
+   \      0x190   0x4377             MULS     R7,R6,R7
+   \      0x192   0x51EB             STR      R3,[R5, R7]
+    222                          Weight_Buff[i][j] = 0xFFFFFFFF;
+   \      0x194   0x....             LDR      R5,??DataTable3_2
+   \      0x196   0x000E             MOVS     R6,R1
+   \      0x198   0xB2F6             UXTB     R6,R6
+   \      0x19A   0x2728             MOVS     R7,#+40
+   \      0x19C   0x437E             MULS     R6,R7,R6
+   \      0x19E   0x19AD             ADDS     R5,R5,R6
+   \      0x1A0   0x0017             MOVS     R7,R2
+   \      0x1A2   0xB2FF             UXTB     R7,R7
+   \      0x1A4   0x2604             MOVS     R6,#+4
+   \      0x1A6   0x4377             MULS     R7,R6,R7
+   \      0x1A8   0x51EB             STR      R3,[R5, R7]
+    223                      }
+   \      0x1AA   0x1C52             ADDS     R2,R2,#+1
+   \                     ??Rd_Dev_Param_10: (+1)
+   \      0x1AC   0x0013             MOVS     R3,R2
+   \      0x1AE   0xB2DB             UXTB     R3,R3
+   \      0x1B0   0x2B0A             CMP      R3,#+10
+   \      0x1B2   0xDBE2             BLT      ??Rd_Dev_Param_9
+   \      0x1B4   0x1C49             ADDS     R1,R1,#+1
+   \                     ??Rd_Dev_Param_8: (+1)
+   \      0x1B6   0x000A             MOVS     R2,R1
+   \      0x1B8   0xB2D2             UXTB     R2,R2
+   \      0x1BA   0x2A05             CMP      R2,#+5
+   \      0x1BC   0xDA7A             BGE      ??Rd_Dev_Param_11
+   \      0x1BE   0x0002             MOVS     R2,R0
+   \      0x1C0   0xE7F4             B        ??Rd_Dev_Param_10
+    224                  }
+    225              }
+    226              else
+    227              {
+    228                  for(i = 0; i < RunVar.TotalPacks; i++)                                  //获得标定数组的值
+   \                     ??Rd_Dev_Param_7: (+1)
+   \      0x1C2   0x2000             MOVS     R0,#+0
+   \      0x1C4   0x4669             MOV      R1,SP
+   \      0x1C6   0x7208             STRB     R0,[R1, #+8]
+   \      0x1C8   0xE038             B        ??Rd_Dev_Param_12
+    229                  {
+    230                      I2C1_ReadNBytes(EEPROM_ADDRESS, AD_WEIGHT_ADDR(i), 80, A_W_Buff);
+    231                      for(j = 0; j < 10; j++)
+    232                      {
+    233                          AD_Buff[i][j] = HexToUlong(A_W_Buff + 8 * j);                   //AD值
+   \                     ??Rd_Dev_Param_13: (+1)
+   \      0x1CA   0x....             LDR      R6,??DataTable3_3
+   \      0x1CC   0x....             LDR      R0,??DataTable3_1
+   \      0x1CE   0x4669             MOV      R1,SP
+   \      0x1D0   0x7A09             LDRB     R1,[R1, #+8]
+   \      0x1D2   0x2228             MOVS     R2,#+40
+   \      0x1D4   0x4351             MULS     R1,R2,R1
+   \      0x1D6   0x1841             ADDS     R1,R0,R1
+   \      0x1D8   0x002A             MOVS     R2,R5
+   \      0x1DA   0xB2D2             UXTB     R2,R2
+   \      0x1DC   0x2004             MOVS     R0,#+4
+   \      0x1DE   0x4342             MULS     R2,R0,R2
+   \      0x1E0   0x9200             STR      R2,[SP, #+0]
+   \      0x1E2   0x9101             STR      R1,[SP, #+4]
+   \      0x1E4   0x0028             MOVS     R0,R5
+   \      0x1E6   0xB2C0             UXTB     R0,R0
+   \      0x1E8   0x2108             MOVS     R1,#+8
+   \      0x1EA   0x4348             MULS     R0,R1,R0
+   \      0x1EC   0x1830             ADDS     R0,R6,R0
+   \      0x1EE   0x....'....        BL       HexToUlong
+   \      0x1F2   0x9901             LDR      R1,[SP, #+4]
+   \      0x1F4   0x9A00             LDR      R2,[SP, #+0]
+   \      0x1F6   0x5088             STR      R0,[R1, R2]
+    234                          Weight_Buff[i][j] = HexToUlong(A_W_Buff + 8 * j + 4); //重量值
+   \      0x1F8   0x....             LDR      R0,??DataTable3_2
+   \      0x1FA   0x4669             MOV      R1,SP
+   \      0x1FC   0x7A09             LDRB     R1,[R1, #+8]
+   \      0x1FE   0x2228             MOVS     R2,#+40
+   \      0x200   0x4351             MULS     R1,R2,R1
+   \      0x202   0x1840             ADDS     R0,R0,R1
+   \      0x204   0x002A             MOVS     R2,R5
+   \      0x206   0xB2D2             UXTB     R2,R2
+   \      0x208   0x2104             MOVS     R1,#+4
+   \      0x20A   0x434A             MULS     R2,R1,R2
+   \      0x20C   0x9200             STR      R2,[SP, #+0]
+   \      0x20E   0x9001             STR      R0,[SP, #+4]
+   \      0x210   0x0028             MOVS     R0,R5
+   \      0x212   0xB2C0             UXTB     R0,R0
+   \      0x214   0x2108             MOVS     R1,#+8
+   \      0x216   0x4348             MULS     R0,R1,R0
+   \      0x218   0x1830             ADDS     R0,R6,R0
+   \      0x21A   0x1D00             ADDS     R0,R0,#+4
+   \      0x21C   0x....'....        BL       HexToUlong
+   \      0x220   0x0001             MOVS     R1,R0
+   \      0x222   0x9801             LDR      R0,[SP, #+4]
+   \      0x224   0x9A00             LDR      R2,[SP, #+0]
+   \      0x226   0x5081             STR      R1,[R0, R2]
+    235                      }
+   \      0x228   0x1C6D             ADDS     R5,R5,#+1
+   \                     ??Rd_Dev_Param_14: (+1)
+   \      0x22A   0x0028             MOVS     R0,R5
+   \      0x22C   0xB2C0             UXTB     R0,R0
+   \      0x22E   0x280A             CMP      R0,#+10
+   \      0x230   0xDBCB             BLT      ??Rd_Dev_Param_13
+   \      0x232   0x4668             MOV      R0,SP
+   \      0x234   0x4669             MOV      R1,SP
+   \      0x236   0x7A09             LDRB     R1,[R1, #+8]
+   \      0x238   0x1C49             ADDS     R1,R1,#+1
+   \      0x23A   0x7201             STRB     R1,[R0, #+8]
+   \                     ??Rd_Dev_Param_12: (+1)
+   \      0x23C   0x4668             MOV      R0,SP
+   \      0x23E   0x7A00             LDRB     R0,[R0, #+8]
+   \      0x240   0x8D79             LDRH     R1,[R7, #+42]
+   \      0x242   0xB280             UXTH     R0,R0
+   \      0x244   0x4288             CMP      R0,R1
+   \      0x246   0xD20F             BCS      ??Rd_Dev_Param_15
+   \      0x248   0x....             LDR      R3,??DataTable3_3
+   \      0x24A   0x2250             MOVS     R2,#+80
+   \      0x24C   0x4668             MOV      R0,SP
+   \      0x24E   0x7A00             LDRB     R0,[R0, #+8]
+   \      0x250   0x2150             MOVS     R1,#+80
+   \      0x252   0x4348             MULS     R0,R1,R0
+   \      0x254   0x2188             MOVS     R1,#+136
+   \      0x256   0x00C9             LSLS     R1,R1,#+3        ;; #+1088
+   \      0x258   0x1840             ADDS     R0,R0,R1
+   \      0x25A   0x0001             MOVS     R1,R0
+   \      0x25C   0xB289             UXTH     R1,R1
+   \      0x25E   0x20A0             MOVS     R0,#+160
+   \      0x260   0x....'....        BL       I2C1_ReadNBytes
+   \      0x264   0x2500             MOVS     R5,#+0
+   \      0x266   0xE7E0             B        ??Rd_Dev_Param_14
+    236                  }
+    237                  
+    238                  for(i = RunVar.TotalPacks; i < 5; i++)   //20190705 未标定的数组默认为0xFFFFFFFF 防止初始化为0
+   \                     ??Rd_Dev_Param_15: (+1)
+   \      0x268   0x8D78             LDRH     R0,[R7, #+42]
+   \      0x26A   0xE01D             B        ??Rd_Dev_Param_16
+    239                  {
+    240                     for(j = 0; j < 10; j++)
+    241                      {
+    242                          AD_Buff[i][j] = 0xFFFFFFFF;                   //AD值
+   \                     ??Rd_Dev_Param_17: (+1)
+   \      0x26C   0x2100             MOVS     R1,#+0
+   \      0x26E   0x43C9             MVNS     R1,R1            ;; #-1
+   \      0x270   0x....             LDR      R3,??DataTable3_1
+   \      0x272   0x0005             MOVS     R5,R0
+   \      0x274   0xB2ED             UXTB     R5,R5
+   \      0x276   0x2628             MOVS     R6,#+40
+   \      0x278   0x4375             MULS     R5,R6,R5
+   \      0x27A   0x195B             ADDS     R3,R3,R5
+   \      0x27C   0x0015             MOVS     R5,R2
+   \      0x27E   0xB2ED             UXTB     R5,R5
+   \      0x280   0x2604             MOVS     R6,#+4
+   \      0x282   0x4375             MULS     R5,R6,R5
+   \      0x284   0x5159             STR      R1,[R3, R5]
+    243                          Weight_Buff[i][j] = 0xFFFFFFFF;                 //重量值
+   \      0x286   0x....             LDR      R3,??DataTable3_2
+   \      0x288   0x0005             MOVS     R5,R0
+   \      0x28A   0xB2ED             UXTB     R5,R5
+   \      0x28C   0x2628             MOVS     R6,#+40
+   \      0x28E   0x4375             MULS     R5,R6,R5
+   \      0x290   0x195B             ADDS     R3,R3,R5
+   \      0x292   0x0015             MOVS     R5,R2
+   \      0x294   0xB2ED             UXTB     R5,R5
+   \      0x296   0x2604             MOVS     R6,#+4
+   \      0x298   0x4375             MULS     R5,R6,R5
+   \      0x29A   0x5159             STR      R1,[R3, R5]
+    244                      }
+   \      0x29C   0x1C52             ADDS     R2,R2,#+1
+   \                     ??Rd_Dev_Param_18: (+1)
+   \      0x29E   0x0011             MOVS     R1,R2
+   \      0x2A0   0xB2C9             UXTB     R1,R1
+   \      0x2A2   0x290A             CMP      R1,#+10
+   \      0x2A4   0xDBE2             BLT      ??Rd_Dev_Param_17
+   \      0x2A6   0x1C40             ADDS     R0,R0,#+1
+   \                     ??Rd_Dev_Param_16: (+1)
+   \      0x2A8   0x0001             MOVS     R1,R0
+   \      0x2AA   0xB2C9             UXTB     R1,R1
+   \      0x2AC   0x2905             CMP      R1,#+5
+   \      0x2AE   0xDA01             BGE      ??Rd_Dev_Param_11
+   \      0x2B0   0x2200             MOVS     R2,#+0
+   \      0x2B2   0xE7F4             B        ??Rd_Dev_Param_18
+    245                  }
+    246              }
+    247            
+    248              /*
+    249              for(i = 0;i<5;i++)
+    250              {
+    251                  for(j=0;j<10;j++)
+    252                  {
+    253                      uprintf("AD_Buff[%d][%d]=%8x\r\n",i,j,AD_Buff[i][j]);
+    254                      uprintf("Weight_Buff[%d][%d]=%8x\r\n",i,j,Weight_Buff[i][j]);
+    255                  }
+    256              }
+    257             */ 
+    258              
+    259              for (i = 0; i < LOAD_DATA_FIFO_NUM; i++)
+   \                     ??Rd_Dev_Param_11: (+1)
+   \      0x2B4   0x2000             MOVS     R0,#+0
+   \      0x2B6   0x0001             MOVS     R1,R0
+   \      0x2B8   0xE028             B        ??Rd_Dev_Param_19
+    260              {
+    261                  g_wEmptyBuffer[i] = Cur_Param[LOAD_EMPTY_FIFO + i * 2];
+   \                     ??Rd_Dev_Param_20: (+1)
+   \      0x2BA   0x....             LDR      R2,??DataTable3_4
+   \      0x2BC   0x000B             MOVS     R3,R1
+   \      0x2BE   0xB2DB             UXTB     R3,R3
+   \      0x2C0   0x2502             MOVS     R5,#+2
+   \      0x2C2   0x436B             MULS     R3,R5,R3
+   \      0x2C4   0x18E3             ADDS     R3,R4,R3
+   \      0x2C6   0x7A5B             LDRB     R3,[R3, #+9]
+   \      0x2C8   0x000D             MOVS     R5,R1
+   \      0x2CA   0xB2ED             UXTB     R5,R5
+   \      0x2CC   0x2602             MOVS     R6,#+2
+   \      0x2CE   0x4375             MULS     R5,R6,R5
+   \      0x2D0   0x5353             STRH     R3,[R2, R5]
+    262                  g_wEmptyBuffer[i] <<= 8;
+   \      0x2D2   0x000B             MOVS     R3,R1
+   \      0x2D4   0xB2DB             UXTB     R3,R3
+   \      0x2D6   0x2502             MOVS     R5,#+2
+   \      0x2D8   0x436B             MULS     R3,R5,R3
+   \      0x2DA   0x5AD3             LDRH     R3,[R2, R3]
+   \      0x2DC   0x021B             LSLS     R3,R3,#+8
+   \      0x2DE   0x000D             MOVS     R5,R1
+   \      0x2E0   0xB2ED             UXTB     R5,R5
+   \      0x2E2   0x2602             MOVS     R6,#+2
+   \      0x2E4   0x4375             MULS     R5,R6,R5
+   \      0x2E6   0x5353             STRH     R3,[R2, R5]
+    263                  g_wEmptyBuffer[i] += Cur_Param[LOAD_EMPTY_FIFO + i * 2 + 1];
+   \      0x2E8   0x000B             MOVS     R3,R1
+   \      0x2EA   0xB2DB             UXTB     R3,R3
+   \      0x2EC   0x2502             MOVS     R5,#+2
+   \      0x2EE   0x436B             MULS     R3,R5,R3
+   \      0x2F0   0x5AD3             LDRH     R3,[R2, R3]
+   \      0x2F2   0x000D             MOVS     R5,R1
+   \      0x2F4   0xB2ED             UXTB     R5,R5
+   \      0x2F6   0x2602             MOVS     R6,#+2
+   \      0x2F8   0x4375             MULS     R5,R6,R5
+   \      0x2FA   0x1965             ADDS     R5,R4,R5
+   \      0x2FC   0x7AAD             LDRB     R5,[R5, #+10]
+   \      0x2FE   0x195B             ADDS     R3,R3,R5
+   \      0x300   0x000D             MOVS     R5,R1
+   \      0x302   0xB2ED             UXTB     R5,R5
+   \      0x304   0x2602             MOVS     R6,#+2
+   \      0x306   0x4375             MULS     R5,R6,R5
+   \      0x308   0x5353             STRH     R3,[R2, R5]
+    264              }
+   \      0x30A   0x1C49             ADDS     R1,R1,#+1
+   \                     ??Rd_Dev_Param_19: (+1)
+   \      0x30C   0x000A             MOVS     R2,R1
+   \      0x30E   0xB2D2             UXTB     R2,R2
+   \      0x310   0x2A0A             CMP      R2,#+10
+   \      0x312   0xDBD2             BLT      ??Rd_Dev_Param_20
+    265              
+    266              for (i = 0; i < LOAD_DATA_FIFO_NUM; i++)
+   \      0x314   0xE039             B        ??Rd_Dev_Param_21
+   \      0x316   0xBF00             Nop
+   \                     ??Rd_Dev_Param_0:
+   \      0x318   0x....'....        DC32     User_Default_Param
+   \      0x31C   0x....'....        DC32     ProductPara+0x3
+   \      0x320   0x....'....        DC32     Cur_Param
+   \      0x324   0x....'....        DC32     UartComm
+   \      0x328   0x....'....        DC32     ProductPara
+   \      0x32C   0x....'....        DC32     RunVar
+   \      0x330   0x....'....        DC32     g_cyShovelDTime
+   \      0x334   0x....'....        DC32     UserParam
+    267              {
+    268                  g_wFullBuffer[i] = Cur_Param[LOAD_FULL_FIFO + i * 2];
+   \                     ??Rd_Dev_Param_22: (+1)
+   \      0x338   0x....             LDR      R1,??DataTable3_5
+   \      0x33A   0x0002             MOVS     R2,R0
+   \      0x33C   0xB2D2             UXTB     R2,R2
+   \      0x33E   0x2302             MOVS     R3,#+2
+   \      0x340   0x435A             MULS     R2,R3,R2
+   \      0x342   0x18A2             ADDS     R2,R4,R2
+   \      0x344   0x7F52             LDRB     R2,[R2, #+29]
+   \      0x346   0x0003             MOVS     R3,R0
+   \      0x348   0xB2DB             UXTB     R3,R3
+   \      0x34A   0x2502             MOVS     R5,#+2
+   \      0x34C   0x436B             MULS     R3,R5,R3
+   \      0x34E   0x52CA             STRH     R2,[R1, R3]
+    269                  g_wFullBuffer[i] <<= 8;
+   \      0x350   0x0002             MOVS     R2,R0
+   \      0x352   0xB2D2             UXTB     R2,R2
+   \      0x354   0x2302             MOVS     R3,#+2
+   \      0x356   0x435A             MULS     R2,R3,R2
+   \      0x358   0x5A8A             LDRH     R2,[R1, R2]
+   \      0x35A   0x0212             LSLS     R2,R2,#+8
+   \      0x35C   0x0003             MOVS     R3,R0
+   \      0x35E   0xB2DB             UXTB     R3,R3
+   \      0x360   0x2502             MOVS     R5,#+2
+   \      0x362   0x436B             MULS     R3,R5,R3
+   \      0x364   0x52CA             STRH     R2,[R1, R3]
+    270                  g_wFullBuffer[i] += Cur_Param[LOAD_FULL_FIFO + i * 2 + 1];
+   \      0x366   0x0002             MOVS     R2,R0
+   \      0x368   0xB2D2             UXTB     R2,R2
+   \      0x36A   0x2302             MOVS     R3,#+2
+   \      0x36C   0x435A             MULS     R2,R3,R2
+   \      0x36E   0x5A8A             LDRH     R2,[R1, R2]
+   \      0x370   0x0003             MOVS     R3,R0
+   \      0x372   0xB2DB             UXTB     R3,R3
+   \      0x374   0x2502             MOVS     R5,#+2
+   \      0x376   0x436B             MULS     R3,R5,R3
+   \      0x378   0x18E3             ADDS     R3,R4,R3
+   \      0x37A   0x7F9B             LDRB     R3,[R3, #+30]
+   \      0x37C   0x18D2             ADDS     R2,R2,R3
+   \      0x37E   0x0003             MOVS     R3,R0
+   \      0x380   0xB2DB             UXTB     R3,R3
+   \      0x382   0x2502             MOVS     R5,#+2
+   \      0x384   0x436B             MULS     R3,R5,R3
+   \      0x386   0x52CA             STRH     R2,[R1, R3]
+    271              }
+   \      0x388   0x1C40             ADDS     R0,R0,#+1
+   \                     ??Rd_Dev_Param_21: (+1)
+   \      0x38A   0x0001             MOVS     R1,R0
+   \      0x38C   0xB2C9             UXTB     R1,R1
+   \      0x38E   0x290A             CMP      R1,#+10
+   \      0x390   0xDBD2             BLT      ??Rd_Dev_Param_22
+    272                      
+    273              g_wRatedValue = Cur_Param[LOAD_RATED_VALUE];
+   \      0x392   0x....             LDR      R0,??DataTable3_6
+   \      0x394   0x2139             MOVS     R1,#+57
+   \      0x396   0x5C61             LDRB     R1,[R4, R1]
+   \      0x398   0x8001             STRH     R1,[R0, #+0]
+    274              g_wRatedValue <<= 8;
+   \      0x39A   0x8801             LDRH     R1,[R0, #+0]
+   \      0x39C   0x0209             LSLS     R1,R1,#+8
+   \      0x39E   0x8001             STRH     R1,[R0, #+0]
+    275              g_wRatedValue += Cur_Param[LOAD_RATED_VALUE + 1];
+   \      0x3A0   0x8801             LDRH     R1,[R0, #+0]
+   \      0x3A2   0x223A             MOVS     R2,#+58
+   \      0x3A4   0x5CA2             LDRB     R2,[R4, R2]
+   \      0x3A6   0x1889             ADDS     R1,R1,R2
+   \      0x3A8   0x8001             STRH     R1,[R0, #+0]
+    276              
+    277              wTemp = Cur_Param[LOAD_OVER_K];
+   \      0x3AA   0x203D             MOVS     R0,#+61
+   \      0x3AC   0x5C20             LDRB     R0,[R4, R0]
+    278              wTemp <<= 8;
+   \      0x3AE   0x0200             LSLS     R0,R0,#+8
+    279              wTemp += Cur_Param[LOAD_OVER_K + 1];
+   \      0x3B0   0x213E             MOVS     R1,#+62
+   \      0x3B2   0x5C61             LDRB     R1,[R4, R1]
+   \      0x3B4   0x1840             ADDS     R0,R0,R1
+    280              g_fOverValueK = wTemp;
+   \      0x3B6   0x....             LDR      R5,??DataTable3_7
+   \      0x3B8   0xB280             UXTH     R0,R0
+   \      0x3BA   0x....'....        BL       __aeabi_ui2f
+   \      0x3BE   0x6028             STR      R0,[R5, #+0]
+    281              g_fOverValueK /= 100.0;
+   \      0x3C0   0x2600             MOVS     R6,#+0
+   \      0x3C2   0x....             LDR      R7,??DataTable3_8  ;; 0x40590000
+   \      0x3C4   0x6828             LDR      R0,[R5, #+0]
+   \      0x3C6   0x....'....        BL       __aeabi_f2d
+   \      0x3CA   0x0032             MOVS     R2,R6
+   \      0x3CC   0x003B             MOVS     R3,R7
+   \      0x3CE   0x....'....        BL       __aeabi_ddiv
+   \      0x3D2   0x....'....        BL       __aeabi_d2f
+   \      0x3D6   0x6028             STR      R0,[R5, #+0]
+    282              g_cyRecordShovelNum = Cur_Param[LOAD_SHOVEL_NUM];
+   \      0x3D8   0x203B             MOVS     R0,#+59
+   \      0x3DA   0x5C20             LDRB     R0,[R4, R0]
+   \      0x3DC   0x....             LDR      R1,??DataTable3_9
+   \      0x3DE   0x7008             STRB     R0,[R1, #+0]
+    283              g_cyWorkState = Cur_Param[LOAD_WORK_STATE];
+   \      0x3E0   0x203C             MOVS     R0,#+60
+   \      0x3E2   0x5C20             LDRB     R0,[R4, R0]
+   \      0x3E4   0x....             LDR      R1,??DataTable3_10
+   \      0x3E6   0x7008             STRB     R0,[R1, #+0]
+    284              wTemp = Cur_Param[LOAD_VARIANCE_VALUE];
+   \      0x3E8   0x203F             MOVS     R0,#+63
+   \      0x3EA   0x5C20             LDRB     R0,[R4, R0]
+    285              wTemp <<= 8;
+   \      0x3EC   0x0200             LSLS     R0,R0,#+8
+    286              wTemp += Cur_Param[LOAD_VARIANCE_VALUE + 1];
+   \      0x3EE   0x2140             MOVS     R1,#+64
+   \      0x3F0   0x5C61             LDRB     R1,[R4, R1]
+   \      0x3F2   0x1840             ADDS     R0,R0,R1
+    287              g_fVarianceValue = wTemp;
+   \      0x3F4   0x....             LDR      R5,??DataTable3_11
+   \      0x3F6   0xB280             UXTH     R0,R0
+   \      0x3F8   0x....'....        BL       __aeabi_ui2f
+   \      0x3FC   0x6028             STR      R0,[R5, #+0]
+    288              g_fVarianceValue /= 100.0;
+   \      0x3FE   0x6828             LDR      R0,[R5, #+0]
+   \      0x400   0x....'....        BL       __aeabi_f2d
+   \      0x404   0x0032             MOVS     R2,R6
+   \      0x406   0x003B             MOVS     R3,R7
+   \      0x408   0x....'....        BL       __aeabi_ddiv
+   \      0x40C   0x....'....        BL       __aeabi_d2f
+   \      0x410   0x6028             STR      R0,[R5, #+0]
+    289          
+    290          //I2C1_ReadNBytes(EEPROM_ADDRESS, DEV_ID, DEFAULT_DEV_ID_LEN, Dev_Id);
+    291              g_tpTestPar.wMinH = Cur_Param[TEST_MIN_HIGH];
+   \      0x412   0x....             LDR      R0,??DataTable3_12
+   \      0x414   0x2141             MOVS     R1,#+65
+   \      0x416   0x5C61             LDRB     R1,[R4, R1]
+   \      0x418   0x8001             STRH     R1,[R0, #+0]
+    292              g_tpTestPar.wMinH <<= 8;
+   \      0x41A   0x8801             LDRH     R1,[R0, #+0]
+   \      0x41C   0x0209             LSLS     R1,R1,#+8
+   \      0x41E   0x8001             STRH     R1,[R0, #+0]
+    293              g_tpTestPar.wMinH += Cur_Param[TEST_MIN_HIGH + 1];
+   \      0x420   0x8801             LDRH     R1,[R0, #+0]
+   \      0x422   0x2242             MOVS     R2,#+66
+   \      0x424   0x5CA2             LDRB     R2,[R4, R2]
+   \      0x426   0x1889             ADDS     R1,R1,R2
+   \      0x428   0x8001             STRH     R1,[R0, #+0]
+    294          
+    295              g_tpTestPar.wMinAdc = Cur_Param[TEST_MIN_ADC];
+   \      0x42A   0x1C81             ADDS     R1,R0,#+2
+   \      0x42C   0x2243             MOVS     R2,#+67
+   \      0x42E   0x5CA2             LDRB     R2,[R4, R2]
+   \      0x430   0x800A             STRH     R2,[R1, #+0]
+    296              g_tpTestPar.wMinAdc <<= 8;
+   \      0x432   0x8842             LDRH     R2,[R0, #+2]
+   \      0x434   0x0212             LSLS     R2,R2,#+8
+   \      0x436   0x800A             STRH     R2,[R1, #+0]
+    297              g_tpTestPar.wMinAdc += Cur_Param[TEST_MIN_ADC + 1];
+   \      0x438   0x8842             LDRH     R2,[R0, #+2]
+   \      0x43A   0x2344             MOVS     R3,#+68
+   \      0x43C   0x5CE3             LDRB     R3,[R4, R3]
+   \      0x43E   0x18D2             ADDS     R2,R2,R3
+   \      0x440   0x800A             STRH     R2,[R1, #+0]
+    298          
+    299              g_tpTestPar.wMidH = Cur_Param[TEST_MID_HIGH];
+   \      0x442   0x1D01             ADDS     R1,R0,#+4
+   \      0x444   0x2245             MOVS     R2,#+69
+   \      0x446   0x5CA2             LDRB     R2,[R4, R2]
+   \      0x448   0x800A             STRH     R2,[R1, #+0]
+    300              g_tpTestPar.wMidH <<= 8;
+   \      0x44A   0x8882             LDRH     R2,[R0, #+4]
+   \      0x44C   0x0212             LSLS     R2,R2,#+8
+   \      0x44E   0x800A             STRH     R2,[R1, #+0]
+    301              g_tpTestPar.wMidH += Cur_Param[TEST_MID_HIGH + 1];
+   \      0x450   0x8882             LDRH     R2,[R0, #+4]
+   \      0x452   0x2346             MOVS     R3,#+70
+   \      0x454   0x5CE3             LDRB     R3,[R4, R3]
+   \      0x456   0x18D2             ADDS     R2,R2,R3
+   \      0x458   0x800A             STRH     R2,[R1, #+0]
+    302          
+    303              g_tpTestPar.wMidAdc = Cur_Param[TEST_MID_ADC];
+   \      0x45A   0x1D81             ADDS     R1,R0,#+6
+   \      0x45C   0x2247             MOVS     R2,#+71
+   \      0x45E   0x5CA2             LDRB     R2,[R4, R2]
+   \      0x460   0x800A             STRH     R2,[R1, #+0]
+    304              g_tpTestPar.wMidAdc <<= 8;
+   \      0x462   0x88C2             LDRH     R2,[R0, #+6]
+   \      0x464   0x0212             LSLS     R2,R2,#+8
+   \      0x466   0x800A             STRH     R2,[R1, #+0]
+    305              g_tpTestPar.wMidAdc += Cur_Param[TEST_MID_ADC + 1];
+   \      0x468   0x88C2             LDRH     R2,[R0, #+6]
+   \      0x46A   0x2348             MOVS     R3,#+72
+   \      0x46C   0x5CE3             LDRB     R3,[R4, R3]
+   \      0x46E   0x18D2             ADDS     R2,R2,R3
+   \      0x470   0x800A             STRH     R2,[R1, #+0]
+    306          
+    307              g_tpTestPar.wMaxH = Cur_Param[TEST_MAX_HIGH];
+   \      0x472   0x0001             MOVS     R1,R0
+   \      0x474   0x3108             ADDS     R1,R1,#+8
+   \      0x476   0x2249             MOVS     R2,#+73
+   \      0x478   0x5CA2             LDRB     R2,[R4, R2]
+   \      0x47A   0x800A             STRH     R2,[R1, #+0]
+    308              g_tpTestPar.wMaxH <<= 8;
+   \      0x47C   0x8902             LDRH     R2,[R0, #+8]
+   \      0x47E   0x0212             LSLS     R2,R2,#+8
+   \      0x480   0x800A             STRH     R2,[R1, #+0]
+    309              g_tpTestPar.wMaxH += Cur_Param[TEST_MAX_HIGH + 1];
+   \      0x482   0x8902             LDRH     R2,[R0, #+8]
+   \      0x484   0x234A             MOVS     R3,#+74
+   \      0x486   0x5CE3             LDRB     R3,[R4, R3]
+   \      0x488   0x18D2             ADDS     R2,R2,R3
+   \      0x48A   0x800A             STRH     R2,[R1, #+0]
+    310          
+    311              g_tpTestPar.wMaxAdc = Cur_Param[TEST_MAX_ADC];
+   \      0x48C   0x0001             MOVS     R1,R0
+   \      0x48E   0x310A             ADDS     R1,R1,#+10
+   \      0x490   0x224B             MOVS     R2,#+75
+   \      0x492   0x5CA2             LDRB     R2,[R4, R2]
+   \      0x494   0x800A             STRH     R2,[R1, #+0]
+    312              g_tpTestPar.wMaxAdc <<= 8;
+   \      0x496   0x8942             LDRH     R2,[R0, #+10]
+   \      0x498   0x0212             LSLS     R2,R2,#+8
+   \      0x49A   0x800A             STRH     R2,[R1, #+0]
+    313              g_tpTestPar.wMaxAdc += Cur_Param[TEST_MAX_ADC + 1];
+   \      0x49C   0x8940             LDRH     R0,[R0, #+10]
+   \      0x49E   0x224C             MOVS     R2,#+76
+   \      0x4A0   0x5CA2             LDRB     R2,[R4, R2]
+   \      0x4A2   0x1880             ADDS     R0,R0,R2
+   \      0x4A4   0x8008             STRH     R0,[R1, #+0]
+    314              
+    315              g_wDlyMaxTime = Cur_Param[MAX_DLY_TIME];
+   \      0x4A6   0x....             LDR      R0,??DataTable3_13
+   \      0x4A8   0x214D             MOVS     R1,#+77
+   \      0x4AA   0x5C61             LDRB     R1,[R4, R1]
+   \      0x4AC   0x8001             STRH     R1,[R0, #+0]
+    316              g_wDlyMaxTime <<= 8;
+   \      0x4AE   0x8801             LDRH     R1,[R0, #+0]
+   \      0x4B0   0x0209             LSLS     R1,R1,#+8
+   \      0x4B2   0x8001             STRH     R1,[R0, #+0]
+    317              g_wDlyMaxTime += Cur_Param[MAX_DLY_TIME + 1];
+   \      0x4B4   0x8801             LDRH     R1,[R0, #+0]
+   \      0x4B6   0x224E             MOVS     R2,#+78
+   \      0x4B8   0x5CA2             LDRB     R2,[R4, R2]
+   \      0x4BA   0x1889             ADDS     R1,R1,R2
+   \      0x4BC   0x8001             STRH     R1,[R0, #+0]
+    318          }
+   \      0x4BE   0xB005             ADD      SP,SP,#+20
+   \      0x4C0   0xBDF0             POP      {R4-R7,PC}       ;; return
+   \      0x4C2   0xBF00             Nop
+   \                     ??Rd_Dev_Param_1:
+   \      0x4C4   0x0000'043E        DC32     0x43e
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2:
+   \        0x0   0x....'....        DC32     User_Default_Param
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_1:
+   \        0x0   0x....'....        DC32     Cur_Param
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_2:
+   \        0x0   0x....'....        DC32     ProductPara
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_3:
+   \        0x0   0x....'....        DC32     SoftwareVer
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_4:
+   \        0x0   0x0000'0341        DC32     0x341
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3:
+   \        0x0   0x0000'043F        DC32     0x43f
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_1:
+   \        0x0   0x....'....        DC32     AD_Buff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_2:
+   \        0x0   0x....'....        DC32     Weight_Buff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_3:
+   \        0x0   0x....'....        DC32     A_W_Buff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_4:
+   \        0x0   0x....'....        DC32     g_wEmptyBuffer
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_5:
+   \        0x0   0x....'....        DC32     g_wFullBuffer
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_6:
+   \        0x0   0x....'....        DC32     g_wRatedValue
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_7:
+   \        0x0   0x....'....        DC32     g_fOverValueK
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_8:
+   \        0x0   0x4059'0000        DC32     0x40590000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_9:
+   \        0x0   0x....'....        DC32     g_cyRecordShovelNum
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_10:
+   \        0x0   0x....'....        DC32     g_cyWorkState
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_11:
+   \        0x0   0x....'....        DC32     g_fVarianceValue
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_12:
+   \        0x0   0x....'....        DC32     g_tpTestPar
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_13:
+   \        0x0   0x....'....        DC32     g_wDlyMaxTime
+    319          
+    320          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      56   Check_Software_Ver
+        56   -> I2C1_ReadByte
+        56   -> I2C1_WriteByte
+        56   -> I2C1_WriteNBytes
+        56   -> memcmp
+      24   Check_User_Backup
+        24   -> I2C1_ReadByte
+        24   -> I2C1_WNBytesMul3T
+        24   -> I2C1_WriteByte
+       8   EEProm_Init
+         8   -> IIC_Init
+      40   Rd_Dev_Param
+        40   -> ArrayToUshort
+        40   -> Check_Software_Ver
+        40   -> Check_User_Backup
+        40   -> HexToFloat
+        40   -> HexToUlong
+        40   -> I2C1_ReadByte
+        40   -> I2C1_ReadNBytes
+        40   -> I2C1_WNBytesMul3T
+        40   -> I2C1_WriteByte
+        40   -> __aeabi_d2f
+        40   -> __aeabi_ddiv
+        40   -> __aeabi_f2d
+        40   -> __aeabi_ui2f
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable2
+       4  ??DataTable2_1
+       4  ??DataTable2_2
+       4  ??DataTable2_3
+       4  ??DataTable2_4
+       4  ??DataTable3
+       4  ??DataTable3_1
+       4  ??DataTable3_10
+       4  ??DataTable3_11
+       4  ??DataTable3_12
+       4  ??DataTable3_13
+       4  ??DataTable3_2
+       4  ??DataTable3_3
+       4  ??DataTable3_4
+       4  ??DataTable3_5
+       4  ??DataTable3_6
+       4  ??DataTable3_7
+       4  ??DataTable3_8
+       4  ??DataTable3_9
+      80  A_W_Buff
+     186  Check_Software_Ver
+     200  Check_User_Backup
+     100  Cur_Param
+       8  EEProm_Init
+       8  ProductPara
+   1'224  Rd_Dev_Param
+      48  RunVar
+       8  SoftwareVer
+       8  UartComm
+      16  UserParam
+     100  User_Default_Param
+      12  g_tpTestPar
+
+ 
+   272 bytes in section .bss
+   108 bytes in section .rodata
+ 1'694 bytes in section .text
+ 
+ 1'694 bytes of CODE  memory
+   108 bytes of CONST memory
+   272 bytes of DATA  memory
+
+Errors: none
+Warnings: none

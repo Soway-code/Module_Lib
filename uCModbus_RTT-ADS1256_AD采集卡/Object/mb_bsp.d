@@ -1,0 +1,16 @@
+.\object\mb_bsp.o: Modbus\Ports\MB_BSP.c
+.\object\mb_bsp.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
+.\object\mb_bsp.o: .\Libraries\CMSIS\stm32f10x.h
+.\object\mb_bsp.o: .\Libraries\CMSIS\core_cm3.h
+.\object\mb_bsp.o: C:\rj\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\object\mb_bsp.o: .\Libraries\CMSIS\system_stm32f10x.h
+.\object\mb_bsp.o: .\User\stm32f10x_conf.h
+.\object\mb_bsp.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h
+.\object\mb_bsp.o: .\Libraries\CMSIS\stm32f10x.h
+.\object\mb_bsp.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
+.\object\mb_bsp.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
+.\object\mb_bsp.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_tim.h
+.\object\mb_bsp.o: .\modbus\uC-CPU\cpu.h
+.\object\mb_bsp.o: .\modbus\Source\mb.h
+.\object\mb_bsp.o: .\modbus\Cfg\mb_cfg.h
+.\object\mb_bsp.o: .\modbus\Source\mb_def.h

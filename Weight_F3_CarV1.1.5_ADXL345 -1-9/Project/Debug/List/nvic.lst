@@ -1,0 +1,193 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.4.261/W32 for ARM         10/Jan/2021  16:10:18
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode                        
+#    Endian                       =  little
+#    Source file                  =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\BSP\nvic.c
+#    Command line                 =
+#        -f C:\Users\macanlin\AppData\Local\Temp\EWDCD0.tmp
+#        ("C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Source\BSP\nvic.c" -D USE_STDPERIPH_DRIVER -D STM32F072 -lC
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List" -o
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj" --no_cse --no_unroll --no_inline
+#        --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug
+#        --endian=little --cpu=Cortex-M0 -e --fpu=None --dlib_config
+#        C:\rj\IAR\arm\inc\c\DLib_Config_Normal.h -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\BSP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\CMSIS\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\OS_Cfg\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-CPU\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Ports\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uCOS-III\Source\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\APP\inc\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\FWLib\\" -I
+#        "C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\..\Source\System\uC-LIB\\" -Ol -I
+#        C:\rj\IAR\arm\CMSIS\Core\Include\\ -I
+#        C:\rj\IAR\arm\CMSIS\DSP\Include\\)
+#    Locale                       =  C
+#    List file                    =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\List\nvic.lst
+#    Object file                  =
+#        C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345
+#        -1-9\Project\Debug\Obj\nvic.o
+#    Runtime model:                  
+#      __SystemLibrary            =  DLib
+#      __dlib_file_descriptor     =  0
+#      __dlib_full_locale_support =  0
+#      __dlib_version             =  6
+#
+###############################################################################
+
+C:\Users\macanlin\Desktop\GD_modbus\Weight_F3_CarV1.1.5_ADXL345 -1-9\Source\BSP\nvic.c
+      1          #include "bsp.h"
+      2          
+      3          
+
+   \                                 In section .text, align 2, keep-with-next
+      4          void NVIC_UARTConfiguration(void)
+      5          {
+   \                     NVIC_UARTConfiguration: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+      6              NVIC_InitTypeDef NVIC_InitStructure;
+      7          
+      8              NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
+   \        0x2   0x4668             MOV      R0,SP
+   \        0x4   0x211B             MOVS     R1,#+27
+   \        0x6   0x7001             STRB     R1,[R0, #+0]
+      9              NVIC_InitStructure.NVIC_IRQChannelPriority = 1;	//优先级
+   \        0x8   0x2101             MOVS     R1,#+1
+   \        0xA   0x000A             MOVS     R2,R1
+   \        0xC   0x7042             STRB     R2,[R0, #+1]
+     10              NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+   \        0xE   0x7081             STRB     R1,[R0, #+2]
+     11              NVIC_Init(&NVIC_InitStructure);
+   \       0x10   0x4668             MOV      R0,SP
+   \       0x12   0x....'....        BL       NVIC_Init
+     12          }
+   \       0x16   0xBD01             POP      {R0,PC}          ;; return
+     13          
+
+   \                                 In section .text, align 2, keep-with-next
+     14          void NVIC_Timer7Configuration(void)
+     15          {
+   \                     NVIC_Timer7Configuration: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+     16              NVIC_InitTypeDef  NVIC_InitStructure;
+     17          
+     18              NVIC_InitStructure.NVIC_IRQChannel = TIM7_IRQn;
+   \        0x2   0x4668             MOV      R0,SP
+   \        0x4   0x2112             MOVS     R1,#+18
+   \        0x6   0x7001             STRB     R1,[R0, #+0]
+     19              NVIC_InitStructure.NVIC_IRQChannelPriority = 2;	 //优先级
+   \        0x8   0x2102             MOVS     R1,#+2
+   \        0xA   0x7041             STRB     R1,[R0, #+1]
+     20              NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+   \        0xC   0x2101             MOVS     R1,#+1
+   \        0xE   0x7081             STRB     R1,[R0, #+2]
+     21              NVIC_Init(&NVIC_InitStructure);
+   \       0x10   0x4668             MOV      R0,SP
+   \       0x12   0x....'....        BL       NVIC_Init
+     22          }
+   \       0x16   0xBD01             POP      {R0,PC}          ;; return
+     23          
+
+   \                                 In section .text, align 2, keep-with-next
+     24          void NVIC_Timer6Configuration(void)
+     25          {
+   \                     NVIC_Timer6Configuration: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+     26              NVIC_InitTypeDef  NVIC_InitStructure;
+     27          
+     28              NVIC_InitStructure.NVIC_IRQChannel = TIM6_DAC_IRQn;
+   \        0x2   0x4668             MOV      R0,SP
+   \        0x4   0x2111             MOVS     R1,#+17
+   \        0x6   0x7001             STRB     R1,[R0, #+0]
+     29              NVIC_InitStructure.NVIC_IRQChannelPriority = 2;	 //优先级
+   \        0x8   0x2102             MOVS     R1,#+2
+   \        0xA   0x7041             STRB     R1,[R0, #+1]
+     30              NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+   \        0xC   0x2101             MOVS     R1,#+1
+   \        0xE   0x7081             STRB     R1,[R0, #+2]
+     31              NVIC_Init(&NVIC_InitStructure);
+   \       0x10   0x4668             MOV      R0,SP
+   \       0x12   0x....'....        BL       NVIC_Init
+     32          }
+   \       0x16   0xBD01             POP      {R0,PC}          ;; return
+     33          
+     34          
+
+   \                                 In section .text, align 2, keep-with-next
+     35          void NVIC_UART3Configuration(void)
+     36          {
+   \                     NVIC_UART3Configuration: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+     37              NVIC_InitTypeDef NVIC_InitStructure;
+     38          
+     39              NVIC_InitStructure.NVIC_IRQChannel = USART3_4_IRQn;
+   \        0x2   0x4668             MOV      R0,SP
+   \        0x4   0x211D             MOVS     R1,#+29
+   \        0x6   0x7001             STRB     R1,[R0, #+0]
+     40              NVIC_InitStructure.NVIC_IRQChannelPriority = 3;	//优先级
+   \        0x8   0x2103             MOVS     R1,#+3
+   \        0xA   0x7041             STRB     R1,[R0, #+1]
+     41              NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+   \        0xC   0x2101             MOVS     R1,#+1
+   \        0xE   0x7081             STRB     R1,[R0, #+2]
+     42              NVIC_Init(&NVIC_InitStructure);
+   \       0x10   0x4668             MOV      R0,SP
+   \       0x12   0x....'....        BL       NVIC_Init
+     43          }
+   \       0x16   0xBD01             POP      {R0,PC}          ;; return
+     44          
+     45          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   NVIC_Timer6Configuration
+         8   -> NVIC_Init
+       8   NVIC_Timer7Configuration
+         8   -> NVIC_Init
+       8   NVIC_UART3Configuration
+         8   -> NVIC_Init
+       8   NVIC_UARTConfiguration
+         8   -> NVIC_Init
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      24  NVIC_Timer6Configuration
+      24  NVIC_Timer7Configuration
+      24  NVIC_UART3Configuration
+      24  NVIC_UARTConfiguration
+
+ 
+ 96 bytes in section .text
+ 
+ 96 bytes of CODE memory
+
+Errors: none
+Warnings: none
